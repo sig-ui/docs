@@ -1,0 +1,46 @@
+/* packages/svelte/src/components/InputGroup/input-group.css */
+@layer sigui.base {
+  .sigui-input-group {
+    display: flex;
+    font-family: var(--sigui-font-family, system-ui);
+    align-items: stretch;
+  }
+
+  .sigui-input-group-prefix, .sigui-input-group-suffix {
+    display: flex;
+    padding: 0 var(--sigui-space-3, .75rem);
+    background: var(--sigui-surface-container);
+    border: 1px solid var(--sigui-color-border);
+    color: var(--sigui-color-text-muted);
+    font-size: var(--sigui-text-sm, .875rem);
+    white-space: nowrap;
+    align-items:  center;
+  }
+
+  .sigui-input-group-prefix {
+    border-radius: var(--sigui-radius-md, .375rem) 0 0 var(--sigui-radius-md, .375rem);
+    border-right: none;
+  }
+
+  .sigui-input-group-suffix {
+    border-radius: 0 var(--sigui-radius-md, .375rem) var(--sigui-radius-md, .375rem) 0;
+    border-left: none;
+  }
+
+  .sigui-input-group-content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@layer sigui.variants {
+  .sigui-input-group[data-size="sm"] .sigui-input-group-prefix, .sigui-input-group[data-size="sm"] .sigui-input-group-suffix {
+    padding: 0 var(--sigui-space-2, .5rem);
+    font-size: var(--sigui-text-xs, .6875rem);
+  }
+
+  .sigui-input-group[data-size="lg"] .sigui-input-group-prefix, .sigui-input-group[data-size="lg"] .sigui-input-group-suffix {
+    padding: 0 var(--sigui-space-4, 1rem);
+    font-size: var(--sigui-text-base, 1rem);
+  }
+}
