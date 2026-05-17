@@ -11,12 +11,11 @@
   let tabValue = $state("tab1");
   let alertDialogOpen = $state(false);
   let sheetOpen = $state(false);
-  let drawerOpen = $state(false);
   let togglePressed = $state(false);
   let textareaValue = $state("");
 </script>
 
-<sg-section id="components" title="Component Library" description="All 58 sigui components - typed props, accessible defaults, token-driven styling. Designed for LLM agents building Svelte 5 apps.">
+<sg-section id="components" title="Component Library" description="All 57 sigui components - typed props, accessible defaults, token-driven styling. Designed for LLM agents building Svelte 5 apps.">
 
     <!-- Buttons -->
     <div class="component-group">
@@ -610,30 +609,6 @@
           <sg-pagination-next />
         
       </sg-pagination-root>
-    </div>
-
-    <!-- Drawer -->
-    <div class="component-group">
-      <h3 class="component-group-title">Drawer</h3>
-      <sg-drawer-root open={drawerOpen} oninput={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} onchange={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} onclick={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }}>
-        
-          <sg-drawer-trigger>
-            
-              <button class="sg-button" data-color="primary" onclick={() => drawerOpen = true}>Open Drawer</button>
-            
-          </sg-drawer-trigger>
-          <sg-drawer-content aria-label="Example drawer">
-            
-              <div style="padding: var(--sg-pad-card, 1.5rem)">
-                <sg-drawer-handle />
-                <h3 style="margin: var(--sg-space-4) 0 var(--sg-space-2)">Drawer Panel</h3>
-                <p style="color: var(--sg-color-text-secondary); margin: 0 0 var(--sg-space-4)">A dialog-based sliding panel.</p>
-                <button class="sg-button" data-color="primary" onclick={() => drawerOpen = false}>Close</button>
-              </div>
-            
-          </sg-drawer-content>
-        
-      </sg-drawer-root>
     </div>
 
     <!-- Typewriter -->

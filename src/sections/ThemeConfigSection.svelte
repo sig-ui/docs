@@ -16,7 +16,7 @@
     ResolvedTheme,
   } from "../../../packages/theme/src/index.js";
   import type { HarmonyMode, ShadeStop } from "../../../packages/core/src/index.js";
-  import { fromOklch } from "../../../packages/core/src/index.js";
+  import { fromOklch, interpolateColor, toOklch } from "../../../packages/core/src/index.js";
   import { isLightColor, round, copyHex } from "../utils.ts";
   import { getToastContext } from "../toast-context.ts";
   interface Props {
@@ -144,6 +144,16 @@
     const mapping = roles[roleName];
     if (!mapping) return '';
     return shadeHex(mapping.palette, mapping.shade);
+  }
+
+  function subtleRoleHex(paletteName: string, mode: "light" | "dark"): string {
+    if (!resolved) return '';
+    if (mode === "light") return shadeHex(paletteName, 100);
+    const tintHex = shadeHex(paletteName, 500);
+    const surfaceHex = resolved.surfaces.dark["bg.tertiary"];
+    if (!tintHex || !surfaceHex) return '';
+    const mixed = interpolateColor(toOklch(surfaceHex), toOklch(tintHex), 0.18);
+    return fromOklch(mixed, "hex");
   }
 
   function exportCSS(): string {
@@ -441,7 +451,7 @@
                   {@const mapping = roles?.[role]}
                   {@const baseHex = roleToHex(role)}
                   {@const interaction = mapping ? getInteractionShades(mapping.shade, appearance) : null}
-                  {@const subtleHex = mapping && interaction ? shadeHex(mapping.palette, interaction.subtle) : ''}
+                  {@const subtleHex = mapping ? subtleRoleHex(mapping.palette, appearance) : ''}
                   {@const hoverHex = mapping && interaction ? shadeHex(mapping.palette, interaction.hover) : ''}
                   {@const activeHex = mapping && interaction ? shadeHex(mapping.palette, interaction.active) : ''}
                   <sg-stack direction="horizontal" align="center" gap="compact">

@@ -9,7 +9,7 @@ export interface Route {
 
 // Non-component pages that live under /components/ but aren't generated from meta
 const extraNativeRoutes: Route[] = [
-  { path: "/components/native/input-variants", label: "Input Variants", description: "Date, time, file, color, and datalist inputs" },
+  { path: "/components/native/input-variants", label: "Input Variants", description: "Date, time, file, color, datalist, and picker inputs" },
   { path: "/components/native/dialog", label: "Dialog", description: "Baseline native dialog for non-component use" },
   { path: "/components/native/prose", label: "Prose", description: "Blockquote, figure, abbr, and inline quotation" },
 ];

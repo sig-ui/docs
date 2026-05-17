@@ -1233,7 +1233,8 @@ input[type="range"]::-moz-range-thumb {
 
 /* ===== FOOTER ===== */
 
-footer {
+.site-footer {
+  margin-top: var(--sg-space-16);
   padding: var(--sg-space-14) 0;
   border-top: var(--sg-border-thin) solid var(--sg-color-border);
   text-align: center;

@@ -24,7 +24,7 @@
     1: "Cards at rest, inputs",
     2: "Hovered cards, dropdowns",
     3: "Active dropdowns, popovers",
-    4: "Modals, drawers",
+    4: "Modals, sheets",
     5: "Toasts, FABs",
   };
 

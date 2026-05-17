@@ -3,6 +3,7 @@
   import DemoBlock from "../../components/DemoBlock.svelte";
   import ComponentDocLayout from "../../components/ComponentDocLayout.svelte";
   import { rehydrateSubtree } from "../../../../packages/components/src/lib/base-element.js";
+  import { normalizeRenderCode } from "./preview-normalize.ts";
 
   interface GeneratedComponentConfig {
     componentName: string;
@@ -27,89 +28,6 @@
   let { config }: Props = $props();
   let pageRoot: HTMLElement | null = null;
   let hljsRetryTimer: ReturnType<typeof setTimeout> | null = null;
-
-  function normalizeRenderCode(html: string): string {
-    // Strip Svelte block directives that can leak into generated HTML snippets.
-    let normalized = html
-      .replace(/\{#(if|each|await)[^}]*\}/g, "")
-      .replace(/\{\/(if|each|await)\}/g, "")
-      .replace(/\{@(?:const|html)[^}]*\}/g, "");
-
-    normalized = stripEventHandlerAttributes(normalized);
-    normalized = normalizeStaticAttributeExpressions(normalized);
-
-    // Raw HTML parsing does not support self-closing custom elements.
-    return normalized.replace(/<(sg-[a-z0-9-]+)(\s[^<>]*?)?\/>/gi, (_match, tag: string, attrs = "") => {
-      return `<${tag}${attrs}></${tag}>`;
-    });
-  }
-
-  function normalizeStaticAttributeExpressions(input: string): string {
-    return input.replace(/\s([^\s=/>]+)=\{([^{}]+)\}/g, (_match, attrName: string, expression: string) => {
-      const expr = expression.trim();
-
-      if (/^-?(?:\d+|\d*\.\d+)$/.test(expr)) {
-        return ` ${attrName}="${expr}"`;
-      }
-
-      const quoted = expr.match(/^(['"])([\s\S]*)\1$/);
-      if (quoted) {
-        return ` ${attrName}="${quoted[2]}"`;
-      }
-
-      if (expr === "true") {
-        return ` ${attrName}`;
-      }
-
-      if (expr === "false" || expr === "null" || expr === "undefined") {
-        return "";
-      }
-
-      return ` ${attrName}={${expression}}`;
-    });
-  }
-
-  function stripEventHandlerAttributes(input: string): string {
-    let out = "";
-    let i = 0;
-    while (i < input.length) {
-      const ch = input[i];
-      if (/\s/.test(ch)) {
-        let j = i;
-        while (j < input.length && /\s/.test(input[j])) j += 1;
-
-        const nameStart = j;
-        while (j < input.length && /[a-z-]/i.test(input[j])) j += 1;
-        const name = input.slice(nameStart, j).toLowerCase();
-
-        let k = j;
-        while (k < input.length && /\s/.test(input[k])) k += 1;
-        if (name.startsWith("on") && k < input.length && input[k] === "=") {
-          k += 1;
-          while (k < input.length && /\s/.test(input[k])) k += 1;
-          if (k < input.length && input[k] === "{") {
-            let depth = 0;
-            while (k < input.length) {
-              if (input[k] === "{") depth += 1;
-              else if (input[k] === "}") {
-                depth -= 1;
-                if (depth === 0) {
-                  k += 1;
-                  break;
-                }
-              }
-              k += 1;
-            }
-            i = k;
-            continue;
-          }
-        }
-      }
-      out += ch;
-      i += 1;
-    }
-    return out;
-  }
 
   function hasSyntaxTokens(codeEl: HTMLElement): boolean {
     return !!codeEl.querySelector("[class*='hljs-']");
@@ -263,7 +181,7 @@
   /* Intrinsically-sized elements should not stretch to fill the grid. */
   .generated-demo > :global(:is(
     button, input, select, textarea, fieldset, dialog,
-    label, span, code, sg-card, .sg-card
+    label, span, code
   )) {
     justify-self: start;
   }

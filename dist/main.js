@@ -6911,8 +6911,8 @@ var DEFAULT_MAX_VW = 90;
 var DEFAULT_ROOT_FONT_SIZE = 16;
 var DEFAULT_MIN_DEVICE_CLASS = "phone";
 var DEFAULT_MAX_DEVICE_CLASS = "desktop";
-var DEFAULT_MIN_RATIO = 1.15;
-var DEFAULT_MAX_RATIO = 1.333;
+var DEFAULT_MIN_RATIO = 1.14;
+var DEFAULT_MAX_RATIO = 1.18;
 function fluidFontSize(minRem, maxRem, options) {
   const minVw = options?.minVw ?? DEFAULT_MIN_VW;
   const maxVw = options?.maxVw ?? DEFAULT_MAX_VW;
@@ -6937,7 +6937,7 @@ function resolveFluidTypeOptions(options = {}) {
   return {
     baseMin: options.baseMin ?? baseMinPx / rootFontSize,
     baseMax: options.baseMax ?? baseMaxPx / rootFontSize,
-    minRatio: options.minRatio ?? options.scaleRatio ?? DEFAULT_MIN_RATIO,
+    minRatio: options.minRatio ?? DEFAULT_MIN_RATIO,
     maxRatio: options.maxRatio ?? (options.scaleRatio ? deriveFluidMaxRatio(options.scaleRatio) : DEFAULT_MAX_RATIO),
     minVw: options.minVw ?? DEFAULT_MIN_VW,
     maxVw: options.maxVw ?? DEFAULT_MAX_VW,
@@ -9015,7 +9015,21 @@ var componentRoutes = [
       { path: "/components/native/fieldset", label: "Fieldset", description: "Form grouping with legend" },
       { path: "/components/native/hr", label: "Hr", description: "Horizontal or vertical divider using native elements" },
       { path: "/components/native/input", label: "Input", description: "Text fields with validation and descriptions" },
-      { path: "/components/native/input-variants", label: "Input Variants", description: "Date, time, file, color, and datalist inputs" },
+      {
+        path: "/components/native/input-variants",
+        label: "Input Variants",
+        description: "Date, time, month, week, file, color, datalist, and picker inputs",
+        children: [
+          { path: "/components/native/input-variants/date", label: "Date Input", description: "Composed date picker input with SigUI form styling" },
+          { path: "/components/native/input-variants/time", label: "Time Input", description: "Styled time input variant" },
+          { path: "/components/native/input-variants/datetime-local", label: "DateTime Local Input", description: "Styled local date and time input variant" },
+          { path: "/components/native/input-variants/month", label: "Month Input", description: "Styled month input variant" },
+          { path: "/components/native/input-variants/week", label: "Week Input", description: "Styled ISO week input variant" },
+          { path: "/components/native/input-variants/file", label: "File Input", description: "Styled native file upload control" },
+          { path: "/components/native/input-variants/color", label: "Color Input", description: "Enhanced native color input with the SigUI color wheel" },
+          { path: "/components/native/input-variants/datalist", label: "Datalist Input", description: "Styled text input with native datalist suggestions" }
+        ]
+      },
       { path: "/components/native/kbd", label: "Kbd", description: "Keyboard shortcut display" },
       { path: "/components/native/label", label: "Label", description: "Form label with required indicator" },
       { path: "/components/native/link", label: "Link", description: "Inline text link for prose navigation" },
@@ -9215,7 +9229,6 @@ var componentRoutes = [
           { path: "/components/overlays/alert-dialog", label: "AlertDialog", description: "Modal confirmation that requires explicit action" },
           { path: "/components/overlays/date-picker", label: "DatePicker", description: "Popup calendar for date selection" },
           { path: "/components/overlays/dialog", label: "Dialog", description: "Modal overlay with focus trap" },
-          { path: "/components/overlays/drawer", label: "Drawer", description: "Dialog-based sliding panel" },
           { path: "/components/overlays/hover-card", label: "HoverCard", description: "Hover-triggered floating card" },
           { path: "/components/overlays/popover", label: "Popover", description: "Positioned floating content" },
           { path: "/components/overlays/popup", label: "Popup", description: "Lightweight positioned popup container" },
@@ -9240,7 +9253,7 @@ var componentRoutes = [
 
 // website/src/router/routes.ts
 var extraNativeRoutes = [
-  { path: "/components/native/input-variants", label: "Input Variants", description: "Date, time, file, color, and datalist inputs" },
+  { path: "/components/native/input-variants", label: "Input Variants", description: "Date, time, file, color, datalist, and picker inputs" },
   { path: "/components/native/dialog", label: "Dialog", description: "Baseline native dialog for non-component use" },
   { path: "/components/native/prose", label: "Prose", description: "Blockquote, figure, abbr, and inline quotation" }
 ];
@@ -9817,7 +9830,7 @@ var root_23 = from_html(`<div class="preset-backdrop svelte-ps1fb0" role="presen
 var root2 = from_html(`<header class="topbar sg-sticky-scroll-elevate svelte-ps1fb0"><div class="topbar-inner svelte-ps1fb0"><div class="topbar-left svelte-ps1fb0"><a href="/" data-nav="" class="topbar-logo svelte-ps1fb0"><svg class="topbar-logo-icon svelte-ps1fb0" viewBox="0 0 512 512" fill="none" aria-hidden="true"><rect x="48" y="48" width="264" height="264" rx="64" fill="var(--sg-color-secondary)" opacity="0.65"></rect><rect x="200" y="200" width="264" height="264" rx="64" fill="currentColor" opacity="0.9"></rect></svg> sig-ui</a> <nav class="topbar-nav svelte-ps1fb0"></nav></div> <div class="topbar-right svelte-ps1fb0"><div class="topbar-search svelte-ps1fb0"><input class="sg-search-input" type="search" placeholder="Search docs..."/> <kbd class="sg-kbd topbar-search-kbd">&#8984;K</kbd></div> <div class="preset-picker svelte-ps1fb0"><button class="preset-trigger svelte-ps1fb0" aria-haspopup="listbox" title="Theme preset"><span class="preset-trigger-label svelte-ps1fb0"> </span> <svg class="preset-chevron svelte-ps1fb0" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button> <!></div> <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="topbar-icon-link svelte-ps1fb0" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg></a> <div class="sg-toggle-group"><button class="sg-toggle" title="Light mode">&#9788;</button> <button class="sg-toggle" title="Dark mode">&#9790;</button></div> <sg-color-picker></sg-color-picker></div></div></header>`, 2);
 var $$css = {
   hash: "svelte-ps1fb0",
-  code: ".topbar.svelte-ps1fb0 {position:sticky;top:0;z-index:var(--sg-z-sticky);width:100%;height:var(--sg-chrome-height);background:oklch(from var(--sg-bg) l c h / 0.85);backdrop-filter:blur(var(--sg-glass-blur, var(--sg-space-3)));border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.topbar-inner.svelte-ps1fb0 {display:flex;align-items:center;justify-content:space-between;height:100%;padding:0 var(--sg-space-6);max-width:100%;container-type:inline-size;container-name:topbar;}.topbar-left.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-6);}.topbar-logo.svelte-ps1fb0 {font-family:var(--sg-font-display);font-size:var(--sg-text-xl);font-weight:var(--sg-weight-normal);font-style:italic;letter-spacing:0;background:linear-gradient(135deg, var(--sg-color-link), var(--sg-color-emphasis));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;display:flex;align-items:center;gap:var(--sg-gap-related);white-space:nowrap;}.topbar-logo-icon.svelte-ps1fb0 {width:1.4em;height:1.4em;flex-shrink:0;color:var(--sg-color-link);-webkit-text-fill-color:initial;}.topbar-nav.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-gap-tight);}.topbar-nav-link.svelte-ps1fb0 {font-size:var(--sg-text-sm);color:var(--sg-color-text-secondary);text-decoration:none;padding:var(--sg-space-1) var(--sg-space-3);border-radius:var(--sg-radius-md);transition:color var(--sg-duration-fast) var(--sg-ease-default),\n                background var(--sg-duration-fast) var(--sg-ease-default);}.topbar-nav-link.svelte-ps1fb0:hover {color:var(--sg-color-text);background:var(--sg-state-hover);}.topbar-nav-link.svelte-ps1fb0.active {color:var(--sg-color-text);background:var(--sg-state-hover);font-weight:var(--sg-weight-medium, 500);}.topbar-right.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-gap-grouped);}.topbar-search.svelte-ps1fb0 {position:relative;display:flex;align-items:center;}.topbar-search.svelte-ps1fb0 .sg-search-input {width:var(--sg-container-sm);}.topbar-search.svelte-ps1fb0 .sg-search-input-group {border-radius:var(--sg-radius-full, 9999px);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle {min-height:calc(var(--sg-touch-min, 44px) * 0.75);padding:0 var(--sg-space-3, 0.75rem);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle:first-child {border-radius:var(--sg-radius-full, 9999px) 0 0 var(--sg-radius-full, 9999px);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle:last-child {border-radius:0 var(--sg-radius-full, 9999px) var(--sg-radius-full, 9999px) 0;}.topbar-search.svelte-ps1fb0 .topbar-search-kbd {position:absolute;right:var(--sg-space-2);top:50%;transform:translateY(-50%);pointer-events:none;z-index:var(--sg-z-raised);font-size:var(--sg-text-xs);}.topbar-icon-link.svelte-ps1fb0 {display:flex;align-items:center;color:var(--sg-color-text-muted);}.topbar-icon-link.svelte-ps1fb0:hover {color:var(--sg-color-text);}\n\n  /* Preset Picker */.preset-picker.svelte-ps1fb0 {position:relative;}.preset-trigger.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-1-5, 6px);padding:var(--sg-space-1, 4px) var(--sg-space-3, 12px);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--sg-radius-md);background:var(--sg-surface-container, transparent);color:var(--sg-color-text-secondary);font-size:var(--sg-text-sm);font-family:inherit;cursor:pointer;white-space:nowrap;transition:border-color var(--sg-duration-fast) var(--sg-ease-default),\n                color var(--sg-duration-fast) var(--sg-ease-default);}.preset-trigger.svelte-ps1fb0:hover {border-color:var(--sg-color-border-focus, var(--sg-color-link));color:var(--sg-color-text);}.preset-trigger-label.svelte-ps1fb0 {font-weight:var(--sg-weight-medium, 500);}.preset-chevron.svelte-ps1fb0 {color:var(--sg-color-text-muted);flex-shrink:0;}.preset-backdrop.svelte-ps1fb0 {position:fixed;inset:0;z-index:var(--sg-z-dropdown, 100);}.preset-dropdown.svelte-ps1fb0 {position:absolute;top:calc(100% + var(--sg-space-1, 4px));right:0;z-index:calc(var(--sg-z-dropdown, 100) + 1);min-width:240px;background:var(--sg-surface-container, var(--sg-bg));border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--sg-radius-lg);box-shadow:var(--sg-shadow-lg);padding:var(--sg-space-1, 4px);display:flex;flex-direction:column;gap:var(--sg-gap-micro, 0.125rem);}.preset-option.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-3, 12px);padding:var(--sg-space-2, 8px) var(--sg-space-3, 12px);border:none;border-radius:var(--sg-radius-md);background:transparent;color:var(--sg-color-text);cursor:pointer;text-align:left;font-family:inherit;font-size:var(--sg-text-sm);width:100%;transition:background var(--sg-duration-fast) var(--sg-ease-default);}.preset-option.svelte-ps1fb0:hover {background:var(--sg-state-hover);}.preset-option.active.svelte-ps1fb0 {background:oklch(from var(--sg-color-link) l c h / 0.1);}.preset-option-info.svelte-ps1fb0 {display:flex;flex-direction:column;gap:var(--sg-gap-micro, 0.125rem);flex:1;min-width:0;}.preset-option-label.svelte-ps1fb0 {font-weight:var(--sg-weight-semibold, 600);}.preset-option-desc.svelte-ps1fb0 {font-size:var(--sg-text-xs);color:var(--sg-color-text-muted);}.preset-check.svelte-ps1fb0 {color:var(--sg-color-link);flex-shrink:0;}\n\n  @container topbar (max-width: 64rem) {.topbar-search.svelte-ps1fb0 .sg-search-input {width:min(26cqi, 18rem);}\n  }\n\n  @container topbar (max-width: 54rem) {.topbar-nav.svelte-ps1fb0 {display:none;}.topbar-search.svelte-ps1fb0 .topbar-search-kbd {display:none;}\n  }"
+  code: ".topbar.svelte-ps1fb0 {position:sticky;top:0;z-index:var(--sg-z-sticky);width:100%;height:var(--sg-chrome-height);background:oklch(from var(--sg-bg) l c h / 0.85);backdrop-filter:blur(var(--sg-glass-blur, var(--sg-space-3)));border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.topbar-inner.svelte-ps1fb0 {display:flex;align-items:center;justify-content:space-between;height:100%;padding:0 var(--sg-space-6);max-width:100%;container-type:inline-size;container-name:topbar;}.topbar-left.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-6);}.topbar-logo.svelte-ps1fb0 {font-family:var(--sg-font-display);font-size:var(--sg-text-lg);font-weight:var(--sg-weight-normal);font-style:italic;letter-spacing:0;background:linear-gradient(135deg, var(--sg-color-link), var(--sg-color-emphasis));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;display:flex;align-items:center;gap:var(--sg-gap-related);white-space:nowrap;}.topbar-logo-icon.svelte-ps1fb0 {width:1.4em;height:1.4em;flex-shrink:0;color:var(--sg-color-link);-webkit-text-fill-color:initial;}.topbar-nav.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-gap-tight);}.topbar-nav-link.svelte-ps1fb0 {font-size:var(--sg-text-sm);color:var(--sg-color-text-secondary);text-decoration:none;padding:var(--sg-space-1) var(--sg-space-3);border-radius:var(--sg-radius-md);transition:color var(--sg-duration-fast) var(--sg-ease-default),\n                background var(--sg-duration-fast) var(--sg-ease-default);}.topbar-nav-link.svelte-ps1fb0:hover {color:var(--sg-color-text);background:var(--sg-state-hover);}.topbar-nav-link.svelte-ps1fb0.active {color:var(--sg-color-text);background:var(--sg-state-hover);font-weight:var(--sg-weight-medium, 500);}.topbar-right.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-gap-grouped);}.topbar-search.svelte-ps1fb0 {position:relative;display:flex;align-items:center;}.topbar-search.svelte-ps1fb0 .sg-search-input {width:var(--sg-container-sm);}.topbar-search.svelte-ps1fb0 .sg-search-input-group {border-radius:var(--sg-radius-full, 9999px);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle {min-height:calc(var(--sg-touch-min, 44px) * 0.75);padding:0 var(--sg-space-3, 0.75rem);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle:first-child {border-radius:var(--sg-radius-full, 9999px) 0 0 var(--sg-radius-full, 9999px);}.topbar-right.svelte-ps1fb0 .sg-toggle-group > .sg-toggle:last-child {border-radius:0 var(--sg-radius-full, 9999px) var(--sg-radius-full, 9999px) 0;}.topbar-search.svelte-ps1fb0 .topbar-search-kbd {position:absolute;right:var(--sg-space-2);top:50%;transform:translateY(-50%);pointer-events:none;z-index:var(--sg-z-raised);font-size:var(--sg-text-xs);}.topbar-icon-link.svelte-ps1fb0 {display:flex;align-items:center;color:var(--sg-color-text-muted);}.topbar-icon-link.svelte-ps1fb0:hover {color:var(--sg-color-text);}\n\n  /* Preset Picker */.preset-picker.svelte-ps1fb0 {position:relative;}.preset-trigger.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-1-5, 6px);padding:var(--sg-space-1, 4px) var(--sg-space-3, 12px);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--sg-radius-md);background:var(--sg-surface-container, transparent);color:var(--sg-color-text-secondary);font-size:var(--sg-text-sm);font-family:inherit;cursor:pointer;white-space:nowrap;transition:border-color var(--sg-duration-fast) var(--sg-ease-default),\n                color var(--sg-duration-fast) var(--sg-ease-default);}.preset-trigger.svelte-ps1fb0:hover {border-color:var(--sg-color-border-focus, var(--sg-color-link));color:var(--sg-color-text);}.preset-trigger-label.svelte-ps1fb0 {font-weight:var(--sg-weight-medium, 500);}.preset-chevron.svelte-ps1fb0 {color:var(--sg-color-text-muted);flex-shrink:0;}.preset-backdrop.svelte-ps1fb0 {position:fixed;inset:0;z-index:var(--sg-z-dropdown, 100);}.preset-dropdown.svelte-ps1fb0 {position:absolute;top:calc(100% + var(--sg-space-1, 4px));right:0;z-index:calc(var(--sg-z-dropdown, 100) + 1);min-width:240px;background:var(--sg-surface-container, var(--sg-bg));border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--sg-radius-lg);box-shadow:var(--sg-shadow-lg);padding:var(--sg-space-1, 4px);display:flex;flex-direction:column;gap:var(--sg-gap-micro, 0.125rem);}.preset-option.svelte-ps1fb0 {display:flex;align-items:center;gap:var(--sg-space-3, 12px);padding:var(--sg-space-2, 8px) var(--sg-space-3, 12px);border:none;border-radius:var(--sg-radius-md);background:transparent;color:var(--sg-color-text);cursor:pointer;text-align:left;font-family:inherit;font-size:var(--sg-text-sm);width:100%;transition:background var(--sg-duration-fast) var(--sg-ease-default);}.preset-option.svelte-ps1fb0:hover {background:var(--sg-state-hover);}.preset-option.active.svelte-ps1fb0 {background:oklch(from var(--sg-color-link) l c h / 0.1);}.preset-option-info.svelte-ps1fb0 {display:flex;flex-direction:column;gap:var(--sg-gap-micro, 0.125rem);flex:1;min-width:0;}.preset-option-label.svelte-ps1fb0 {font-weight:var(--sg-weight-semibold, 600);}.preset-option-desc.svelte-ps1fb0 {font-size:var(--sg-text-xs);color:var(--sg-color-text-muted);}.preset-check.svelte-ps1fb0 {color:var(--sg-color-link);flex-shrink:0;}\n\n  @container topbar (max-width: 64rem) {.topbar-search.svelte-ps1fb0 .sg-search-input {width:min(26cqi, 18rem);}\n  }\n\n  @container topbar (max-width: 54rem) {.topbar-nav.svelte-ps1fb0 {display:none;}.topbar-search.svelte-ps1fb0 .topbar-search-kbd {display:none;}\n  }"
 };
 function Topbar($$anchor, $$props) {
   push($$props, true);
@@ -10089,9 +10102,26 @@ function Breadcrumbs($$anchor, $$props) {
   pop();
 }
 
+// node_modules/.bun/svelte@5.53.6/node_modules/svelte/src/internal/flags/legacy.js
+enable_legacy_mode_flag();
+
+// website/src/layout/Footer.svelte
+var root3 = from_html(`<footer class="site-footer"><sg-container><sg-text>Built with <a href="/" data-nav="" class="footer-link">SigUI</a> &mdash; a comprehensive design system for the modern web</sg-text></sg-container></footer>`, 2);
+function Footer($$anchor) {
+  var footer = root3();
+  var sg_container = child(footer);
+  set_custom_element_data(sg_container, "size", "lg");
+  var sg_text = child(sg_container);
+  set_custom_element_data(sg_text, "size", "sm");
+  set_custom_element_data(sg_text, "color", "muted");
+  reset(sg_container);
+  reset(footer);
+  append($$anchor, footer);
+}
+
 // website/src/sections/HeroSection.svelte
 var root_110 = from_html(`<button class="landing-hue-dot svelte-17usvit"></button>`);
-var root3 = from_html(`<header><div class="landing-hero-glow svelte-17usvit"></div> <div class="landing-hero-glow-2 svelte-17usvit"></div> <div class="landing-hero-grid-bg svelte-17usvit"></div> <sg-container><div class="landing-hero-content svelte-17usvit"><div class="landing-hero-badge svelte-17usvit"><sg-badge><span class="landing-hero-badge-dot svelte-17usvit"></span>Design System</sg-badge></div> <h1 class="landing-hero-title svelte-17usvit"><span class="landing-hero-title-line svelte-17usvit">All you need is</span> <span class="landing-hero-title-accent svelte-17usvit">one color</span></h1> <sg-text>A mathematical design system implementing latest research in
+var root4 = from_html(`<header><div class="landing-hero-glow svelte-17usvit"></div> <div class="landing-hero-glow-2 svelte-17usvit"></div> <div class="landing-hero-grid-bg svelte-17usvit"></div> <sg-container><div class="landing-hero-content svelte-17usvit"><div class="landing-hero-badge svelte-17usvit"><sg-badge><span class="landing-hero-badge-dot svelte-17usvit"></span>Design System</sg-badge></div> <h1 class="landing-hero-title svelte-17usvit"><span class="landing-hero-title-line svelte-17usvit">All you need is</span> <span class="landing-hero-title-accent svelte-17usvit">one color</span></h1> <sg-text>A mathematical design system implementing latest research in
         perceptual science. Every design detail is computed from
         our perception model.</sg-text> <div class="landing-hero-actions svelte-17usvit"><a href="/components" data-nav="" data-size="lg" data-color="primary" class="sg-button landing-btn-primary svelte-17usvit">Browse Docs &rarr;</a> <a href="/examples" data-nav="" data-size="lg" data-color="ghost" class="sg-button landing-btn-secondary svelte-17usvit">See Examples</a></div></div></sg-container> <div class="landing-color-strip svelte-17usvit"><div class="landing-hero-hue-ring svelte-17usvit"><sg-text>Pick a color to begin</sg-text> <div class="landing-hue-wheel svelte-17usvit"></div></div></div></header>`, 2);
 var $$css2 = {
@@ -10177,7 +10207,7 @@ function HeroSection($$anchor, $$props) {
       set(mounted, true);
     });
   });
-  var header = root3();
+  var header = root4();
   let classes;
   var sg_container = sibling(child(header), 6);
   set_custom_element_data(sg_container, "size", "md");
@@ -10226,7 +10256,7 @@ delegate(["click"]);
 // website/src/pages/examples/ExamplesLayout.svelte
 var root_26 = from_html(`<a data-nav=""> </a>`);
 var root_112 = from_html(`<nav class="examples-nav svelte-12hmhhf"><div class="examples-nav-inner svelte-12hmhhf"></div></nav>`);
-var root4 = from_html(`<div class="examples-layout svelte-12hmhhf"><!> <div><!></div></div>`);
+var root5 = from_html(`<div class="examples-layout svelte-12hmhhf"><!> <div><!></div></div>`);
 var $$css3 = {
   hash: "svelte-12hmhhf",
   code: ".examples-layout.svelte-12hmhhf {display:flex;flex-direction:column;gap:0;min-height:0;}.examples-nav.svelte-12hmhhf {border-bottom:var(--sg-border-thin) solid var(--sg-color-border);padding:0 var(--sg-space-2);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}.examples-nav.svelte-12hmhhf::-webkit-scrollbar {display:none;}.examples-nav-inner.svelte-12hmhhf {display:flex;gap:var(--sg-gap-tight);min-width:max-content;}.examples-nav-link.svelte-12hmhhf {padding:var(--sg-pad-button-y, 0.75rem) var(--sg-pad-button-x, 1rem);font-size:var(--sg-text-sm);font-weight:var(--sg-weight-medium);color:var(--text-3);text-decoration:none;border-bottom:2px solid transparent;transition:color var(--sg-duration-fast), border-color var(--sg-duration-fast);white-space:nowrap;}.examples-nav-link.svelte-12hmhhf:hover {color:var(--sg-color-text);}.examples-nav-link.active.svelte-12hmhhf {color:var(--sg-color-text);border-bottom-color:var(--sg-color-link);}.examples-page-content.with-nav.svelte-12hmhhf {margin-top:var(--sg-space-5);}\n\n  @media (max-width: 768px) {.examples-page-content.with-nav.svelte-12hmhhf {margin-top:var(--sg-space-4);}\n  }"
@@ -10249,7 +10279,7 @@ function ExamplesLayout($$anchor, $$props) {
     unsub = subscribe((p) => set(currentPath2, p, true));
   });
   onDestroy(() => unsub?.());
-  var div = root4();
+  var div = root5();
   var node = child(div);
   {
     var consequent = ($$anchor2) => {
@@ -13369,7 +13399,7 @@ delegate(["input", "change", "click"]);
 // website/src/pages/HomePage.svelte
 var root_212 = from_html(`<sg-text>&middot;</sg-text>`, 2);
 var root_121 = from_html(`<span class="landing-stat svelte-avphss"><span class="landing-stat-value svelte-avphss"> </span> <sg-text> </sg-text></span> <!>`, 3);
-var root5 = from_html(`<!> <section class="landing-stats svelte-avphss"><sg-container><sg-stack></sg-stack></sg-container></section> <section class="landing-examples svelte-avphss"><sg-container><div class="landing-section-header"><sg-badge>Examples</sg-badge> <sg-heading>Build <em>anything</em></sg-heading> <sg-text>See how SigUI components compose into full application interfaces.</sg-text></div> <sg-tabs-root><sg-tabs-list><sg-tabs-trigger>Dashboard</sg-tabs-trigger> <sg-tabs-trigger>Tasks</sg-tabs-trigger> <sg-tabs-trigger>Playground</sg-tabs-trigger> <sg-tabs-trigger>Mail</sg-tabs-trigger> <sg-tabs-trigger>Forms</sg-tabs-trigger> <sg-tabs-trigger>RTL & CJK</sg-tabs-trigger></sg-tabs-list> <div class="examples-viewport svelte-avphss"><sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content></div></sg-tabs-root></sg-container></section>`, 3);
+var root6 = from_html(`<!> <section class="landing-stats svelte-avphss"><sg-container><sg-stack></sg-stack></sg-container></section> <section class="landing-examples svelte-avphss"><sg-container><div class="landing-section-header"><sg-badge>Examples</sg-badge> <sg-heading>Build <em>anything</em></sg-heading> <sg-text>See how SigUI components compose into full application interfaces.</sg-text></div> <sg-tabs-root><sg-tabs-list><sg-tabs-trigger>Dashboard</sg-tabs-trigger> <sg-tabs-trigger>Tasks</sg-tabs-trigger> <sg-tabs-trigger>Playground</sg-tabs-trigger> <sg-tabs-trigger>Mail</sg-tabs-trigger> <sg-tabs-trigger>Forms</sg-tabs-trigger> <sg-tabs-trigger>RTL & CJK</sg-tabs-trigger></sg-tabs-list> <div class="examples-viewport svelte-avphss"><sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content> <sg-tabs-content><!></sg-tabs-content></div></sg-tabs-root></sg-container></section>`, 3);
 var $$css10 = {
   hash: "svelte-avphss",
   code: `.landing-stats.svelte-avphss {border-bottom:var(--sg-border-thin) solid var(--sg-color-border);padding:var(--sg-space-5) 0;}.landing-stat.svelte-avphss {display:inline-flex;align-items:baseline;gap:var(--sg-space-1-5);}.landing-stat-value.svelte-avphss {font-family:var(--sg-font-display);font-style:italic;font-size:var(--sg-text-xl);font-weight:var(--sg-weight-normal);background:linear-gradient(135deg, var(--sg-color-link), var(--sg-color-emphasis));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding-right:0.15em;}.landing-examples.svelte-avphss {padding:var(--sg-space-24) 0;}.landing-examples.svelte-avphss .examples-tabs-list {gap:var(--sg-gap-tight);margin-bottom:var(--sg-space-4);flex-wrap:wrap;}.examples-viewport.svelte-avphss {display:flex;justify-content:center;width:100%;}.examples-viewport.svelte-avphss .sg-tabs-content {background:var(--sg-bg);width:min(100%, var(--sg-grid-max-width));overflow:hidden;padding:0;}
@@ -13386,7 +13416,7 @@ function HomePage($$anchor, $$props) {
     { value: "0", label: "dependencies", detail: "runtime" }
   ];
   let activeExample = state("dashboard");
-  var fragment = root5();
+  var fragment = root6();
   var node = first_child(fragment);
   HeroSection(node, {
     get onColorSelect() {
@@ -13526,20 +13556,17 @@ function HomePage($$anchor, $$props) {
 }
 delegate(["input", "change", "click"]);
 
-// node_modules/.bun/svelte@5.53.6/node_modules/svelte/src/internal/flags/legacy.js
-enable_legacy_mode_flag();
-
 // website/src/layout/SectionIndex.svelte
 var root_49 = from_html(`<sg-text> </sg-text>`, 2);
 var root_56 = from_html(`<a data-nav="" class="index-card"><sg-heading> </sg-heading> <sg-text> </sg-text></a>`, 2);
 var root_39 = from_html(`<div class="index-subgroup"><sg-heading> </sg-heading> <!> <div class="index-grid"></div></div>`, 2);
 var root_76 = from_html(`<a data-nav="" class="index-card"><sg-heading> </sg-heading> <sg-text> </sg-text></a>`, 2);
 var root_67 = from_html(`<div class="index-grid"></div>`);
-var root6 = from_html(`<sg-stack><div class="section-header"><sg-heading> </sg-heading> <sg-text> </sg-text></div> <!></sg-stack>`, 2);
+var root7 = from_html(`<sg-stack><div class="section-header"><sg-heading> </sg-heading> <sg-text> </sg-text></div> <!></sg-stack>`, 2);
 function SectionIndex($$anchor, $$props) {
   push($$props, true);
   let hasSubgroups = user_derived(() => $$props.items.some((item) => item.children && item.children.length > 0));
-  var sg_stack = root6();
+  var sg_stack = root7();
   set_custom_element_data(sg_stack, "gap", "separated");
   var div = child(sg_stack);
   var sg_heading = child(div);
@@ -13701,7 +13728,7 @@ var root_68 = from_html(`<div><span class="stop-num"> </span> <span class="hex-v
 var root_410 = from_html(`<div class="palette-ramp-group"><div style="color: #fafafa; font-size: var(--sg-text-xs); font-weight: var(--sg-weight-semibold); margin-bottom: var(--sg-space-2); display: flex; align-items: center; gap: var(--sg-gap-related)"><span></span> Dark <span style="font-weight: var(--sg-weight-normal); font-family: var(--sg-font-mono); font-size: var(--sg-text-xs); opacity: 0.7"> </span></div> <div class="shade-ramp"></div></div>`);
 var root_77 = from_html(`<div class="phenom-swatch-cell svelte-1asgxew"><div class="phenom-swatch svelte-1asgxew"></div> <code class="phenom-swatch-code svelte-1asgxew"> </code> <code class="phenom-swatch-code phenom-swatch-code--dim svelte-1asgxew"></code></div>`);
 var root_86 = from_html(`<div class="phenom-swatch-cell svelte-1asgxew"><div class="phenom-swatch svelte-1asgxew"></div> <code class="phenom-swatch-code svelte-1asgxew"> </code> <code class="phenom-swatch-code phenom-swatch-code--dim svelte-1asgxew"></code></div>`);
-var root7 = from_html(`<div class="page"><div class="page-header"><sg-heading>Perception</sg-heading> <sg-text>Human vision shapes every decision. Drag the slider. Pick a color. See for yourself.</sg-text></div> <div class="subsection"><sg-heading>The HSL lightness lie</sg-heading> <sg-text>HSL says all these colors have 50% lightness. Your eyes disagree. Drag the hue.</sg-text> <div class="controls"><div class="control-group"><input type="range" class="sg-slider"/></div></div> <div class="phil-hsl-row svelte-1asgxew"><div class="card" style="flex: 1"><span class="card-label" style="color: var(--sg-color-danger)">HSL (lies)</span> <div class="phil-big-swatch svelte-1asgxew"></div> <code style="font-size: var(--sg-text-xs)"> </code> <div class="phil-bar-track svelte-1asgxew"><div class="phil-bar-fill svelte-1asgxew"></div></div> <span class="phil-bar-label svelte-1asgxew">Perceived brightness: <strong> </strong></span></div> <div class="card" style="flex: 1"><span class="card-label" style="color: var(--sg-color-success)">OKLCH (honest)</span> <div class="phil-big-swatch svelte-1asgxew"></div> <code style="font-size: var(--sg-text-xs)"> </code> <div class="phil-bar-track svelte-1asgxew"><div class="phil-bar-fill phil-bar-fill--ok svelte-1asgxew"></div></div> <span class="phil-bar-label svelte-1asgxew">Perceived brightness: <strong>50%</strong> (always)</span></div></div></div> <div class="subsection"><sg-heading>Live palette derivation</sg-heading> <sg-text>Pick a brand color. Light and dark palettes derived simultaneously &mdash; every shade hits APCA contrast targets against its background.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Brand</span> <sg-color-picker></sg-color-picker></div></div> <div class="palette-dual svelte-1asgxew"><!> <!></div></div> <div class="subsection"><sg-heading>Computational dark mode</sg-heading> <sg-text>Not a second hand-picked palette. A transformation compensating for three perceptual effects.</sg-text> <div class="phil-effects-grid svelte-1asgxew"><div class="card"><span class="card-label">Hunt effect</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Colors look washed out on dark backgrounds. Chroma gets a 5-15% boost.</p> <div class="phil-effect-bars svelte-1asgxew"><div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Light</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.55 0.15 264); width: 50%"></div></div> <div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Dark (+chroma)</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.55 0.20 264); width: 68%"></div></div></div></div> <div class="card"><span class="card-label">Stevens effect</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Perceived contrast shifts with adaptation level. Subtle shades get +2-3 Lc.</p> <div class="phil-effect-bars svelte-1asgxew"><div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Light Lc</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.85 0.03 264); width: 48%"></div></div> <div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Dark Lc</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.88 0.03 264); width: 56%"></div></div></div></div> <div class="card"><span class="card-label">Hue blending</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Hues shift toward background temperature for palette cohesion.</p> <div style="display: flex; align-items: center; gap: var(--sg-space-3); justify-content: center; padding: var(--sg-space-2) 0"><div style="width: var(--sg-space-8); height: var(--sg-space-8); border-radius: var(--sg-radius-full); background: oklch(0.6 0.2 264)"></div> <span style="color: var(--sg-color-text-secondary)">&rarr;</span> <div style="width: var(--sg-space-8); height: var(--sg-space-8); border-radius: var(--sg-radius-full); background: oklch(0.6 0.19 260)"></div> <code style="font-size: var(--sg-text-xs); color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">&minus;4&deg;</code></div></div></div></div> <div class="subsection"><sg-heading>What OKLCH corrects – and what it doesn't</sg-heading> <sg-text>OKLCH solves the big problems. Three residual phenomena still matter for design systems.
+var root8 = from_html(`<div class="page"><div class="page-header"><sg-heading>Perception</sg-heading> <sg-text>Human vision shapes every decision. Drag the slider. Pick a color. See for yourself.</sg-text></div> <div class="subsection"><sg-heading>The HSL lightness lie</sg-heading> <sg-text>HSL says all these colors have 50% lightness. Your eyes disagree. Drag the hue.</sg-text> <div class="controls"><div class="control-group"><input type="range" class="sg-slider"/></div></div> <div class="phil-hsl-row svelte-1asgxew"><div class="card" style="flex: 1"><span class="card-label" style="color: var(--sg-color-danger)">HSL (lies)</span> <div class="phil-big-swatch svelte-1asgxew"></div> <code style="font-size: var(--sg-text-xs)"> </code> <div class="phil-bar-track svelte-1asgxew"><div class="phil-bar-fill svelte-1asgxew"></div></div> <span class="phil-bar-label svelte-1asgxew">Perceived brightness: <strong> </strong></span></div> <div class="card" style="flex: 1"><span class="card-label" style="color: var(--sg-color-success)">OKLCH (honest)</span> <div class="phil-big-swatch svelte-1asgxew"></div> <code style="font-size: var(--sg-text-xs)"> </code> <div class="phil-bar-track svelte-1asgxew"><div class="phil-bar-fill phil-bar-fill--ok svelte-1asgxew"></div></div> <span class="phil-bar-label svelte-1asgxew">Perceived brightness: <strong>50%</strong> (always)</span></div></div></div> <div class="subsection"><sg-heading>Live palette derivation</sg-heading> <sg-text>Pick a brand color. Light and dark palettes derived simultaneously &mdash; every shade hits APCA contrast targets against its background.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Brand</span> <sg-color-picker></sg-color-picker></div></div> <div class="palette-dual svelte-1asgxew"><!> <!></div></div> <div class="subsection"><sg-heading>Computational dark mode</sg-heading> <sg-text>Not a second hand-picked palette. A transformation compensating for three perceptual effects.</sg-text> <div class="phil-effects-grid svelte-1asgxew"><div class="card"><span class="card-label">Hunt effect</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Colors look washed out on dark backgrounds. Chroma gets a 5-15% boost.</p> <div class="phil-effect-bars svelte-1asgxew"><div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Light</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.55 0.15 264); width: 50%"></div></div> <div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Dark (+chroma)</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.55 0.20 264); width: 68%"></div></div></div></div> <div class="card"><span class="card-label">Stevens effect</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Perceived contrast shifts with adaptation level. Subtle shades get +2-3 Lc.</p> <div class="phil-effect-bars svelte-1asgxew"><div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Light Lc</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.85 0.03 264); width: 48%"></div></div> <div class="phil-bar-row svelte-1asgxew"><span class="svelte-1asgxew">Dark Lc</span><div class="phil-bar-sm svelte-1asgxew" style="background: oklch(0.88 0.03 264); width: 56%"></div></div></div></div> <div class="card"><span class="card-label">Hue blending</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-3)">Hues shift toward background temperature for palette cohesion.</p> <div style="display: flex; align-items: center; gap: var(--sg-space-3); justify-content: center; padding: var(--sg-space-2) 0"><div style="width: var(--sg-space-8); height: var(--sg-space-8); border-radius: var(--sg-radius-full); background: oklch(0.6 0.2 264)"></div> <span style="color: var(--sg-color-text-secondary)">&rarr;</span> <div style="width: var(--sg-space-8); height: var(--sg-space-8); border-radius: var(--sg-radius-full); background: oklch(0.6 0.19 260)"></div> <code style="font-size: var(--sg-text-xs); color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">&minus;4&deg;</code></div></div></div></div> <div class="subsection"><sg-heading>What OKLCH corrects – and what it doesn't</sg-heading> <sg-text>OKLCH solves the big problems. Three residual phenomena still matter for design systems.
       Here's what SigUI compensates for and how.</sg-text> <div class="phenom-card svelte-1asgxew"><div class="phenom-header svelte-1asgxew"><sg-heading>Helmholtz-Kohlrausch effect</sg-heading> <span class="phenom-tag phenom-tag--compensated svelte-1asgxew">Compensated by SigUI</span></div> <p class="phenom-subtitle svelte-1asgxew">Saturated colors appear brighter than their measured lightness</p> <div class="phenom-columns svelte-1asgxew"><div class="phenom-col"><span class="phenom-col-label svelte-1asgxew">Impact on OKLCH</span> <p class="phenom-text svelte-1asgxew">OKLCH does not account for this. A saturated red at L=0.5 will appear perceptually
             lighter than a gray at L=0.5.</p></div> <div class="phenom-col"><span class="phenom-col-label svelte-1asgxew">Mitigation in SigUI</span> <p class="phenom-text svelte-1asgxew">Optional H-K lightness compensation is applied during shade generation using the
             Fairchild-Pirrotta 1991 model with HGN 2023 revision.</p></div></div> <div class="phenom-demo svelte-1asgxew"><div class="controls" style="margin-bottom: var(--sg-space-4)"><div class="control-group"><input type="range" class="sg-slider"/></div> <div class="control-group"><input type="range" class="sg-slider"/></div></div> <div class="hk-compare svelte-1asgxew"><div class="hk-col hk-col--ref svelte-1asgxew"><span class="phenom-demo-label svelte-1asgxew"> </span> <div class="hk-swatch hk-swatch--ref svelte-1asgxew"></div> <code class="phenom-swatch-code svelte-1asgxew"> </code></div> <div class="hk-col svelte-1asgxew"><span class="phenom-demo-label svelte-1asgxew" style="color: var(--sg-color-danger)">Chromatic &ndash; same L (looks brighter)</span> <div class="hk-swatch svelte-1asgxew"></div> <code class="phenom-swatch-code svelte-1asgxew"> </code></div> <div class="hk-col svelte-1asgxew"><span class="phenom-demo-label svelte-1asgxew" style="color: var(--sg-color-success)"> </span> <div class="hk-swatch svelte-1asgxew"></div> <code class="phenom-swatch-code svelte-1asgxew"> </code></div></div> <p class="phenom-demo-note svelte-1asgxew">The chromatic swatch (top right) appears perceptually lighter than the gray despite identical
@@ -13781,7 +13808,7 @@ function PerceptionPage($$anchor, $$props) {
   const bbHue = 240;
   const bbChroma = 0.15;
   const bbLSteps = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-  var div = root7();
+  var div = root8();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -14214,7 +14241,7 @@ delegate(["input", "change", "click"]);
 var root_78 = from_html(`<span class="phil-chaos-msg svelte-1c7727z">This state was never designed.</span>`);
 var root_87 = from_html(`<span> </span>`);
 var root_95 = from_html(`<button class="sg-button" data-color="secondary"> </button>`);
-var root8 = from_html(`<div class="page"><div class="page-header"><sg-heading>Constraints</sg-heading> <sg-text>Less freedom, better interfaces. Toggle the booleans. Click the state machine. Feel the difference.</sg-text></div> <div class="subsection"><sg-heading>Booleans vs. state machines</sg-heading> <sg-text>Three booleans = eight combinations. Most are nonsense. A state machine has only designed states.</sg-text> <div class="phil-vs-grid svelte-1c7727z"><div class="card"><span class="card-label" style="color: var(--sg-color-danger)">Boolean props (2&sup3; = 8 states)</span> <div class="phil-toggles svelte-1c7727z"><input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/></div> <div><button><!></button> <!></div></div> <div class="card"><span class="card-label" style="color: var(--sg-color-success)">State machine (4 states, explicit transitions)</span> <div class="phil-fsm-nodes svelte-1c7727z"></div> <div class="phil-fsm-btns svelte-1c7727z"></div> <div class="phil-mock-btn-wrap svelte-1c7727z"><button><!></button></div></div></div></div> <div class="subsection"><sg-heading>Discriminated unions</sg-heading> <sg-text>A Button is either a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code>. The type system decides. No ambiguity.</sg-text> <div class="phil-type-tree svelte-1c7727z"><div class="phil-type-root svelte-1c7727z"><code>ButtonProps</code></div> <div class="phil-type-branches svelte-1c7727z"><div class="card phil-type-ok svelte-1c7727z"><code style="color: var(--sg-color-success)">ButtonAsButton</code> <span class="phil-type-props svelte-1c7727z">onclick, type, disabled</span> <em class="phil-type-renders svelte-1c7727z">Renders &lt;button&gt;</em></div> <div class="card phil-type-ok svelte-1c7727z"><code style="color: var(--sg-color-success)">ButtonAsLink</code> <span class="phil-type-props svelte-1c7727z">href, target, rel</span> <em class="phil-type-renders svelte-1c7727z">Renders &lt;a&gt;</em></div> <div class="card phil-type-err svelte-1c7727z"><code style="color: var(--sg-color-danger)">href + onclick?</code> <span class="phil-type-props phil-strike svelte-1c7727z">No valid type</span> <em class="phil-type-renders svelte-1c7727z" style="color: var(--sg-color-danger)">Type error</em></div></div></div></div> <div class="subsection"><sg-heading>Constrained variants</sg-heading> <div class="phil-variant-row svelte-1c7727z"><code style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2); display: block">Size = "sm" | "md" | "lg"</code> <div style="display: flex; gap: var(--sg-space-3); align-items: end; flex-wrap: wrap"><button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-8); font-size: var(--sg-text-xs); padding: 0 var(--sg-space-3)">sm (32px)</button> <button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-10); font-size: var(--sg-text-sm); padding: 0 var(--sg-space-4)">md (40px)</button> <button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-12); font-size: var(--sg-text-sm); padding: 0 var(--sg-space-5)">lg (48px)</button></div></div> <div class="phil-variant-row svelte-1c7727z" style="margin-top: var(--sg-space-4)"><code style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2); display: block">ColorVariant = "primary" | "secondary" | "success" | "warning" | "danger"</code> <div style="display: flex; gap: var(--sg-gap-related); flex-wrap: wrap"><button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-border-focus); color: var(--sg-color-text-inverse, white); border-color: var(--sg-color-border-focus)">primary</button> <button class="phil-mock-btn svelte-1c7727z">secondary</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-success); color: var(--sg-color-text-inverse, white); border-color: transparent">success</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-warning); color: var(--sg-color-text-on-warning, black); border-color: transparent">warning</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-danger); color: var(--sg-color-text-inverse, white); border-color: transparent">danger</button></div></div></div> <div class="subsection"><sg-heading>Required accessibility</sg-heading> <sg-text>A Dialog without a label is a type error. The code does not compile.</sg-text> <div class="phil-enforce-grid svelte-1c7727z"><div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-success)"><span class="card-label" style="color: var(--sg-color-success)">&#10003; Compiles</span> <sg-code-block></sg-code-block></div></div></div></div>`, 2);
+var root9 = from_html(`<div class="page"><div class="page-header"><sg-heading>Constraints</sg-heading> <sg-text>Less freedom, better interfaces. Toggle the booleans. Click the state machine. Feel the difference.</sg-text></div> <div class="subsection"><sg-heading>Booleans vs. state machines</sg-heading> <sg-text>Three booleans = eight combinations. Most are nonsense. A state machine has only designed states.</sg-text> <div class="phil-vs-grid svelte-1c7727z"><div class="card"><span class="card-label" style="color: var(--sg-color-danger)">Boolean props (2&sup3; = 8 states)</span> <div class="phil-toggles svelte-1c7727z"><input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/></div> <div><button><!></button> <!></div></div> <div class="card"><span class="card-label" style="color: var(--sg-color-success)">State machine (4 states, explicit transitions)</span> <div class="phil-fsm-nodes svelte-1c7727z"></div> <div class="phil-fsm-btns svelte-1c7727z"></div> <div class="phil-mock-btn-wrap svelte-1c7727z"><button><!></button></div></div></div></div> <div class="subsection"><sg-heading>Discriminated unions</sg-heading> <sg-text>A Button is either a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code>. The type system decides. No ambiguity.</sg-text> <div class="phil-type-tree svelte-1c7727z"><div class="phil-type-root svelte-1c7727z"><code>ButtonProps</code></div> <div class="phil-type-branches svelte-1c7727z"><div class="card phil-type-ok svelte-1c7727z"><code style="color: var(--sg-color-success)">ButtonAsButton</code> <span class="phil-type-props svelte-1c7727z">onclick, type, disabled</span> <em class="phil-type-renders svelte-1c7727z">Renders &lt;button&gt;</em></div> <div class="card phil-type-ok svelte-1c7727z"><code style="color: var(--sg-color-success)">ButtonAsLink</code> <span class="phil-type-props svelte-1c7727z">href, target, rel</span> <em class="phil-type-renders svelte-1c7727z">Renders &lt;a&gt;</em></div> <div class="card phil-type-err svelte-1c7727z"><code style="color: var(--sg-color-danger)">href + onclick?</code> <span class="phil-type-props phil-strike svelte-1c7727z">No valid type</span> <em class="phil-type-renders svelte-1c7727z" style="color: var(--sg-color-danger)">Type error</em></div></div></div></div> <div class="subsection"><sg-heading>Constrained variants</sg-heading> <div class="phil-variant-row svelte-1c7727z"><code style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2); display: block">Size = "sm" | "md" | "lg"</code> <div style="display: flex; gap: var(--sg-space-3); align-items: end; flex-wrap: wrap"><button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-8); font-size: var(--sg-text-xs); padding: 0 var(--sg-space-3)">sm (32px)</button> <button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-10); font-size: var(--sg-text-sm); padding: 0 var(--sg-space-4)">md (40px)</button> <button class="phil-mock-btn svelte-1c7727z" style="height: var(--sg-space-12); font-size: var(--sg-text-sm); padding: 0 var(--sg-space-5)">lg (48px)</button></div></div> <div class="phil-variant-row svelte-1c7727z" style="margin-top: var(--sg-space-4)"><code style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2); display: block">ColorVariant = "primary" | "secondary" | "success" | "warning" | "danger"</code> <div style="display: flex; gap: var(--sg-gap-related); flex-wrap: wrap"><button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-border-focus); color: var(--sg-color-text-inverse, white); border-color: var(--sg-color-border-focus)">primary</button> <button class="phil-mock-btn svelte-1c7727z">secondary</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-success); color: var(--sg-color-text-inverse, white); border-color: transparent">success</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-warning); color: var(--sg-color-text-on-warning, black); border-color: transparent">warning</button> <button class="phil-mock-btn svelte-1c7727z" style="background: var(--sg-color-danger); color: var(--sg-color-text-inverse, white); border-color: transparent">danger</button></div></div></div> <div class="subsection"><sg-heading>Required accessibility</sg-heading> <sg-text>A Dialog without a label is a type error. The code does not compile.</sg-text> <div class="phil-enforce-grid svelte-1c7727z"><div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-success)"><span class="card-label" style="color: var(--sg-color-success)">&#10003; Compiles</span> <sg-code-block></sg-code-block></div></div></div></div>`, 2);
 var $$css12 = {
   hash: "svelte-1c7727z",
   code: ".phil-vs-grid.svelte-1c7727z {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-grouped);}.phil-toggles.svelte-1c7727z {display:flex;gap:var(--sg-gap-grouped);margin-bottom:var(--sg-space-4);}.phil-mock-btn-wrap.svelte-1c7727z {margin-top:var(--sg-space-4);padding:var(--sg-space-4);border-radius:var(--sg-radius-md);background:var(--sg-color-bg-secondary, var(--sg-surface-container-high));text-align:center;transition:background var(--sg-duration-normal);}.phil-chaos.svelte-1c7727z {background:oklch(0.95 0.04 25);border:1px dashed var(--sg-color-danger);}.phil-chaos-msg.svelte-1c7727z {display:block;font-size:var(--sg-text-sm);color:var(--sg-color-danger);margin-top:var(--sg-space-2);font-weight:var(--sg-weight-semibold);}.phil-mock-btn.svelte-1c7727z {padding:var(--sg-space-2) var(--sg-space-5);border-radius:var(--sg-radius-md);border:var(--sg-border-thin) solid var(--sg-color-border-default, var(--sg-color-border));background:var(--sg-color-bg-primary, var(--sg-bg));color:var(--sg-color-text-primary, var(--sg-color-text));font-size:var(--sg-text-sm);cursor:pointer;transition:all var(--sg-duration-fast);}.phil-mock-btn.loading.svelte-1c7727z {opacity:0.6;cursor:wait;}.phil-mock-btn.error.svelte-1c7727z {border-color:var(--sg-color-danger);color:var(--sg-color-danger);}.phil-mock-btn.svelte-1c7727z:disabled {opacity:0.35;cursor:not-allowed;}.phil-fsm-nodes.svelte-1c7727z {display:flex;gap:var(--sg-gap-related);margin-bottom:var(--sg-space-3);flex-wrap:wrap;}.phil-fsm-node.svelte-1c7727z {padding:var(--sg-space-1-5) var(--sg-space-4);border-radius:var(--sg-radius-full);font-size:var(--sg-text-sm);font-weight:var(--sg-weight-semibold);border:var(--sg-border-thin) solid var(--sg-color-border-default, var(--sg-color-border));background:var(--sg-color-bg-primary, var(--sg-bg));color:var(--sg-color-text-muted, var(--sg-color-text-secondary));transition:all var(--sg-duration-fast);}.phil-fsm-node.active.svelte-1c7727z {background:var(--sg-color-action-primary, var(--sg-color-border-focus));color:var(--sg-color-text-inverse, white);border-color:var(--sg-color-action-primary, var(--sg-color-border-focus));}.phil-fsm-btns.svelte-1c7727z {display:flex;gap:var(--sg-space-1-5);flex-wrap:wrap;}.phil-type-tree.svelte-1c7727z {margin-top:var(--sg-space-2);}.phil-type-root.svelte-1c7727z {text-align:center;font-size:var(--sg-text-base);font-weight:var(--sg-weight-semibold);margin-bottom:var(--sg-space-4);color:var(--sg-color-text-primary, var(--sg-color-text));}.phil-type-branches.svelte-1c7727z {display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--sg-gap-related);}.phil-type-ok.svelte-1c7727z {border-color:var(--sg-color-success);}.phil-type-err.svelte-1c7727z {border-color:var(--sg-color-danger);opacity:0.7;}.phil-type-props.svelte-1c7727z {display:block;font-size:var(--sg-text-xs);color:var(--sg-color-text-muted, var(--sg-color-text-secondary));margin:var(--sg-space-1-5) 0;}.phil-type-renders.svelte-1c7727z {display:block;font-size:var(--sg-text-xs);font-style:italic;color:var(--sg-color-text-muted, var(--sg-color-text-secondary));}.phil-strike.svelte-1c7727z {text-decoration:line-through;}.phil-variant-row.svelte-1c7727z {padding:var(--sg-space-4) 0;}.phil-enforce-grid.svelte-1c7727z {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-related);}\n\n  @media (max-width: 768px) {.phil-vs-grid.svelte-1c7727z {grid-template-columns:1fr;}.phil-type-branches.svelte-1c7727z {grid-template-columns:1fr;}.phil-enforce-grid.svelte-1c7727z {grid-template-columns:1fr;}\n  }"
@@ -14247,7 +14274,7 @@ function ConstraintsPage($$anchor, $$props) {
   let bDisabled = state(false);
   let bError = state(false);
   let boolChaos = user_derived(() => [get(bLoading), get(bDisabled), get(bError)].filter(Boolean).length >= 2);
-  var div = root8();
+  var div = root9();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -14511,7 +14538,7 @@ var root_311 = from_html(`<span class="phil-channel-msg svelte-dzt3yj" style="co
 var root_411 = from_html(`<span>&#10003;</span>`);
 var root_57 = from_html(`<span class="phil-channel-msg svelte-dzt3yj">Email verified</span>`);
 var root_69 = from_html(`<span class="phil-channel-msg svelte-dzt3yj" style="color: var(--sg-color-danger)">Success is invisible.</span>`);
-var root9 = from_html(`<div class="page"><div class="page-header"><sg-heading>Accessibility</sg-heading> <sg-text>Not a checklist. A property of the system that cannot be removed.</sg-text></div> <div class="subsection"><div class="phil-stat-row svelte-dzt3yj"><div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">~8%</span> <span class="card-label">of males have color vision deficiency</span></div> <div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">15-20%</span> <span class="card-label">have cognitive or learning disabilities</span></div> <div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">0</span> <span class="card-label">components ship without a11y enforcement</span></div></div></div> <div class="subsection"><sg-heading>Multi-channel communication</sg-heading> <sg-text>Toggle channels off. If your error state is "turns red," ~8% of males can't see it.</sg-text> <div class="controls"><input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/></div> <div class="phil-channel-row svelte-dzt3yj"><div class="card"><span class="card-label">Error state</span> <div class="phil-channel-input svelte-dzt3yj"><!> <span>user@</span></div> <!> <!></div> <div class="card"><span class="card-label">Success state</span> <div class="phil-channel-input svelte-dzt3yj"><!> <span>user@example.com</span></div> <!> <!></div> <div class="card"><span class="card-label">Disabled state</span> <div class="phil-channel-input svelte-dzt3yj" style="opacity: 0.4; cursor: not-allowed"><span>Cannot edit</span></div> <span class="phil-channel-msg svelte-dzt3yj" style="color: var(--sg-color-text-secondary)">Opacity + cursor + ARIA (always multi-channel)</span></div></div></div> <div class="subsection"><sg-heading>Structural enforcement</sg-heading> <sg-text>Accessibility props are type-level requirements. The compiler rejects components without them.</sg-text> <div class="phil-enforce-grid svelte-dzt3yj"><div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-success)"><span class="card-label" style="color: var(--sg-color-success)">&#10003; Compiles</span> <sg-code-block></sg-code-block></div></div></div> <div class="subsection"><sg-heading>The cognitive dimension</sg-heading> <sg-text>15-20% of people have cognitive disabilities. SigUI addresses this structurally.</sg-text> <div class="phil-coga-grid svelte-dzt3yj"><div class="card"><strong style="font-size: var(--sg-text-sm)">Consistent patterns</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Same keyboard model everywhere. Same close behavior. Same open behavior.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Defined timing</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">No spinner under 200ms. Loading thresholds prevent content jumps.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Error recovery</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Messages say what went wrong and how to fix it. Undo for destructive actions.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Progressive disclosure</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Complexity reveals itself as needed. Nobody is overwhelmed up front.</p></div></div></div></div>`, 2);
+var root10 = from_html(`<div class="page"><div class="page-header"><sg-heading>Accessibility</sg-heading> <sg-text>Not a checklist. A property of the system that cannot be removed.</sg-text></div> <div class="subsection"><div class="phil-stat-row svelte-dzt3yj"><div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">~8%</span> <span class="card-label">of males have color vision deficiency</span></div> <div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">15-20%</span> <span class="card-label">have cognitive or learning disabilities</span></div> <div class="card" style="text-align: center; flex: 1"><span class="phil-stat-num svelte-dzt3yj">0</span> <span class="card-label">components ship without a11y enforcement</span></div></div></div> <div class="subsection"><sg-heading>Multi-channel communication</sg-heading> <sg-text>Toggle channels off. If your error state is "turns red," ~8% of males can't see it.</sg-text> <div class="controls"><input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/> <input type="checkbox" class="sg-checkbox"/></div> <div class="phil-channel-row svelte-dzt3yj"><div class="card"><span class="card-label">Error state</span> <div class="phil-channel-input svelte-dzt3yj"><!> <span>user@</span></div> <!> <!></div> <div class="card"><span class="card-label">Success state</span> <div class="phil-channel-input svelte-dzt3yj"><!> <span>user@example.com</span></div> <!> <!></div> <div class="card"><span class="card-label">Disabled state</span> <div class="phil-channel-input svelte-dzt3yj" style="opacity: 0.4; cursor: not-allowed"><span>Cannot edit</span></div> <span class="phil-channel-msg svelte-dzt3yj" style="color: var(--sg-color-text-secondary)">Opacity + cursor + ARIA (always multi-channel)</span></div></div></div> <div class="subsection"><sg-heading>Structural enforcement</sg-heading> <sg-text>Accessibility props are type-level requirements. The compiler rejects components without them.</sg-text> <div class="phil-enforce-grid svelte-dzt3yj"><div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-danger)"><span class="card-label" style="color: var(--sg-color-danger)">&#10007; Won't compile</span> <sg-code-block></sg-code-block></div> <div class="card" style="border-color: var(--sg-color-success)"><span class="card-label" style="color: var(--sg-color-success)">&#10003; Compiles</span> <sg-code-block></sg-code-block></div></div></div> <div class="subsection"><sg-heading>The cognitive dimension</sg-heading> <sg-text>15-20% of people have cognitive disabilities. SigUI addresses this structurally.</sg-text> <div class="phil-coga-grid svelte-dzt3yj"><div class="card"><strong style="font-size: var(--sg-text-sm)">Consistent patterns</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Same keyboard model everywhere. Same close behavior. Same open behavior.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Defined timing</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">No spinner under 200ms. Loading thresholds prevent content jumps.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Error recovery</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Messages say what went wrong and how to fix it. Undo for destructive actions.</p></div> <div class="card"><strong style="font-size: var(--sg-text-sm)">Progressive disclosure</strong><p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin: var(--sg-space-1-5) 0 0">Complexity reveals itself as needed. Nobody is overwhelmed up front.</p></div></div></div></div>`, 2);
 var $$css13 = {
   hash: "svelte-dzt3yj",
   code: ".phil-stat-row.svelte-dzt3yj {display:flex;gap:var(--sg-gap-related);}.phil-stat-num.svelte-dzt3yj {display:block;font-size:var(--sg-text-2xl);font-weight:var(--sg-weight-bold);color:var(--sg-color-text-primary, var(--sg-color-text));letter-spacing:var(--sg-tracking-2xl);margin-bottom:var(--sg-space-1);}.phil-channel-row.svelte-dzt3yj {display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--sg-gap-related);margin-top:var(--sg-space-4);}.phil-channel-input.svelte-dzt3yj {display:flex;align-items:center;gap:var(--sg-space-1-5);padding:var(--sg-space-2) var(--sg-space-3);border:var(--sg-border-medium) solid var(--sg-color-border-default, var(--sg-color-border));border-radius:var(--sg-radius-md);font-size:var(--sg-text-sm);background:var(--sg-color-bg-primary, var(--sg-bg));margin:var(--sg-space-2) 0;transition:border-color var(--sg-duration-fast);}.phil-channel-msg.svelte-dzt3yj {font-size:var(--sg-text-sm);display:block;}.phil-enforce-grid.svelte-dzt3yj {display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sg-gap-related);}.phil-coga-grid.svelte-dzt3yj {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-related);}\n\n  @media (max-width: 768px) {.phil-stat-row.svelte-dzt3yj {flex-direction:column;}.phil-channel-row.svelte-dzt3yj {grid-template-columns:1fr;}.phil-enforce-grid.svelte-dzt3yj {grid-template-columns:1fr;}.phil-coga-grid.svelte-dzt3yj {grid-template-columns:1fr;}\n  }"
@@ -14522,7 +14549,7 @@ function AccessibilityPage($$anchor) {
   let showIcon = state(true);
   let showText = state(true);
   let allOff = user_derived(() => !get(showColor) && !get(showIcon) && !get(showText));
-  var div = root9();
+  var div = root10();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -14742,7 +14769,7 @@ var root_412 = from_html(`<div class="phil-enhance-row svelte-d0vdfu"><span clas
 var root_58 = from_html(`<div class="phil-layer-row svelte-d0vdfu"><span class="phil-layer-num svelte-d0vdfu"></span> <code> </code> <span style="color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-size: var(--sg-text-sm)"> </span></div>`);
 var root_610 = from_html(`<div class="stack-row svelte-d0vdfu"><span class="stack-num svelte-d0vdfu"></span> <div class="stack-info svelte-d0vdfu"><span class="stack-name svelte-d0vdfu"> </span> <span class="stack-detail svelte-d0vdfu"> </span></div> <code class="stack-pkg svelte-d0vdfu"> </code></div>`);
 var root_79 = from_html(`<div class="port-row svelte-d0vdfu"><span class="port-target svelte-d0vdfu"> </span> <span class="port-how svelte-d0vdfu"> </span></div>`);
-var root10 = from_html(`<div class="page"><div class="page-header"><sg-heading>The Modern Stack</sg-heading> <sg-text>In 2016 we needed div inside div inside div and JavaScript for basic UI elements. In 2026 the platform does it natively.</sg-text></div> <div class="subsection"><sg-heading>What changed</sg-heading> <sg-text>A decade ago, CSS couldn't express what a design system needs. No custom properties, no
+var root11 = from_html(`<div class="page"><div class="page-header"><sg-heading>The Modern Stack</sg-heading> <sg-text>In 2016 we needed div inside div inside div and JavaScript for basic UI elements. In 2026 the platform does it natively.</sg-text></div> <div class="subsection"><sg-heading>What changed</sg-heading> <sg-text>A decade ago, CSS couldn't express what a design system needs. No custom properties, no
       cascade layers, no container queries, no <code>:has()</code>, no <code>oklch()</code>,
       no native <code>&lt;dialog&gt;</code>, no <code>popover</code>. Every gap had to be
       filled with JavaScript and wrapper divs. That era is over.</sg-text> <div class="timeline svelte-d0vdfu"></div></div> <div class="subsection"><sg-heading>Native &lt;dialog&gt;</sg-heading> <sg-text>No JS focus trap. No manual backdrop. No z-index tricks. This is a real <code>&lt;dialog&gt;</code> element.</sg-text> <button class="sg-button" data-color="secondary">Open native dialog</button> <!> <div class="phil-vs-grid svelte-d0vdfu" style="margin-top: var(--sg-space-6)"><div class="card"><span class="card-label" style="color: var(--sg-color-danger)">JS reinvention</span> <ul class="phil-checklist svelte-d0vdfu"><li class="svelte-d0vdfu"><code class="svelte-d0vdfu">&lt;div role="dialog"&gt;</code></li> <li class="svelte-d0vdfu">Focus trap library</li> <li class="svelte-d0vdfu">Manual backdrop element</li> <li class="svelte-d0vdfu">Escape key listener</li> <li class="svelte-d0vdfu">Click-outside listener</li> <li class="svelte-d0vdfu">aria-modal management</li> <li class="svelte-d0vdfu">Inert sibling traversal</li> <li class="svelte-d0vdfu">Z-index stacking context</li></ul></div> <div class="card"><span class="card-label" style="color: var(--sg-color-success)">Native platform</span> <ul class="phil-checklist svelte-d0vdfu"><li class="svelte-d0vdfu"><code class="svelte-d0vdfu">&lt;dialog&gt;</code></li> <li class="svelte-d0vdfu"><code class="svelte-d0vdfu">.showModal()</code></li> <li class="svelte-d0vdfu"><code class="svelte-d0vdfu">::backdrop</code> pseudo</li> <li class="svelte-d0vdfu">Built-in focus trap</li> <li class="svelte-d0vdfu">Built-in top layer</li> <li class="svelte-d0vdfu">Built-in inert</li></ul></div></div></div> <div class="subsection"><sg-heading>Progressive enhancement</sg-heading> <sg-text>Modern browsers get enhancements. Older ones get a working baseline. Nobody gets a blank screen.</sg-text> <div class="phil-enhance-stack svelte-d0vdfu"></div></div> <div class="subsection"><sg-heading>CSS layers</sg-heading> <sg-text>Explicit priority. No specificity wars. Hover to highlight.</sg-text> <div class="phil-layers svelte-d0vdfu"></div> <div style="margin-top: var(--sg-space-5)"><sg-code-block></sg-code-block></div></div> <div class="subsection"><sg-heading>Zero runtime dependencies</sg-heading> <sg-text>The core math layer has no <code>dependencies</code> at all. The component library
@@ -14798,7 +14825,7 @@ function ModernStackPage($$anchor) {
     get(dialogEl)?.close();
     set(dialogOpen, false);
   }
-  var div = root10();
+  var div = root11();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -15179,7 +15206,7 @@ delegate(["click"]);
 var root_128 = from_html(`<div><span class="stop-num"> </span> <span class="hex-val"> </span></div>`);
 var root_215 = from_html(`<div class="phil-spacing-row svelte-1wnct22"><div class="phil-bar-sm svelte-1wnct22"></div> <code class="svelte-1wnct22"> </code></div>`);
 var root_313 = from_html(`<div class="phil-spacing-row svelte-1wnct22"><div class="phil-bar-sm svelte-1wnct22"></div> <code class="svelte-1wnct22"> </code> <span style="font-size: var(--sg-text-xs); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-style: italic"> </span></div>`);
-var root11 = from_html(`<div class="page"><div class="page-header"><sg-heading>Derivation</sg-heading> <sg-text>Every token has a reason. Change a seed and watch everything recompute.</sg-text></div> <div class="subsection"><sg-heading>Seeds in, system out</sg-heading> <sg-text>Pick a brand color and background. The palette derives itself through binary search against APCA targets.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Brand</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div></div> <div class="shade-ramp"></div> <div class="phil-derive-summary svelte-1wnct22"><div class="card"><span class="phil-derive-count svelte-1wnct22">11</span><span class="card-label">shade stops</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">2</span><span class="card-label">color modes</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">9</span><span class="card-label">type scale steps</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">14</span><span class="card-label">spacing tokens</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">6</span><span class="card-label">elevation levels</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">7</span><span class="card-label">duration tokens</span></div></div></div> <div class="subsection"><sg-heading>The three-tier model</sg-heading> <sg-text>Tokens are a dependency graph. Changing a seed propagates through all tiers.</sg-text> <div class="phil-tier-stack svelte-1wnct22"><div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-emphasis)"><span class="card-label">Tier 1: Primitives</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Raw computed values from derivation functions.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--blue-500: oklch(0.55 0.19 264)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--space-4: 16px</code></div> <div style="text-align: center; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-size: var(--sg-text-sm); padding: var(--sg-space-1) 0">&darr;</div> <div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-success)"><span class="card-label">Tier 2: Semantic</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Intent mapped to primitives. Changes between modes.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-color-text: var(--gray-900)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); opacity: 0.6">dark &rarr; --sg-color-text: var(--gray-100)</code></div> <div style="text-align: center; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-size: var(--sg-text-sm); padding: var(--sg-space-1) 0">&darr;</div> <div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-warning)"><span class="card-label">Tier 3: Component</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Scoped to a specific element.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-button-bg: var(--sg-primary)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-button-fg: var(--sg-on-primary)</code></div></div></div> <div class="subsection"><sg-heading>Convention vs. derivation</sg-heading> <sg-text>Both produce spacing scales. Only one has a reason for every value.</sg-text> <div class="phil-vs-grid svelte-1wnct22"><div class="card"><span class="card-label" style="color: var(--sg-color-danger)">Convention: "multiples of 4"</span> <div class="phil-spacing-bars svelte-1wnct22"></div> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-top: var(--sg-space-3)">Why 24 and not 20? "Because 24 is closer to what we wanted." Post-hoc justification.</p></div> <div class="card"><span class="card-label" style="color: var(--sg-color-success)">Derivation: Weber's Law</span> <div class="phil-spacing-bars svelte-1wnct22"></div> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-primary, var(--sg-color-text)); margin-top: var(--sg-space-3)">Small: linear (every pixel matters). Large: geometric (proportional differences dominate).</p></div></div></div></div>`, 2);
+var root12 = from_html(`<div class="page"><div class="page-header"><sg-heading>Derivation</sg-heading> <sg-text>Every token has a reason. Change a seed and watch everything recompute.</sg-text></div> <div class="subsection"><sg-heading>Seeds in, system out</sg-heading> <sg-text>Pick a brand color and background. The palette derives itself through binary search against APCA targets.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Brand</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div></div> <div class="shade-ramp"></div> <div class="phil-derive-summary svelte-1wnct22"><div class="card"><span class="phil-derive-count svelte-1wnct22">11</span><span class="card-label">shade stops</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">2</span><span class="card-label">color modes</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">9</span><span class="card-label">type scale steps</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">14</span><span class="card-label">spacing tokens</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">6</span><span class="card-label">elevation levels</span></div> <div class="card"><span class="phil-derive-count svelte-1wnct22">7</span><span class="card-label">duration tokens</span></div></div></div> <div class="subsection"><sg-heading>The three-tier model</sg-heading> <sg-text>Tokens are a dependency graph. Changing a seed propagates through all tiers.</sg-text> <div class="phil-tier-stack svelte-1wnct22"><div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-emphasis)"><span class="card-label">Tier 1: Primitives</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Raw computed values from derivation functions.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--blue-500: oklch(0.55 0.19 264)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--space-4: 16px</code></div> <div style="text-align: center; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-size: var(--sg-text-sm); padding: var(--sg-space-1) 0">&darr;</div> <div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-success)"><span class="card-label">Tier 2: Semantic</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Intent mapped to primitives. Changes between modes.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-color-text: var(--gray-900)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); opacity: 0.6">dark &rarr; --sg-color-text: var(--gray-100)</code></div> <div style="text-align: center; color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); font-size: var(--sg-text-sm); padding: var(--sg-space-1) 0">&darr;</div> <div class="card" style="border-left: var(--sg-border-medium) solid var(--sg-color-warning)"><span class="card-label">Tier 3: Component</span> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-bottom: var(--sg-space-2)">Scoped to a specific element.</p> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-button-bg: var(--sg-primary)</code> <code style="font-size: var(--sg-text-xs); display: block; color: var(--sg-color-text-muted, var(--sg-color-text-secondary))">--sg-button-fg: var(--sg-on-primary)</code></div></div></div> <div class="subsection"><sg-heading>Convention vs. derivation</sg-heading> <sg-text>Both produce spacing scales. Only one has a reason for every value.</sg-text> <div class="phil-vs-grid svelte-1wnct22"><div class="card"><span class="card-label" style="color: var(--sg-color-danger)">Convention: "multiples of 4"</span> <div class="phil-spacing-bars svelte-1wnct22"></div> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-muted, var(--sg-color-text-secondary)); margin-top: var(--sg-space-3)">Why 24 and not 20? "Because 24 is closer to what we wanted." Post-hoc justification.</p></div> <div class="card"><span class="card-label" style="color: var(--sg-color-success)">Derivation: Weber's Law</span> <div class="phil-spacing-bars svelte-1wnct22"></div> <p style="font-size: var(--sg-text-sm); color: var(--sg-color-text-primary, var(--sg-color-text)); margin-top: var(--sg-space-3)">Small: linear (every pixel matters). Large: geometric (proportional differences dominate).</p></div></div></div></div>`, 2);
 var $$css15 = {
   hash: "svelte-1wnct22",
   code: `.phil-derive-summary.svelte-1wnct22 {display:grid;grid-template-columns:repeat(6, 1fr);gap:var(--sg-gap-related);margin-top:var(--sg-space-5);}.phil-derive-count.svelte-1wnct22 {display:block;font-size:var(--sg-text-xl);font-weight:var(--sg-weight-bold);color:var(--sg-color-text-primary, var(--sg-color-text));letter-spacing:var(--sg-tracking-xl);}.phil-tier-stack.svelte-1wnct22 {display:flex;flex-direction:column;gap:0;}.phil-vs-grid.svelte-1wnct22 {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-grouped);}.phil-spacing-bars.svelte-1wnct22 {display:flex;flex-direction:column;gap:var(--sg-space-1-5);margin-top:var(--sg-space-3);}.phil-spacing-row.svelte-1wnct22 {display:flex;align-items:center;gap:var(--sg-gap-related);}.phil-spacing-row.svelte-1wnct22 code:where(.svelte-1wnct22) {font-size:var(--sg-text-xs);color:var(--sg-color-text-muted, var(--sg-color-text-secondary));min-width:var(--sg-space-8);}.phil-bar-sm.svelte-1wnct22 {height:var(--sg-space-3);border-radius:var(--sg-radius-sm);}
@@ -15209,7 +15236,7 @@ function DerivationPage($$anchor, $$props) {
     { val: 48, regime: "geometric" },
     { val: 64, regime: "geometric" }
   ];
-  var div = root11();
+  var div = root12();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -15404,7 +15431,7 @@ var root_134 = from_html(`<div class="gradient-stop"></div>`);
 var root_144 = from_html(`<span class="gradient-label"> </span>`);
 var root_154 = from_html(`<div class="gradient-stop"></div>`);
 var root_163 = from_html(`<span class="gradient-label"> </span>`);
-var root12 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Brand</span> <div class="palette-brand-indicators"><div class="palette-brand-dot"></div></div></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Mode</span> <sg-toggle-group><button class="sg-toggle" value="light">Light</button> <button class="sg-toggle" value="dark">Dark</button></sg-toggle-group></div> <div class="control-group"><span class="card-label">Gamut</span> <sg-toggle-group><button class="sg-toggle" value="srgb">sRGB</button> <button class="sg-toggle" value="p3">P3</button></sg-toggle-group></div></div> <div class="controls"><div class="control-group"><span class="card-label">Format</span> <sg-toggle-group><button class="sg-toggle" value="hex">Hex</button> <button class="sg-toggle" value="oklch">OKLCH</button> <button class="sg-toggle" value="rgb">RGB</button> <button class="sg-toggle" value="hsl">HSL</button></sg-toggle-group></div> <div class="control-group"><span class="card-label">Hue Blend</span> <input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Options</span> <div style="display: flex; gap: var(--sg-space-3)"><input class="sg-checkbox" type="checkbox"/> <input class="sg-checkbox" type="checkbox"/> <input class="sg-checkbox" type="checkbox"/></div></div></div> <!> <!> <div class="dataviz-divider svelte-pj9hbw"></div> <div class="section-header"><sg-heading>Data Visualization Scales</sg-heading> <sg-text>Perceptually uniform color scales for charts and maps. Categorical palettes derive from your primary brand hue with equally-spaced hues at consistent lightness and chroma.</sg-text></div> <div class="subsection"><sg-heading>Categorical Palette</sg-heading> <sg-text>12 equally-spaced hues (30° apart) starting from the primary brand color, all at L=0.55 with chroma clamped to 0.08–0.15 for perceptual uniformity.</sg-text> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="viz-bar-chart svelte-pj9hbw"></div> <div class="viz-legend svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>Sequential Scale</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Start</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">End</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 120px"><input class="sg-slider" type="range"/></div></div> <div class="heatmap-strip svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>Diverging Scale</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Start</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">End</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 120px"><input class="sg-slider" type="range"/></div></div> <div class="heatmap-strip svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>CVD Comparison</sg-heading> <sg-text>Categorical palette through each CVD simulation type.</sg-text> <div class="cvd-comparison-grid svelte-pj9hbw"><div class="cvd-comparison-col"><sg-heading>Normal</sg-heading> <div class="cvd-comparison-strip svelte-pj9hbw"></div></div> <!></div></div> <div class="dataviz-divider svelte-pj9hbw"></div> <div class="section-header"><sg-heading>Gradient Builder</sg-heading> <sg-text>Interpolate between colors in OKLab (Cartesian) or OKLCH (polar) space.
+var root13 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Brand</span> <div class="palette-brand-indicators"><div class="palette-brand-dot"></div></div></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Mode</span> <sg-toggle-group><button class="sg-toggle" value="light">Light</button> <button class="sg-toggle" value="dark">Dark</button></sg-toggle-group></div> <div class="control-group"><span class="card-label">Gamut</span> <sg-toggle-group><button class="sg-toggle" value="srgb">sRGB</button> <button class="sg-toggle" value="p3">P3</button></sg-toggle-group></div></div> <div class="controls"><div class="control-group"><span class="card-label">Format</span> <sg-toggle-group><button class="sg-toggle" value="hex">Hex</button> <button class="sg-toggle" value="oklch">OKLCH</button> <button class="sg-toggle" value="rgb">RGB</button> <button class="sg-toggle" value="hsl">HSL</button></sg-toggle-group></div> <div class="control-group"><span class="card-label">Hue Blend</span> <input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Options</span> <div style="display: flex; gap: var(--sg-space-3)"><input class="sg-checkbox" type="checkbox"/> <input class="sg-checkbox" type="checkbox"/> <input class="sg-checkbox" type="checkbox"/></div></div></div> <!> <!> <div class="dataviz-divider svelte-pj9hbw"></div> <div class="section-header"><sg-heading>Data Visualization Scales</sg-heading> <sg-text>Perceptually uniform color scales for charts and maps. Categorical palettes derive from your primary brand hue with equally-spaced hues at consistent lightness and chroma.</sg-text></div> <div class="subsection"><sg-heading>Categorical Palette</sg-heading> <sg-text>12 equally-spaced hues (30° apart) starting from the primary brand color, all at L=0.55 with chroma clamped to 0.08–0.15 for perceptual uniformity.</sg-text> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="viz-bar-chart svelte-pj9hbw"></div> <div class="viz-legend svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>Sequential Scale</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Start</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">End</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 120px"><input class="sg-slider" type="range"/></div></div> <div class="heatmap-strip svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>Diverging Scale</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Start</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">End</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 120px"><input class="sg-slider" type="range"/></div></div> <div class="heatmap-strip svelte-pj9hbw"></div></div> <div class="subsection"><sg-heading>CVD Comparison</sg-heading> <sg-text>Categorical palette through each CVD simulation type.</sg-text> <div class="cvd-comparison-grid svelte-pj9hbw"><div class="cvd-comparison-col"><sg-heading>Normal</sg-heading> <div class="cvd-comparison-strip svelte-pj9hbw"></div></div> <!></div></div> <div class="dataviz-divider svelte-pj9hbw"></div> <div class="section-header"><sg-heading>Gradient Builder</sg-heading> <sg-text>Interpolate between colors in OKLab (Cartesian) or OKLCH (polar) space.
         OKLab avoids hue shifts; OKLCH travels through the color wheel.</sg-text></div> <div class="controls"><div class="control-group"><span class="card-label">Start</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">End</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 120px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Space</span> <sg-toggle-group><button class="sg-toggle" value="oklab">OKLab</button> <button class="sg-toggle" value="oklch">OKLCH</button></sg-toggle-group></div></div> <div class="card-label" style="margin-bottom: var(--sg-space-1)"> </div> <div class="gradient-strip"></div> <div class="gradient-labels"></div> <div style="margin-top: var(--sg-space-6)"><div class="card-label" style="margin-bottom: var(--sg-space-1)"> </div> <div class="gradient-strip"></div> <div class="gradient-labels"></div></div></sg-section>`, 2);
 var $$css16 = {
   hash: "svelte-pj9hbw",
@@ -15546,7 +15573,7 @@ function PaletteSection($$anchor, $$props) {
       return [];
     }
   });
-  var sg_section = root12();
+  var sg_section = root13();
   set_custom_element_data(sg_section, "id", "palette");
   set_custom_element_data(sg_section, "title", "Palette Generator");
   set_custom_element_data(sg_section, "description", "Generate complete shade ramps from your brand colors. Each stop is calibrated to hit specific APCA contrast targets.");
@@ -16283,7 +16310,7 @@ var root_1210 = from_html(`<div class="dataviz-swatch svelte-3gb456"><span class
 var root_135 = from_html(`<div class="overlay-swatch svelte-3gb456"><span class="overlay-step-num svelte-3gb456"> </span></div>`);
 var root_145 = from_html(`<div class="overlay-swatch svelte-3gb456"><span class="overlay-step-num svelte-3gb456"> </span></div>`);
 var root_315 = from_html(`<div class="harmony-preview svelte-3gb456"><span class="card-label">Harmony Hues</span> <div class="hue-dots svelte-3gb456"></div></div> <div class="theme-palettes svelte-3gb456"></div> <div class="roles-section svelte-3gb456"><span class="card-label">Semantic Roles</span> <sg-card><sg-stack><sg-stack><sg-text>Core</sg-text> <sg-stack></sg-stack></sg-stack> <sg-stack><sg-text>Status</sg-text> <sg-stack></sg-stack></sg-stack> <sg-stack><sg-text>Text</sg-text> <sg-stack><sg-heading>Title</sg-heading> <sg-text>Subtitle</sg-text> <sg-text>Body text</sg-text> <sg-text>Secondary text</sg-text> <sg-text>Muted text</sg-text> <sg-text>Emphasis</sg-text> <sg-text><a class="sg-link" href="#full-palette-generator" data-underline="always">Link</a> <span style="margin: 0 var(--sg-space-2)">&middot;</span> <a class="sg-link" href="#full-palette-generator" data-underline="always">Visited</a></sg-text></sg-stack></sg-stack> <sg-stack><sg-text>Surfaces</sg-text> <sg-stack><sg-badge>Surface</sg-badge> <sg-badge>Surface Alt</sg-badge> <sg-badge>Shadow</sg-badge></sg-stack></sg-stack> <sg-stack><sg-text>Code</sg-text> <div class="code-preview svelte-3gb456"><code class="sg-code" style="background: transparent; color: inherit">const theme = generateFullPalette(hex);</code></div></sg-stack> <sg-stack><sg-text>Interaction States</sg-text> <sg-stack></sg-stack></sg-stack> <sg-stack><sg-text>Data Visualization</sg-text> <div class="dataviz-strip svelte-3gb456"></div> <sg-text>12 equally-spaced hues (30&deg; apart) from primary &middot; L=0.55 &middot; chroma 0.08&ndash;0.15</sg-text></sg-stack></sg-stack></sg-card></div> <div class="overlay-section svelte-3gb456"><span class="card-label">Overlay Scales</span> <sg-stack><sg-stack><sg-text>BlackAlpha</sg-text> <div class="overlay-ramp svelte-3gb456"></div></sg-stack> <sg-stack><sg-text>WhiteAlpha</sg-text> <div class="overlay-ramp overlay-ramp-dark svelte-3gb456"></div></sg-stack></sg-stack></div> <div class="export-panel svelte-3gb456"><span class="card-label">Export</span> <sg-button-group><button class="sg-button" data-color="ghost">Copy CSS</button> <button class="sg-button" data-color="ghost">Copy JSON</button> <button class="sg-button" data-color="ghost">Copy TypeScript</button></sg-button-group></div>`, 3);
-var root13 = from_html(`<sg-section><div class="controls"><sg-field><sg-color-picker></sg-color-picker></sg-field> <sg-field><sg-toggle-group></sg-toggle-group></sg-field> <sg-field><sg-toggle-group><button class="sg-toggle" value="light">Light</button> <button class="sg-toggle" value="dark">Dark</button></sg-toggle-group></sg-field> <sg-field><sg-color-picker></sg-color-picker></sg-field></div> <!> <!></sg-section>`, 2);
+var root14 = from_html(`<sg-section><div class="controls"><sg-field><sg-color-picker></sg-color-picker></sg-field> <sg-field><sg-toggle-group></sg-toggle-group></sg-field> <sg-field><sg-toggle-group><button class="sg-toggle" value="light">Light</button> <button class="sg-toggle" value="dark">Dark</button></sg-toggle-group></sg-field> <sg-field><sg-color-picker></sg-color-picker></sg-field></div> <!> <!></sg-section>`, 2);
 var $$css17 = {
   hash: "svelte-3gb456",
   code: ".harmony-preview.svelte-3gb456 {margin-top:var(--sg-space-6);}.hue-dots.svelte-3gb456 {display:flex;gap:var(--sg-space-3);margin-top:var(--sg-space-2);flex-wrap:wrap;}.hue-dot.svelte-3gb456 {width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,0.15);}.hue-label.svelte-3gb456 {font-size:var(--sg-text-xs);font-weight:var(--sg-weight-semibold);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,0.5);}.theme-palettes.svelte-3gb456 {margin-top:var(--sg-space-8);display:flex;flex-direction:column;gap:var(--sg-space-3);}.roles-section.svelte-3gb456 {margin-top:var(--sg-space-8);}.code-preview.svelte-3gb456 {padding:var(--sg-pad-button-y, 0.75rem) var(--sg-pad-button-x, 1rem);border-radius:8px;font-family:var(--sg-font-mono);font-size:var(--sg-text-sm);}.dataviz-strip.svelte-3gb456 {display:flex;gap:var(--sg-gap-micro);border-radius:8px;overflow:hidden;}.dataviz-swatch.svelte-3gb456 {flex:1;height:40px;display:flex;align-items:center;justify-content:center;}.dataviz-label.svelte-3gb456 {font-size:var(--sg-text-2xs);font-weight:600;}.overlay-section.svelte-3gb456 {margin-top:var(--sg-space-8);}.overlay-ramp.svelte-3gb456 {display:flex;gap:var(--sg-gap-micro);background:#ffffff;padding:var(--sg-space-1);border-radius:8px;border:var(--sg-border-thin) solid rgba(128, 128, 128, 0.2);}.overlay-ramp-dark.svelte-3gb456 {background:#000000;}.overlay-swatch.svelte-3gb456 {flex:1;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;min-width:0;}.overlay-step-num.svelte-3gb456 {font-size:var(--sg-text-2xs);font-weight:600;color:rgba(128, 128, 128, 0.6);}.export-panel.svelte-3gb456 {margin-top:var(--sg-space-8);}"
@@ -16423,7 +16450,7 @@ function FullPaletteGeneratorSection($$anchor, $$props) {
     navigator.clipboard.writeText(text2);
     toast.add(`Copied ${format.toUpperCase()}`);
   }
-  var sg_section = root13();
+  var sg_section = root14();
   set_custom_element_data(sg_section, "id", "full-palette-generator");
   set_custom_element_data(sg_section, "title", "Full Palette Generator");
   set_custom_element_data(sg_section, "description", "Pick a primary color and harmony mode to auto-generate a complete design system palette.");
@@ -16936,9 +16963,9 @@ function FullPaletteGeneratorSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/color/PalettePage.svelte
-var root14 = from_html(`<div class="page"><div class="page-header"><sg-heading>Palette Generator</sg-heading> <sg-text>Generate APCA-calibrated shade ramps, complete color themes from harmony rules, data visualization scales, and gradients – all from a single hex color.</sg-text></div> <!> <!></div>`, 2);
+var root15 = from_html(`<div class="page"><div class="page-header"><sg-heading>Palette Generator</sg-heading> <sg-text>Generate APCA-calibrated shade ramps, complete color themes from harmony rules, data visualization scales, and gradients – all from a single hex color.</sg-text></div> <!> <!></div>`, 2);
 function PalettePage($$anchor, $$props) {
-  var div = root14();
+  var div = root15();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -16961,7 +16988,7 @@ function PalettePage($$anchor, $$props) {
 // website/src/sections/ManipulateSection.svelte
 var root_131 = from_html(`<div><span>Result</span> <span> </span></div>`);
 var root_217 = from_html(`<div class="oklch-info"><div class="info-item"><div class="info-label">Lightness</div> <div class="info-value"> </div></div> <div class="info-item"><div class="info-label">Chroma</div> <div class="info-value"> </div></div> <div class="info-item"><div class="info-label">Hue</div> <div class="info-value"> </div></div></div>`);
-var root15 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Source Color</span> <sg-color-picker></sg-color-picker></div> <button class="sg-button">Reset</button></div> <div class="manip-layout"><div class="manip-sliders"><input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/></div> <div><div class="manip-preview"><div><span>Original</span> <span> </span></div> <!></div> <!></div></div></sg-section>`, 2);
+var root16 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Source Color</span> <sg-color-picker></sg-color-picker></div> <button class="sg-button">Reset</button></div> <div class="manip-layout"><div class="manip-sliders"><input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/> <input class="sg-slider" type="range"/></div> <div><div class="manip-preview"><div><span>Original</span> <span> </span></div> <!></div> <!></div></div></sg-section>`, 2);
 function ManipulateSection($$anchor, $$props) {
   push($$props, true);
   const toast = getToastContext();
@@ -16996,7 +17023,7 @@ function ManipulateSection($$anchor, $$props) {
     set(manipDesaturate, 0);
     set(manipHue, 0);
   }
-  var sg_section = root15();
+  var sg_section = root16();
   set_custom_element_data(sg_section, "id", "manipulate");
   set_custom_element_data(sg_section, "title", "Color Manipulation");
   set_custom_element_data(sg_section, "description", "Lighten, darken, saturate, desaturate, and shift hue - all in perceptually uniform OKLCH space.");
@@ -17237,7 +17264,7 @@ var root_316 = from_html(`<div class="overlay-stop svelte-ezwoda"></div>`);
 var root_415 = from_html(`<span class="overlay-label svelte-ezwoda"> </span>`);
 var root_510 = from_html(`<div class="overlay-stop svelte-ezwoda"></div>`);
 var root_613 = from_html(`<span class="overlay-label svelte-ezwoda"> </span>`);
-var root16 = from_html(`<sg-section>Pre-compute sRGBA values that composite correctly over a known background.
+var root17 = from_html(`<sg-section>Pre-compute sRGBA values that composite correctly over a known background.
   CSS alpha compositing happens in sRGB, not OKLCH &mdash; these utilities back-solve for the exact RGBA
   that reproduces the target color when layered over the background. <sg-heading>Alpha Equivalents</sg-heading> <sg-text>Given a foreground and background, compute the RGBA color at each alpha stop
       that produces the same perceived result when composited.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Foreground</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div></div> <div class="alpha-target svelte-ezwoda"><div class="alpha-target-label card-label svelte-ezwoda">Target (opaque)</div> <div><span> </span></div></div> <div class="alpha-grid svelte-ezwoda"></div> <sg-heading>Overlay Scales</sg-heading> <sg-text>12-step perceptually uniform opacity scales for black and white overlays,
@@ -17267,7 +17294,7 @@ function AlphaBlendingSection($$anchor, $$props) {
     navigator.clipboard.writeText(css);
     toast.add(`Copied ${css}`);
   }
-  var sg_section = root16();
+  var sg_section = root17();
   set_custom_element_data(sg_section, "id", "alpha-blending");
   set_custom_element_data(sg_section, "title", "Alpha Blending");
   var sg_heading = sibling(child(sg_section));
@@ -17441,9 +17468,9 @@ function AlphaBlendingSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/color/ManipulatePage.svelte
-var root17 = from_html(`<div class="page"><div class="page-header"><sg-heading>Color Manipulation</sg-heading> <sg-text>Lighten, darken, saturate, desaturate, and shift hues in OKLCH color space for perceptually accurate results.</sg-text></div> <sg-code-block></sg-code-block> <!> <!></div>`, 2);
+var root18 = from_html(`<div class="page"><div class="page-header"><sg-heading>Color Manipulation</sg-heading> <sg-text>Lighten, darken, saturate, desaturate, and shift hues in OKLCH color space for perceptually accurate results.</sg-text></div> <sg-code-block></sg-code-block> <!> <!></div>`, 2);
 function ManipulatePage($$anchor) {
-  var div = root17();
+  var div = root18();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -17479,7 +17506,7 @@ generateWhiteAlphaScale();  // 12-step white overlay`);
 
 // website/src/sections/ContrastSection.svelte
 var root_138 = from_html(`<div><div class="scores"><div class="score-card"><div class="score-label">APCA Lc</div> <div class="score-value"> </div></div> <div class="score-card"><div class="score-label">WCAG 2 Ratio</div> <div class="score-value"> </div></div></div> <div class="badges"><sg-badge>AA Normal</sg-badge> <sg-badge>AAA Normal</sg-badge> <sg-badge>AA Large</sg-badge> <sg-badge>AAA Large</sg-badge></div></div>`, 2);
-var root18 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Text Color</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div> <button class="sg-button">Swap</button></div> <div class="contrast-layout"><div><div class="contrast-preview"><p class="preview-large">Large Heading</p> <p class="preview-body">The quick brown fox jumps over the lazy dog. This sample text demonstrates how your chosen color pair reads at body size.</p> <p class="preview-small">Small caption text &mdash; 12px / fine print</p></div></div> <!></div></sg-section>`, 2);
+var root19 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Text Color</span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Background</span> <sg-color-picker></sg-color-picker></div> <button class="sg-button">Swap</button></div> <div class="contrast-layout"><div><div class="contrast-preview"><p class="preview-large">Large Heading</p> <p class="preview-body">The quick brown fox jumps over the lazy dog. This sample text demonstrates how your chosen color pair reads at body size.</p> <p class="preview-small">Small caption text &mdash; 12px / fine print</p></div></div> <!></div></sg-section>`, 2);
 function ContrastSection($$anchor, $$props) {
   push($$props, true);
   let contrastText = state("#1e1b4b");
@@ -17498,7 +17525,7 @@ function ContrastSection($$anchor, $$props) {
       return null;
     }
   });
-  var sg_section = root18();
+  var sg_section = root19();
   set_custom_element_data(sg_section, "id", "contrast");
   set_custom_element_data(sg_section, "title", "Contrast Checker");
   set_custom_element_data(sg_section, "description", "Check APCA Lc and WCAG 2.x contrast ratios in real time. Both metrics are computed from perceptual luminance.");
@@ -17618,7 +17645,7 @@ var root_614 = from_html(`<div class="cvd-swatch"></div>`);
 var root_416 = from_html(`<div class="cvd-column"><sg-heading> </sg-heading> <div class="cvd-ramp"></div></div>`, 2);
 var root_139 = from_html(`<div class="cvd-grid"><div class="cvd-column"><sg-heading>Normal Vision</sg-heading> <div class="cvd-ramp"></div></div> <!></div>`, 2);
 var root_711 = from_html(`<p style="color: var(--text-3)">Choose a base color to see CVD simulations.</p>`);
-var root19 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Base Color</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <!></sg-section>`, 2);
+var root20 = from_html(`<sg-section><div class="controls"><div class="control-group"><span class="card-label">Base Color</span> <sg-color-picker></sg-color-picker></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <!></sg-section>`, 2);
 function CvdSection($$anchor, $$props) {
   push($$props, true);
   let cvdBase = state("#6366f1");
@@ -17656,7 +17683,7 @@ function CvdSection($$anchor, $$props) {
     }
     return results;
   });
-  var sg_section = root19();
+  var sg_section = root20();
   set_custom_element_data(sg_section, "id", "cvd");
   set_custom_element_data(sg_section, "title", "Color Vision Deficiency Simulator");
   set_custom_element_data(sg_section, "description", "See how your palette appears to people with protanopia, deuteranopia, and tritanopia using the Machado-Oliveira-Fernandes model.");
@@ -17785,9 +17812,9 @@ function CvdSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/color/AccessibilityPage.svelte
-var root20 = from_html(`<div class="page"><div class="page-header"><sg-heading>Color Accessibility</sg-heading> <sg-text>Contrast checking and color vision deficiency simulation to verify your palette meets accessibility standards.</sg-text></div> <sg-code-block></sg-code-block> <!> <!></div>`, 2);
+var root21 = from_html(`<div class="page"><div class="page-header"><sg-heading>Color Accessibility</sg-heading> <sg-text>Contrast checking and color vision deficiency simulation to verify your palette meets accessibility standards.</sg-text></div> <sg-code-block></sg-code-block> <!> <!></div>`, 2);
 function AccessibilityPage2($$anchor) {
-  var div = root20();
+  var div = root21();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -17849,8 +17876,8 @@ var DEFAULT_CONFIG = {
     leadingBase: 1.2,
     leadingScale: 5.6,
     fluid: true,
-    fluidMinRatio: 1.15,
-    fluidMaxRatio: 1.333,
+    fluidMinRatio: 1.14,
+    fluidMaxRatio: 1.18,
     dyslexiaMode: false,
     opticalSizing: true,
     fontSizeAdjust: null
@@ -18029,6 +18056,40 @@ function resolveMotion(input) {
     reducedMotion: config.reducedMotion ?? "crossfade"
   };
 }
+var MATERIAL_PRESETS = {
+  solid: { surfaceOpacity: 1, surfaceBlur: 0, borderOpacity: 1, overlayBackdropOpacity: 0.5, overlayBackdropBlur: 0 },
+  subtle: { surfaceOpacity: 0.92, surfaceBlur: 4, borderOpacity: 0.6, overlayBackdropOpacity: 0.4, overlayBackdropBlur: 2 },
+  glass: { surfaceOpacity: 0.7, surfaceBlur: 12, borderOpacity: 0.2, overlayBackdropOpacity: 0.35, overlayBackdropBlur: 4 },
+  frost: { surfaceOpacity: 0.5, surfaceBlur: 24, borderOpacity: 0.15, overlayBackdropOpacity: 0.25, overlayBackdropBlur: 8 }
+};
+var MATERIAL_DARK_PRESETS = {
+  solid: { surfaceOpacity: 1, surfaceBlur: 0 },
+  subtle: { surfaceOpacity: 0.88, surfaceBlur: 6 },
+  glass: { surfaceOpacity: 0.55, surfaceBlur: 16 },
+  frost: { surfaceOpacity: 0.4, surfaceBlur: 32 }
+};
+function resolveMaterial(input) {
+  if (!input)
+    return { ...MATERIAL_PRESETS.solid, preset: "solid" };
+  const config = typeof input === "string" ? { preset: input } : input;
+  const preset = config.preset ?? "solid";
+  const base = MATERIAL_PRESETS[preset] ?? MATERIAL_PRESETS.solid;
+  return {
+    surfaceOpacity: config.surfaceOpacity ?? base.surfaceOpacity,
+    surfaceBlur: config.surfaceBlur ?? base.surfaceBlur,
+    borderOpacity: config.borderOpacity ?? base.borderOpacity,
+    overlayBackdropOpacity: config.overlayBackdropOpacity ?? base.overlayBackdropOpacity,
+    overlayBackdropBlur: config.overlayBackdropBlur ?? base.overlayBackdropBlur,
+    preset
+  };
+}
+function resolveMaterialDark(preset, lightMaterial) {
+  const dark = MATERIAL_DARK_PRESETS[preset] ?? MATERIAL_DARK_PRESETS.solid;
+  return {
+    surfaceOpacity: dark.surfaceOpacity,
+    surfaceBlur: dark.surfaceBlur
+  };
+}
 function resolveAppearance(input) {
   return input ?? "auto";
 }
@@ -18046,6 +18107,8 @@ function resolveTheme(config, context) {
   const resolvedDepthResult = resolveDepth(config.depth);
   const resolvedDensity = resolveDensity(config.density);
   const resolvedMotionPreset = resolveMotion(config.motion);
+  const resolvedMaterial = resolveMaterial(config.material);
+  const resolvedMaterialDark = resolveMaterialDark(resolvedMaterial.preset, resolvedMaterial);
   const allPalettes = {};
   const brandPalette = makePalette(config.brand);
   allPalettes["brand"] = brandPalette;
@@ -18261,6 +18324,8 @@ function resolveTheme(config, context) {
     density: { mode: resolvedDensity.mode, factor: resolvedDensity.factor },
     squircle: resolvedShape.squircle,
     depthPreset: resolvedDepthResult.preset,
+    material: resolvedMaterial,
+    materialDark: resolvedMaterialDark,
     adaptive
   };
 }
@@ -18286,7 +18351,7 @@ var root_232 = from_html(`<div class="spacing-row svelte-z4fk9g"><span class="sp
 var root_24 = from_html(`<div class="shadow-card svelte-z4fk9g"><span class="shadow-label svelte-z4fk9g"> </span></div>`);
 var root_252 = from_html(`<div class="radii-card svelte-z4fk9g"><span class="radii-label svelte-z4fk9g"> </span> <span class="radii-value svelte-z4fk9g"> </span></div>`);
 var root_98 = from_html(`<div class="divider svelte-z4fk9g"></div> <div class="section-header svelte-z4fk9g"><sg-heading>Resolved Palettes</sg-heading> <sg-text> </sg-text></div> <div class="palettes-grid svelte-z4fk9g"></div> <div class="section-header svelte-z4fk9g" style="margin-top: var(--sg-space-8)"><sg-heading>Surface Scale</sg-heading> <sg-text> </sg-text></div> <div class="surface-preview svelte-z4fk9g"></div> <!> <div class="section-header svelte-z4fk9g" style="margin-top: var(--sg-space-8)"><sg-heading>Typography Scale</sg-heading> <sg-text> </sg-text></div> <div class="type-scale-preview svelte-z4fk9g"></div> <div class="section-header svelte-z4fk9g" style="margin-top: var(--sg-space-8)"><sg-heading>Spacing Scale</sg-heading> <sg-text> </sg-text></div> <div class="spacing-preview svelte-z4fk9g"></div> <div class="section-header svelte-z4fk9g" style="margin-top: var(--sg-space-8)"><sg-heading>Elevation</sg-heading> <sg-text> </sg-text></div> <div class="elevation-grid svelte-z4fk9g"><sg-stack><sg-text>Shadows</sg-text> <div class="shadow-preview svelte-z4fk9g"></div></sg-stack> <sg-stack><sg-text>Border Radii</sg-text> <div class="radii-preview svelte-z4fk9g"></div></sg-stack></div> <div class="divider svelte-z4fk9g"></div> <div class="export-section svelte-z4fk9g"><sg-heading>Export</sg-heading> <sg-text>Copy your resolved theme as a SiguiConfig or CSS custom properties.</sg-text> <sg-button-group><button class="sg-button svelte-z4fk9g" data-color="ghost">Copy Config</button> <button class="sg-button svelte-z4fk9g" data-color="ghost">Copy CSS</button></sg-button-group> <div style="margin-top: var(--sg-space-4)" class="svelte-z4fk9g"><sg-code-block></sg-code-block></div></div>`, 3);
-var root21 = from_html(`<sg-section>Configure the five aesthetic axes of your design system. Every axis supports both preset strings and fine-grained overrides via <code class="sg-code svelte-z4fk9g">SiguiConfig</code>. <div class="axis-group svelte-z4fk9g"><sg-heading>Color Identity</sg-heading> <div class="controls svelte-z4fk9g"><sg-field><div class="brand-swatch-row svelte-z4fk9g"><div class="brand-swatch svelte-z4fk9g"></div> <code class="sg-code svelte-z4fk9g"> </code></div></sg-field> <sg-field><sg-toggle-group></sg-toggle-group></sg-field> <sg-field><sg-toggle-group><button class="sg-toggle svelte-z4fk9g" value="light">Light</button> <button class="sg-toggle svelte-z4fk9g" value="dark">Dark</button></sg-toggle-group></sg-field> <sg-field><input class="sg-slider svelte-z4fk9g" type="range"/></sg-field></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Shape</sg-heading> <sg-text>Controls border-radius across all components. Squircle variants use superellipse corners.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="shape-preview svelte-z4fk9g"></div> <!></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Depth</sg-heading> <sg-text>Controls shadow intensity. Flat removes all shadows, pronounced adds bold elevation.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="depth-preview svelte-z4fk9g"></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Density</sg-heading> <sg-text>Scales spacing tokens by a density factor. Compact for data-heavy UIs, spacious for reading-focused layouts.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="density-preview svelte-z4fk9g"><div class="density-demo svelte-z4fk9g"><div class="density-row svelte-z4fk9g">Button</div> <div class="density-row svelte-z4fk9g">Input</div> <div class="density-row svelte-z4fk9g">Card</div></div> <div class="density-info svelte-z4fk9g"><sg-text>Factor: <code class="sg-code svelte-z4fk9g"> </code></sg-text> <sg-text>Mode: <code class="sg-code svelte-z4fk9g"> </code></sg-text></div></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Motion</sg-heading> <sg-text>Controls animation duration scaling. Instant disables animations, playful adds bouncier springs.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="motion-preview svelte-z4fk9g"><div class="motion-info-grid svelte-z4fk9g"><div class="motion-stat svelte-z4fk9g"><sg-text>Duration Scale</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text>Default Spring</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text>Reduced Motion</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text> </sg-text> <div class="motion-bar-container svelte-z4fk9g"><div class="motion-bar svelte-z4fk9g"></div></div></div></div></div></div> <!></sg-section>`, 2);
+var root22 = from_html(`<sg-section>Configure the five aesthetic axes of your design system. Every axis supports both preset strings and fine-grained overrides via <code class="sg-code svelte-z4fk9g">SiguiConfig</code>. <div class="axis-group svelte-z4fk9g"><sg-heading>Color Identity</sg-heading> <div class="controls svelte-z4fk9g"><sg-field><div class="brand-swatch-row svelte-z4fk9g"><div class="brand-swatch svelte-z4fk9g"></div> <code class="sg-code svelte-z4fk9g"> </code></div></sg-field> <sg-field><sg-toggle-group></sg-toggle-group></sg-field> <sg-field><sg-toggle-group><button class="sg-toggle svelte-z4fk9g" value="light">Light</button> <button class="sg-toggle svelte-z4fk9g" value="dark">Dark</button></sg-toggle-group></sg-field> <sg-field><input class="sg-slider svelte-z4fk9g" type="range"/></sg-field></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Shape</sg-heading> <sg-text>Controls border-radius across all components. Squircle variants use superellipse corners.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="shape-preview svelte-z4fk9g"></div> <!></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Depth</sg-heading> <sg-text>Controls shadow intensity. Flat removes all shadows, pronounced adds bold elevation.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="depth-preview svelte-z4fk9g"></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Density</sg-heading> <sg-text>Scales spacing tokens by a density factor. Compact for data-heavy UIs, spacious for reading-focused layouts.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="density-preview svelte-z4fk9g"><div class="density-demo svelte-z4fk9g"><div class="density-row svelte-z4fk9g">Button</div> <div class="density-row svelte-z4fk9g">Input</div> <div class="density-row svelte-z4fk9g">Card</div></div> <div class="density-info svelte-z4fk9g"><sg-text>Factor: <code class="sg-code svelte-z4fk9g"> </code></sg-text> <sg-text>Mode: <code class="sg-code svelte-z4fk9g"> </code></sg-text></div></div></div> <div class="axis-group svelte-z4fk9g"><sg-heading>Motion</sg-heading> <sg-text>Controls animation duration scaling. Instant disables animations, playful adds bouncier springs.</sg-text> <div class="controls svelte-z4fk9g"><sg-field><sg-toggle-group></sg-toggle-group></sg-field></div> <div class="motion-preview svelte-z4fk9g"><div class="motion-info-grid svelte-z4fk9g"><div class="motion-stat svelte-z4fk9g"><sg-text>Duration Scale</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text>Default Spring</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text>Reduced Motion</sg-text> <sg-text> </sg-text></div> <div class="motion-stat svelte-z4fk9g"><sg-text> </sg-text> <div class="motion-bar-container svelte-z4fk9g"><div class="motion-bar svelte-z4fk9g"></div></div></div></div></div></div> <!></sg-section>`, 2);
 var $$css19 = {
   hash: "svelte-z4fk9g",
   code: `.axis-group.svelte-z4fk9g {margin-top:var(--sg-space-8);}.divider.svelte-z4fk9g {margin:var(--sg-space-10) 0 var(--sg-space-6);border-top:var(--sg-border-thin) solid var(--border, oklch(0.5 0 0 / 0.2));}.brand-swatch-row.svelte-z4fk9g {display:flex;align-items:center;gap:var(--sg-gap-related);}.brand-swatch.svelte-z4fk9g {width:32px;height:32px;border-radius:var(--sg-radius-sm);border:var(--sg-border-thin) solid oklch(0.5 0 0 / 0.2);}
@@ -18436,6 +18501,18 @@ function ThemeConfigSection($$anchor, $$props) {
       return "";
     return shadeHex(mapping.palette, mapping.shade);
   }
+  function subtleRoleHex(paletteName, mode) {
+    if (!get(resolved))
+      return "";
+    if (mode === "light")
+      return shadeHex(paletteName, 100);
+    const tintHex = shadeHex(paletteName, 500);
+    const surfaceHex = get(resolved).surfaces.dark["bg.tertiary"];
+    if (!tintHex || !surfaceHex)
+      return "";
+    const mixed = interpolateColor(toOklch(surfaceHex), toOklch(tintHex), 0.18);
+    return fromOklch(mixed, "hex");
+  }
   function exportCSS() {
     if (!get(resolved) || !get(roles))
       return "";
@@ -18464,7 +18541,7 @@ function ThemeConfigSection($$anchor, $$props) {
     navigator.clipboard.writeText(text2);
     toast.add(`Copied ${format === "config" ? "TypeScript config" : "CSS"}`);
   }
-  var sg_section = root21();
+  var sg_section = root22();
   set_custom_element_data(sg_section, "id", "theme-config");
   set_custom_element_data(sg_section, "title", "Theme Configuration");
   set_class(sg_section, 1, "svelte-z4fk9g");
@@ -19053,7 +19130,7 @@ function ThemeConfigSection($$anchor, $$props) {
             const mapping = user_derived(() => get(roles)?.[role]);
             const baseHex = user_derived(() => roleToHex(role));
             const interaction = user_derived(() => get(mapping) ? getInteractionShades(get(mapping).shade, get(appearance)) : null);
-            const subtleHex = user_derived(() => get(mapping) && get(interaction) ? shadeHex(get(mapping).palette, get(interaction).subtle) : "");
+            const subtleHex = user_derived(() => get(mapping) ? subtleRoleHex(get(mapping).palette, get(appearance)) : "");
             const hoverHex = user_derived(() => get(mapping) && get(interaction) ? shadeHex(get(mapping).palette, get(interaction).hover) : "");
             const activeHex = user_derived(() => get(mapping) && get(interaction) ? shadeHex(get(mapping).palette, get(interaction).active) : "");
             var sg_stack_9 = root_202();
@@ -19475,9 +19552,9 @@ function ThemeConfigSection($$anchor, $$props) {
 delegate(["input", "click", "change"]);
 
 // website/src/pages/system/ThemeGeneratorPage.svelte
-var root22 = from_html(`<div class="page"><div class="page-header"><sg-heading>Theme Generator</sg-heading> <sg-text>Configure the five aesthetic axes of SigUI – appearance, shape, depth, density, and motion – and preview the fully resolved design system theme in real time.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root23 = from_html(`<div class="page"><div class="page-header"><sg-heading>Theme Generator</sg-heading> <sg-text>Configure the five aesthetic axes of SigUI – appearance, shape, depth, density, and motion – and preview the fully resolved design system theme in real time.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function ThemeGeneratorPage($$anchor, $$props) {
-  var div = root22();
+  var div = root23();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -19536,7 +19613,7 @@ var root_1310 = from_html(`<div class="control-group"><span class="card-label">A
 var root_156 = from_html(`<sg-badge>needs adjust</sg-badge>`, 2);
 var root_164 = from_html(`<sg-badge>ok</sg-badge>`, 2);
 var root_147 = from_html(`<div class="semantic-table-row svelte-1on3v4u"><span style="font-size: var(--sg-text-sm); color: var(--sg-color-text-secondary)"> </span> <code class="token-value"> </code> <span><!></span></div>`);
-var root23 = from_html(`<sg-section><div class="subsection"><sg-heading>Type Scale Generator</sg-heading> <div class="controls"><div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div></div> <div class="type-scale-grid svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Fluid Typography</sg-heading> <sg-text>CSS <code>clamp()</code> expressions that scale smoothly between viewport sizes.</sg-text> <div class="fluid-scale-grid svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Adaptive Line Height</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Computed Line Height</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="line-height-demo svelte-1on3v4u"><p>Typography is the craft of endowing human language with a durable visual form. Good line height ensures comfortable reading by providing adequate vertical space between baselines.</p></div></div> <div class="subsection"><sg-heading>Optimal Line Length (Measure)</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Optimal Measure</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="measure-demo svelte-1on3v4u"><p>This paragraph is constrained to the computed optimal measure. The ideal line length for body text balances reading speed with comfort, typically 45-75 characters per line.</p></div></div> <div class="subsection"><sg-heading>Font Weight System</sg-heading> <div class="weight-chart svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Dark Mode Adjustments</sg-heading> <div class="dark-mode-comparison svelte-1on3v4u"><div class="dark-mode-panel light-panel svelte-1on3v4u"><sg-heading>Light Mode</sg-heading> <p style="font-weight: var(--sg-weight-normal); font-size: var(--sg-text-base); letter-spacing: 0">Regular weight (400), no tracking adjustment. Standard rendering for light backgrounds.</p></div> <div class="dark-mode-panel dark-panel svelte-1on3v4u"><sg-heading>Dark Mode</sg-heading> <p> </p> <div class="dark-adj-details svelte-1on3v4u"><span> </span> <span> </span></div></div></div></div> <div class="subsection"><sg-heading>Semantic Roles</sg-heading> <sg-text>Maps scale steps to semantic roles (display, h1–h4, body, caption) based on their ratio to the body size. Adjust the ratio slider above to see assignments change.</sg-text> <div class="token-table"><div class="semantic-table-header svelte-1on3v4u"><span>Role</span> <span>Step</span> <span>Size</span> <span>Ratio</span></div> <!></div> <!></div> <div class="subsection"><sg-heading>Fluid Max Ratio</sg-heading> <sg-text>Derives a wider-viewport ratio from the modular scale ratio using <code>ratio^1.2</code>. Headings grow proportionally larger on wide screens.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Scale Ratio</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Fluid Max Ratio</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Formula</span> <code class="fluid-clamp svelte-1on3v4u"> </code></div></div> <div class="fluid-comparison svelte-1on3v4u"><div class="fluid-comparison-col svelte-1on3v4u"><sg-heading>Narrow (320px)</sg-heading> <!></div> <div class="fluid-comparison-col svelte-1on3v4u"><sg-heading>Wide (1440px)</sg-heading> <!></div></div></div> <div class="subsection"><sg-heading>Visual Angle / Viewing Distance</sg-heading> <sg-text>Computes optimal body font size from viewing distance and screen PPI using the minimum comfortable visual angle (K = 0.005 rad).</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Device</span> <sg-toggle-group></sg-toggle-group></div></div> <!> <div class="visual-angle-result svelte-1on3v4u"><div class="control-group"><span class="card-label">Computed Body Size</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Nearest Scale Step</span> <sg-badge> </sg-badge></div> <!></div></div> <div class="subsection"><sg-heading>Vertical Rhythm</sg-heading> <sg-text>Prose spacing tokens on a 4px grid, plus heading margins for consistent vertical rhythm.</sg-text> <div class="spacing-bars"></div> <div class="heading-spacing-preview" style="margin-top: var(--sg-space-4)"><div class="control-group"><span class="card-label">Heading Spacing</span> <span class="info-value"> </span></div></div></div> <div class="subsection"><sg-heading>Dyslexia Mode & X-Height</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Dyslexia Mode</span> <sg-toggle-group><button class="sg-toggle" value="off">Off</button> <button class="sg-toggle" value="on">On</button></sg-toggle-group></div> <!></div> <div class="dark-mode-comparison svelte-1on3v4u" style="margin-top: var(--sg-space-4)"><div class="dark-mode-panel svelte-1on3v4u" style="background: var(--surface)"><sg-heading>Standard</sg-heading> <p>Typography is the craft of endowing human language with a durable visual form. Good spacing ensures comfortable reading for all users.</p></div> <div class="dark-mode-panel svelte-1on3v4u" style="background: var(--surface)"><sg-heading>Dyslexia Mode</sg-heading> <p>Typography is the craft of endowing human language with a durable visual form. Good spacing ensures comfortable reading for all users.</p></div></div> <sg-heading>Font X-Height Ratios</sg-heading> <div class="token-table"><div class="semantic-table-header svelte-1on3v4u"><span>Font</span> <span>Ratio</span> <span>Normalize?</span></div> <!></div> <div style="margin-top: var(--sg-space-3)"><span class="card-label">font-size-adjust value:</span> <code style="margin-left: var(--sg-space-2); color: var(--sg-color-link)"> </code></div></div></sg-section>`, 2);
+var root24 = from_html(`<sg-section><div class="subsection"><sg-heading>Type Scale Generator</sg-heading> <div class="controls"><div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div></div> <div class="type-scale-grid svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Fluid Typography</sg-heading> <sg-text>CSS <code>clamp()</code> expressions that scale smoothly between viewport sizes.</sg-text> <div class="fluid-scale-grid svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Adaptive Line Height</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Computed Line Height</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="line-height-demo svelte-1on3v4u"><p>Typography is the craft of endowing human language with a durable visual form. Good line height ensures comfortable reading by providing adequate vertical space between baselines.</p></div></div> <div class="subsection"><sg-heading>Optimal Line Length (Measure)</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Optimal Measure</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="measure-demo svelte-1on3v4u"><p>This paragraph is constrained to the computed optimal measure. The ideal line length for body text balances reading speed with comfort, typically 45-75 characters per line.</p></div></div> <div class="subsection"><sg-heading>Font Weight System</sg-heading> <div class="weight-chart svelte-1on3v4u"></div></div> <div class="subsection"><sg-heading>Dark Mode Adjustments</sg-heading> <div class="dark-mode-comparison svelte-1on3v4u"><div class="dark-mode-panel light-panel svelte-1on3v4u"><sg-heading>Light Mode</sg-heading> <p style="font-weight: var(--sg-weight-normal); font-size: var(--sg-text-base); letter-spacing: 0">Regular weight (400), no tracking adjustment. Standard rendering for light backgrounds.</p></div> <div class="dark-mode-panel dark-panel svelte-1on3v4u"><sg-heading>Dark Mode</sg-heading> <p> </p> <div class="dark-adj-details svelte-1on3v4u"><span> </span> <span> </span></div></div></div></div> <div class="subsection"><sg-heading>Semantic Roles</sg-heading> <sg-text>Maps scale steps to semantic roles (display, h1–h4, body, caption) based on their ratio to the body size. Adjust the ratio slider above to see assignments change.</sg-text> <div class="token-table"><div class="semantic-table-header svelte-1on3v4u"><span>Role</span> <span>Step</span> <span>Size</span> <span>Ratio</span></div> <!></div> <!></div> <div class="subsection"><sg-heading>Fluid Max Ratio</sg-heading> <sg-text>Derives a wider-viewport ratio from the modular scale ratio using <code>ratio^1.2</code>. Headings grow proportionally larger on wide screens.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Scale Ratio</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Fluid Max Ratio</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Formula</span> <code class="fluid-clamp svelte-1on3v4u"> </code></div></div> <div class="fluid-comparison svelte-1on3v4u"><div class="fluid-comparison-col svelte-1on3v4u"><sg-heading>Narrow (320px)</sg-heading> <!></div> <div class="fluid-comparison-col svelte-1on3v4u"><sg-heading>Wide (1440px)</sg-heading> <!></div></div></div> <div class="subsection"><sg-heading>Visual Angle / Viewing Distance</sg-heading> <sg-text>Computes optimal body font size from viewing distance and screen PPI using the minimum comfortable visual angle (K = 0.005 rad).</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Device</span> <sg-toggle-group></sg-toggle-group></div></div> <!> <div class="visual-angle-result svelte-1on3v4u"><div class="control-group"><span class="card-label">Computed Body Size</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div> <div class="control-group"><span class="card-label">Nearest Scale Step</span> <sg-badge> </sg-badge></div> <!></div></div> <div class="subsection"><sg-heading>Vertical Rhythm</sg-heading> <sg-text>Prose spacing tokens on a 4px grid, plus heading margins for consistent vertical rhythm.</sg-text> <div class="spacing-bars"></div> <div class="heading-spacing-preview" style="margin-top: var(--sg-space-4)"><div class="control-group"><span class="card-label">Heading Spacing</span> <span class="info-value"> </span></div></div></div> <div class="subsection"><sg-heading>Dyslexia Mode & X-Height</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Dyslexia Mode</span> <sg-toggle-group><button class="sg-toggle" value="off">Off</button> <button class="sg-toggle" value="on">On</button></sg-toggle-group></div> <!></div> <div class="dark-mode-comparison svelte-1on3v4u" style="margin-top: var(--sg-space-4)"><div class="dark-mode-panel svelte-1on3v4u" style="background: var(--surface)"><sg-heading>Standard</sg-heading> <p>Typography is the craft of endowing human language with a durable visual form. Good spacing ensures comfortable reading for all users.</p></div> <div class="dark-mode-panel svelte-1on3v4u" style="background: var(--surface)"><sg-heading>Dyslexia Mode</sg-heading> <p>Typography is the craft of endowing human language with a durable visual form. Good spacing ensures comfortable reading for all users.</p></div></div> <sg-heading>Font X-Height Ratios</sg-heading> <div class="token-table"><div class="semantic-table-header svelte-1on3v4u"><span>Font</span> <span>Ratio</span> <span>Normalize?</span></div> <!></div> <div style="margin-top: var(--sg-space-3)"><span class="card-label">font-size-adjust value:</span> <code style="margin-left: var(--sg-space-2); color: var(--sg-color-link)"> </code></div></div></sg-section>`, 2);
 var $$css20 = {
   hash: "svelte-1on3v4u",
   code: ".type-scale-grid.svelte-1on3v4u {display:flex;flex-direction:column;gap:var(--sg-gap-tight);}.type-scale-row.svelte-1on3v4u {display:grid;grid-template-columns:60px 150px 1fr;align-items:baseline;gap:var(--sg-gap-grouped);padding:var(--sg-space-2) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.type-scale-label.svelte-1on3v4u {font-size:var(--sg-text-xs);font-weight:var(--sg-weight-bold);color:var(--text-3);font-family:var(--sg-font-mono);}.type-scale-value.svelte-1on3v4u {font-size:var(--sg-text-xs);color:var(--text-3);font-family:var(--sg-font-mono);}.type-scale-sample.svelte-1on3v4u {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.fluid-scale-grid.svelte-1on3v4u {display:flex;flex-direction:column;gap:var(--sg-gap-tight);}.fluid-scale-row.svelte-1on3v4u {display:grid;grid-template-columns:60px 1fr;align-items:center;gap:var(--sg-gap-grouped);padding:var(--sg-space-1-5) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.fluid-clamp.svelte-1on3v4u {font-size:var(--sg-text-xs);color:var(--sg-color-text-secondary);word-break:break-all;}.line-height-demo.svelte-1on3v4u {background:var(--surface);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--radius-sm);padding:var(--sg-pad-card, 1.5rem);color:var(--sg-color-text-secondary);}.measure-demo.svelte-1on3v4u {background:var(--surface);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--radius-sm);padding:var(--sg-pad-card, 1.5rem);color:var(--sg-color-text-secondary);margin:0 auto;}.weight-chart.svelte-1on3v4u {display:flex;flex-direction:column;gap:var(--sg-gap-tight);}.weight-row.svelte-1on3v4u {display:grid;grid-template-columns:120px 60px 1fr;align-items:baseline;gap:var(--sg-gap-grouped);padding:var(--sg-space-2) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.weight-name.svelte-1on3v4u {font-size:var(--sg-text-sm);color:var(--sg-color-text-secondary);}.weight-value.svelte-1on3v4u {font-size:var(--sg-text-xs);color:var(--text-3);font-family:var(--sg-font-mono);}.weight-sample.svelte-1on3v4u {font-size:var(--sg-text-lg);}.dark-mode-comparison.svelte-1on3v4u {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-grouped);}.dark-mode-panel.svelte-1on3v4u {border-radius:var(--radius-sm);padding:var(--sg-pad-card, 1.5rem);border:var(--sg-border-thin) solid var(--sg-color-border);}.light-panel.svelte-1on3v4u {background:#f8f8f8;color:#1a1a1a;}.dark-panel.svelte-1on3v4u {background:var(--surface);color:var(--sg-color-text);}.dark-adj-details.svelte-1on3v4u {margin-top:var(--sg-space-3);display:flex;gap:var(--sg-gap-grouped);font-size:var(--sg-text-xs);color:var(--text-3);font-family:var(--sg-font-mono);}.semantic-table-header.svelte-1on3v4u {display:grid;grid-template-columns:120px 80px 80px 80px;gap:var(--sg-gap-grouped);padding:var(--sg-space-2) 0;border-bottom:var(--sg-border-medium) solid var(--sg-color-border);font-weight:var(--sg-weight-semibold);color:var(--text-3);font-size:var(--sg-text-xs);text-transform:uppercase;letter-spacing:var(--sg-tracking-caps);}.semantic-table-row.svelte-1on3v4u {display:grid;grid-template-columns:120px 80px 80px 80px;gap:var(--sg-gap-grouped);padding:var(--sg-space-1-5) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);align-items:center;}.semantic-role.svelte-1on3v4u {font-size:var(--sg-text-xs);font-weight:var(--sg-weight-semibold);font-family:var(--sg-font-mono);}.semantic-role-display.svelte-1on3v4u {color:var(--sg-color-link);}.semantic-role-heading.svelte-1on3v4u {color:var(--sg-color-text);}.semantic-role-body.svelte-1on3v4u {color:var(--text-3);}.semantic-gaps.svelte-1on3v4u {margin-top:var(--sg-space-3);display:flex;align-items:center;gap:var(--sg-space-3);}.semantic-gap-badges.svelte-1on3v4u {display:flex;gap:var(--sg-gap-related);flex-wrap:wrap;}.gap-badge.svelte-1on3v4u {background:oklch(from var(--sg-color-link) l c h / 0.1);color:var(--text-3);font-size:var(--sg-text-xs);padding:var(--sg-space-0-5) var(--sg-space-2);border-radius:var(--sg-radius-sm);}.fluid-comparison.svelte-1on3v4u {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-grouped);margin-top:var(--sg-space-4);}.fluid-comparison-col.svelte-1on3v4u {background:var(--surface);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--radius-sm);padding:var(--sg-space-4);}.fluid-compare-row.svelte-1on3v4u {display:grid;grid-template-columns:50px 100px 1fr;align-items:baseline;gap:var(--sg-space-3);padding:var(--sg-space-1) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);}.visual-angle-result.svelte-1on3v4u {display:flex;gap:var(--sg-space-6);margin-top:var(--sg-space-4);flex-wrap:wrap;}\n\n@media (max-width: 768px) {.type-scale-row.svelte-1on3v4u {grid-template-columns:50px 100px 1fr;gap:var(--sg-gap-related);}.dark-mode-comparison.svelte-1on3v4u {grid-template-columns:1fr;}.fluid-comparison.svelte-1on3v4u {grid-template-columns:1fr;}.semantic-table-header.svelte-1on3v4u,\n  .semantic-table-row.svelte-1on3v4u {grid-template-columns:100px 60px 70px 60px;gap:var(--sg-gap-related);}\n}"
@@ -19594,7 +19671,7 @@ function TypographySection($$anchor, $$props) {
   let baseLH = user_derived(() => computeLineHeight(1).ratio);
   let dyslexiaLH = user_derived(() => applyDyslexiaLineHeight(get(baseLH)));
   let fontEntries = Object.entries(FONT_X_HEIGHT_RATIOS);
-  var sg_section = root23();
+  var sg_section = root24();
   set_custom_element_data(sg_section, "id", "typography");
   set_custom_element_data(sg_section, "title", "Typography System");
   set_custom_element_data(sg_section, "description", "Modular type scale, fluid sizing, adaptive line height, and optical weight adjustments - all derived from psychophysical research.");
@@ -20288,9 +20365,9 @@ function TypographySection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/system/TypographyPage.svelte
-var root24 = from_html(`<div class="page"><div class="page-header"><sg-heading>Typography</sg-heading> <sg-text>Type scales, fluid sizing with clamp(), line height ratios, optimal measure, font weights, dark mode adjustments, semantic roles, viewing angle, vertical rhythm, and dyslexia mode.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root25 = from_html(`<div class="page"><div class="page-header"><sg-heading>Typography</sg-heading> <sg-text>Type scales, fluid sizing with clamp(), line height ratios, optimal measure, font weights, dark mode adjustments, semantic roles, viewing angle, vertical rhythm, and dyslexia mode.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function TypographyPage($$anchor) {
-  var div = root24();
+  var div = root25();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -20333,7 +20410,7 @@ var root_165 = from_html(`<div class="fs-preview svelte-13uup1q"><div class="fs-
 var root_174 = from_html(`<button class="sg-toggle"> </button>`);
 var root_183 = from_html(`<sg-badge>clamped to 44px touch target</sg-badge>`, 2);
 var root_194 = from_html(`<sg-badge>exceeds touch target</sg-badge>`, 2);
-var root25 = from_html(`<sg-section><div class="subsection"><sg-heading>Spacing Scale</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="spacing-bars svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Semantic Spacing Tokens</sg-heading> <div class="token-table svelte-13uup1q"><div class="token-table-header svelte-13uup1q"><span>Token</span> <span>Scale Key</span> <span>Value</span></div> <!></div></div> <div class="subsection"><sg-heading>Touch Targets</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Pointer Type</span> <sg-toggle-group><button class="sg-toggle" value="touch">touch</button> <button class="sg-toggle" value="pointer">pointer</button></sg-toggle-group></div></div> <div class="touch-target-demo svelte-13uup1q"><div class="touch-target-box svelte-13uup1q"> </div> <div class="touch-target-info svelte-13uup1q"><sg-badge> </sg-badge> <span class="info-value"> </span></div></div> <div class="hit-area-expansion svelte-13uup1q"><sg-heading>Hit Area Expansion</sg-heading> <sg-text> </sg-text> <div class="controls" style="margin-top: var(--sg-space-3)"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="hit-area-demo svelte-13uup1q"><div class="hit-area-outer svelte-13uup1q"><div class="hit-area-inner svelte-13uup1q"> </div></div> <div class="touch-target-info svelte-13uup1q"><span class="info-value"> </span> <span class="info-value"> </span> <span class="info-value"> </span> <!></div></div></div></div> <div class="subsection"><sg-heading>Fitts's Law Calculator</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Predicted Time</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="fitts-visual svelte-13uup1q"><div class="fitts-start svelte-13uup1q"></div> <div class="fitts-distance svelte-13uup1q"></div> <div class="fitts-target svelte-13uup1q"></div></div></div> <div class="subsection"><sg-heading>Density Modes</sg-heading> <div class="density-grid svelte-13uup1q"></div> <div class="context-scale-section svelte-13uup1q"><sg-heading>Context Scale Factors</sg-heading> <sg-text>Spacing tokens scale multiplicatively with typographic context. Smaller text contexts compress spacing; larger contexts expand it.</sg-text> <div class="context-scale-grid svelte-13uup1q"></div></div> <div class="density-exempt-section svelte-13uup1q"><sg-heading>Density-Exempt Components</sg-heading> <sg-text>These components always render at comfortable density to preserve readability and accessibility.</sg-text> <div class="exempt-list svelte-13uup1q"></div></div></div> <div class="subsection"><sg-heading>Fluid Spacing</sg-heading> <sg-text>CSS clamp() expressions for continuous spacing scaling between viewports. Min values use compact density (0.75x), max values use spacious density (1.25x).</sg-text> <div class="fluid-spacing-table svelte-13uup1q"><div class="fluid-spacing-header svelte-13uup1q"><span>Token</span> <span>clamp() Expression</span></div> <!></div></div> <div class="subsection"><sg-heading>Breakpoints</sg-heading> <div class="breakpoint-ruler svelte-13uup1q"></div> <div class="breakpoint-queries svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Layout Grid</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Breakpoint</span> <sg-toggle-group><button class="sg-toggle" value="sm">sm</button> <button class="sg-toggle" value="md">md</button> <button class="sg-toggle" value="lg">lg</button> <button class="sg-toggle" value="xl">xl</button> <button class="sg-toggle" value="2xl">2xl</button></sg-toggle-group></div></div> <div class="grid-info svelte-13uup1q"><span> </span> <span> </span> <span> </span></div> <div class="grid-demo svelte-13uup1q" style="gap: 8px; padding: 0 12px"></div></div> <div class="subsection"><sg-heading>Relationship Spacing</sg-heading> <sg-text>Context-aware spacing using the Gestalt Law of Proximity. Stronger logical connections use tighter spacing.</sg-text> <div class="relationship-grid svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Content Spacing</sg-heading> <sg-text>Derives paragraph and heading spacing from body line-height, snapped to a 4px grid.</sg-text> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="content-spacing-blocks svelte-13uup1q"><div class="content-spacing-item svelte-13uup1q"><span class="card-label">Paragraph Spacing</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-text-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-text-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div> <div class="content-spacing-item svelte-13uup1q"><span class="card-label">Heading Top</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-text-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-heading-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div> <div class="content-spacing-item svelte-13uup1q"><span class="card-label">Heading Bottom</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-heading-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-text-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div></div></div> <div class="subsection"><sg-heading>Font Spacing Subsets</sg-heading> <sg-text>Per-step spacing records replace scalar context multipliers. Each property scales at its own rate,
+var root26 = from_html(`<sg-section><div class="subsection"><sg-heading>Spacing Scale</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="spacing-bars svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Semantic Spacing Tokens</sg-heading> <div class="token-table svelte-13uup1q"><div class="token-table-header svelte-13uup1q"><span>Token</span> <span>Scale Key</span> <span>Value</span></div> <!></div></div> <div class="subsection"><sg-heading>Touch Targets</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Pointer Type</span> <sg-toggle-group><button class="sg-toggle" value="touch">touch</button> <button class="sg-toggle" value="pointer">pointer</button></sg-toggle-group></div></div> <div class="touch-target-demo svelte-13uup1q"><div class="touch-target-box svelte-13uup1q"> </div> <div class="touch-target-info svelte-13uup1q"><sg-badge> </sg-badge> <span class="info-value"> </span></div></div> <div class="hit-area-expansion svelte-13uup1q"><sg-heading>Hit Area Expansion</sg-heading> <sg-text> </sg-text> <div class="controls" style="margin-top: var(--sg-space-3)"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="hit-area-demo svelte-13uup1q"><div class="hit-area-outer svelte-13uup1q"><div class="hit-area-inner svelte-13uup1q"> </div></div> <div class="touch-target-info svelte-13uup1q"><span class="info-value"> </span> <span class="info-value"> </span> <span class="info-value"> </span> <!></div></div></div></div> <div class="subsection"><sg-heading>Fitts's Law Calculator</sg-heading> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Predicted Time</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="fitts-visual svelte-13uup1q"><div class="fitts-start svelte-13uup1q"></div> <div class="fitts-distance svelte-13uup1q"></div> <div class="fitts-target svelte-13uup1q"></div></div></div> <div class="subsection"><sg-heading>Density Modes</sg-heading> <div class="density-grid svelte-13uup1q"></div> <div class="context-scale-section svelte-13uup1q"><sg-heading>Context Scale Factors</sg-heading> <sg-text>Spacing tokens scale multiplicatively with typographic context. Smaller text contexts compress spacing; larger contexts expand it.</sg-text> <div class="context-scale-grid svelte-13uup1q"></div></div> <div class="density-exempt-section svelte-13uup1q"><sg-heading>Density-Exempt Components</sg-heading> <sg-text>These components always render at comfortable density to preserve readability and accessibility.</sg-text> <div class="exempt-list svelte-13uup1q"></div></div></div> <div class="subsection"><sg-heading>Fluid Spacing</sg-heading> <sg-text>CSS clamp() expressions for continuous spacing scaling between viewports. Min values use compact density (0.75x), max values use spacious density (1.25x).</sg-text> <div class="fluid-spacing-table svelte-13uup1q"><div class="fluid-spacing-header svelte-13uup1q"><span>Token</span> <span>clamp() Expression</span></div> <!></div></div> <div class="subsection"><sg-heading>Breakpoints</sg-heading> <div class="breakpoint-ruler svelte-13uup1q"></div> <div class="breakpoint-queries svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Layout Grid</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Breakpoint</span> <sg-toggle-group><button class="sg-toggle" value="sm">sm</button> <button class="sg-toggle" value="md">md</button> <button class="sg-toggle" value="lg">lg</button> <button class="sg-toggle" value="xl">xl</button> <button class="sg-toggle" value="2xl">2xl</button></sg-toggle-group></div></div> <div class="grid-info svelte-13uup1q"><span> </span> <span> </span> <span> </span></div> <div class="grid-demo svelte-13uup1q" style="gap: 8px; padding: 0 12px"></div></div> <div class="subsection"><sg-heading>Relationship Spacing</sg-heading> <sg-text>Context-aware spacing using the Gestalt Law of Proximity. Stronger logical connections use tighter spacing.</sg-text> <div class="relationship-grid svelte-13uup1q"></div></div> <div class="subsection"><sg-heading>Content Spacing</sg-heading> <sg-text>Derives paragraph and heading spacing from body line-height, snapped to a 4px grid.</sg-text> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="content-spacing-blocks svelte-13uup1q"><div class="content-spacing-item svelte-13uup1q"><span class="card-label">Paragraph Spacing</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-text-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-text-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div> <div class="content-spacing-item svelte-13uup1q"><span class="card-label">Heading Top</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-text-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-heading-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div> <div class="content-spacing-item svelte-13uup1q"><span class="card-label">Heading Bottom</span> <div class="content-spacing-visual svelte-13uup1q"><div class="content-spacing-heading-block svelte-13uup1q"></div> <div class="content-spacing-gap svelte-13uup1q"></div> <div class="content-spacing-text-block svelte-13uup1q"></div></div> <span class="info-value"> </span></div></div></div> <div class="subsection"><sg-heading>Font Spacing Subsets</sg-heading> <sg-text>Per-step spacing records replace scalar context multipliers. Each property scales at its own rate,
         every value snaps to the grid, and minHeight enforces WCAG touch targets.</sg-text> <div class="controls"><div class="control-group" style="min-width: 200px"><input class="sg-slider" type="range"/></div></div> <div class="font-spacing-table svelte-13uup1q"><div class="font-spacing-header svelte-13uup1q"><span>Step</span> <span>Font</span> <span>gap</span> <span>padX</span> <span>padY</span> <span>gapStack</span> <span>minHeight</span></div> <!></div> <!></div> <div class="subsection"><sg-heading>Component Height</sg-heading> <sg-text>Derives standard component heights from line-height + padding, clamped to WCAG touch target minimums.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Density</span> <sg-toggle-group></sg-toggle-group></div></div> <div class="component-height-demo svelte-13uup1q"><div class="component-height-visual svelte-13uup1q"><span> </span></div> <div class="component-height-info svelte-13uup1q"><span class="dark-adj-details" style="margin-top: 0"><span> </span> <span> </span> <span> </span></span> <!></div></div></div> <div class="subsection"><sg-heading>Optical Spacing</sg-heading> <sg-text>Viewport-dependent multiplier that increases spacing on narrow screens (1.2x) and normalizes to 1.0x on wide screens.</sg-text> <div class="controls"><div class="control-group" style="min-width: 250px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Multiplier</span> <span class="info-value" style="font-size: var(--sg-text-lg); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="optical-bar-container svelte-13uup1q"><div class="optical-bar svelte-13uup1q"><span> </span></div></div> <div style="margin-top: var(--sg-space-3)"><span class="card-label">CSS Expression:</span> <code class="fluid-clamp svelte-13uup1q" style="margin-left: var(--sg-space-2)"> </code></div></div></sg-section>`, 2);
 var $$css21 = {
   hash: "svelte-13uup1q",
@@ -20396,7 +20473,7 @@ function SpacingSection($$anchor, $$props) {
   let fontSpacingMap = user_derived(() => generateFontSpacingSubsets(fsFontEntries, { baseUnit: get(fsBaseUnit) }));
   let fontSpacingList = user_derived(() => FONT_SPACING_STEPS.map((step) => get(fontSpacingMap).get(step)));
   let fsHighlight = state(null);
-  var sg_section = root25();
+  var sg_section = root26();
   set_custom_element_data(sg_section, "id", "spacing");
   set_custom_element_data(sg_section, "title", "Spacing & Layout System");
   set_custom_element_data(sg_section, "description", "A hybrid linear/geometric spacing scale, touch targets calibrated for Fitts's Law, density modes, responsive grids, and relationship-based proximity.");
@@ -21293,9 +21370,9 @@ function SpacingSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/system/SpacingPage.svelte
-var root26 = from_html(`<div class="page"><div class="page-header"><sg-heading>Spacing & Layout</sg-heading> <sg-text>Spatial scale, semantic tokens, touch targets, Fitts's Law, density modes, fluid spacing, breakpoints, grid system, relationship spacing, content spacing, font spacing subsets, component height, and optical spacing.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root27 = from_html(`<div class="page"><div class="page-header"><sg-heading>Spacing & Layout</sg-heading> <sg-text>Spatial scale, semantic tokens, touch targets, Fitts's Law, density modes, fluid spacing, breakpoints, grid system, relationship spacing, content spacing, font spacing subsets, component height, and optical spacing.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function SpacingPage($$anchor) {
-  var div = root26();
+  var div = root27();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -21344,7 +21421,7 @@ var root_813 = from_html(`<div class="border-radius-sample svelte-1fjmj8c"><div 
 var root_911 = from_html(`<div class="material-card svelte-1fjmj8c"><div class="material-preview svelte-1fjmj8c"><span class="material-name svelte-1fjmj8c"> </span></div> <span class="material-desc svelte-1fjmj8c"> </span> <span class="material-bg mono svelte-1fjmj8c"> </span></div>`);
 var root_1116 = from_html(`<sg-badge> </sg-badge>`, 2);
 var root_109 = from_html(`<div class="container-level svelte-1fjmj8c"><span class="container-token mono svelte-1fjmj8c"> </span> <span class="container-role svelte-1fjmj8c"> </span> <span class="container-use svelte-1fjmj8c"> </span> <span class="container-l mono svelte-1fjmj8c"> </span> <!></div>`);
-var root27 = from_html(`<sg-section><div class="subsection"><sg-heading>Shadow Scale</sg-heading> <sg-text>Six levels (0-5) using a dual key + ambient shadow model. Key shadow provides direction;
+var root28 = from_html(`<sg-section><div class="subsection"><sg-heading>Shadow Scale</sg-heading> <sg-text>Six levels (0-5) using a dual key + ambient shadow model. Key shadow provides direction;
         ambient shadow provides soft surrounding glow. Blur scales linearly with elevation.</sg-text> <div class="controls"><div class="control-group"><span class="card-label">Mode</span> <sg-toggle-group><button class="sg-toggle" value="light">Light</button> <button class="sg-toggle" value="dark">Dark</button></sg-toggle-group></div> <div class="control-group"><span class="card-label">Key opacity</span> <span class="info-value mono svelte-1fjmj8c"> </span></div> <div class="control-group"><span class="card-label">Ambient opacity</span> <span class="info-value mono svelte-1fjmj8c"> </span></div></div> <div class="shadow-grid svelte-1fjmj8c"></div> <!></div>  <div class="subsection"><sg-heading>Dark Mode Surface Tints</sg-heading> <sg-text>In dark mode, higher-elevation surfaces are progressively lighter, mimicking how surfaces
         closer to a light source receive more illumination. OKLCH lightness boost is additive.</sg-text> <div class="surface-tint-strip svelte-1fjmj8c"></div></div>  <div class="subsection"><sg-heading>Edge Highlight</sg-heading> <sg-text>A composable inset top-edge highlight simulating specular light catch. Stronger depth
         cue than shadows in dark environments. Separate from elevation tokens for independent composition.</sg-text> <div class="edge-highlight-demo svelte-1fjmj8c"><div class="edge-card edge-card--without svelte-1fjmj8c"><span class="edge-label svelte-1fjmj8c">Without highlight</span> <span class="edge-token mono svelte-1fjmj8c">box-shadow: shadow-md</span></div> <div class="edge-card edge-card--with svelte-1fjmj8c"><span class="edge-label svelte-1fjmj8c">With highlight</span> <span class="edge-token mono svelte-1fjmj8c">+ edge-highlight</span></div></div> <div class="mono token-preview svelte-1fjmj8c"> </div></div>  <div class="subsection"><sg-heading>Z-Index Scale</sg-heading> <sg-text>With top-layer APIs (Popover, dialog, anchor positioning) handling overlays, z-index is
@@ -21398,7 +21475,7 @@ function ElevationSection($$anchor, $$props) {
     1: "Cards at rest, inputs",
     2: "Hovered cards, dropdowns",
     3: "Active dropdowns, popovers",
-    4: "Modals, drawers",
+    4: "Modals, sheets",
     5: "Toasts, FABs"
   };
   const DARK_SURFACE_TINTS = [
@@ -21477,7 +21554,7 @@ function ElevationSection($$anchor, $$props) {
   const PAGE_BG_DARK = 0.15;
   let edgeHighlightCss = getEdgeHighlight();
   let squircleSupported = false;
-  var sg_section = root27();
+  var sg_section = root28();
   set_custom_element_data(sg_section, "id", "elevation");
   set_custom_element_data(sg_section, "title", "Elevation & Depth");
   set_custom_element_data(sg_section, "description", "Physically-plausible shadows using a penumbral light model, semantic z-index layers, border scale, surface materials, container hierarchy, and squircle corners.");
@@ -21929,9 +22006,9 @@ function ElevationSection($$anchor, $$props) {
 delegate(["change", "input", "click"]);
 
 // website/src/pages/system/ElevationPage.svelte
-var root28 = from_html(`<div class="page"><div class="page-header"><sg-heading>Elevation & Depth</sg-heading> <sg-text>Physically-grounded dual-shadow model, z-index stacking, border system, nested radius calculator, surface materials, container hierarchy, and squircle corners.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root29 = from_html(`<div class="page"><div class="page-header"><sg-heading>Elevation & Depth</sg-heading> <sg-text>Physically-grounded dual-shadow model, z-index stacking, border system, nested radius calculator, surface materials, container hierarchy, and squircle corners.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function ElevationPage($$anchor) {
-  var div = root28();
+  var div = root29();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -21983,7 +22060,7 @@ var root_716 = from_html(`<div class="spring-card svelte-1se8icn"><sg-heading> <
 var root_814 = from_html(`<div class="transition-card svelte-1se8icn"><span class="transition-name svelte-1se8icn"> </span> <span class="transition-details svelte-1se8icn"> </span> <code class="transition-css svelte-1se8icn"> </code> <div></div></div>`);
 var root_912 = from_html(`<div><span> </span></div>`);
 var root_1010 = from_html(`<div class="reduced-motion-row svelte-1se8icn"><code> </code> <span> </span></div>`);
-var root29 = from_html(`<sg-section><div class="subsection"><sg-heading>Motion Presets</sg-heading> <sg-text>Four presets scale every duration token via <code>--sg-duration-scalar</code>.
+var root30 = from_html(`<sg-section><div class="subsection"><sg-heading>Motion Presets</sg-heading> <sg-text>Four presets scale every duration token via <code>--sg-duration-scalar</code>.
         The sidebar's motion toggle applies <code>data-motion</code> to the root element,
         changing all animations site-wide. Compare any two presets below.</sg-text> <div class="preset-overview svelte-1se8icn"></div> <div class="preset-compare svelte-1se8icn"><div class="preset-compare-controls svelte-1se8icn"><div class="preset-compare-select svelte-1se8icn"><label class="svelte-1se8icn">A <select class="svelte-1se8icn"></select></label> <label class="svelte-1se8icn">B <select class="svelte-1se8icn"></select></label></div> <button class="sg-button" data-size="sm">Compare</button></div> <div class="preset-compare-tracks svelte-1se8icn"></div> <div class="preset-compare-legend svelte-1se8icn"><span class="legend-a svelte-1se8icn"> </span> <span class="legend-b svelte-1se8icn"> </span></div></div> <div class="preset-config-example svelte-1se8icn"><sg-heading>Config</sg-heading> <pre class="svelte-1se8icn"><code></code></pre></div></div> <div class="subsection"><sg-heading>Duration Scale</sg-heading> <div class="duration-grid svelte-1se8icn"></div></div> <div class="subsection"><sg-heading>Distance-based Duration</sg-heading> <div class="controls"><div class="control-group" style="min-width: 250px"><input class="sg-slider" type="range"/></div> <div class="control-group"><span class="card-label">Computed Duration</span> <span class="info-value" style="font-size: var(--sg-text-xl); font-weight: var(--sg-weight-semibold)"> </span></div></div> <p style="color: var(--text-3); font-size: var(--sg-text-sm)">Uses sublinear square-root scaling: doubling distance only increases duration by ~1.41x.</p></div> <div class="subsection"><sg-heading>Easing Curves</sg-heading> <div class="easing-grid svelte-1se8icn"></div></div> <div class="subsection"><sg-heading>Spring Presets</sg-heading> <div class="spring-grid svelte-1se8icn"></div></div> <div class="subsection"><sg-heading>Transition Presets</sg-heading> <div class="transition-grid svelte-1se8icn"></div></div> <div class="subsection"><sg-heading>Stagger Delay</sg-heading> <div class="controls"><div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div> <div class="control-group" style="min-width: 180px"><input class="sg-slider" type="range"/></div> <button class="sg-button">Play</button></div> <div class="stagger-grid svelte-1se8icn"></div></div> <div class="subsection"><sg-heading>Reduced Motion Alternatives</sg-heading> <div class="reduced-motion-table svelte-1se8icn"><div class="reduced-motion-header svelte-1se8icn"><span>Transition</span> <span>Reduced Alternative</span></div> <!></div></div></sg-section>`, 2);
 var $$css23 = {
@@ -22068,7 +22145,7 @@ function MotionSection($$anchor, $$props) {
     }, totalDuration + 200);
   }
   const motionTypes = ["fade", "slide-up", "scale", "expand"];
-  var sg_section = root29();
+  var sg_section = root30();
   set_custom_element_data(sg_section, "id", "motion");
   set_custom_element_data(sg_section, "title", "Motion System");
   set_custom_element_data(sg_section, "description", "Duration tokens, easing curves, spring presets, transition patterns, and reduced motion alternatives - all grounded in perceptual timing research.");
@@ -22527,9 +22604,9 @@ export default {
 delegate(["click", "input", "change"]);
 
 // website/src/pages/system/MotionPage.svelte
-var root30 = from_html(`<div class="page"><div class="page-header"><sg-heading>Motion</sg-heading> <sg-text>Duration scale, distance-based duration, easing curves, spring presets, transition presets, stagger delay, and reduced motion alternatives.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root31 = from_html(`<div class="page"><div class="page-header"><sg-heading>Motion</sg-heading> <sg-text>Duration scale, distance-based duration, easing curves, spring presets, transition presets, stagger delay, and reduced motion alternatives.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function MotionPage($$anchor) {
-  var div = root30();
+  var div = root31();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -22581,7 +22658,7 @@ function PatternsIndex($$anchor, $$props) {
 var root_158 = from_html(`<div><div class="state-layer-overlay svelte-1ptlcx3"></div> <span class="state-layer-name svelte-1ptlcx3"> </span> <span class="state-layer-value svelte-1ptlcx3"> </span></div>`);
 var root_226 = from_html(`<div class="cursor-card svelte-1ptlcx3"><span class="cursor-name svelte-1ptlcx3"> </span> <span class="cursor-value svelte-1ptlcx3"> </span></div>`);
 var root_323 = from_html(`<div class="validation-card svelte-1ptlcx3"><sg-heading> </sg-heading> <div class="validation-input svelte-1ptlcx3"><span class="svelte-1ptlcx3"> </span> <span class="svelte-1ptlcx3">Sample input</span></div> <span class="validation-message svelte-1ptlcx3"> </span></div>`, 2);
-var root31 = from_html(`<sg-section><div class="subsection svelte-1ptlcx3"><sg-heading>Focus Ring</sg-heading> <div class="focus-demo svelte-1ptlcx3"><p style="color: var(--text-3); font-size: var(--sg-text-sm); margin-bottom: var(--sg-space-4)" class="svelte-1ptlcx3"> </p> <div class="focus-demo-row svelte-1ptlcx3"><button class="focus-target svelte-1ptlcx3">Button</button> <a href="#interactive" class="focus-target svelte-1ptlcx3">Link</a> <input type="text" class="focus-target svelte-1ptlcx3" placeholder="Input"/></div></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>State Layers</sg-heading> <div class="state-layer-demo svelte-1ptlcx3"><div class="state-layer-grid svelte-1ptlcx3"></div> <div class="state-priority-table svelte-1ptlcx3"><sg-heading>State Priority (highest to lowest)</sg-heading> <ol class="svelte-1ptlcx3"><li class="svelte-1ptlcx3">Focus-visible</li> <li class="svelte-1ptlcx3">Pressed/Active</li> <li class="svelte-1ptlcx3">Dragged</li> <li class="svelte-1ptlcx3">Hover</li></ol></div></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Cursor Tokens</sg-heading> <div class="cursor-grid svelte-1ptlcx3"></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Validation States</sg-heading> <div class="validation-grid svelte-1ptlcx3"></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Loading Strategies</sg-heading> <div class="controls svelte-1ptlcx3"><div class="control-group svelte-1ptlcx3" style="min-width: 250px"><input class="sg-slider svelte-1ptlcx3" type="range"/></div> <div class="control-group svelte-1ptlcx3"><span class="card-label svelte-1ptlcx3">Recommended Strategy</span> <span class="info-value svelte-1ptlcx3" style="font-size: var(--sg-text-xl); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="loading-strategies svelte-1ptlcx3"><div><sg-heading>Spinner</sg-heading> <p class="svelte-1ptlcx3">Short waits (&lt;1s)</p> <div class="spinner-demo svelte-1ptlcx3"></div></div> <div><sg-heading>Skeleton</sg-heading> <p class="svelte-1ptlcx3">Medium waits (1-4s)</p> <div class="skeleton-demo svelte-1ptlcx3"><div class="skeleton-line svelte-1ptlcx3" style="width: 60%"></div> <div class="skeleton-line svelte-1ptlcx3" style="width: 80%"></div> <div class="skeleton-line svelte-1ptlcx3" style="width: 40%"></div></div></div> <div><sg-heading>Progress</sg-heading> <p class="svelte-1ptlcx3">Long waits (&gt;4s)</p> <div class="progress-demo svelte-1ptlcx3"><div class="progress-bar svelte-1ptlcx3"></div></div></div></div></div></sg-section>`, 2);
+var root32 = from_html(`<sg-section><div class="subsection svelte-1ptlcx3"><sg-heading>Focus Ring</sg-heading> <div class="focus-demo svelte-1ptlcx3"><p style="color: var(--text-3); font-size: var(--sg-text-sm); margin-bottom: var(--sg-space-4)" class="svelte-1ptlcx3"> </p> <div class="focus-demo-row svelte-1ptlcx3"><button class="focus-target svelte-1ptlcx3">Button</button> <a href="#interactive" class="focus-target svelte-1ptlcx3">Link</a> <input type="text" class="focus-target svelte-1ptlcx3" placeholder="Input"/></div></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>State Layers</sg-heading> <div class="state-layer-demo svelte-1ptlcx3"><div class="state-layer-grid svelte-1ptlcx3"></div> <div class="state-priority-table svelte-1ptlcx3"><sg-heading>State Priority (highest to lowest)</sg-heading> <ol class="svelte-1ptlcx3"><li class="svelte-1ptlcx3">Focus-visible</li> <li class="svelte-1ptlcx3">Pressed/Active</li> <li class="svelte-1ptlcx3">Dragged</li> <li class="svelte-1ptlcx3">Hover</li></ol></div></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Cursor Tokens</sg-heading> <div class="cursor-grid svelte-1ptlcx3"></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Validation States</sg-heading> <div class="validation-grid svelte-1ptlcx3"></div></div> <div class="subsection svelte-1ptlcx3"><sg-heading>Loading Strategies</sg-heading> <div class="controls svelte-1ptlcx3"><div class="control-group svelte-1ptlcx3" style="min-width: 250px"><input class="sg-slider svelte-1ptlcx3" type="range"/></div> <div class="control-group svelte-1ptlcx3"><span class="card-label svelte-1ptlcx3">Recommended Strategy</span> <span class="info-value svelte-1ptlcx3" style="font-size: var(--sg-text-xl); font-weight: var(--sg-weight-semibold)"> </span></div></div> <div class="loading-strategies svelte-1ptlcx3"><div><sg-heading>Spinner</sg-heading> <p class="svelte-1ptlcx3">Short waits (&lt;1s)</p> <div class="spinner-demo svelte-1ptlcx3"></div></div> <div><sg-heading>Skeleton</sg-heading> <p class="svelte-1ptlcx3">Medium waits (1-4s)</p> <div class="skeleton-demo svelte-1ptlcx3"><div class="skeleton-line svelte-1ptlcx3" style="width: 60%"></div> <div class="skeleton-line svelte-1ptlcx3" style="width: 80%"></div> <div class="skeleton-line svelte-1ptlcx3" style="width: 40%"></div></div></div> <div><sg-heading>Progress</sg-heading> <p class="svelte-1ptlcx3">Long waits (&gt;4s)</p> <div class="progress-demo svelte-1ptlcx3"><div class="progress-bar svelte-1ptlcx3"></div></div></div></div></div></sg-section>`, 2);
 var $$css24 = {
   hash: "svelte-1ptlcx3",
   code: `
@@ -22619,7 +22696,7 @@ function InteractiveSection($$anchor, $$props) {
   const validationStates = ["neutral", "valid", "invalid"];
   let loadDuration = state(2000);
   let strategy = user_derived(() => selectLoadingStrategy(get(loadDuration)));
-  var sg_section = root31();
+  var sg_section = root32();
   set_custom_element_data(sg_section, "id", "interactive");
   set_custom_element_data(sg_section, "title", "Interactive States");
   set_custom_element_data(sg_section, "description", "Focus indicators, state layers, cursor semantics, validation visuals, and loading strategies - all spec-compliant and accessible.");
@@ -22815,9 +22892,9 @@ function InteractiveSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/patterns/InteractivePage.svelte
-var root32 = from_html(`<div class="page"><div class="page-header"><sg-heading>Interactive States</sg-heading> <sg-text>Focus ring, state layers (hover/press/drag/disabled), cursor tokens, validation states, and loading strategies.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root33 = from_html(`<div class="page"><div class="page-header"><sg-heading>Interactive States</sg-heading> <sg-text>Focus ring, state layers (hover/press/drag/disabled), cursor tokens, validation states, and loading strategies.</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function InteractivePage($$anchor) {
-  var div = root32();
+  var div = root33();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -23394,24 +23471,52 @@ var sheetMachine = {
   }
 };
 // website/src/sections/MachinesSection.svelte
-var root_227 = from_html(`<span> </span>`);
-var root_324 = from_html(`<button class="event-btn svelte-5k077b"> </button>`);
-var root_422 = from_html(`<pre class="context-display svelte-5k077b"> </pre>`);
-var root_160 = from_html(`<div><div class="machine-header svelte-5k077b"><sg-heading> </sg-heading> <button class="sg-button" data-size="sm">Reset</button></div> <div class="state-pills svelte-5k077b"></div> <div class="event-buttons svelte-5k077b"></div> <!></div>`, 2);
-var root33 = from_html(`<sg-section>Pure TypeScript FSM definitions for component behavior. <code>createMachine()</code> interprets definitions at runtime; <code>useMachine()</code> binds to Svelte reactivity. <div class="machines-grid svelte-5k077b"></div></sg-section>`, 2);
+var root_324 = from_html(`<span class="state-arrow svelte-5k077b">→</span>`);
+var root_227 = from_html(`<span><span class="state-dot svelte-5k077b"></span> </span> <!>`, 1);
+var root_620 = from_html(`<span class="current-marker svelte-5k077b">▸</span>`);
+var root_815 = from_html(`<span class="transition-guard svelte-5k077b">\uD83D\uDEE1</span>`);
+var root_717 = from_html(`<button><span class="transition-event-name svelte-5k077b"> </span> <span class="transition-arrow-label svelte-5k077b">→</span> <span class="transition-target svelte-5k077b"> </span> <!></button>`);
+var root_516 = from_html(`<div><span class="transition-state-label svelte-5k077b"><!> </span> <div class="transition-events svelte-5k077b"></div></div>`);
+var root_1011 = from_html(`<div class="context-pair svelte-5k077b"><span class="context-key svelte-5k077b"> </span> <span class="context-val svelte-5k077b"> </span></div>`);
+var root_913 = from_html(`<div class="context-section svelte-5k077b"><span class="section-label svelte-5k077b">Context</span> <div class="context-pairs svelte-5k077b"></div></div>`);
+var root_1313 = from_html(`<span class="trail-state svelte-5k077b"> </span>`);
+var root_1214 = from_html(`<!> <span class="trail-event svelte-5k077b"> </span> <span> </span>`, 1);
+var root_1117 = from_html(`<div class="trail-section svelte-5k077b"><span class="section-label svelte-5k077b">History</span> <div class="trail svelte-5k077b"></div></div>`);
+var root_160 = from_html(`<div class="machine-card svelte-5k077b"><div class="machine-header svelte-5k077b"><div><h4 class="machine-name svelte-5k077b"> </h4> <p class="machine-desc svelte-5k077b"> </p></div> <button class="reset-btn svelte-5k077b" title="Reset to initial state"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg></button></div> <div class="state-flow svelte-5k077b"></div> <div class="transition-table svelte-5k077b"></div> <!> <!></div>`);
+var root34 = from_html(`<sg-section><p>Pure TypeScript FSM definitions for component behavior. <code>createMachine()</code> interprets definitions at runtime.
+    Click any transition to drive the machine forward.</p> <div class="machines-grid svelte-5k077b"></div></sg-section>`, 2);
 var $$css25 = {
   hash: "svelte-5k077b",
-  code: ".machines-grid.svelte-5k077b {display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:var(--sg-gap-grouped);}.machine-card.svelte-5k077b {background:var(--surface);border:1px solid var(--sg-color-border);border-radius:var(--radius-sm);padding:var(--sg-space-4);}.machine-card.featured-machine.svelte-5k077b {border-color:oklch(from var(--sg-color-link) l c h / 0.2);}.machine-header.svelte-5k077b {display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sg-space-3);}.state-pills.svelte-5k077b {display:flex;flex-wrap:wrap;gap:var(--sg-space-1-5);margin-bottom:var(--sg-space-3);}.state-pill.svelte-5k077b {padding:var(--sg-space-0-5) var(--sg-space-2-5);border-radius:var(--sg-radius-full);font-size:var(--sg-text-xs);font-weight:var(--sg-weight-semibold);background:var(--sg-surface-container-high);color:var(--text-3);border:1px solid var(--sg-color-border);transition:all var(--sg-duration-normal);}.state-pill.active-state.svelte-5k077b {background:oklch(from var(--sg-color-link) l c h / 0.15);color:var(--sg-color-link);border-color:oklch(from var(--sg-color-link) l c h / 0.3);}.event-buttons.svelte-5k077b {display:flex;flex-wrap:wrap;gap:var(--sg-gap-tight);margin-bottom:var(--sg-space-3);}.event-btn.svelte-5k077b {padding:var(--sg-space-1) var(--sg-space-2-5);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--sg-radius-sm);background:var(--sg-surface-container-high);color:var(--sg-color-text-secondary);font-size:var(--sg-text-xs);font-family:var(--sg-font-mono);cursor:pointer;transition:all var(--sg-duration-fast);}.event-btn.svelte-5k077b:hover {background:oklch(from var(--sg-color-text) l c h / 0.08);color:var(--sg-color-text);border-color:var(--border-hover);}.context-display.svelte-5k077b {font-size:var(--sg-text-xs);font-family:var(--sg-font-mono);color:var(--text-3);background:var(--sg-surface-container-high);padding:var(--sg-space-2);border-radius:var(--sg-radius-sm);overflow-x:auto;white-space:pre;}"
+  code: `.machines-grid.svelte-5k077b {display:grid;grid-template-columns:repeat(auto-fill, minmax(380px, 1fr));gap:var(--sg-gap-grouped, 1rem);}.machine-card.svelte-5k077b {background:var(--sg-surface-container-low, var(--surface, #fff));border:1px solid var(--sg-color-border);border-radius:var(--sg-radius-lg, 0.75rem);padding:var(--sg-space-5, 1.25rem);display:flex;flex-direction:column;gap:var(--sg-gap-grouped, 1rem);}
+
+/* Header */.machine-header.svelte-5k077b {display:flex;justify-content:space-between;align-items:flex-start;gap:var(--sg-gap-related);}.machine-name.svelte-5k077b {font-size:var(--sg-text-base, 1rem);font-weight:600;text-transform:capitalize;margin:0;line-height:1.3;}.machine-desc.svelte-5k077b {font-size:var(--sg-text-xs, 0.75rem);color:var(--sg-color-text-secondary);margin:var(--sg-space-1) 0 0;line-height:1.4;}.reset-btn.svelte-5k077b {flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--sg-radius-sm, 0.375rem);border:1px solid var(--sg-color-border);background:var(--sg-surface-container-high);color:var(--sg-color-text-secondary);cursor:pointer;transition:all 150ms;}.reset-btn.svelte-5k077b:hover {color:var(--sg-color-text);border-color:var(--sg-color-text-secondary);}
+
+/* State flow */.state-flow.svelte-5k077b {display:flex;flex-wrap:wrap;align-items:center;gap:var(--sg-gap-tight, 0.25rem);padding:var(--sg-space-2-5, 0.625rem) var(--sg-space-3, 0.75rem);background:var(--sg-surface-container-high);border-radius:var(--sg-radius-md, 0.5rem);}.state-node.svelte-5k077b {display:inline-flex;align-items:center;gap:var(--sg-gap-tight, 0.25rem);font-size:var(--sg-text-xs, 0.75rem);font-family:var(--sg-font-mono, monospace);color:var(--sg-color-text-secondary);padding:var(--sg-space-0-5) var(--sg-space-1-5);border-radius:var(--sg-radius-sm, 0.375rem);transition:all 200ms;}.state-dot.svelte-5k077b {width:6px;height:6px;border-radius:50%;background:var(--sg-color-border);transition:all 200ms;}.state-node.state-current.svelte-5k077b {color:var(--sg-color-primary, var(--sg-color-link));font-weight:600;background:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.1);}.state-node.state-current.svelte-5k077b .state-dot:where(.svelte-5k077b) {background:var(--sg-color-primary, var(--sg-color-link));box-shadow:0 0 0 2px oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.25);}.state-node.state-reachable.svelte-5k077b:not(.state-current) .state-dot:where(.svelte-5k077b) {background:var(--sg-color-success-active, #22c55e);}.state-arrow.svelte-5k077b {color:var(--sg-color-border);font-size:0.7rem;}
+
+/* Transition table */.transition-table.svelte-5k077b {display:flex;flex-direction:column;gap:var(--sg-gap-micro, 0.125rem);border-radius:var(--sg-radius-md, 0.5rem);overflow:hidden;}.transition-row.svelte-5k077b {display:flex;align-items:flex-start;gap:var(--sg-gap-related, 0.5rem);padding:var(--sg-space-2, 0.5rem) var(--sg-space-2-5, 0.625rem);background:var(--sg-surface-container-high);opacity:0.55;transition:all 200ms;}.transition-row-active.svelte-5k077b {opacity:1;background:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.08);border-left:2px solid var(--sg-color-primary, var(--sg-color-link));}.transition-state-label.svelte-5k077b {flex-shrink:0;min-width:5.5rem;font-size:var(--sg-text-xs, 0.75rem);font-family:var(--sg-font-mono, monospace);font-weight:500;color:var(--sg-color-text-secondary);padding-top:var(--sg-space-1);display:flex;align-items:center;gap:var(--sg-gap-tight, 0.25rem);}.current-marker.svelte-5k077b {color:var(--sg-color-primary, var(--sg-color-link));font-weight:700;}.transition-row-active.svelte-5k077b .transition-state-label:where(.svelte-5k077b) {color:var(--sg-color-primary, var(--sg-color-link));font-weight:600;}.transition-events.svelte-5k077b {display:flex;flex-wrap:wrap;gap:var(--sg-gap-tight, 0.25rem);flex:1;}.transition-btn.svelte-5k077b {display:inline-flex;align-items:center;gap:var(--sg-gap-micro, 0.125rem);padding:var(--sg-space-1) var(--sg-space-2);border:1px solid var(--sg-color-border);border-radius:var(--sg-radius-sm, 0.375rem);background:var(--sg-surface-container-low, var(--surface, #fff));font-size:0.6875rem;font-family:var(--sg-font-mono, monospace);cursor:default;color:var(--sg-color-text-secondary);transition:all 150ms;line-height:1.3;}.transition-btn.transition-available.svelte-5k077b {cursor:pointer;border-color:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.3);}.transition-btn.transition-available.svelte-5k077b:hover {background:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.1);border-color:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.5);color:var(--sg-color-text);}.transition-btn.transition-available.svelte-5k077b:active {background:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.18);}.transition-btn.svelte-5k077b:disabled {opacity:0.6;}.transition-event-name.svelte-5k077b {font-weight:600;color:inherit;}.transition-arrow-label.svelte-5k077b {color:var(--sg-color-text-secondary);opacity:0.5;font-size:0.6rem;}.transition-target.svelte-5k077b {color:var(--sg-color-text-secondary);font-weight:400;}.transition-guard.svelte-5k077b {font-size:0.6rem;opacity:0.7;}
+
+/* Section labels */.section-label.svelte-5k077b {display:block;font-size:0.625rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--sg-color-text-secondary);margin-bottom:var(--sg-space-1);}
+
+/* Context */.context-section.svelte-5k077b {padding-top:var(--sg-space-1);}.context-pairs.svelte-5k077b {display:flex;flex-wrap:wrap;gap:var(--sg-gap-tight, 0.25rem) var(--sg-gap-grouped, 1rem);}.context-pair.svelte-5k077b {display:inline-flex;align-items:baseline;gap:var(--sg-gap-tight, 0.25rem);font-size:var(--sg-text-xs, 0.75rem);font-family:var(--sg-font-mono, monospace);}.context-key.svelte-5k077b {color:var(--sg-color-text-secondary);}.context-key.svelte-5k077b::after {content:":";}.context-val.svelte-5k077b {color:var(--sg-color-text);font-weight:500;}
+
+/* Trail */.trail-section.svelte-5k077b {padding-top:var(--sg-space-1);}.trail.svelte-5k077b {display:flex;flex-wrap:wrap;align-items:center;gap:var(--sg-gap-micro, 0.125rem);font-size:var(--sg-text-xs, 0.75rem);font-family:var(--sg-font-mono, monospace);}.trail-state.svelte-5k077b {color:var(--sg-color-text-secondary);padding:var(--sg-space-0-5) var(--sg-space-1-5);border-radius:3px;}.trail-state-current.svelte-5k077b {color:var(--sg-color-primary, var(--sg-color-link));background:oklch(from var(--sg-color-primary, var(--sg-color-link)) l c h / 0.1);font-weight:600;}.trail-event.svelte-5k077b {color:var(--sg-color-text-secondary);opacity:0.7;font-size:0.6875rem;padding:var(--sg-space-0-5);background:oklch(from var(--sg-color-text) l c h / 0.06);border-radius:2px;}.trail-event.svelte-5k077b::before {content:"→ ";opacity:0.5;}.trail-event.svelte-5k077b::after {content:" →";opacity:0.5;}`
 };
 function MachinesSection($$anchor, $$props) {
   push($$props, true);
   append_styles($$anchor, $$css25);
-  const featured = [
-    { name: "button", def: buttonMachine },
-    { name: "dialog", def: dialogMachine },
-    { name: "tabs", def: tabsMachine },
-    { name: "toast", def: toastMachine }
-  ];
+  const descriptions = {
+    button: "Press, release, and async loading states",
+    dialog: "Modal overlay with open/close animation cycle",
+    select: "Dropdown selection with focus management",
+    checkbox: "Tri-state check: unchecked, checked, indeterminate",
+    tabs: "Tab selection with keyboard navigation",
+    accordion: "Expand/collapse panels, single or multiple",
+    popover: "Floating content with animation lifecycle",
+    tooltip: "Delayed show/hide on hover and focus",
+    menu: "Dropdown menu with focus tracking",
+    slider: "Drag and keyboard value adjustment",
+    toast: "Timed notification with enter/exit animations"
+  };
   const allMachines = [
     { name: "button", def: buttonMachine },
     { name: "dialog", def: dialogMachine },
@@ -23425,125 +23530,254 @@ function MachinesSection($$anchor, $$props) {
     { name: "slider", def: sliderMachine },
     { name: "toast", def: toastMachine }
   ];
-  let machines = proxy(allMachines.map((m) => {
-    const instance = createMachine(m.def);
-    const stateNames = Object.keys(m.def.states);
-    const events = [];
-    for (const sn of stateNames) {
-      const node = m.def.states[sn];
+  function buildTransitionMap(def) {
+    const map = {};
+    for (const [stateName, node] of Object.entries(def.states)) {
+      const transitions = [];
       if (node?.on) {
-        for (const ev of Object.keys(node.on)) {
-          if (!events.includes(ev))
-            events.push(ev);
+        for (const [event2, trans] of Object.entries(node.on)) {
+          if (typeof trans === "string") {
+            transitions.push({ event: event2, target: trans });
+          } else if (trans && typeof trans === "object" && "target" in trans) {
+            transitions.push({ event: event2, target: trans.target, guard: trans.guard });
+          }
         }
       }
+      map[stateName] = transitions;
     }
-    const live = {
-      name: m.name,
-      def: m.def,
-      state: instance.state,
-      context: { ...instance.context },
-      events,
-      states: stateNames,
-      send: (event2) => {
-        instance.send(event2);
-        live.state = instance.state;
-        live.context = { ...instance.context };
-      }
-    };
-    instance.subscribe((state2, context) => {
-      live.state = state2;
-      live.context = { ...context };
-    });
-    return live;
-  }));
-  function resetMachine(index2) {
-    const m = allMachines[index2];
-    const instance = createMachine(m.def);
-    const stateNames = Object.keys(m.def.states);
-    const events = [];
-    for (const sn of stateNames) {
-      const node = m.def.states[sn];
-      if (node?.on) {
-        for (const ev of Object.keys(node.on)) {
-          if (!events.includes(ev))
-            events.push(ev);
-        }
-      }
-    }
-    const live = {
-      name: m.name,
-      def: m.def,
-      state: instance.state,
-      context: { ...instance.context },
-      events,
-      states: stateNames,
-      send: (event2) => {
-        instance.send(event2);
-        live.state = instance.state;
-        live.context = { ...instance.context };
-      }
-    };
-    instance.subscribe((state2, context) => {
-      live.state = state2;
-      live.context = { ...context };
-    });
-    machines[index2] = live;
+    return map;
   }
-  var sg_section = root33();
+  const transitionMaps = allMachines.map((m) => buildTransitionMap(m.def));
+  let instances = allMachines.map((m) => createMachine(m.def));
+  let machines = proxy(allMachines.map((m, i) => ({
+    name: m.name,
+    state: instances[i].state,
+    context: { ...instances[i].context },
+    states: Object.keys(m.def.states),
+    trail: []
+  })));
+  function sendEvent(index2, event2) {
+    const prev = machines[index2].state;
+    instances[index2].send(event2);
+    const next2 = instances[index2].state;
+    machines[index2].state = next2;
+    machines[index2].context = { ...instances[index2].context };
+    if (prev !== next2 || transitionMaps[index2][prev]?.some((t) => t.event === event2 && t.target === next2)) {
+      const trail = [...machines[index2].trail, { from: prev, event: event2, to: next2 }];
+      machines[index2].trail = trail.slice(-5);
+    }
+  }
+  function resetMachine(index2) {
+    instances[index2] = createMachine(allMachines[index2].def);
+    machines[index2].state = instances[index2].state;
+    machines[index2].context = { ...instances[index2].context };
+    machines[index2].trail = [];
+  }
+  var sg_section = root34();
   set_custom_element_data(sg_section, "id", "machines");
   set_custom_element_data(sg_section, "title", "State Machines");
-  var div = sibling(child(sg_section), 5);
+  var div = sibling(child(sg_section), 2);
   each(div, 21, () => machines, index, ($$anchor2, machine, i) => {
+    const tmap = user_derived(() => transitionMaps[i]);
+    const currentTransitions = user_derived(() => get(tmap)[get(machine).state] ?? []);
+    const hasContext2 = user_derived(() => Object.keys(get(machine).context).length > 0);
     var div_1 = root_160();
-    set_class(div_1, 1, "machine-card svelte-5k077b", null, {}, { "featured-machine": i < 4 });
     var div_2 = child(div_1);
-    var sg_heading = child(div_2);
-    set_custom_element_data(sg_heading, "level", 4);
-    var text2 = child(sg_heading, true);
-    reset(sg_heading);
-    var button = sibling(sg_heading, 2);
-    reset(div_2);
-    var div_3 = sibling(div_2, 2);
-    each(div_3, 21, () => get(machine).states, index, ($$anchor3, s) => {
-      var span = root_227();
-      let classes;
-      var text_1 = child(span, true);
-      reset(span);
-      template_effect(() => {
-        classes = set_class(span, 1, "state-pill svelte-5k077b", null, classes, { "active-state": get(machine).state === get(s) });
-        set_text(text_1, get(s));
-      });
-      append($$anchor3, span);
-    });
+    var div_3 = child(div_2);
+    var h4 = child(div_3);
+    var text2 = child(h4, true);
+    reset(h4);
+    var p = sibling(h4, 2);
+    var text_1 = child(p, true);
+    reset(p);
     reset(div_3);
-    var div_4 = sibling(div_3, 2);
-    each(div_4, 21, () => get(machine).events, index, ($$anchor3, event2) => {
-      var button_1 = root_324();
-      var text_2 = child(button_1, true);
-      reset(button_1);
-      template_effect(() => set_text(text_2, get(event2)));
-      delegated("click", button_1, () => get(machine).send(get(event2)));
-      append($$anchor3, button_1);
+    var button = sibling(div_3, 2);
+    reset(div_2);
+    var div_4 = sibling(div_2, 2);
+    each(div_4, 21, () => get(machine).states, index, ($$anchor3, s, si) => {
+      var fragment = root_227();
+      var span = first_child(fragment);
+      let classes;
+      var text_2 = sibling(child(span));
+      reset(span);
+      var node_1 = sibling(span, 2);
+      {
+        var consequent = ($$anchor4) => {
+          var span_1 = root_324();
+          append($$anchor4, span_1);
+        };
+        if_block(node_1, ($$render) => {
+          if (si < get(machine).states.length - 1)
+            $$render(consequent);
+        });
+      }
+      template_effect(($0) => {
+        classes = set_class(span, 1, "state-node svelte-5k077b", null, classes, $0);
+        set_text(text_2, ` ${get(s) ?? ""}`);
+      }, [
+        () => ({
+          "state-current": get(machine).state === get(s),
+          "state-reachable": get(currentTransitions).some((t) => t.target === get(s))
+        })
+      ]);
+      append($$anchor3, fragment);
     });
     reset(div_4);
-    var node_1 = sibling(div_4, 2);
+    var div_5 = sibling(div_4, 2);
+    each(div_5, 21, () => get(machine).states, index, ($$anchor3, s) => {
+      const trans = user_derived(() => get(tmap)[get(s)] ?? []);
+      var fragment_1 = comment();
+      var node_2 = first_child(fragment_1);
+      {
+        var consequent_3 = ($$anchor4) => {
+          var div_6 = root_516();
+          let classes_1;
+          var span_2 = child(div_6);
+          var node_3 = child(span_2);
+          {
+            var consequent_1 = ($$anchor5) => {
+              var span_3 = root_620();
+              append($$anchor5, span_3);
+            };
+            if_block(node_3, ($$render) => {
+              if (get(machine).state === get(s))
+                $$render(consequent_1);
+            });
+          }
+          var text_3 = sibling(node_3);
+          reset(span_2);
+          var div_7 = sibling(span_2, 2);
+          each(div_7, 21, () => get(trans), index, ($$anchor5, t) => {
+            var button_1 = root_717();
+            let classes_2;
+            var span_4 = child(button_1);
+            var text_4 = child(span_4, true);
+            reset(span_4);
+            var span_5 = sibling(span_4, 4);
+            var text_5 = child(span_5, true);
+            reset(span_5);
+            var node_4 = sibling(span_5, 2);
+            {
+              var consequent_2 = ($$anchor6) => {
+                var span_6 = root_815();
+                template_effect(() => set_attribute2(span_6, "title", `Guard: ${get(t).guard}`));
+                append($$anchor6, span_6);
+              };
+              if_block(node_4, ($$render) => {
+                if (get(t).guard)
+                  $$render(consequent_2);
+              });
+            }
+            reset(button_1);
+            template_effect(() => {
+              classes_2 = set_class(button_1, 1, "transition-btn svelte-5k077b", null, classes_2, { "transition-available": get(machine).state === get(s) });
+              button_1.disabled = get(machine).state !== get(s);
+              set_attribute2(button_1, "title", get(machine).state === get(s) ? `Send ${get(t).event}` : `Available from "${get(s)}"`);
+              set_text(text_4, get(t).event);
+              set_text(text_5, get(t).target);
+            });
+            delegated("click", button_1, () => sendEvent(i, get(t).event));
+            append($$anchor5, button_1);
+          });
+          reset(div_7);
+          reset(div_6);
+          template_effect(() => {
+            classes_1 = set_class(div_6, 1, "transition-row svelte-5k077b", null, classes_1, { "transition-row-active": get(machine).state === get(s) });
+            set_text(text_3, ` ${get(s) ?? ""}`);
+          });
+          append($$anchor4, div_6);
+        };
+        if_block(node_2, ($$render) => {
+          if (get(trans).length > 0)
+            $$render(consequent_3);
+        });
+      }
+      append($$anchor3, fragment_1);
+    });
+    reset(div_5);
+    var node_5 = sibling(div_5, 2);
     {
-      var consequent = ($$anchor3) => {
-        var pre = root_422();
-        var text_3 = child(pre, true);
-        reset(pre);
-        template_effect(($0) => set_text(text_3, $0), [() => JSON.stringify(get(machine).context, null, 2)]);
-        append($$anchor3, pre);
+      var consequent_4 = ($$anchor3) => {
+        var div_8 = root_913();
+        var div_9 = sibling(child(div_8), 2);
+        each(div_9, 21, () => Object.entries(get(machine).context), index, ($$anchor4, $$item) => {
+          var $$array = user_derived(() => to_array(get($$item), 2));
+          let key2 = () => get($$array)[0];
+          let val = () => get($$array)[1];
+          var div_10 = root_1011();
+          var span_7 = child(div_10);
+          var text_6 = child(span_7, true);
+          reset(span_7);
+          var span_8 = sibling(span_7, 2);
+          var text_7 = child(span_8, true);
+          reset(span_8);
+          reset(div_10);
+          template_effect(($0) => {
+            set_text(text_6, key2());
+            set_text(text_7, $0);
+          }, [() => JSON.stringify(val())]);
+          append($$anchor4, div_10);
+        });
+        reset(div_9);
+        reset(div_8);
+        append($$anchor3, div_8);
       };
-      var d = user_derived(() => Object.keys(get(machine).context).length > 0);
-      if_block(node_1, ($$render) => {
-        if (get(d))
-          $$render(consequent);
+      if_block(node_5, ($$render) => {
+        if (get(hasContext2))
+          $$render(consequent_4);
+      });
+    }
+    var node_6 = sibling(node_5, 2);
+    {
+      var consequent_6 = ($$anchor3) => {
+        var div_11 = root_1117();
+        var div_12 = sibling(child(div_11), 2);
+        each(div_12, 21, () => get(machine).trail, index, ($$anchor4, step, si) => {
+          var fragment_2 = root_1214();
+          var node_7 = first_child(fragment_2);
+          {
+            var consequent_5 = ($$anchor5) => {
+              var span_9 = root_1313();
+              var text_8 = child(span_9, true);
+              reset(span_9);
+              template_effect(() => set_text(text_8, get(step).from));
+              append($$anchor5, span_9);
+            };
+            if_block(node_7, ($$render) => {
+              if (si === 0)
+                $$render(consequent_5);
+            });
+          }
+          var span_10 = sibling(node_7, 2);
+          var text_9 = child(span_10, true);
+          reset(span_10);
+          var span_11 = sibling(span_10, 2);
+          let classes_3;
+          var text_10 = child(span_11, true);
+          reset(span_11);
+          template_effect(() => {
+            set_text(text_9, get(step).event);
+            classes_3 = set_class(span_11, 1, "trail-state svelte-5k077b", null, classes_3, {
+              "trail-state-current": si === get(machine).trail.length - 1
+            });
+            set_text(text_10, get(step).to);
+          });
+          append($$anchor4, fragment_2);
+        });
+        reset(div_12);
+        reset(div_11);
+        append($$anchor3, div_11);
+      };
+      if_block(node_6, ($$render) => {
+        if (get(machine).trail.length > 0)
+          $$render(consequent_6);
       });
     }
     reset(div_1);
-    template_effect(() => set_text(text2, get(machine).name));
+    template_effect(() => {
+      set_text(text2, get(machine).name);
+      set_text(text_1, descriptions[get(machine).name] ?? "");
+    });
     delegated("click", button, () => resetMachine(i));
     append($$anchor2, div_1);
   });
@@ -23555,9 +23789,9 @@ function MachinesSection($$anchor, $$props) {
 delegate(["click"]);
 
 // website/src/pages/patterns/MachinesPage.svelte
-var root34 = from_html(`<div class="page"><div class="page-header"><sg-heading>State Machines</sg-heading> <sg-text>Finite state machine definitions for every UI component. Pure data objects interpreted by createMachine().</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root35 = from_html(`<div class="page"><div class="page-header"><sg-heading>State Machines</sg-heading> <sg-text>Finite state machine definitions for every UI component. Pure data objects interpreted by createMachine().</sg-text></div> <sg-code-block></sg-code-block> <!></div>`, 2);
 function MachinesPage($$anchor) {
-  var div = root34();
+  var div = root35();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -23586,12 +23820,12 @@ machine.context;            // { pressCount: 1 }`);
 var generatedComponentPages = {
   "/components/data-display/alert": {
     componentName: "Alert",
-    sections: [{ title: "Examples", examples: [{ title: "Color Variants", language: "svelte", code: `<sg-stack gap="related">
+    sections: [{ title: "Examples", examples: [{ title: "Color Variants", language: "html", code: `<sg-stack gap="related">
     <div class="sg-alert" role="alert" data-color="info"><div class="sg-alert-title">Informational message.</div></div>
     <div class="sg-alert" role="alert" data-color="success"><div class="sg-alert-title">Operation completed successfully.</div></div>
     <div class="sg-alert" role="alert" data-color="warning"><div class="sg-alert-title">Please review before continuing.</div></div>
     <div class="sg-alert" role="alert" data-color="danger"><div class="sg-alert-title">Something went wrong.</div></div>
-</sg-stack>` }, { title: "With Title and Description", language: "svelte", code: `<sg-stack gap="related">
+</sg-stack>` }, { title: "With Title and Description", language: "html", code: `<sg-stack gap="related">
     <div class="sg-alert" role="alert" data-color="success">
       <div class="sg-alert-icon"><sg-icon name="check" label="success" color="success" /></div>
       <div class="sg-alert-content">
@@ -23610,28 +23844,29 @@ var generatedComponentPages = {
   },
   "/components/data-display/animated-image": {
     componentName: "AnimatedImage",
-    sections: [{ title: "Examples", examples: [{ title: "Animated media with reduced-motion fallback", language: "html", code: '<sg-animated-image src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" reduced-src="https://picsum.photos/640/360" alt="Animated sample"></sg-animated-image>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Animated media with reduced-motion fallback", language: "html", code: '<sg-animated-image src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" reduced-src="https://picsum.photos/640/360" alt="Animated sample" radius="md" max-width="md"></sg-animated-image>' }] }]
   },
   "/components/data-display/avatar": {
     componentName: "Avatar",
-    sections: [{ title: "Examples", examples: [{ title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <sg-avatar size="sm" alt="John Doe" />
-    <sg-avatar size="md" alt="Jane Smith" />
-    <sg-avatar size="lg" alt="Bob Wilson" fallback="BW" />
-</sg-stack>` }, { title: "With Fallback", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <sg-avatar alt="John Doe" fallback="JD" />
-    <sg-avatar alt="Jane Smith" fallback="JS" />
-    <sg-avatar alt="Bob Wilson" fallback="BW" />
-</sg-stack>` }, { title: "Avatar Group", language: "svelte", code: `<div class="sg-demo-avatar-1">
-  <sg-avatar size="md" alt="John Doe" fallback="JD" />
+    sections: [{ title: "Examples", examples: [{ title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center">
+  <sg-avatar size="sm" alt="John Doe"></sg-avatar>
+  <sg-avatar size="md" alt="Jane Smith"></sg-avatar>
+  <sg-avatar size="lg" alt="Bob Wilson" fallback="BW"></sg-avatar>
+  <sg-avatar size="xl" alt="Ada Lovelace"></sg-avatar>
+</sg-stack>` }, { title: "With Fallback", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center">
+  <sg-avatar alt="John Doe" fallback="JD"></sg-avatar>
+  <sg-avatar alt="Jane Smith" fallback="JS"></sg-avatar>
+  <sg-avatar alt="Bob Wilson" fallback="BW"></sg-avatar>
+</sg-stack>` }, { title: "Avatar Group", language: "html", code: `<div class="sg-demo-avatar-1">
+  <sg-avatar size="md" alt="John Doe" fallback="JD"></sg-avatar>
   <div class="sg-demo-avatar-2">
-    <sg-avatar size="md" alt="Jane Smith" fallback="JS" />
+    <sg-avatar size="md" alt="Jane Smith" fallback="JS"></sg-avatar>
   </div>
   <div class="sg-demo-avatar-3">
-    <sg-avatar size="md" alt="Bob Wilson" fallback="BW" />
+    <sg-avatar size="md" alt="Bob Wilson" fallback="BW"></sg-avatar>
   </div>
   <div class="sg-demo-avatar-4">
-    <sg-avatar size="md" alt="Three more" fallback="+3" />
+    <sg-avatar size="md" alt="Three more" fallback="+3"></sg-avatar>
   </div>
 </div>`, cssCode: `.sg-demo-avatar-1 {
   display: flex; gap: 0;
@@ -23647,50 +23882,55 @@ var generatedComponentPages = {
 
 .sg-demo-avatar-4 {
   margin-left: -0.5rem;
-}` }, { title: "With Image", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <sg-avatar size="lg" alt="shadcn" src="https://github.com/shadcn.png" />
-    <sg-avatar size="lg" alt="User with fallback" src="invalid-url-to-show-fallback" fallback="UF" />
+}` }, { title: "With Image", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center">
+  <sg-avatar size="lg" alt="shadcn" src="https://github.com/shadcn.png"></sg-avatar>
+  <sg-avatar size="lg" alt="User with fallback" src="invalid-url-to-show-fallback" fallback="UF"></sg-avatar>
 </sg-stack>` }] }]
   },
   "/components/data-display/callout": {
     componentName: "Callout",
-    sections: [{ title: "Examples", examples: [{ title: "Contextual emphasis block", language: "html", code: '<sg-callout variant="warning">This action is permanent and cannot be undone.</sg-callout>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "html", code: `<sg-stack gap="related">
+  <sg-callout variant="default" max-width="md">Use this area for neutral guidance.</sg-callout>
+  <sg-callout variant="success" max-width="md">Your changes have been saved.</sg-callout>
+  <sg-callout variant="warning" max-width="md">This action is permanent and cannot be undone.</sg-callout>
+  <sg-callout variant="danger" max-width="md">The request could not be completed.</sg-callout>
+</sg-stack>` }] }]
   },
   "/components/data-display/card": {
     componentName: "Card",
-    sections: [{ title: "Examples", examples: [{ title: "Structured Card with Title, Description, and Action", language: "svelte", code: `<sg-card elevation={2}>
-    <sg-card-header>
-        <sg-card-title>Structured Card</sg-card-title>
-        <sg-card-description>With title, description, and action components</sg-card-description>
-        <sg-card-action><button class="sg-button" data-size="sm" data-color="ghost">...</button></sg-card-action>
-    </sg-card-header>
-    <sg-card-body>
-      <p class="sg-demo-card-1">CardTitle, CardDescription, and CardAction provide semantic structure for card headers.</p>
-    </sg-card-body>
-    <sg-card-footer>
-        <button class="sg-button" data-size="sm">Cancel</button>
-        <button class="sg-button" data-size="sm" data-color="primary">Save</button>
-    </sg-card-footer>
+    sections: [{ title: "Examples", examples: [{ title: "Structured Card with Title, Description, and Action", language: "html", code: `<sg-card elevation="2" max-width="md">
+  <sg-card-header>
+    <sg-card-title>Structured Card</sg-card-title>
+    <sg-card-description>With title, description, and action components</sg-card-description>
+    <sg-card-action><button class="sg-button" data-size="sm" data-color="ghost">...</button></sg-card-action>
+  </sg-card-header>
+  <sg-card-body>
+    <p class="sg-demo-card-1">CardTitle, CardDescription, and CardAction provide semantic structure for card headers.</p>
+  </sg-card-body>
+  <sg-card-footer>
+    <button class="sg-button" data-size="sm">Cancel</button>
+    <button class="sg-button" data-size="sm" data-color="primary">Save</button>
+  </sg-card-footer>
 </sg-card>`, cssCode: `.sg-demo-card-1 {
   margin: 0; color: var(--sg-color-text-secondary)
-}` }, { title: "Elevation Levels", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" wrap={true}>
-    <sg-card elevation={1} class="sg-demo-card-1">
-        <sg-card-body>
-            <h4 class="sg-demo-card-2">Default Card</h4>
-            <p class="sg-demo-card-3">Elevation level 1.</p>
-        </sg-card-body>
-    </sg-card>
-    <sg-card elevation={3} class="sg-demo-card-4">
-        <sg-card-header>
-          <h4 class="sg-demo-card-5">Elevated Card</h4>
-        </sg-card-header>
-        <sg-card-body>
-          <p class="sg-demo-card-6">Elevation 3 with header, body, footer.</p>
-        </sg-card-body>
-        <sg-card-footer>
-          <button class="sg-button" data-size="sm" data-color="primary">Action</button>
-        </sg-card-footer>
-    </sg-card>
+}` }, { title: "Elevation Levels", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" wrap>
+  <sg-card elevation="0" class="sg-demo-card-1">
+    <sg-card-body>
+      <h4 class="sg-demo-card-2">Flat Card</h4>
+      <p class="sg-demo-card-3">Elevation level 0.</p>
+    </sg-card-body>
+  </sg-card>
+  <sg-card elevation="3" class="sg-demo-card-4">
+    <sg-card-header>
+      <h4 class="sg-demo-card-5">Elevated Card</h4>
+    </sg-card-header>
+    <sg-card-body>
+      <p class="sg-demo-card-6">Elevation 3 with header, body, footer.</p>
+    </sg-card-body>
+    <sg-card-footer>
+      <button class="sg-button" data-size="sm" data-color="primary">Action</button>
+    </sg-card-footer>
+  </sg-card>
 </sg-stack>`, cssCode: `.sg-demo-card-1 {
   flex: 1
 }
@@ -23713,16 +23953,16 @@ var generatedComponentPages = {
 
 .sg-demo-card-6 {
   margin: 0; color: var(--sg-color-text-secondary)
-}` }, { title: "Padding Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" wrap={true}>
-    <sg-card padding="sm" class="sg-demo-card-1">
-        <p class="sg-demo-card-2">padding="sm"</p>
-    </sg-card>
-    <sg-card padding="md" class="sg-demo-card-3">
-        <p class="sg-demo-card-4">padding="md"</p>
-    </sg-card>
-    <sg-card padding="lg" class="sg-demo-card-5">
-        <p class="sg-demo-card-6">padding="lg"</p>
-    </sg-card>
+}` }, { title: "Padding Variants", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" wrap>
+  <sg-card padding="sm" class="sg-demo-card-1">
+    <p class="sg-demo-card-2">padding="sm"</p>
+  </sg-card>
+  <sg-card padding="md" class="sg-demo-card-3">
+    <p class="sg-demo-card-4">padding="md"</p>
+  </sg-card>
+  <sg-card padding="lg" class="sg-demo-card-5">
+    <p class="sg-demo-card-6">padding="lg"</p>
+  </sg-card>
 </sg-stack>`, cssCode: `.sg-demo-card-1 {
   flex: 1
 }
@@ -23745,19 +23985,19 @@ var generatedComponentPages = {
 
 .sg-demo-card-6 {
   margin: 0; color: var(--sg-color-text-secondary)
-}` }, { title: "Size & Density", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" wrap={true}>
-    <sg-card size="sm" padding="md" class="sg-demo-card-1">
-        <p class="sg-demo-card-2">size="sm"</p>
-    </sg-card>
-    <sg-card size="lg" padding="md" class="sg-demo-card-3">
-        <p class="sg-demo-card-4">size="lg"</p>
-    </sg-card>
-    <sg-card density="compact" padding="md" class="sg-demo-card-5">
-        <p class="sg-demo-card-6">density="compact"</p>
-    </sg-card>
-    <sg-card density="spacious" padding="md" class="sg-demo-card-7">
-        <p class="sg-demo-card-8">density="spacious"</p>
-    </sg-card>
+}` }, { title: "Size & Density", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" wrap>
+  <sg-card size="sm" padding="md" class="sg-demo-card-1">
+    <p class="sg-demo-card-2">size="sm"</p>
+  </sg-card>
+  <sg-card size="lg" padding="md" class="sg-demo-card-3">
+    <p class="sg-demo-card-4">size="lg"</p>
+  </sg-card>
+  <sg-card density="compact" padding="md" class="sg-demo-card-5">
+    <p class="sg-demo-card-6">density="compact"</p>
+  </sg-card>
+  <sg-card density="spacious" padding="md" class="sg-demo-card-7">
+    <p class="sg-demo-card-8">density="spacious"</p>
+  </sg-card>
 </sg-stack>`, cssCode: `.sg-demo-card-1 {
   flex: 1
 }
@@ -23788,7 +24028,7 @@ var generatedComponentPages = {
 
 .sg-demo-card-8 {
   margin: 0; color: var(--sg-color-text-secondary)
-}` }, { title: "CardTitle Heading Levels", language: "svelte", code: `<sg-stack direction="vertical" gap="separate">
+}` }, { title: "CardTitle Heading Levels", language: "html", code: `<sg-stack direction="vertical" gap="separate">
     <sg-card padding="md">
         <sg-card-title as="h2">H2 Section Title</sg-card-title>
     </sg-card>
@@ -23802,50 +24042,41 @@ var generatedComponentPages = {
   },
   "/components/data-display/carousel": {
     componentName: "CarouselRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Carousel", description: "Use arrow keys to navigate. The carousel pauses autoplay on hover/focus.", language: "svelte", code: `<sg-carousel-root aria-label="Example carousel" onchange={handleChange}>
-    <sg-carousel-content>
-        {#each [1, 2, 3, 4, 5] as n}
-          <sg-carousel-item>
-              <div class="sg-demo-carouselroot-1">Slide {n}</div>
-          </sg-carousel-item>
-        {/each}
-    </sg-carousel-content>
-    <sg-carousel-previous />
-    <sg-carousel-next />
-</sg-carousel-root>
-<p class="sg-demo-carouselroot-2">
-  Current slide: {currentIndex + 1}
-</p>`, cssCode: `.sg-demo-carouselroot-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Basic Carousel", description: "Use arrow keys to navigate. The carousel pauses autoplay on hover/focus.", language: "html", code: `<sg-carousel-root aria-label="Example carousel" max-width="md">
+  <sg-carousel-content>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Slide 1</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Slide 2</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Slide 3</div></sg-carousel-item>
+  </sg-carousel-content>
+  <sg-carousel-previous></sg-carousel-previous>
+  <sg-carousel-next></sg-carousel-next>
+</sg-carousel-root>`, cssCode: `.sg-demo-carouselroot-1 {
   background: var(--sg-surface-container-high); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); padding: var(--sg-space-12); text-align: center; color: var(--sg-color-text-secondary)
 }
 
 .sg-demo-carouselroot-2 {
   margin-top: var(--sg-space-2); color: var(--sg-color-text-secondary); font-size: var(--sg-text-sm)
-}` }, { title: "With Loop and Autoplay", description: "Autoplay pauses on hover and focus for accessibility.", language: "svelte", code: `<sg-carousel-root loop={true} autoplay={true} autoplayInterval={3000} aria-label="Looping carousel with autoplay">
-    <sg-carousel-content>
-        {#each ["Alpha", "Beta", "Gamma"] as label}
-          <sg-carousel-item>
-              <div class="sg-demo-carouselroot-1">{label}</div>
-          </sg-carousel-item>
-        {/each}
-    </sg-carousel-content>
-    <sg-carousel-previous />
-    <sg-carousel-next />
+}` }, { title: "With Loop and Autoplay", description: "Autoplay pauses on hover and focus for accessibility.", language: "html", code: `<sg-carousel-root loop autoplay autoplay-interval="3000" aria-label="Looping carousel with autoplay" max-width="md">
+  <sg-carousel-content>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Alpha</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Beta</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Gamma</div></sg-carousel-item>
+  </sg-carousel-content>
+  <sg-carousel-previous></sg-carousel-previous>
+  <sg-carousel-next></sg-carousel-next>
 </sg-carousel-root>`, cssCode: `.sg-demo-carouselroot-1 {
   background: var(--sg-surface-container-high); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); padding: var(--sg-space-12); text-align: center; color: var(--sg-color-text-secondary)
-}` }, { title: "Vertical Orientation", language: "svelte", code: `<sg-carousel-root orientation="vertical" aria-label="Vertical carousel">
-    <sg-carousel-content>
-        {#each ["Step 1", "Step 2", "Step 3"] as label}
-          <sg-carousel-item>
-              <div class="sg-demo-carouselroot-1">{label}</div>
-          </sg-carousel-item>
-        {/each}
-    </sg-carousel-content>
-    <sg-carousel-previous />
-    <sg-carousel-next />
+}` }, { title: "Vertical Orientation", language: "html", code: `<sg-carousel-root orientation="vertical" aria-label="Vertical carousel" max-width="md">
+  <sg-carousel-content>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Step 1</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Step 2</div></sg-carousel-item>
+    <sg-carousel-item><div class="sg-demo-carouselroot-1">Step 3</div></sg-carousel-item>
+  </sg-carousel-content>
+  <sg-carousel-previous></sg-carousel-previous>
+  <sg-carousel-next></sg-carousel-next>
 </sg-carousel-root>`, cssCode: `.sg-demo-carouselroot-1 {
   background: var(--sg-surface-container-high); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); padding: var(--sg-space-12); text-align: center; color: var(--sg-color-text-secondary)
-}` }, { title: "Keyboard Navigation", description: "Full keyboard support for accessibility.", language: "svelte", code: `<div class="sg-demo-carouselroot-1">
+}` }, { title: "Keyboard Navigation", description: "Full keyboard support for accessibility.", language: "html", code: `<div class="sg-demo-carouselroot-1">
   <p><strong>Keyboard Shortcuts (horizontal):</strong></p>
   <ul class="sg-demo-carouselroot-2">
     <li><kbd>ArrowLeft</kbd>: Previous slide</li>
@@ -23877,7 +24108,7 @@ var generatedComponentPages = {
   },
   "/components/data-display/chart": {
     componentName: "Chart",
-    sections: [{ title: "Examples", examples: [{ title: "Bar Chart", language: "svelte", code: '<sg-chart type="bar" data={barData} label="Monthly sales" height="250px" />' }, { title: "Line Chart", language: "svelte", code: '<sg-chart type="line" data={barData} label="Monthly trend" height="250px" />' }, { title: "Pie Chart", language: "svelte", code: '<sg-chart type="pie" data={pieData} label="Device breakdown" height="250px" />' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Bar Chart", language: "html", code: `<sg-chart type="bar" data='[{"label":"Jan","value":42},{"label":"Feb","value":58},{"label":"Mar","value":36},{"label":"Apr","value":74}]' label="Monthly sales" height="250px" max-width="md"></sg-chart>` }, { title: "Line Chart", language: "html", code: `<sg-chart type="line" data='[{"label":"Jan","value":42},{"label":"Feb","value":58},{"label":"Mar","value":36},{"label":"Apr","value":74}]' label="Monthly trend" height="250px" max-width="md"></sg-chart>` }, { title: "Pie Chart", language: "html", code: `<sg-chart type="pie" data='[{"label":"Desktop","value":52},{"label":"Mobile","value":36},{"label":"Tablet","value":12}]' label="Device breakdown" height="250px" max-width="sm"></sg-chart>` }] }]
   },
   "/components/data-display/code-block": {
     componentName: "CodeBlock",
@@ -23954,33 +24185,46 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/data-table": {
     componentName: "DataTableRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Sortable Table with Pagination", language: "svelte", code: `<sg-data-table-root sortColumn={sortColumn} sortDirection={sortDirection} page={page} oninput={(e) => { const el = e.currentTarget as any; sortColumn = (el.sortColumn ?? sortColumn); sortDirection = (el.sortDirection ?? sortDirection); page = (el.page ?? page); }} onchange={(e) => { const el = e.currentTarget as any; sortColumn = (el.sortColumn ?? sortColumn); sortDirection = (el.sortDirection ?? sortDirection); page = (el.page ?? page); }} onclick={(e) => { const el = e.currentTarget as any; sortColumn = (el.sortColumn ?? sortColumn); sortDirection = (el.sortDirection ?? sortDirection); page = (el.page ?? page); }} ontoggle={(e) => { const el = e.currentTarget as any; sortColumn = (el.sortColumn ?? sortColumn); sortDirection = (el.sortDirection ?? sortDirection); page = (el.page ?? page); }} pageSize={3} totalItems={rows.length} aria-label="Users table">
-    <sg-data-table-header>
-        <sg-data-table-row>
-            <sg-data-table-head column="name">Name</sg-data-table-head>
-            <sg-data-table-head column="email">Email</sg-data-table-head>
-            <sg-data-table-head column="role">Role</sg-data-table-head>
-        </sg-data-table-row>
-    </sg-data-table-header>
-    <sg-data-table-body>
-        {#each rows.slice((page - 1) * 3, page * 3) as row}
-          <sg-data-table-row>
-              <sg-data-table-cell>{row.name}</sg-data-table-cell>
-              <sg-data-table-cell>{row.email}</sg-data-table-cell>
-              <sg-data-table-cell>{row.role}</sg-data-table-cell>
-          </sg-data-table-row>
-        {/each}
-    </sg-data-table-body>
-    <sg-data-table-pagination />
+    sections: [{ title: "Examples", examples: [{ title: "Sortable Table with Pagination", language: "html", code: `<sg-data-table-root page-size="3" striped max-width="lg" aria-label="Users table">
+  <sg-data-table-header>
+    <sg-data-table-row>
+      <sg-data-table-head column="name">Name</sg-data-table-head>
+      <sg-data-table-head column="email">Email</sg-data-table-head>
+      <sg-data-table-head column="role">Role</sg-data-table-head>
+    </sg-data-table-row>
+  </sg-data-table-header>
+  <sg-data-table-body>
+    <sg-data-table-row>
+      <sg-data-table-cell>Ada Lovelace</sg-data-table-cell>
+      <sg-data-table-cell>ada@example.com</sg-data-table-cell>
+      <sg-data-table-cell>Admin</sg-data-table-cell>
+    </sg-data-table-row>
+    <sg-data-table-row>
+      <sg-data-table-cell>Grace Hopper</sg-data-table-cell>
+      <sg-data-table-cell>grace@example.com</sg-data-table-cell>
+      <sg-data-table-cell>Editor</sg-data-table-cell>
+    </sg-data-table-row>
+    <sg-data-table-row>
+      <sg-data-table-cell>Katherine Johnson</sg-data-table-cell>
+      <sg-data-table-cell>katherine@example.com</sg-data-table-cell>
+      <sg-data-table-cell>Viewer</sg-data-table-cell>
+    </sg-data-table-row>
+    <sg-data-table-row>
+      <sg-data-table-cell>Mary Jackson</sg-data-table-cell>
+      <sg-data-table-cell>mary@example.com</sg-data-table-cell>
+      <sg-data-table-cell>Editor</sg-data-table-cell>
+    </sg-data-table-row>
+  </sg-data-table-body>
+  <sg-data-table-pagination></sg-data-table-pagination>
 </sg-data-table-root>` }] }]
   },
   "/components/data-display/empty": {
     componentName: "Empty",
-    sections: [{ title: "Examples", examples: [{ title: "Empty State", language: "svelte", code: `<sg-empty title="No results found" description="Try adjusting your search or filter to find what you're looking for.">
-  <div slot="actions">
+    sections: [{ title: "Examples", examples: [{ title: "Empty State", language: "html", code: `<sg-empty title="No results found" description="Try adjusting your search or filter to find what you're looking for." max-width="md">
+  <div class="sg-empty-actions">
     <button class="sg-button" data-color="primary">Create New</button>
   </div>
-</sg-empty>` }, { title: "Minimal Empty", language: "svelte", code: '<sg-empty title="No items yet" description="Items you add will appear here." />' }] }]
+</sg-empty>` }, { title: "Minimal Empty", language: "html", code: '<sg-empty title="No items yet" description="Items you add will appear here." max-width="sm"></sg-empty>' }] }]
   },
   "/components/data-display/format-bytes": {
     componentName: "FormatBytes",
@@ -23988,7 +24232,7 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/format-date": {
     componentName: "FormatDate",
-    sections: [{ title: "Examples", examples: [{ title: "Localized date", language: "html", code: '<sg-format-date value="2026-03-04T15:30:00Z" date-style="full" time-style="short"></sg-format-date>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Localized date", language: "html", code: '<sg-format-date value="2026-03-04T15:30:00Z" date-style="full" time-style="short" time-zone="UTC"></sg-format-date>' }] }]
   },
   "/components/data-display/format-number": {
     componentName: "FormatNumber",
@@ -23996,106 +24240,72 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/gradient-pattern": {
     componentName: "GradientPattern",
-    sections: [{ title: "Examples", examples: [{ title: "Presets", language: "svelte", code: `<sg-stack gap="grouped">
-    {#each [
-      { p: "mesh", c: ["primary", "secondary", "accent"] },
-      { p: "aurora", c: ["primary", "info", "accent"] },
-      { p: "glow", c: ["primary", "danger"] },
-      { p: "sweep", c: ["primary", "secondary", "accent"] },
-      { p: "noise", c: ["primary", "info", "warning"] },
-    ] as item}
-      <div>
-        <sg-text size="sm" color="muted">{item.p}</sg-text>
-        <sg-gradient-pattern preset={item.p} colors={item.c} intensity={50} class="sg-demo-gradientpattern-1" />
-      </div>
-    {/each}
+    sections: [{ title: "Examples", examples: [{ title: "Presets", language: "html", code: `<sg-stack gap="grouped">
+  <div>
+    <sg-text size="sm" color="muted">mesh</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,secondary,accent" intensity="50" class="sg-demo-gradientpattern-1"></sg-gradient-pattern>
+  </div>
+  <div>
+    <sg-text size="sm" color="muted">aurora</sg-text>
+    <sg-gradient-pattern preset="aurora" colors="primary,info,accent" intensity="50" class="sg-demo-gradientpattern-1"></sg-gradient-pattern>
+  </div>
+  <div>
+    <sg-text size="sm" color="muted">glow</sg-text>
+    <sg-gradient-pattern preset="glow" colors="primary,danger" intensity="50" class="sg-demo-gradientpattern-1"></sg-gradient-pattern>
+  </div>
+  <div>
+    <sg-text size="sm" color="muted">sweep</sg-text>
+    <sg-gradient-pattern preset="sweep" colors="primary,secondary,accent" intensity="50" class="sg-demo-gradientpattern-1"></sg-gradient-pattern>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
   aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Multi-Color", language: "svelte", code: `<sg-stack direction="horizontal" gap="related">
-    {#each [
-      { label: "1 color", c: ["primary"] },
-      { label: "2 colors", c: ["primary", "danger"] },
-      { label: "3 colors", c: ["primary", "danger", "info"] },
-    ] as item}
-      <div class="sg-demo-gradientpattern-1">
-        <sg-text size="sm" color="muted">{item.label}</sg-text>
-        <sg-gradient-pattern preset="mesh" colors={item.c} intensity={50} class="sg-demo-gradientpattern-2" />
-      </div>
-    {/each}
-</sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
-  flex: 1
-}
-
-.sg-demo-gradientpattern-2 {
-  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Intensity (1–100)", language: "svelte", code: `<sg-stack direction="horizontal" gap="related">
-    {#each [15, 50, 90] as val}
-      <div class="sg-demo-gradientpattern-1">
-        <sg-text size="sm" color="muted">{val}</sg-text>
-        <sg-gradient-pattern preset="glow" colors={["primary"]} intensity={val} class="sg-demo-gradientpattern-2" />
-      </div>
-    {/each}
+}` }, { title: "Multi-Color", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">1 color</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary" intensity="50" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">2 colors</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,danger" intensity="50" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">3 colors</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,danger,info" intensity="50" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
   flex: 1
 }
 
 .sg-demo-gradientpattern-2 {
   aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Neutral-Aware", language: "svelte", code: `<sg-stack direction="horizontal" gap="related">
-    <div class="sg-demo-gradientpattern-1">
-      <sg-text size="sm" color="muted">chromatic</sg-text>
-      <sg-gradient-pattern preset="mesh" colors={["primary", "info", "accent"]} intensity={50} class="sg-demo-gradientpattern-2" />
-    </div>
-    <div class="sg-demo-gradientpattern-3">
-      <sg-text size="sm" color="muted">neutral</sg-text>
-      <sg-gradient-pattern preset="mesh" colors={["neutral", "neutral", "neutral"]} intensity={50} class="sg-demo-gradientpattern-4" />
-    </div>
+}` }, { title: "Intensity (1–100)", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">15</sg-text>
+    <sg-gradient-pattern preset="glow" colors="primary" intensity="15" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">50</sg-text>
+    <sg-gradient-pattern preset="glow" colors="primary" intensity="50" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">90</sg-text>
+    <sg-gradient-pattern preset="glow" colors="primary" intensity="90" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
   flex: 1
 }
 
 .sg-demo-gradientpattern-2 {
   aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}
-
-.sg-demo-gradientpattern-3 {
-  flex: 1
-}
-
-.sg-demo-gradientpattern-4 {
-  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Preset Factories with Parameters", language: "svelte", code: `<sg-stack gap="grouped">
-    <div>
-      <sg-text size="sm" color="muted">glow – custom positions + spread</sg-text>
-      <sg-gradient-pattern preset={glowCustom} colors={["primary", "accent"]} intensity={60} class="sg-demo-gradientpattern-1" />
-    </div>
-    <div>
-      <sg-text size="sm" color="muted">aurora – direction: 200deg</sg-text>
-      <sg-gradient-pattern preset={auroraAngled} colors={["info", "primary", "success"]} intensity={50} class="sg-demo-gradientpattern-2" />
-    </div>
-    <div>
-      <sg-text size="sm" color="muted">sweep – centered, 90deg</sg-text>
-      <sg-gradient-pattern preset={sweepCentered} colors={["danger", "warning", "primary"]} intensity={50} class="sg-demo-gradientpattern-3" />
-    </div>
-</sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
-  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}
-
-.sg-demo-gradientpattern-2 {
-  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}
-
-.sg-demo-gradientpattern-3 {
-  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Animated", language: "svelte", code: `<sg-stack direction="horizontal" gap="related">
-    <div class="sg-demo-gradientpattern-1">
-      <sg-text size="sm" color="muted">speed: 1 (default)</sg-text>
-      <sg-gradient-pattern preset="mesh" colors={["primary", "accent", "info"]} intensity={50} animated class="sg-demo-gradientpattern-2" />
-    </div>
-    <div class="sg-demo-gradientpattern-3">
-      <sg-text size="sm" color="muted">speed: 2</sg-text>
-      <sg-gradient-pattern preset="mesh" colors={["primary", "accent", "info"]} intensity={50} animated speed={2} class="sg-demo-gradientpattern-4" />
-    </div>
+}` }, { title: "Neutral-Aware", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">chromatic</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,info,accent" intensity="50" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-3">
+    <sg-text size="sm" color="muted">neutral</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="neutral,neutral,neutral" intensity="50" class="sg-demo-gradientpattern-4"></sg-gradient-pattern>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
   flex: 1
 }
@@ -24110,20 +24320,60 @@ console.log(result.formatted[500]);
 
 .sg-demo-gradientpattern-4 {
   aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Custom Preset", language: "svelte", code: '<sg-gradient-pattern preset={customRipple} colors={["primary", "accent"]} intensity={50} animated class="sg-demo-gradientpattern-1" />', cssCode: `.sg-demo-gradientpattern-1 {
+}` }, { title: "Progress", language: "html", code: `<sg-stack gap="grouped">
+  <div>
+    <sg-text size="sm" color="muted">progress: 0</sg-text>
+    <sg-gradient-pattern preset="aurora" colors="info,primary,success" intensity="50" progress="0" class="sg-demo-gradientpattern-1"></sg-gradient-pattern>
+  </div>
+  <div>
+    <sg-text size="sm" color="muted">progress: 0.75</sg-text>
+    <sg-gradient-pattern preset="aurora" colors="info,primary,success" intensity="50" progress="0.75" class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+</sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
   aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
-}` }, { title: "Container with Content", language: "svelte", code: `<sg-gradient-pattern preset="aurora" colors={["primary", "info", "accent"]} intensity={70} class="sg-demo-gradientpattern-1">
-    <sg-stack gap="related">
-        <sg-heading level={2} size="2xl" color="primary">Hero Section</sg-heading>
-        <sg-text color="secondary">Content renders above the gradient via the inner wrapper.</sg-text>
-    </sg-stack>
+}
+
+.sg-demo-gradientpattern-2 {
+  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
+}
+
+.sg-demo-gradientpattern-3 {
+  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
+}` }, { title: "Animated", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <div class="sg-demo-gradientpattern-1">
+    <sg-text size="sm" color="muted">speed: 1</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,accent,info" intensity="50" animated class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
+  </div>
+  <div class="sg-demo-gradientpattern-3">
+    <sg-text size="sm" color="muted">speed: 2</sg-text>
+    <sg-gradient-pattern preset="mesh" colors="primary,accent,info" intensity="50" animated speed="2" class="sg-demo-gradientpattern-4"></sg-gradient-pattern>
+  </div>
+</sg-stack>`, cssCode: `.sg-demo-gradientpattern-1 {
+  flex: 1
+}
+
+.sg-demo-gradientpattern-2 {
+  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
+}
+
+.sg-demo-gradientpattern-3 {
+  flex: 1
+}
+
+.sg-demo-gradientpattern-4 {
+  aspect-ratio: 16/9; border-radius: var(--sg-radius-lg)
+}` }, { title: "Container with Content", language: "html", code: `<sg-gradient-pattern preset="aurora" colors="primary,info,accent" intensity="70" class="sg-demo-gradientpattern-1">
+  <sg-stack gap="related">
+    <sg-heading level="2" size="2xl" color="primary">Hero Section</sg-heading>
+    <sg-text color="secondary">Content renders above the gradient.</sg-text>
+  </sg-stack>
 </sg-gradient-pattern>`, cssCode: `.sg-demo-gradientpattern-1 {
   aspect-ratio: 16/9; padding: var(--sg-space-8); border-radius: var(--sg-radius-lg)
-}` }, { title: "Overlay Mode", language: "svelte", code: `<div class="sg-demo-gradientpattern-1">
-  <sg-gradient-pattern preset="sweep" colors={["primary", "accent", "info"]} intensity={25} overlay class="sg-demo-gradientpattern-2" />
+}` }, { title: "Overlay Mode", language: "html", code: `<div class="sg-demo-gradientpattern-1">
+  <sg-gradient-pattern preset="sweep" colors="primary,accent,info" intensity="25" overlay class="sg-demo-gradientpattern-2"></sg-gradient-pattern>
   <sg-stack gap="related">
-      <sg-heading level={3}>Overlay behind content</sg-heading>
-      <sg-text>The gradient sits behind this text with pointer-events: none.</sg-text>
+    <sg-heading level="3">Overlay behind content</sg-heading>
+    <sg-text>The gradient sits behind this text with pointer-events: none.</sg-text>
   </sg-stack>
 </div>`, cssCode: `.sg-demo-gradientpattern-1 {
   position: relative; aspect-ratio: 16/9; padding: var(--sg-space-8); border-radius: var(--sg-radius-lg); border: var(--sg-border-thin) solid var(--sg-color-border)
@@ -24280,44 +24530,50 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/progress-ring": {
     componentName: "ProgressRing",
-    sections: [{ title: "Basic Usage", examples: [{ title: "Default progress ring", description: "Shows a determinate completion value for compact surfaces.", language: "html", code: '<sg-progress-ring value="72" max="100" aria-label="Build progress"></sg-progress-ring>' }] }, { title: "Sizing and Labels", examples: [{ title: "Larger ring with explicit label", description: "Use custom dimensions and an accessible label for status cards.", language: "html", code: '<sg-progress-ring value="38" max="50" aria-label="Upload progress" class="sg-demo-progressring-1"></sg-progress-ring>', cssCode: `.sg-demo-progressring-1 {
+    sections: [{ title: "Basic Usage", examples: [{ title: "Default progress ring", description: "Shows a determinate completion value for compact surfaces.", language: "html", code: '<sg-progress-ring value="72" max="100" size="md" aria-label="Build progress"></sg-progress-ring>' }] }, { title: "Sizing and Labels", examples: [{ title: "Larger ring with explicit label", description: "Use custom dimensions and an accessible label for status cards.", language: "html", code: '<sg-progress-ring value="38" max="50" aria-label="Upload progress" class="sg-demo-progressring-1"></sg-progress-ring>', cssCode: `.sg-demo-progressring-1 {
   --size: 96px;
 }` }] }]
   },
   "/components/data-display/qr-code": {
     componentName: "QrCode",
-    sections: [{ title: "Examples", examples: [{ title: "QR code rendering", language: "html", code: '<sg-qr-code value="https://sigui.dev/docs" size="160"></sg-qr-code>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "QR code rendering", language: "html", code: '<sg-qr-code value="https://sigui.dev/docs" size="160" foreground="primary" label="QR code linking to SigUI docs"></sg-qr-code>' }] }]
   },
   "/components/data-display/scroll-area": {
     componentName: "ScrollAreaRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Vertical Scroll", language: "svelte", code: `<sg-scroll-area-root type="hover">
-    <sg-scroll-area-viewport>
-        <div class="sg-demo-scrollarearoot-1">
-          {#each Array(20) as _, i}
-            <div class="sg-demo-scrollarearoot-2">
-              Item {i + 1}
-            </div>
-          {/each}
-        </div>
-    </sg-scroll-area-viewport>
-    <sg-scroll-area-scrollbar orientation="vertical" />
+    sections: [{ title: "Examples", examples: [{ title: "Vertical Scroll", language: "html", code: `<sg-scroll-area-root type="hover" height="md" max-width="sm">
+  <sg-scroll-area-viewport>
+    <div class="sg-demo-scrollarearoot-1">
+      <div class="sg-demo-scrollarearoot-2">Item 1</div>
+      <div class="sg-demo-scrollarearoot-2">Item 2</div>
+      <div class="sg-demo-scrollarearoot-2">Item 3</div>
+      <div class="sg-demo-scrollarearoot-2">Item 4</div>
+      <div class="sg-demo-scrollarearoot-2">Item 5</div>
+      <div class="sg-demo-scrollarearoot-2">Item 6</div>
+      <div class="sg-demo-scrollarearoot-2">Item 7</div>
+      <div class="sg-demo-scrollarearoot-2">Item 8</div>
+      <div class="sg-demo-scrollarearoot-2">Item 9</div>
+      <div class="sg-demo-scrollarearoot-2">Item 10</div>
+    </div>
+  </sg-scroll-area-viewport>
+  <sg-scroll-area-scrollbar orientation="vertical"></sg-scroll-area-scrollbar>
 </sg-scroll-area-root>`, cssCode: `.sg-demo-scrollarearoot-1 {
   height: 200px; overflow: hidden
 }
 
 .sg-demo-scrollarearoot-2 {
   padding: var(--sg-space-2) var(--sg-space-3); border-bottom: var(--sg-border-thin) solid var(--sg-color-border); color: var(--sg-color-text-secondary)
-}` }, { title: "Always Visible Scrollbar", language: "svelte", code: `<sg-scroll-area-root type="always">
-    <sg-scroll-area-viewport>
-        <div class="sg-demo-scrollarearoot-1">
-          {#each Array(15) as _, i}
-            <div class="sg-demo-scrollarearoot-2">
-              Row {i + 1} - always-visible scrollbar
-            </div>
-          {/each}
-        </div>
-    </sg-scroll-area-viewport>
-    <sg-scroll-area-scrollbar orientation="vertical" />
+}` }, { title: "Always Visible Scrollbar", language: "html", code: `<sg-scroll-area-root type="always" height="sm" max-width="sm">
+  <sg-scroll-area-viewport>
+    <div class="sg-demo-scrollarearoot-1">
+      <div class="sg-demo-scrollarearoot-2">Row 1 - always-visible scrollbar</div>
+      <div class="sg-demo-scrollarearoot-2">Row 2 - always-visible scrollbar</div>
+      <div class="sg-demo-scrollarearoot-2">Row 3 - always-visible scrollbar</div>
+      <div class="sg-demo-scrollarearoot-2">Row 4 - always-visible scrollbar</div>
+      <div class="sg-demo-scrollarearoot-2">Row 5 - always-visible scrollbar</div>
+      <div class="sg-demo-scrollarearoot-2">Row 6 - always-visible scrollbar</div>
+    </div>
+  </sg-scroll-area-viewport>
+  <sg-scroll-area-scrollbar orientation="vertical"></sg-scroll-area-scrollbar>
 </sg-scroll-area-root>`, cssCode: `.sg-demo-scrollarearoot-1 {
   height: 150px; overflow: hidden
 }
@@ -24328,7 +24584,7 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/scroller": {
     componentName: "Scroller",
-    sections: [{ title: "Examples", examples: [{ title: "Horizontal scrolling region", language: "html", code: `<sg-scroller axis="x">
+    sections: [{ title: "Examples", examples: [{ title: "Horizontal scrolling region", language: "html", code: `<sg-scroller axis="x" max-width="sm" label="Scrollable tags">
   <div class="sg-demo-scroller-1">
     <sg-badge>Item 1</sg-badge><sg-badge>Item 2</sg-badge><sg-badge>Item 3</sg-badge><sg-badge>Item 4</sg-badge><sg-badge>Item 5</sg-badge>
   </div>
@@ -24340,33 +24596,33 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/skeleton": {
     componentName: "Skeleton",
-    sections: [{ title: "Examples", examples: [{ title: "Shapes", language: "svelte", code: `<sg-stack gap="related">
-    <sg-skeleton width="100%" height="20px" />
-    <sg-skeleton width="200px" height="20px" />
-    <sg-skeleton width="40px" height="40px" circle={true} />
-</sg-stack>` }, { title: "Card Placeholder", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <sg-skeleton width="48px" height="48px" circle={true} />
-    <sg-stack gap="related">
-        <sg-skeleton width="160px" height="16px" />
-        <sg-skeleton width="100px" height="12px" />
-    </sg-stack>
+    sections: [{ title: "Examples", examples: [{ title: "Shapes", language: "html", code: `<sg-stack gap="related">
+  <sg-skeleton width="100%" height="20px"></sg-skeleton>
+  <sg-skeleton width="200px" height="20px"></sg-skeleton>
+  <sg-skeleton width="40px" height="40px" circle></sg-skeleton>
+</sg-stack>` }, { title: "Card Placeholder", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center">
+  <sg-skeleton width="48px" height="48px" circle></sg-skeleton>
+  <sg-stack gap="related">
+    <sg-skeleton width="160px" height="16px"></sg-skeleton>
+    <sg-skeleton width="100px" height="12px"></sg-skeleton>
+  </sg-stack>
 </sg-stack>` }] }]
   },
   "/components/data-display/spinner": {
     componentName: "Spinner",
-    sections: [{ title: "Examples", examples: [{ title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center">
-    <div class="sg-demo-spinner-1">
-      <sg-spinner size="sm" label="Loading" />
-      <p class="sg-demo-spinner-2">Small</p>
-    </div>
-    <div class="sg-demo-spinner-3">
-      <sg-spinner size="md" label="Loading" />
-      <p class="sg-demo-spinner-4">Medium</p>
-    </div>
-    <div class="sg-demo-spinner-5">
-      <sg-spinner size="lg" label="Loading" />
-      <p class="sg-demo-spinner-6">Large</p>
-    </div>
+    sections: [{ title: "Examples", examples: [{ title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" align="center">
+  <div class="sg-demo-spinner-1">
+    <sg-spinner size="sm" label="Loading"></sg-spinner>
+    <p class="sg-demo-spinner-2">Small</p>
+  </div>
+  <div class="sg-demo-spinner-3">
+    <sg-spinner size="md" label="Loading"></sg-spinner>
+    <p class="sg-demo-spinner-4">Medium</p>
+  </div>
+  <div class="sg-demo-spinner-5">
+    <sg-spinner size="lg" label="Loading"></sg-spinner>
+    <p class="sg-demo-spinner-6">Large</p>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-spinner-1 {
   text-align: center
 }
@@ -24393,134 +24649,120 @@ console.log(result.formatted[500]);
   },
   "/components/data-display/toast": {
     componentName: "Toast",
-    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" wrap={true}>
-    <sg-toast color="primary">Info toast message</sg-toast>
-    <sg-toast color="success">Success toast</sg-toast>
-    <sg-toast color="danger">Error toast</sg-toast>
-    <sg-toast color="warning">Warning toast</sg-toast>
-</sg-stack>` }, { title: "With Title and Action", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" wrap={true}>
-    <sg-toast
-      title="Success!"
-      color="success"
-      action={{ label: "Undo", onClick: () => console.log("Undo clicked") }}
-    >
-      Your changes have been saved.
-    </sg-toast>
-    <sg-toast
-      title="Error"
-      color="danger"
-      action={{ label: "Retry", onClick: () => console.log("Retry clicked") }}
-    >
-      Failed to save changes. Please try again.
-    </sg-toast>
-</sg-stack>` }, { title: "Non-dismissible", language: "svelte", code: `<sg-toast color="info" dismissible={false}>
-  This toast cannot be dismissed manually - only auto-dismisses after duration.
-</sg-toast>` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-toast-1">Toast machine can be toggled with <code>featureFlags.toastMachine</code>.</p>', cssCode: `.sg-demo-toast-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <sg-toast color="primary" open>Info toast message</sg-toast>
+  <sg-toast color="success" open>Success toast</sg-toast>
+  <sg-toast color="danger" open>Error toast</sg-toast>
+  <sg-toast color="warning" open>Warning toast</sg-toast>
+</sg-stack>` }, { title: "With Title and Action", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <sg-toast color="success" open>
+    <div class="sg-toast-content">
+      <strong class="sg-toast-title">Success!</strong>
+      <span class="sg-toast-message">Your changes have been saved.</span>
+    </div>
+  </sg-toast>
+  <sg-toast color="danger" open>
+    <div class="sg-toast-content">
+      <strong class="sg-toast-title">Error</strong>
+      <span class="sg-toast-message">Failed to save changes. Please try again.</span>
+    </div>
+  </sg-toast>
+</sg-stack>` }, { title: "Non-dismissible", language: "html", code: `<sg-toast color="info" open duration="0">
+  Persistent status toast.
+</sg-toast>` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-toast-1">Toast machine can be toggled with <code>featureFlags.toastMachine</code>.</p>', cssCode: `.sg-demo-toast-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/data-display/tree": {
     componentName: "Tree",
-    sections: [{ title: "Examples", examples: [{ title: "Keyboard-navigable tree", language: "html", code: `<sg-tree selectable>
-  <div role="treeitem" tabindex="0">src</div>
-  <div role="treeitem" tabindex="-1">components</div>
-  <div role="treeitem" tabindex="-1">styles</div>
+    sections: [{ title: "Examples", examples: [{ title: "Keyboard-navigable tree", language: "html", code: `<sg-tree selectable max-width="sm">
+  <div role="treeitem" data-value="src">src</div>
+  <div role="treeitem" data-value="components">components</div>
+  <div role="treeitem" data-value="styles">styles</div>
 </sg-tree>` }] }]
   },
   "/components/data-display/typewriter": {
     componentName: "Typewriter",
-    sections: [{ title: "Examples", examples: [{ title: "Basic", language: "svelte", code: '<sg-typewriter text="Build beautiful interfaces with SigUI." />' }, { title: "Speed", language: "svelte", code: `<sg-stack gap="grouped">
-    <div>
-      <span class="sg-demo-typewriter-1">20ms</span>
-      <sg-typewriter text="Fast typing." speed={20} />
-    </div>
-    <div>
-      <span class="sg-demo-typewriter-2">120ms</span>
-      <sg-typewriter text="Slow typing." speed={120} />
-    </div>
+    sections: [{ title: "Examples", examples: [{ title: "Basic", language: "html", code: '<sg-typewriter text="Build beautiful interfaces with SigUI."></sg-typewriter>' }, { title: "Speed", language: "html", code: `<sg-stack gap="grouped">
+  <div>
+    <span class="sg-demo-typewriter-1">20ms</span>
+    <sg-typewriter text="Fast typing." speed="20"></sg-typewriter>
+  </div>
+  <div>
+    <span class="sg-demo-typewriter-2">120ms</span>
+    <sg-typewriter text="Slow typing." speed="120"></sg-typewriter>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-typewriter-1 {
   font-size: var(--sg-text-sm); color: var(--text-3)
 }
 
 .sg-demo-typewriter-2 {
   font-size: var(--sg-text-sm); color: var(--text-3)
-}` }, { title: "No Cursor", language: "svelte", code: '<sg-typewriter text="No blinking cursor here." cursor={false} />' }, { title: "Delay", language: "svelte", code: '<sg-typewriter text="This appears after 1 second." delay={1000} />' }, { title: "Looping", language: "svelte", code: '<sg-typewriter text="Design tokens for every scale." loop={true} pauseBetween={2000} />' }, { title: "Pause / Resume", language: "svelte", code: `<sg-stack gap="related">
-    <sg-typewriter text="Pause me mid-sentence if you dare." paused={paused} oninput={(e) => { const el = e.currentTarget as any; paused = (el.paused ?? paused); }} onchange={(e) => { const el = e.currentTarget as any; paused = (el.paused ?? paused); }} onclick={(e) => { const el = e.currentTarget as any; paused = (el.paused ?? paused); }} ontoggle={(e) => { const el = e.currentTarget as any; paused = (el.paused ?? paused); }} speed={80} />
-    <div>
-      <button class="sg-demo-typewriter-3" onclick={() => paused = !paused}>{paused ? "Resume" : "Pause"}</button>
-    </div>
-</sg-stack>`, cssCode: `.sg-demo-typewriter-3 {
-  padding: var(--sg-space-2) var(--sg-space-4);
-  border: var(--sg-border-thin) solid var(--sg-color-border);
-  border-radius: var(--sg-radius-md);
-  background: var(--sg-surface-container-high);
-  cursor: pointer;
-  color: var(--sg-color-text);
-}` }] }]
+}` }, { title: "No Cursor", language: "html", code: '<sg-typewriter text="No blinking cursor here." cursor="false"></sg-typewriter>' }, { title: "Delay", language: "html", code: '<sg-typewriter text="This appears after 1 second." delay="1000"></sg-typewriter>' }, { title: "Looping", language: "html", code: '<sg-typewriter text="Design tokens for every scale." loop pause-between="2000"></sg-typewriter>' }] }]
   },
   "/components/forms/badge": {
     componentName: "Badge",
-    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
-    <sg-badge color="primary">Primary</sg-badge>
-    <sg-badge color="secondary">Secondary</sg-badge>
-    <sg-badge color="danger">Error</sg-badge>
-    <sg-badge color="success">Active</sg-badge>
-    <sg-badge color="warning">Pending</sg-badge>
-    <sg-badge color="info">Info</sg-badge>
-    <sg-badge color="outline">Outline</sg-badge>
-    <sg-badge color="ghost">Draft</sg-badge>
-</sg-stack>` }, { title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
-    <sg-badge size="sm" color="primary">Small</sg-badge>
-    <sg-badge size="md" color="primary">Medium</sg-badge>
-    <sg-badge size="lg" color="primary">Large</sg-badge>
-</sg-stack>` }, { title: "With Icon", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
-    <sg-badge color="success"><sg-icon name="check" label="check" /> Deployed</sg-badge>
-    <sg-badge color="danger"><sg-icon name="close" label="error" /> Failed</sg-badge>
-    <sg-badge color="warning"><sg-icon name="warning" label="warning" /> Pending</sg-badge>
-    <sg-badge color="info"><sg-icon name="info" label="info" /> Beta</sg-badge>
-</sg-stack>` }, { title: "Link Badge", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
-    <sg-badge href="https://example.com" target="_blank" color="primary">View docs</sg-badge>
-    <sg-badge href="/components" color="secondary">Components</sg-badge>
-    <sg-badge href="https://example.com" target="_blank" color="outline">GitHub</sg-badge>
-</sg-stack>` }, { title: "Notification Badges", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
-    <sg-badge color="primary" size="sm">8</sg-badge>
-    <sg-badge color="danger" size="sm">99</sg-badge>
-    <sg-badge color="outline" size="sm">20+</sg-badge>
+    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-badge color="primary">Primary</sg-badge>
+  <sg-badge color="secondary">Secondary</sg-badge>
+  <sg-badge color="danger">Error</sg-badge>
+  <sg-badge color="success">Active</sg-badge>
+  <sg-badge color="warning">Pending</sg-badge>
+  <sg-badge color="info">Info</sg-badge>
+  <sg-badge color="outline">Outline</sg-badge>
+  <sg-badge color="ghost">Draft</sg-badge>
+</sg-stack>` }, { title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-badge size="sm" color="primary">Small</sg-badge>
+  <sg-badge size="md" color="primary">Medium</sg-badge>
+  <sg-badge size="lg" color="primary">Large</sg-badge>
+</sg-stack>` }, { title: "With Icon", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-badge color="success" icon="check">Deployed</sg-badge>
+  <sg-badge color="danger" icon="close">Failed</sg-badge>
+  <sg-badge color="warning" icon="warning">Pending</sg-badge>
+  <sg-badge color="info" icon="info">Beta</sg-badge>
+</sg-stack>` }, { title: "Link Badge", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-badge href="https://example.com" target="_blank" color="primary">View docs</sg-badge>
+  <sg-badge href="/components" color="secondary">Components</sg-badge>
+  <sg-badge href="https://example.com" target="_blank" color="outline">GitHub</sg-badge>
+</sg-stack>` }, { title: "Notification Badges", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-badge color="primary" size="sm">8</sg-badge>
+  <sg-badge color="danger" size="sm">99</sg-badge>
+  <sg-badge color="outline" size="sm">20+</sg-badge>
 </sg-stack>` }] }]
   },
   "/components/forms/button-group": {
     componentName: "ButtonGroup",
-    sections: [{ title: "Examples", examples: [{ title: "Horizontal Group", language: "svelte", code: `<sg-button-group orientation="horizontal" aria-label="Actions">
-    <button class="sg-button" data-color="primary">Save</button>
-    <button class="sg-button" data-color="secondary">Cancel</button>
-    <button class="sg-button" data-color="danger">Delete</button>
-</sg-button-group>` }, { title: "Vertical Group", language: "svelte", code: `<sg-button-group orientation="vertical" aria-label="Options">
-    <button class="sg-button" data-color="secondary">Option A</button>
-    <button class="sg-button" data-color="secondary">Option B</button>
-    <button class="sg-button" data-color="secondary">Option C</button>
-</sg-button-group>` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
-    <sg-button-group size="sm" aria-label="Small group">
-        <button class="sg-button" data-color="primary">Small</button>
-        <button class="sg-button" data-color="secondary">Small</button>
-    </sg-button-group>
-    <sg-button-group size="lg" aria-label="Large group">
-        <button class="sg-button" data-color="primary">Large</button>
-        <button class="sg-button" data-color="secondary">Large</button>
-    </sg-button-group>
+    sections: [{ title: "Examples", examples: [{ title: "Horizontal Group", language: "html", code: `<sg-button-group orientation="horizontal" aria-label="Actions">
+  <button class="sg-button" data-color="primary">Save</button>
+  <button class="sg-button" data-color="secondary">Cancel</button>
+  <button class="sg-button" data-color="danger">Delete</button>
+</sg-button-group>` }, { title: "Vertical Group", language: "html", code: `<sg-button-group orientation="vertical" color="secondary" aria-label="Options">
+  <button class="sg-button">Option A</button>
+  <button class="sg-button">Option B</button>
+  <button class="sg-button">Option C</button>
+</sg-button-group>` }, { title: "Sizes", language: "html", code: `<sg-stack gap="grouped">
+  <sg-button-group size="sm" color="primary" aria-label="Small group">
+    <button class="sg-button">Small</button>
+    <button class="sg-button" data-color="secondary">Small</button>
+  </sg-button-group>
+  <sg-button-group size="lg" color="primary" aria-label="Large group">
+    <button class="sg-button">Large</button>
+    <button class="sg-button" data-color="secondary">Large</button>
+  </sg-button-group>
 </sg-stack>` }] }]
   },
   "/components/forms/calendar": {
     componentName: "Calendar",
-    sections: [{ title: "Examples", examples: [{ title: "Single Date Selection", description: "Click any day to select. Use arrow keys to navigate, Enter or Space to select.", language: "svelte", code: `<sg-calendar mode="single" value="2026-03-05"></sg-calendar>
+    sections: [{ title: "Examples", examples: [{ title: "Single Date Selection", description: "Click any day to select. Use arrow keys to navigate, Enter or Space to select.", language: "html", code: `<sg-calendar mode="single" value="2026-03-05" max-width="md"></sg-calendar>
 <p class="sg-demo-calendar-1">Selected: 2026-03-05</p>`, cssCode: `.sg-demo-calendar-1 {
   margin-top: var(--sg-space-2); color: var(--sg-color-text-secondary); font-size: var(--sg-text-sm)
-}` }, { title: "Date Range Selection", description: "Click to set start date, click again to set end date. Range is highlighted.", language: "svelte", code: `<sg-calendar mode="range" value='{"start":"2026-03-05","end":"2026-03-12"}'></sg-calendar>
+}` }, { title: "Date Range Selection", description: "Click to set start date, click again to set end date. Range is highlighted.", language: "html", code: `<sg-calendar mode="range" value='{"start":"2026-03-05","end":"2026-03-12"}' max-width="md"></sg-calendar>
 <p class="sg-demo-calendar-1">Range: 2026-03-05 - 2026-03-12</p>`, cssCode: `.sg-demo-calendar-1 {
   margin-top: var(--sg-space-2); color: var(--sg-color-text-secondary); font-size: var(--sg-text-sm)
-}` }, { title: "Min/Max Constraints", description: "Limit selectable dates with min and max props.", language: "svelte", code: `<sg-calendar mode="single" min="2024-01-15" max="2024-02-15" value="2024-01-22"></sg-calendar>
+}` }, { title: "Min/Max Constraints", description: "Limit selectable dates with min and max props.", language: "html", code: `<sg-calendar mode="single" min="2024-01-15" max="2024-02-15" value="2024-01-22" max-width="md"></sg-calendar>
 <p class="sg-demo-calendar-1">Only dates between Jan 15 and Feb 15 are selectable</p>`, cssCode: `.sg-demo-calendar-1 {
   margin-top: var(--sg-space-2); color: var(--sg-color-text-secondary); font-size: var(--sg-text-sm)
-}` }, { title: "Keyboard Navigation", description: "Full keyboard support for accessibility.", language: "svelte", code: `<div class="sg-demo-calendar-1">
+}` }, { title: "Keyboard Navigation", description: "Full keyboard support for accessibility.", language: "html", code: `<div class="sg-demo-calendar-1">
   <p><strong>Keyboard Shortcuts:</strong></p>
   <ul class="sg-demo-calendar-2">
     <li><kbd>ArrowLeft</kbd> / <kbd>ArrowRight</kbd>: Previous/Next day</li>
@@ -24545,6 +24787,10 @@ console.log(result.formatted[500]);
   <sg-checkbox checked aria-label="Checked"></sg-checkbox>
   <sg-checkbox indeterminate aria-label="Indeterminate"></sg-checkbox>
   <sg-checkbox disabled aria-label="Disabled"></sg-checkbox>
+</sg-stack>` }, { title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
+  <sg-checkbox size="sm" checked aria-label="Small"></sg-checkbox>
+  <sg-checkbox size="md" checked aria-label="Medium"></sg-checkbox>
+  <sg-checkbox size="lg" checked aria-label="Large"></sg-checkbox>
 </sg-stack>` }, { title: "With Labels", language: "html", code: `<sg-stack gap="grouped">
   <label class="sg-demo-checkbox-1">
     <sg-checkbox name="updates" value="email"></sg-checkbox>
@@ -24576,87 +24822,59 @@ console.log(result.formatted[500]);
   },
   "/components/forms/color-picker": {
     componentName: "ColorPicker",
-    sections: [{ title: "Examples", examples: [{ title: "Popover Mode (Swatch Only)", language: "svelte", code: '<sg-color-picker value="#3b82f6" mode="popover" label="Brand color" />' }, { title: "Hex Mode with Value", language: "svelte", code: `<sg-color-picker
-  value={hexValue}
-  label="Pick a color"
-  show-value
-  onchange={(e) => {
-    const d = ((e as CustomEvent<any>).detail ?? { hex: (e.currentTarget as any).value });
-    hexValue = d.hex;
-  }}
-/>` }, { title: "OKLCH Mode with Value", language: "svelte", code: '<sg-color-picker hue={240} lightness={0.7} chroma={0.15} label="OKLCH color" show-value />' }, { title: "Hex Input", language: "svelte", code: `<sg-color-picker
-  value={hexValue}
-  label="Pick a color"
-  input
-  onchange={(e) => {
-    const d = ((e as CustomEvent<any>).detail ?? { hex: (e.currentTarget as any).value });
-    hexValue = d.hex;
-  }}
-/>` }, { title: "Compact (Swatch + Popover + Input)", language: "svelte", code: `<sg-color-picker
-  value={compactValue}
-  mode="popover"
-  input
-  label="Pick a color"
-  onchange={(e) => {
-    const d = ((e as CustomEvent<any>).detail ?? { hex: (e.currentTarget as any).value });
-    compactValue = d.hex;
-  }}
-/>` }, { title: "Compact (No Input)", language: "svelte", code: '<sg-color-picker value={compactValue} mode="popover" label="Pick a color" />' }, { title: "Direction", language: "svelte", code: `<div class="sg-demo-colorpicker-1">
+    sections: [{ title: "Examples", examples: [{ title: "Popover Mode (Swatch Only)", language: "html", code: '<sg-color-picker value="#3b82f6" mode="popover" label="Brand color" />' }, { title: "Hex Mode with Value", language: "html", code: '<sg-color-picker value="#3b82f6" label="Pick a color" show-value></sg-color-picker>' }, { title: "OKLCH Mode with Value", language: "html", code: '<sg-color-picker hue="240" lightness="0.7" chroma="0.15" label="OKLCH color" show-value></sg-color-picker>' }, { title: "Hex Input", language: "html", code: '<sg-color-picker value="#3b82f6" label="Pick a color" input></sg-color-picker>' }, { title: "Compact (Swatch + Popover + Input)", language: "html", code: '<sg-color-picker value="#10b981" mode="popover" input label="Pick a color"></sg-color-picker>' }, { title: "Compact (No Input)", language: "html", code: '<sg-color-picker value="#10b981" mode="popover" label="Pick a color"></sg-color-picker>' }, { title: "Direction", language: "html", code: `<div class="sg-demo-colorpicker-1">
   <sg-color-picker value="#ef4444" mode="popover" direction="top" label="Top" />
   <sg-color-picker value="#f59e0b" mode="popover" direction="right" label="Right" />
   <sg-color-picker value="#10b981" mode="popover" direction="bottom" label="Bottom" />
   <sg-color-picker value="#3b82f6" mode="popover" direction="left" label="Left" />
 </div>`, cssCode: `.sg-demo-colorpicker-1 {
   display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
-}` }, { title: "Independent Sizes", language: "svelte", code: `<div class="sg-demo-colorpicker-1">
-  <sg-color-picker value="#6366f1" ring-size={30} swatch-size={8} thickness={3.5} show-value label="Custom" />
-  <sg-color-picker value="#22c55e" mode="popover" ring-size={40} swatch-size={6} input label="Custom Popover" />
+}` }, { title: "Independent Sizes", language: "html", code: `<div class="sg-demo-colorpicker-1">
+  <sg-color-picker value="#6366f1" ring-size="30" swatch-size="8" thickness="3.5" show-value label="Custom"></sg-color-picker>
+  <sg-color-picker value="#22c55e" mode="popover" ring-size="40" swatch-size="6" input label="Custom Popover"></sg-color-picker>
 </div>`, cssCode: `.sg-demo-colorpicker-1 {
   display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
-}` }, { title: "Sizes", language: "svelte", code: `<div class="sg-demo-colorpicker-1">
-  <sg-color-picker size={30} thickness={4} label="Small" />
-  <sg-color-picker size={20} thickness={2.5} swatch-size={4} label="Tiny" />
+}` }, { title: "Sizes", language: "html", code: `<div class="sg-demo-colorpicker-1">
+  <sg-color-picker size="30" thickness="4" label="Small"></sg-color-picker>
+  <sg-color-picker size="20" thickness="2.5" swatch-size="4" label="Tiny"></sg-color-picker>
 </div>`, cssCode: `.sg-demo-colorpicker-1 {
   display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
-}` }, { title: "Disabled", language: "svelte", code: '<sg-color-picker value="#e11d48" label="Disabled" disabled />' }] }]
+}` }, { title: "Disabled", language: "html", code: '<sg-color-picker value="#e11d48" label="Disabled" disabled />' }] }]
   },
   "/components/forms/copy-button": {
     componentName: "CopyButton",
-    sections: [{ title: "Examples", examples: [{ title: "Copy text from value", language: "html", code: '<sg-copy-button value="npm i @sig-ui/components" success-text="Copied!">Copy install command</sg-copy-button>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Copy Value", language: "html", code: '<sg-copy-button value="npm i @sig-ui/components" success-text="Copied!" color="secondary">Copy install command</sg-copy-button>' }, { title: "Copy From Target", language: "html", code: `<sg-stack gap="related" align="start">
+  <code id="copy-target" class="sg-code">bun add @sig-ui/components</code>
+  <sg-copy-button for="#copy-target" success-text="Copied!" size="sm" color="outline">Copy command</sg-copy-button>
+</sg-stack>` }] }]
   },
   "/components/forms/field": {
     componentName: "Field",
-    sections: [{ title: "Examples", examples: [{ title: "Form Field Wrapper", language: "svelte", code: `<sg-stack gap="grouped">
-    <sg-field label="Username" description="Choose a unique name." required={true} htmlFor="demo-username">
-        <input type="text" id="demo-username" class="sg-demo-field-1" />
-    </sg-field>
-    <sg-field label="Bio" error="Too long (max 200 chars)" htmlFor="demo-bio">
-        <textarea id="demo-bio" rows="2" class="sg-demo-field-2"></textarea>
-    </sg-field>
-    <sg-field label="Disabled Field" disabled={true} htmlFor="demo-disabled">
-        <input type="text" id="demo-disabled" disabled class="sg-demo-field-3" />
-    </sg-field>
-</sg-stack>`, cssCode: `.sg-demo-field-1 {
-  padding: var(--sg-space-2); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); width: 100%; box-sizing: border-box
-}
-
-.sg-demo-field-2 {
-  padding: var(--sg-space-2); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); width: 100%; box-sizing: border-box
-}
-
-.sg-demo-field-3 {
-  padding: var(--sg-space-2); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); width: 100%; box-sizing: border-box; opacity: 0.5
-}` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Form Field Wrapper", language: "html", code: `<sg-stack gap="grouped">
+  <sg-field label="Username" description="Choose a unique name." required html-for="demo-username" max-width="md">
+    <input type="text" id="demo-username" class="sg-input" />
+  </sg-field>
+  <sg-field label="Bio" error="Too long (max 200 chars)" html-for="demo-bio" max-width="md">
+    <textarea id="demo-bio" rows="2" class="sg-textarea"></textarea>
+  </sg-field>
+  <sg-field label="Disabled Field" disabled html-for="demo-disabled" max-width="md">
+    <input type="text" id="demo-disabled" class="sg-input" />
+  </sg-field>
+</sg-stack>` }] }]
   },
   "/components/forms/icon-button": {
     componentName: "IconButton",
-    sections: [{ title: "Examples", examples: [{ title: "Icon-only action", language: "html", code: `<sg-icon-button aria-label="Search">
-  <sg-icon name="search" set="material-symbols">search</sg-icon>
-</sg-icon-button>` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Icon-only Action", language: "html", code: '<sg-icon-button aria-label="Search" icon="search"></sg-icon-button>' }, { title: "Sizes and States", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-icon-button size="sm" color="ghost" aria-label="Small search" icon="search"></sg-icon-button>
+  <sg-icon-button size="md" color="secondary" aria-label="Medium settings" icon="settings"></sg-icon-button>
+  <sg-icon-button size="lg" color="primary" aria-label="Large add" icon="add"></sg-icon-button>
+  <sg-icon-button pressed aria-label="Pinned" icon="keep"></sg-icon-button>
+  <sg-icon-button disabled aria-label="Disabled" icon="block"></sg-icon-button>
+</sg-stack>` }] }]
   },
   "/components/forms/input-group": {
     componentName: "InputGroup",
-    sections: [{ title: "Examples", examples: [{ title: "Text Addons", language: "svelte", code: `<sg-stack gap="grouped">
+    sections: [{ title: "Examples", examples: [{ title: "Text Addons", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group aria-label="Price">
       <sg-input-group-addon align="inline-start">
         <sg-input-group-text>$</sg-input-group-text>
@@ -24672,7 +24890,7 @@ console.log(result.formatted[500]);
       </sg-input-group-addon>
       <sg-input-group-input type="url" placeholder="example.com" />
     </sg-input-group>
-</sg-stack>` }, { title: "Button Addons", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Button Addons", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group aria-label="Search">
       <sg-input-group-input type="search" placeholder="Search..." />
       <sg-input-group-addon align="inline-end">
@@ -24685,26 +24903,20 @@ console.log(result.formatted[500]);
         <sg-input-group-button variant="secondary">Subscribe</sg-input-group-button>
       </sg-input-group-addon>
     </sg-input-group>
-</sg-stack>` }, { title: "Icon Addons", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Icon Addons", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group aria-label="Search with icon">
       <sg-input-group-addon align="inline-start">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
+        <sg-icon name="search" aria-hidden="true"></sg-icon>
       </sg-input-group-addon>
       <sg-input-group-input type="search" placeholder="Search..." />
     </sg-input-group>
     <sg-input-group aria-label="Email with icon">
       <sg-input-group-addon align="inline-start">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-          <polyline points="22,6 12,13 2,6"></polyline>
-        </svg>
+        <sg-icon name="mail" aria-hidden="true"></sg-icon>
       </sg-input-group-addon>
       <sg-input-group-input type="email" placeholder="email@example.com" />
     </sg-input-group>
-</sg-stack>` }, { title: "Size Variants", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Size Variants", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group size="sm" aria-label="Small input">
       <sg-input-group-addon align="inline-start">
         <sg-input-group-text>$</sg-input-group-text>
@@ -24723,7 +24935,7 @@ console.log(result.formatted[500]);
       </sg-input-group-addon>
       <sg-input-group-input placeholder="Large" />
     </sg-input-group>
-</sg-stack>` }, { title: "Textarea with Addons", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Textarea with Addons", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group aria-label="Message">
       <sg-input-group-addon align="block-start">
         <sg-input-group-text>Message</sg-input-group-text>
@@ -24733,14 +24945,14 @@ console.log(result.formatted[500]);
         <sg-input-group-button variant="primary">Send</sg-input-group-button>
       </sg-input-group-addon>
     </sg-input-group>
-</sg-stack>` }, { title: "Disabled State", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Disabled State", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group disabled aria-label="Disabled input">
       <sg-input-group-addon align="inline-start">
         <sg-input-group-text>$</sg-input-group-text>
       </sg-input-group-addon>
       <sg-input-group-input placeholder="Disabled" />
     </sg-input-group>
-</sg-stack>` }, { title: "Button Color Variants", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Button Color Variants", language: "html", code: `<sg-stack gap="grouped">
     <sg-input-group aria-label="Primary action">
       <sg-input-group-input placeholder="Primary" />
       <sg-input-group-addon align="inline-end">
@@ -24769,40 +24981,56 @@ console.log(result.formatted[500]);
   },
   "/components/forms/input-number": {
     componentName: "InputNumber",
-    sections: [{ title: "Examples", examples: [{ title: "Numeric input", language: "html", code: '<sg-input-number name="quantity" min="1" max="10" step="1" value="3"></sg-input-number>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Numeric Input", language: "html", code: '<sg-input-number name="quantity" min="1" max="10" step="1" value="3" max-width="sm"></sg-input-number>' }, { title: "Sizes", language: "html", code: `<sg-stack gap="grouped">
+  <sg-input-number size="sm" placeholder="Small" max-width="sm"></sg-input-number>
+  <sg-input-number size="md" placeholder="Medium" max-width="sm"></sg-input-number>
+  <sg-input-number size="lg" placeholder="Large" max-width="sm"></sg-input-number>
+</sg-stack>` }] }]
   },
   "/components/forms/rating": {
     componentName: "Rating",
-    sections: [{ title: "Examples", examples: [{ title: "Star Rating", language: "html", code: '<sg-rating value="3" max="5"></sg-rating>' }, { title: "Heart Rating", language: "html", code: '<sg-rating value="4" max="5" data-style="heart"></sg-rating>' }, { title: "Read-only", language: "html", code: `<sg-stack gap="grouped">
+    sections: [{ title: "Examples", examples: [{ title: "Star Rating", language: "html", code: '<sg-rating value="3" max="5" aria-label="Product rating"></sg-rating>' }, { title: "Heart Rating", language: "html", code: '<sg-rating value="4" max="5" data-style="heart" aria-label="Favorite rating"></sg-rating>' }, { title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
+  <sg-rating value="3" size="sm" aria-label="Small rating"></sg-rating>
+  <sg-rating value="3" size="md" aria-label="Medium rating"></sg-rating>
+  <sg-rating value="3" size="lg" aria-label="Large rating"></sg-rating>
+</sg-stack>` }, { title: "Read-only", language: "html", code: `<sg-stack gap="grouped">
   <sg-rating value="4" max="5" readonly></sg-rating>
   <sg-rating value="3" max="5" data-style="heart" readonly></sg-rating>
 </sg-stack>` }] }]
   },
   "/components/forms/tag": {
     componentName: "Tag",
-    sections: [{ title: "Examples", examples: [{ title: "Removable tag", language: "html", code: '<sg-tag removable variant="default">Design Token</sg-tag>' }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-tag variant="default">Default</sg-tag>
+  <sg-tag variant="primary">Primary</sg-tag>
+  <sg-tag variant="secondary">Secondary</sg-tag>
+</sg-stack>` }, { title: "Sizes", language: "html", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
+  <sg-tag size="sm">Small</sg-tag>
+  <sg-tag size="md">Medium</sg-tag>
+  <sg-tag size="lg">Large</sg-tag>
+</sg-stack>` }, { title: "Removable", language: "html", code: '<sg-tag removable variant="default">Design Token</sg-tag>' }] }]
   },
   "/components/layout/aspect-ratio": {
     componentName: "AspectRatio",
-    sections: [{ title: "Examples", examples: [{ title: "Common Ratios", language: "svelte", code: `<sg-stack gap="grouped">
-    <div class="sg-demo-aspectratio-1">
-      <p class="sg-demo-aspectratio-2">16:9 (widescreen)</p>
-      <sg-aspect-ratio ratio={16 / 9}>
-          <div class="sg-demo-aspectratio-3">16:9</div>
-      </sg-aspect-ratio>
-    </div>
-    <div class="sg-demo-aspectratio-4">
-      <p class="sg-demo-aspectratio-5">4:3 (standard)</p>
-      <sg-aspect-ratio ratio={4 / 3}>
-          <div class="sg-demo-aspectratio-6">4:3</div>
-      </sg-aspect-ratio>
-    </div>
-    <div class="sg-demo-aspectratio-7">
-      <p class="sg-demo-aspectratio-8">1:1 (square)</p>
-      <sg-aspect-ratio ratio={1}>
-          <div class="sg-demo-aspectratio-9">1:1</div>
-      </sg-aspect-ratio>
-    </div>
+    sections: [{ title: "Examples", examples: [{ title: "Common Ratios", language: "html", code: `<sg-stack gap="grouped">
+  <div class="sg-demo-aspectratio-1">
+    <p class="sg-demo-aspectratio-2">16:9 (widescreen)</p>
+    <sg-aspect-ratio ratio="16 / 9">
+      <div class="sg-demo-aspectratio-3">16:9</div>
+    </sg-aspect-ratio>
+  </div>
+  <div class="sg-demo-aspectratio-4">
+    <p class="sg-demo-aspectratio-5">4:3 (standard)</p>
+    <sg-aspect-ratio ratio="4 / 3">
+      <div class="sg-demo-aspectratio-6">4:3</div>
+    </sg-aspect-ratio>
+  </div>
+  <div class="sg-demo-aspectratio-7">
+    <p class="sg-demo-aspectratio-8">1:1 (square)</p>
+    <sg-aspect-ratio ratio="1">
+      <div class="sg-demo-aspectratio-9">1:1</div>
+    </sg-aspect-ratio>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-aspectratio-1 {
   max-width: 300px
 }
@@ -24837,19 +25065,19 @@ console.log(result.formatted[500]);
 
 .sg-demo-aspectratio-9 {
   background: var(--sg-surface-container-high); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: var(--sg-color-text-secondary)
-}` }, { title: "Profile/Card Ratios", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="end">
-    <div class="sg-demo-aspectratio-1">
-      <p class="sg-demo-aspectratio-2">3:4 (portrait)</p>
-      <sg-aspect-ratio ratio={3 / 4}>
-          <div class="sg-demo-aspectratio-3">3:4</div>
-      </sg-aspect-ratio>
-    </div>
-    <div class="sg-demo-aspectratio-4">
-      <p class="sg-demo-aspectratio-5">2:3 (poster)</p>
-      <sg-aspect-ratio ratio={2 / 3}>
-          <div class="sg-demo-aspectratio-6">2:3</div>
-      </sg-aspect-ratio>
-    </div>
+}` }, { title: "Profile/Card Ratios", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" align="end" wrap>
+  <div class="sg-demo-aspectratio-1">
+    <p class="sg-demo-aspectratio-2">3:4 (portrait)</p>
+    <sg-aspect-ratio ratio="3 / 4">
+      <div class="sg-demo-aspectratio-3">3:4</div>
+    </sg-aspect-ratio>
+  </div>
+  <div class="sg-demo-aspectratio-4">
+    <p class="sg-demo-aspectratio-5">2:3 (poster)</p>
+    <sg-aspect-ratio ratio="2 / 3">
+      <div class="sg-demo-aspectratio-6">2:3</div>
+    </sg-aspect-ratio>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-aspectratio-1 {
   max-width: 150px
 }
@@ -24872,13 +25100,13 @@ console.log(result.formatted[500]);
 
 .sg-demo-aspectratio-6 {
   background: linear-gradient(135deg, var(--sg-color-success), var(--sg-color-info)); border-radius: var(--sg-radius-md); display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; color: var(--sg-color-text-inverse)
-}` }, { title: "With Image", language: "svelte", code: `<div class="sg-demo-aspectratio-1">
-  <sg-aspect-ratio ratio={16 / 9}>
-      <img
-        src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
-        alt="Colorful abstract background" class="sg-demo-aspectratio-2"
-       
-      />
+}` }, { title: "With Image", language: "html", code: `<div class="sg-demo-aspectratio-1">
+  <sg-aspect-ratio ratio="16 / 9" max-width="lg">
+    <img
+      src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+      alt="Colorful abstract background"
+      class="sg-demo-aspectratio-2"
+    />
   </sg-aspect-ratio>
 </div>`, cssCode: `.sg-demo-aspectratio-1 {
   max-width: 400px
@@ -24890,27 +25118,31 @@ console.log(result.formatted[500]);
   },
   "/components/layout/container": {
     componentName: "Container",
-    sections: [{ title: "Examples", examples: [{ title: "Size Variants", language: "svelte", code: `<sg-stack gap="grouped">
-    {#each ["sm", "md", "lg", "xl", "full"] as sz}
-      <sg-container size={sz}>
-          <div class="sg-demo-container-1">
-            Container size="{sz}"
-          </div>
-      </sg-container>
-    {/each}
+    sections: [{ title: "Examples", examples: [{ title: "Size Variants", language: "html", code: `<sg-stack gap="grouped">
+  <sg-container size="sm" padding>
+    <div class="sg-demo-container-1">size="sm"</div>
+  </sg-container>
+  <sg-container size="md" padding>
+    <div class="sg-demo-container-1">size="md"</div>
+  </sg-container>
+  <sg-container size="lg" padding>
+    <div class="sg-demo-container-1">size="lg"</div>
+  </sg-container>
+  <sg-container size="xl" padding>
+    <div class="sg-demo-container-1">size="xl"</div>
+  </sg-container>
+  <sg-container size="full" padding>
+    <div class="sg-demo-container-1">size="full"</div>
+  </sg-container>
 </sg-stack>`, cssCode: `.sg-demo-container-1 {
   background: var(--sg-surface-container-high); padding: var(--sg-pad-button-y, 0.75rem) var(--sg-pad-button-x, 1rem); border-radius: var(--sg-radius-md); border: var(--sg-border-thin) solid var(--sg-color-border)
-}` }, { title: "Padding Control", language: "svelte", code: `<sg-stack gap="grouped">
-    <sg-container padding={true}>
-        <div class="sg-demo-container-1">
-          padding=true (default)
-        </div>
-    </sg-container>
-    <sg-container padding={false}>
-        <div class="sg-demo-container-2">
-          padding=false
-        </div>
-    </sg-container>
+}` }, { title: "Padding Control", language: "html", code: `<sg-stack gap="grouped">
+  <sg-container size="md" padding>
+    <div class="sg-demo-container-1">With horizontal padding</div>
+  </sg-container>
+  <sg-container size="md">
+    <div class="sg-demo-container-2">Without horizontal padding</div>
+  </sg-container>
 </sg-stack>`, cssCode: `.sg-demo-container-1 {
   background: var(--sg-surface-container-high); padding: var(--sg-pad-button-y, 0.75rem) var(--sg-pad-button-x, 1rem); border-radius: var(--sg-radius-md); border: var(--sg-border-thin) solid var(--sg-color-border)
 }
@@ -24921,13 +25153,13 @@ console.log(result.formatted[500]);
   },
   "/components/layout/direction": {
     componentName: "Direction",
-    sections: [{ title: "Examples", examples: [{ title: "LTR / RTL", language: "svelte", code: `<sg-stack gap="grouped">
-    <sg-direction dir="ltr">
-        <p class="sg-demo-direction-1">LTR: This text flows left-to-right. مرحبا</p>
-    </sg-direction>
-    <sg-direction dir="rtl">
-        <p class="sg-demo-direction-2">RTL: هذا النص يتدفق من اليمين إلى اليسار. Hello</p>
-    </sg-direction>
+    sections: [{ title: "Examples", examples: [{ title: "LTR / RTL", language: "html", code: `<sg-stack gap="grouped">
+  <sg-direction dir="ltr">
+    <p class="sg-demo-direction-1">LTR: This text flows left-to-right. مرحبا</p>
+  </sg-direction>
+  <sg-direction dir="rtl">
+    <p class="sg-demo-direction-2">RTL: هذا النص يتدفق من اليمين إلى اليسار. Hello</p>
+  </sg-direction>
 </sg-stack>`, cssCode: `.sg-demo-direction-1 {
   margin: 0
 }
@@ -24938,86 +25170,90 @@ console.log(result.formatted[500]);
   },
   "/components/layout/grid": {
     componentName: "Grid",
-    sections: [{ title: "Examples", examples: [{ title: "Auto-Fit with minChildWidth", language: "svelte", code: `<sg-grid columns="auto-fit" minChildWidth="160px" gap="grouped">
-    <div class="grid-demo-card">Analytics</div>
-    <div class="grid-demo-card">Revenue</div>
-    <div class="grid-demo-card">Sessions</div>
-    <div class="grid-demo-card">Conversion</div>
-    <div class="grid-demo-card">Retention</div>
-</sg-grid>` }, { title: "GridItem Placement (span/start/rowSpan)", language: "svelte", code: `<sg-grid columns={6} rows="repeat(3, minmax(56px, auto))" gap="grouped">
-    <sg-grid-item span={4} start={1}>
-      <div class="grid-demo-card">Main Panel</div>
-    </sg-grid-item>
-    <sg-grid-item span={2} start={5} rowSpan={2}>
-      <div class="grid-demo-card">Sidebar</div>
-    </sg-grid-item>
-    <sg-grid-item span={2} start={1}>
-      <div class="grid-demo-card">Stats A</div>
-    </sg-grid-item>
-    <sg-grid-item span={2} start={3}>
-      <div class="grid-demo-card">Stats B</div>
-    </sg-grid-item>
-    <sg-grid-item span={6}>
-      <div class="grid-demo-card">Timeline</div>
-    </sg-grid-item>
-</sg-grid>` }, { title: "Dense Auto-Placement", language: "svelte", code: `<sg-grid columns={4} flow="row-dense" rows="repeat(3, minmax(44px, auto))" gap="related">
-    <sg-grid-item span={2}><div class="grid-demo-card">Wide</div></sg-grid-item>
-    <sg-grid-item rowSpan={2}><div class="grid-demo-card">Tall</div></sg-grid-item>
-    <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
-    <sg-grid-item span={2}><div class="grid-demo-card">Wide</div></sg-grid-item>
-    <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
-    <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
-</sg-grid>` }, { title: "Align, Justify, PlaceContent, Inline", language: "svelte", code: `<sg-stack align="start">
-    <div class="grid-demo-frame">
-      <sg-grid
-        inline={true}
-        columns={3}
-        rows={2}
-        gap="separated"
-        align="center"
-        justify="center"
-        placeContent="center" class="sg-demo-grid-1"
-       
-      >
-          <div class="grid-demo-card grid-demo-card-sm">Alpha</div>
-          <div class="grid-demo-card grid-demo-card-sm">Beta</div>
-          <div class="grid-demo-card grid-demo-card-sm">Gamma</div>
-      </sg-grid>
-    </div>
+    sections: [{ title: "Examples", examples: [{ title: "Auto-Fit with minChildWidth", language: "html", code: `<sg-grid columns="auto-fit" min-child-width="160px" gap="grouped">
+  <div class="grid-demo-card">Analytics</div>
+  <div class="grid-demo-card">Revenue</div>
+  <div class="grid-demo-card">Sessions</div>
+  <div class="grid-demo-card">Conversion</div>
+  <div class="grid-demo-card">Retention</div>
+</sg-grid>` }, { title: "GridItem Placement (span/start/rowSpan)", language: "html", code: `<sg-grid columns="6" rows="repeat(3, minmax(56px, auto))" gap="grouped">
+  <sg-grid-item span="4" start="1">
+    <div class="grid-demo-card">Main Panel</div>
+  </sg-grid-item>
+  <sg-grid-item span="2" start="5" row-span="2">
+    <div class="grid-demo-card">Sidebar</div>
+  </sg-grid-item>
+  <sg-grid-item span="2" start="1">
+    <div class="grid-demo-card">Stats A</div>
+  </sg-grid-item>
+  <sg-grid-item span="2" start="3">
+    <div class="grid-demo-card">Stats B</div>
+  </sg-grid-item>
+  <sg-grid-item span="6">
+    <div class="grid-demo-card">Timeline</div>
+  </sg-grid-item>
+</sg-grid>` }, { title: "Dense Auto-Placement", language: "html", code: `<sg-grid columns="4" flow="row-dense" rows="repeat(3, minmax(44px, auto))" gap="related">
+  <sg-grid-item span="2"><div class="grid-demo-card">Wide</div></sg-grid-item>
+  <sg-grid-item row-span="2"><div class="grid-demo-card">Tall</div></sg-grid-item>
+  <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
+  <sg-grid-item span="2"><div class="grid-demo-card">Wide</div></sg-grid-item>
+  <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
+  <sg-grid-item><div class="grid-demo-card">Item</div></sg-grid-item>
+</sg-grid>` }, { title: "Align, Justify, PlaceContent, Inline", language: "html", code: `<sg-stack align="start">
+  <div class="grid-demo-frame">
+    <sg-grid
+      inline
+      columns="3"
+      rows="2"
+      gap="separated"
+      align="center"
+      justify="center"
+      place-content="center"
+      class="sg-demo-grid-1"
+    >
+      <div class="grid-demo-card grid-demo-card-sm">Alpha</div>
+      <div class="grid-demo-card grid-demo-card-sm">Beta</div>
+      <div class="grid-demo-card grid-demo-card-sm">Gamma</div>
+    </sg-grid>
+  </div>
 </sg-stack>`, cssCode: `.sg-demo-grid-1 {
   min-height: 170px; min-width: min(100%, 480px)
 }` }] }]
   },
   "/components/layout/heading": {
     componentName: "Heading",
-    sections: [{ title: "Examples", examples: [{ title: "Heading Levels", language: "svelte", code: `<sg-stack gap="related">
-    <sg-heading level={1}>Heading 1 (4xl)</sg-heading>
-    <sg-heading level={2}>Heading 2 (3xl)</sg-heading>
-    <sg-heading level={3}>Heading 3 (2xl)</sg-heading>
-    <sg-heading level={4}>Heading 4 (xl)</sg-heading>
-    <sg-heading level={5}>Heading 5 (lg)</sg-heading>
-    <sg-heading level={6}>Heading 6 (lg)</sg-heading>
-</sg-stack>` }, { title: "Custom Size Override", language: "svelte", code: `<sg-stack gap="related">
-    <sg-heading level={3} size="4xl">h3 with 4xl size override</sg-heading>
-    <sg-heading level={5} size="2xl">h5 with 2xl size override</sg-heading>
+    sections: [{ title: "Examples", examples: [{ title: "Heading Levels", language: "html", code: `<sg-stack gap="related">
+  <sg-heading level="1">Heading 1 (4xl)</sg-heading>
+  <sg-heading level="2">Heading 2 (3xl)</sg-heading>
+  <sg-heading level="3">Heading 3 (2xl)</sg-heading>
+  <sg-heading level="4">Heading 4 (xl)</sg-heading>
+  <sg-heading level="5">Heading 5 (lg)</sg-heading>
+  <sg-heading level="6">Heading 6 (lg)</sg-heading>
+</sg-stack>` }, { title: "Custom Size Override", language: "html", code: `<sg-stack gap="related">
+  <sg-heading level="3" size="4xl">h3 with 4xl size override</sg-heading>
+  <sg-heading level="5" size="2xl">h5 with 2xl size override</sg-heading>
+</sg-stack>` }, { title: "Long Heading Control", language: "html", code: `<sg-stack gap="related">
+  <sg-heading level="2" max-width="sm" wrap="balance">A long balanced heading constrained to a readable measure</sg-heading>
+  <sg-heading level="3" max-width="sm" wrap="nowrap">A long heading truncated when space is limited</sg-heading>
 </sg-stack>` }] }]
   },
   "/components/layout/mutation-observer": {
     componentName: "MutationObserver",
-    sections: [{ title: "Examples", examples: [{ title: "Observe DOM mutations", language: "html", code: `<div id="mutation-target">Observed content</div>
-<sg-mutation-observer for="#mutation-target" attributes child-list subtree></sg-mutation-observer>` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Observe DOM Mutations", language: "html", code: `<div id="mutation-target">Observed content</div>
+<sg-mutation-observer for="#mutation-target" attributes child-list subtree></sg-mutation-observer>` }, { title: "Attribute Only", language: "html", code: `<div id="mutation-attribute-target" data-state="idle">Attribute target</div>
+<sg-mutation-observer for="#mutation-attribute-target" child-list="false" attributes subtree="false"></sg-mutation-observer>` }] }]
   },
   "/components/layout/resizable": {
     componentName: "ResizableRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Horizontal Panels", language: "svelte", code: `<div class="sg-demo-resizableroot-1">
+    sections: [{ title: "Examples", examples: [{ title: "Horizontal Panels", language: "html", code: `<div class="sg-demo-resizableroot-1">
   <sg-resizable-root direction="horizontal" aria-label="Resizable panels">
-      <sg-resizable-panel defaultSize={50} minSize={20}>
-          <div class="sg-demo-resizableroot-2">Left Panel</div>
-      </sg-resizable-panel>
-      <sg-resizable-handle index={0} />
-      <sg-resizable-panel defaultSize={50} minSize={20}>
-          <div class="sg-demo-resizableroot-3">Right Panel</div>
-      </sg-resizable-panel>
+    <sg-resizable-panel default-size="50" min-size="20">
+      <div class="sg-demo-resizableroot-2">Left Panel</div>
+    </sg-resizable-panel>
+    <sg-resizable-handle index="0"></sg-resizable-handle>
+    <sg-resizable-panel default-size="50" min-size="20">
+      <div class="sg-demo-resizableroot-3">Right Panel</div>
+    </sg-resizable-panel>
   </sg-resizable-root>
 </div>`, cssCode: `.sg-demo-resizableroot-1 {
   height: 200px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden
@@ -25029,15 +25265,15 @@ console.log(result.formatted[500]);
 
 .sg-demo-resizableroot-3 {
   padding: var(--sg-space-4); height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; color: var(--sg-color-text-secondary)
-}` }, { title: "Vertical Panels", language: "svelte", code: `<div class="sg-demo-resizableroot-1">
+}` }, { title: "Vertical Panels", language: "html", code: `<div class="sg-demo-resizableroot-1">
   <sg-resizable-root direction="vertical" aria-label="Vertical resizable panels">
-      <sg-resizable-panel defaultSize={40} minSize={15}>
-          <div class="sg-demo-resizableroot-2">Top Panel</div>
-      </sg-resizable-panel>
-      <sg-resizable-handle index={0} />
-      <sg-resizable-panel defaultSize={60} minSize={15}>
-          <div class="sg-demo-resizableroot-3">Bottom Panel</div>
-      </sg-resizable-panel>
+    <sg-resizable-panel default-size="40" min-size="15">
+      <div class="sg-demo-resizableroot-2">Top Panel</div>
+    </sg-resizable-panel>
+    <sg-resizable-handle index="0"></sg-resizable-handle>
+    <sg-resizable-panel default-size="60" min-size="15">
+      <div class="sg-demo-resizableroot-3">Bottom Panel</div>
+    </sg-resizable-panel>
   </sg-resizable-root>
 </div>`, cssCode: `.sg-demo-resizableroot-1 {
   height: 300px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden
@@ -25049,15 +25285,15 @@ console.log(result.formatted[500]);
 
 .sg-demo-resizableroot-3 {
   padding: var(--sg-space-4); height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; color: var(--sg-color-text-secondary)
-}` }, { title: "With Handle", language: "svelte", code: `<div class="sg-demo-resizableroot-1">
+}` }, { title: "With Handle", language: "html", code: `<div class="sg-demo-resizableroot-1">
   <sg-resizable-root direction="horizontal" aria-label="Resizable with handle">
-      <sg-resizable-panel defaultSize={30} minSize={15}>
-          <div class="sg-demo-resizableroot-2">Sidebar</div>
-      </sg-resizable-panel>
-      <sg-resizable-handle index={0} withHandle={true} />
-      <sg-resizable-panel defaultSize={70} minSize={30}>
-          <div class="sg-demo-resizableroot-3">Content</div>
-      </sg-resizable-panel>
+    <sg-resizable-panel default-size="30" min-size="15">
+      <div class="sg-demo-resizableroot-2">Sidebar</div>
+    </sg-resizable-panel>
+    <sg-resizable-handle index="0" with-handle></sg-resizable-handle>
+    <sg-resizable-panel default-size="70" min-size="30">
+      <div class="sg-demo-resizableroot-3">Content</div>
+    </sg-resizable-panel>
   </sg-resizable-root>
 </div>`, cssCode: `.sg-demo-resizableroot-1 {
   height: 200px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden
@@ -25069,19 +25305,19 @@ console.log(result.formatted[500]);
 
 .sg-demo-resizableroot-3 {
   padding: var(--sg-space-4); height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; color: var(--sg-color-text-secondary)
-}` }, { title: "Three Panels", language: "svelte", code: `<div class="sg-demo-resizableroot-1">
+}` }, { title: "Three Panels", language: "html", code: `<div class="sg-demo-resizableroot-1">
   <sg-resizable-root direction="horizontal" aria-label="Three panel layout">
-      <sg-resizable-panel defaultSize={25} minSize={10}>
-          <div class="sg-demo-resizableroot-2">Left</div>
-      </sg-resizable-panel>
-      <sg-resizable-handle index={0} />
-      <sg-resizable-panel defaultSize={50} minSize={20}>
-          <div class="sg-demo-resizableroot-3">Center</div>
-      </sg-resizable-panel>
-      <sg-resizable-handle index={1} />
-      <sg-resizable-panel defaultSize={25} minSize={10}>
-          <div class="sg-demo-resizableroot-4">Right</div>
-      </sg-resizable-panel>
+    <sg-resizable-panel default-size="25" min-size="10">
+      <div class="sg-demo-resizableroot-2">Left</div>
+    </sg-resizable-panel>
+    <sg-resizable-handle index="0"></sg-resizable-handle>
+    <sg-resizable-panel default-size="50" min-size="20">
+      <div class="sg-demo-resizableroot-3">Center</div>
+    </sg-resizable-panel>
+    <sg-resizable-handle index="1"></sg-resizable-handle>
+    <sg-resizable-panel default-size="25" min-size="10">
+      <div class="sg-demo-resizableroot-4">Right</div>
+    </sg-resizable-panel>
   </sg-resizable-root>
 </div>`, cssCode: `.sg-demo-resizableroot-1 {
   height: 200px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden
@@ -25101,51 +25337,66 @@ console.log(result.formatted[500]);
   },
   "/components/layout/resize-observer": {
     componentName: "ResizeObserver",
-    sections: [{ title: "Examples", examples: [{ title: "Observe element resize", language: "html", code: `<div id="resize-target" class="sg-demo-resizeobserver-1">Resize this box</div>
+    sections: [{ title: "Examples", examples: [{ title: "Observe Element Resize", language: "html", code: `<div id="resize-target" class="sg-demo-resizeobserver-1">Resize this box</div>
 <sg-resize-observer for="#resize-target"></sg-resize-observer>`, cssCode: `.sg-demo-resizeobserver-1 {
   resize: horizontal;
   overflow: auto;
   border: 1px solid var(--sg-color-border, #ccc);
-  padding: 0.75rem;
+  border-radius: var(--sg-radius-sm);
+  padding: var(--sg-pad-field-y, 0.75rem) var(--sg-pad-field-x, 1rem);
   min-width: 12rem;
+  max-width: 100%;
 }` }] }]
   },
   "/components/layout/section": {
     componentName: "Section",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Section", language: "svelte", code: `<sg-section title="Getting Started" description="Everything you need to set up the design system.">
-    <sg-text>Install the package, configure your theme, and start building. The design system provides tokens, components, and patterns out of the box.</sg-text>
-</sg-section>` }, { title: "Heading Levels", language: "svelte", code: `<sg-stack gap="separated">
-    <sg-section title="Level 2 (default)" level={2}>
-      <sg-text>This section uses an h2 heading.</sg-text>
-    </sg-section>
-    <sg-section title="Level 3" level={3}>
-      <sg-text>This section uses an h3 heading.</sg-text>
-    </sg-section>
-    <sg-section title="Level 4" level={4}>
-      <sg-text>This section uses an h4 heading.</sg-text>
-    </sg-section>
-</sg-stack>` }, { title: "Gap Variants", language: "svelte", code: `<sg-stack gap="distinct">
-    {#each ["related", "grouped", "separated", "distinct"] as gap}
-      <sg-section title="Section Title" description="Description text" gap={gap}>
-          <div class="sg-demo-section-1">
-            <sg-text size="sm" color="muted">gap="{gap}"</sg-text>
-          </div>
-      </sg-section>
-    {/each}
+    sections: [{ title: "Examples", examples: [{ title: "Basic Section", language: "html", code: `<sg-section title="Getting Started" description="Everything you need to set up the design system." max-width="md" gap="grouped">
+  <sg-text>Install the package, configure your theme, and start building. The design system provides tokens, components, and patterns out of the box.</sg-text>
+</sg-section>` }, { title: "Heading Levels", language: "html", code: `<sg-stack gap="separated">
+  <sg-section title="Level 2 (default)" level="2" gap="related">
+    <sg-text>This section uses an h2 heading.</sg-text>
+  </sg-section>
+  <sg-section title="Level 3" level="3" gap="related">
+    <sg-text>This section uses an h3 heading.</sg-text>
+  </sg-section>
+  <sg-section title="Level 4" level="4" gap="related">
+    <sg-text>This section uses an h4 heading.</sg-text>
+  </sg-section>
+</sg-stack>` }, { title: "Gap Variants", language: "html", code: `<sg-stack gap="distinct">
+  <sg-section title="Related" description="Description text" gap="related">
+    <div class="sg-demo-section-1">
+      <sg-text size="sm" color="muted">gap="related"</sg-text>
+    </div>
+  </sg-section>
+  <sg-section title="Grouped" description="Description text" gap="grouped">
+    <div class="sg-demo-section-1">
+      <sg-text size="sm" color="muted">gap="grouped"</sg-text>
+    </div>
+  </sg-section>
+  <sg-section title="Separated" description="Description text" gap="separated">
+    <div class="sg-demo-section-1">
+      <sg-text size="sm" color="muted">gap="separated"</sg-text>
+    </div>
+  </sg-section>
+  <sg-section title="Distinct" description="Description text" gap="distinct">
+    <div class="sg-demo-section-1">
+      <sg-text size="sm" color="muted">gap="distinct"</sg-text>
+    </div>
+  </sg-section>
 </sg-stack>`, cssCode: `.sg-demo-section-1 {
   padding: var(--sg-space-4); background: var(--sg-surface-container-high, #f4f4f5); border-radius: var(--sg-radius-md, 0.375rem);
 }` }, { title: "Without Title", language: "svelte", code: `<sg-section>
     <sg-text>A section without title or description renders only the content area. Useful for grouping content within a semantic region.</sg-text>
-</sg-section>` }, { title: "With Rich Content", language: "svelte", code: `<sg-section title="Features" description="What's included in the design system.">
-    <sg-stack gap="grouped">
-        <sg-stack direction="horizontal" gap="related" wrap={true}>
-            <sg-badge color="success">New</sg-badge>
-            <sg-badge color="info">Stable</sg-badge>
-            <sg-badge color="warning">Beta</sg-badge>
-        </sg-stack>
-        <sg-text>Token-driven theming with full OKLCH color support.</sg-text>
-        <button class="sg-button">Get started</button>
+</sg-section>` }, { title: "With Rich Content", language: "html", code: `<sg-section title="Features" description="What's included in the design system." max-width="md" gap="grouped">
+  <sg-stack gap="grouped">
+    <sg-stack direction="horizontal" gap="related" wrap>
+      <sg-badge color="success">New</sg-badge>
+      <sg-badge color="info">Stable</sg-badge>
+      <sg-badge color="warning">Beta</sg-badge>
     </sg-stack>
+    <sg-text>Token-driven theming with full OKLCH color support.</sg-text>
+    <button class="sg-button">Get started</button>
+  </sg-stack>
 </sg-section>` }] }]
   },
   "/components/layout/separator": {
@@ -25297,17 +25548,20 @@ console.log(result.formatted[500]);
   },
   "/components/layout/split-panel": {
     componentName: "SplitPanel",
-    sections: [{ title: "Examples", examples: [{ title: "Two-pane layout", language: "html", code: `<sg-split-panel>
+    sections: [{ title: "Examples", examples: [{ title: "Horizontal", language: "html", code: `<sg-split-panel gap="grouped" max-width="lg" collapse="md">
   <sg-card><sg-card-body>Left panel</sg-card-body></sg-card>
   <sg-card><sg-card-body>Right panel</sg-card-body></sg-card>
+</sg-split-panel>` }, { title: "Vertical", language: "html", code: `<sg-split-panel direction="vertical" gap="related" max-width="md">
+  <sg-card><sg-card-body>Top panel</sg-card-body></sg-card>
+  <sg-card><sg-card-body>Bottom panel</sg-card-body></sg-card>
 </sg-split-panel>` }] }]
   },
   "/components/layout/stack": {
     componentName: "Stack",
-    sections: [{ title: "Examples", examples: [{ title: "Horizontal Stack", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" wrap={true}>
-    <div class="sg-demo-stack-1">Item 1</div>
-    <div class="sg-demo-stack-2">Item 2</div>
-    <div class="sg-demo-stack-3">Item 3</div>
+    sections: [{ title: "Examples", examples: [{ title: "Horizontal Stack", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" wrap>
+  <div class="sg-demo-stack-1">Item 1</div>
+  <div class="sg-demo-stack-2">Item 2</div>
+  <div class="sg-demo-stack-3">Item 3</div>
 </sg-stack>`, cssCode: `.sg-demo-stack-1 {
   background: var(--sg-surface-container-high); padding: var(--sg-space-4); border-radius: var(--sg-radius-md); border: var(--sg-border-thin) solid var(--sg-color-border)
 }
@@ -25355,24 +25609,24 @@ console.log(result.formatted[500]);
   },
   "/components/layout/text": {
     componentName: "Text",
-    sections: [{ title: "Examples", examples: [{ title: "Size & Color", language: "svelte", code: `<sg-stack gap="related">
-    <sg-text size="xs" color="muted">Extra small muted text</sg-text>
-    <sg-text size="sm" color="secondary">Small secondary text</sg-text>
-    <sg-text size="base" color="primary">Base primary text (default)</sg-text>
-    <sg-text size="lg" color="success">Large success text</sg-text>
-    <sg-text size="lg" color="danger">Large danger text</sg-text>
-</sg-stack>` }, { title: "Weight & Alignment", language: "svelte", code: `<sg-stack gap="related">
-    <sg-text weight="normal">Normal weight</sg-text>
-    <sg-text weight="medium">Medium weight</sg-text>
-    <sg-text weight="semibold">Semibold weight</sg-text>
-    <sg-text weight="bold">Bold weight</sg-text>
-    <sg-text align="center">Center aligned</sg-text>
-    <sg-text align="right">Right aligned</sg-text>
-</sg-stack>` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Size & Color", language: "html", code: `<sg-stack gap="related">
+  <sg-text size="xs" color="muted">Extra small muted text</sg-text>
+  <sg-text size="sm" color="secondary">Small secondary text</sg-text>
+  <sg-text size="base" color="primary">Base primary text (default)</sg-text>
+  <sg-text size="lg" color="success">Large success text</sg-text>
+  <sg-text size="lg" color="danger">Large danger text</sg-text>
+</sg-stack>` }, { title: "Weight & Alignment", language: "html", code: `<sg-stack gap="related">
+  <sg-text weight="normal">Normal weight</sg-text>
+  <sg-text weight="medium">Medium weight</sg-text>
+  <sg-text weight="semibold">Semibold weight</sg-text>
+  <sg-text weight="bold">Bold weight</sg-text>
+  <sg-text align="center">Center aligned</sg-text>
+  <sg-text align="right">Right aligned</sg-text>
+</sg-stack>` }, { title: "Readable Measure", language: "html", code: '<sg-text max-width="md">This paragraph is constrained to a comfortable measure so longer reading text remains scannable across wider layouts.</sg-text>' }] }]
   },
   "/components/native/accordion": {
     componentName: "NativeAccordion",
-    sections: [{ title: "Examples", examples: [{ title: "Exclusive (default)", language: "svelte", code: `<div class="sg-native-accordion" aria-label="Frequently asked questions">
+    sections: [{ title: "Examples", examples: [{ title: "Exclusive (default)", language: "svelte", code: `<div class="sg-native-accordion" data-max-width="md" aria-label="Frequently asked questions">
   <details name="faq">
     <summary>What is SigUI?</summary>
     <p>SigUI is a comprehensive design system built on perceptual color science, fluid typography, and accessible interaction patterns.</p>
@@ -25385,7 +25639,7 @@ console.log(result.formatted[500]);
     <summary>Why native details?</summary>
     <p>The <code>&lt;details name&gt;</code> attribute provides mutually exclusive disclosure with zero JavaScript. Opening one item automatically closes others sharing the same name.</p>
   </details>
-</div>` }, { title: "With default open", language: "svelte", code: `<div class="sg-native-accordion" aria-label="Default open demo">
+</div>` }, { title: "With default open", language: "svelte", code: `<div class="sg-native-accordion" data-max-width="md" aria-label="Default open demo">
   <details name="open-demo" open>
     <summary>Starts open</summary>
     <p>This panel is open by default. Opening another panel will close this one.</p>
@@ -25394,7 +25648,7 @@ console.log(result.formatted[500]);
     <summary>Starts closed</summary>
     <p>Click to reveal. The previously open panel closes automatically.</p>
   </details>
-</div>` }, { title: "Independent (no name)", language: "svelte", code: `<div class="sg-native-accordion" aria-label="Independent accordion">
+</div>` }, { title: "Independent (no name)", language: "svelte", code: `<div class="sg-native-accordion" data-max-width="md" aria-label="Independent accordion">
   <details>
     <summary>First item</summary>
     <p>Each panel opens and closes independently – multiple can be open at once.</p>
@@ -25403,12 +25657,12 @@ console.log(result.formatted[500]);
     <summary>Second item</summary>
     <p>Without a shared <code>name</code> attribute, items don't close each other.</p>
   </details>
-</div>` }, { title: "Disabled item", language: "svelte", code: `<div class="sg-native-accordion" aria-label="Disabled demo">
+</div>` }, { title: "Disabled item", language: "svelte", code: `<div class="sg-native-accordion" data-max-width="md" aria-label="Disabled demo">
   <details name="disabled-demo">
     <summary>Normal item</summary>
     <p>This item works as expected.</p>
   </details>
-  <details name="disabled-demo" data-disabled>
+  <details name="disabled-demo" data-disabled inert>
     <summary>Disabled item</summary>
     <p>This won't open.</p>
   </details>
@@ -25416,20 +25670,22 @@ console.log(result.formatted[500]);
   },
   "/components/native/button": {
     componentName: "Button",
-    sections: [{ title: "Examples", examples: [{ title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+    sections: [{ title: "Examples", examples: [{ title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
     <button class="sg-button" data-color="primary">Primary</button>
     <button class="sg-button" data-color="secondary">Secondary</button>
     <button class="sg-button" data-color="danger">Danger</button>
     <button class="sg-button" data-color="success">Success</button>
     <button class="sg-button" data-color="warning">Warning</button>
+    <button class="sg-button" data-color="info">Info</button>
     <button class="sg-button" data-color="ghost">Ghost</button>
-</sg-stack>` }, { title: "Sizes & States", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+    <button class="sg-button" data-color="outline">Outline</button>
+</sg-stack>` }, { title: "Sizes & States", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
     <button class="sg-button" data-size="sm" data-color="primary">Small</button>
     <button class="sg-button" data-size="md" data-color="primary">Medium</button>
     <button class="sg-button" data-size="lg" data-color="primary">Large</button>
-    <button class="sg-button" data-loading data-color="primary">Loading</button>
-    <button class="sg-button" disabled={true} data-color="primary">Disabled</button>
-</sg-stack>` }, { title: "Link Button", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+    <button class="sg-button" data-loading disabled data-color="primary" aria-busy="true">Loading</button>
+    <button class="sg-button" disabled data-color="primary">Disabled</button>
+</sg-stack>` }, { title: "Link Button", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
     <a class="sg-button" href="https://example.com" target="_blank">External Link</a>
     <a class="sg-button" href="/components" data-color="secondary">Internal Link</a>
 </sg-stack>` }] }]
@@ -25443,7 +25699,7 @@ console.log(result.formatted[500]);
     <sg-text>
       Set the <code class="sg-code">NODE_ENV</code> variable before running.
     </sg-text>
-</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
     <code class="sg-code" data-color="default">default</code>
     <code class="sg-code" data-color="primary">primary</code>
     <code class="sg-code" data-color="muted">muted</code>
@@ -25458,10 +25714,10 @@ console.log(result.formatted[500]);
   "/components/native/dialog": {
     componentName: "NativeDialog",
     sections: [{ title: "Examples", examples: [{ title: "Basic Dialog", language: "svelte", code: `<button class="sg-button" data-color="primary" onclick="document.getElementById('sg-native-basic-dialog')?.showModal()">Open Dialog</button>
-<dialog class="sg-native-dialog" id="sg-native-basic-dialog">
+<dialog class="sg-native-dialog" id="sg-native-basic-dialog" aria-labelledby="sg-native-basic-dialog-title" aria-describedby="sg-native-basic-dialog-description">
   <div class="sg-native-dialog-header">
-    <h3 class="sg-native-dialog-title">Confirm Action</h3>
-    <p class="sg-native-dialog-description">This action cannot be undone.</p>
+    <h3 class="sg-native-dialog-title" id="sg-native-basic-dialog-title">Confirm Action</h3>
+    <p class="sg-native-dialog-description" id="sg-native-basic-dialog-description">This action cannot be undone.</p>
   </div>
   <div class="sg-native-dialog-body">
     <p class="sg-demo-nativedialog-1">Are you sure you want to delete this item? All associated data will be permanently removed.</p>
@@ -25473,9 +25729,9 @@ console.log(result.formatted[500]);
 </dialog>`, cssCode: `.sg-demo-nativedialog-1 {
   margin: 0;
 }` }, { title: "Small Dialog", language: "svelte", code: `<button class="sg-button" data-color="secondary" onclick="document.getElementById('sg-native-small-dialog')?.showModal()">Open Small Dialog</button>
-<dialog class="sg-native-dialog" data-size="sm" id="sg-native-small-dialog">
+<dialog class="sg-native-dialog" data-size="sm" id="sg-native-small-dialog" aria-labelledby="sg-native-small-dialog-title">
   <div class="sg-native-dialog-header">
-    <h3 class="sg-native-dialog-title">Quick Note</h3>
+    <h3 class="sg-native-dialog-title" id="sg-native-small-dialog-title">Quick Note</h3>
   </div>
   <div class="sg-native-dialog-body">
     <p class="sg-demo-nativedialog-1">This is a compact dialog for simple messages.</p>
@@ -25486,11 +25742,11 @@ console.log(result.formatted[500]);
 </dialog>`, cssCode: `.sg-demo-nativedialog-1 {
   margin: 0;
 }` }, { title: "Form Dialog", language: "svelte", code: `<button class="sg-button" data-color="secondary" onclick="document.getElementById('sg-native-form-dialog')?.showModal()">Open Form Dialog</button>
-<dialog class="sg-native-dialog" id="sg-native-form-dialog">
+<dialog class="sg-native-dialog" id="sg-native-form-dialog" aria-labelledby="sg-native-form-dialog-title" aria-describedby="sg-native-form-dialog-description">
   <form method="dialog">
     <div class="sg-native-dialog-header">
-      <h3 class="sg-native-dialog-title">Edit Profile</h3>
-      <p class="sg-native-dialog-description">Update your display information.</p>
+      <h3 class="sg-native-dialog-title" id="sg-native-form-dialog-title">Edit Profile</h3>
+      <p class="sg-native-dialog-description" id="sg-native-form-dialog-description">Update your display information.</p>
     </div>
     <div class="sg-native-dialog-body">
       <sg-stack gap="grouped">
@@ -25513,19 +25769,19 @@ console.log(result.formatted[500]);
   },
   "/components/native/fieldset": {
     componentName: "Fieldset",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Fieldset", language: "svelte", code: `<fieldset class="sg-fieldset">
+    sections: [{ title: "Examples", examples: [{ title: "Basic Fieldset", language: "svelte", code: `<fieldset class="sg-fieldset" data-max-width="md">
   <legend class="sg-legend">Personal Information</legend>
   <sg-stack gap="grouped">
     <div class="sg-input-wrapper">
-      <label class="sg-input-label">Name</label>
-      <input class="sg-input" type="text" placeholder="Full name" />
+      <label class="sg-input-label" for="fs-name">Name</label>
+      <input class="sg-input" id="fs-name" type="text" placeholder="Full name" />
     </div>
     <div class="sg-input-wrapper">
-      <label class="sg-input-label">Email</label>
-      <input class="sg-input" type="email" placeholder="email@example.com" />
+      <label class="sg-input-label" for="fs-email-input">Email</label>
+      <input class="sg-input" id="fs-email-input" type="email" placeholder="email@example.com" />
     </div>
   </sg-stack>
-</fieldset>` }, { title: "With Description", language: "svelte", code: `<fieldset class="sg-fieldset">
+</fieldset>` }, { title: "With Description", language: "svelte", code: `<fieldset class="sg-fieldset" data-max-width="md">
   <legend class="sg-legend">Notification Preferences</legend>
   <p class="sg-legend-description">Choose how you'd like to be notified about updates.</p>
   <sg-stack gap="grouped">
@@ -25542,12 +25798,12 @@ console.log(result.formatted[500]);
       <label class="sg-checkbox-label" for="fs-push">Push notifications</label>
     </div>
   </sg-stack>
-</fieldset>` }, { title: "Disabled Fieldset", language: "svelte", code: `<fieldset class="sg-fieldset" disabled>
+</fieldset>` }, { title: "Disabled Fieldset", language: "svelte", code: `<fieldset class="sg-fieldset" data-max-width="sm" disabled>
   <legend class="sg-legend">Disabled Group</legend>
   <sg-stack gap="grouped">
     <div class="sg-input-wrapper">
-      <label class="sg-input-label">Username</label>
-      <input class="sg-input" type="text" value="Cannot edit" />
+      <label class="sg-input-label" for="fs-disabled-username">Username</label>
+      <input class="sg-input" id="fs-disabled-username" type="text" value="Cannot edit" />
     </div>
     <button class="sg-button" data-color="primary">Submit</button>
   </sg-stack>
@@ -25563,7 +25819,7 @@ console.log(result.formatted[500]);
     <p class="sg-demo-divider-3">Vertical (inside horizontal Stack)</p>
     <sg-stack direction="horizontal" gap="grouped" align="center">
         <div class="sg-demo-divider-4">Left</div>
-        <div class="sg-divider" data-orientation="vertical"></div>
+        <div class="sg-divider" data-orientation="vertical" role="separator" aria-orientation="vertical"></div>
         <div class="sg-demo-divider-5">Right</div>
     </sg-stack>
 </sg-stack>`, cssCode: `.sg-demo-divider-1 {
@@ -25632,103 +25888,155 @@ console.log(result.formatted[500]);
   },
   "/components/native/input": {
     componentName: "Input",
-    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "svelte", code: `<sg-card elevation="1">
-    <sg-card-body>
-        <sg-stack gap="grouped">
-            <input class="sg-input" type="email" placeholder="you@example.com" value="dev@example.com" />
-            <input class="sg-input" type="password" placeholder="Enter password" required />
-            <input class="sg-input" type="text" placeholder="Plain text" />
-        </sg-stack>
-    </sg-card-body>
-</sg-card>` }, { title: "Density", language: "svelte", code: `<sg-card elevation="1">
-    <sg-card-body>
-        <sg-stack gap="grouped">
-            <input class="sg-input" placeholder="Compact input" />
-            <input class="sg-input" placeholder="Comfortable input" />
-            <input class="sg-input" placeholder="Spacious input" />
-        </sg-stack>
-    </sg-card-body>
-</sg-card>` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Variants", language: "svelte", code: `<sg-stack gap="grouped">
+    <div class="sg-input-wrapper" data-max-width="md">
+        <label class="sg-input-label" for="input-email-demo">Email</label>
+        <input class="sg-input" id="input-email-demo" type="email" placeholder="you@example.com" value="dev@example.com" />
+        <span class="sg-input-description">Used for account notifications.</span>
+    </div>
+    <div class="sg-input-wrapper" data-max-width="md">
+        <label class="sg-input-label" for="input-password-demo">Password</label>
+        <input class="sg-input" id="input-password-demo" type="password" placeholder="Enter password" required />
+    </div>
+    <div class="sg-input-wrapper" data-max-width="md">
+        <label class="sg-input-label" for="input-validation-demo">Username</label>
+        <input class="sg-input" id="input-validation-demo" type="text" value="taken-name" data-validation="invalid" aria-describedby="input-validation-error" />
+        <span class="sg-input-error" id="input-validation-error">That username is already taken.</span>
+    </div>
+</sg-stack>` }, { title: "Density", language: "svelte", code: `<sg-stack gap="grouped">
+    <div class="sg-input-wrapper" data-density="compact" data-max-width="md">
+        <label class="sg-input-label" for="input-compact-demo">Compact</label>
+        <input class="sg-input" id="input-compact-demo" placeholder="Compact input" />
+    </div>
+    <div class="sg-input-wrapper" data-density="comfortable" data-max-width="md">
+        <label class="sg-input-label" for="input-comfortable-demo">Comfortable</label>
+        <input class="sg-input" id="input-comfortable-demo" placeholder="Comfortable input" />
+    </div>
+    <div class="sg-input-wrapper" data-density="spacious" data-max-width="md">
+        <label class="sg-input-label" for="input-spacious-demo">Spacious</label>
+        <input class="sg-input" id="input-spacious-demo" placeholder="Spacious input" />
+    </div>
+</sg-stack>` }] }]
   },
-  "/components/native/input-variants": {
-    componentName: "InputVariants",
-    sections: [{ title: "Examples", examples: [{ title: "Date Input", language: "svelte", code: `<sg-stack gap="grouped" class="sg-demo-inputvariants-1">
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Date</label>
-    <input class="sg-input" type="date" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Date (pre-filled)</label>
-    <input class="sg-input" type="date" value="2026-03-04" />
-  </div>
-</sg-stack>`, cssCode: `.sg-demo-inputvariants-1 {
-  max-width: 300px;
-}` }, { title: "Time Input", language: "svelte", code: `<sg-stack gap="grouped" class="sg-demo-inputvariants-1">
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Time</label>
-    <input class="sg-input" type="time" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Time (pre-filled)</label>
-    <input class="sg-input" type="time" value="14:30" />
-  </div>
-</sg-stack>`, cssCode: `.sg-demo-inputvariants-1 {
-  max-width: 300px;
-}` }, { title: "DateTime-Local Input", language: "svelte", code: `<sg-stack gap="grouped" class="sg-demo-inputvariants-1">
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Date & Time</label>
-    <input class="sg-input" type="datetime-local" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Date & Time (pre-filled)</label>
-    <input class="sg-input" type="datetime-local" value="2026-03-04T14:30" />
-  </div>
-</sg-stack>`, cssCode: `.sg-demo-inputvariants-1 {
-  max-width: 300px;
-}` }, { title: "File Input", language: "svelte", code: `<sg-stack gap="grouped" class="sg-demo-inputvariants-1">
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Upload file</label>
-    <input class="sg-input-file" type="file" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Upload images</label>
-    <input class="sg-input-file" type="file" multiple accept="image/*" />
-  </div>
-</sg-stack>`, cssCode: `.sg-demo-inputvariants-1 {
-  max-width: 400px;
-}` }, { title: "Color Input", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="end" wrap={true}>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Brand Color</label>
-    <input class="sg-input-color" type="color" value="#6366f1" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Accent</label>
-    <input class="sg-input-color" type="color" value="#f97316" />
-  </div>
-  <div class="sg-input-wrapper">
-    <label class="sg-input-label">Background</label>
-    <input class="sg-input-color" type="color" value="#ffffff" />
-  </div>
-</sg-stack>` }, { title: "Datalist (Autocomplete)", language: "svelte", code: `<div class="sg-input-wrapper sg-demo-inputvariants-1">
-  <label class="sg-input-label">Browser</label>
-  <input class="sg-input" list="browsers-demo" placeholder="Start typing..." />
+  "/components/native/input-variants/color": {
+    componentName: "Color Input",
+    sections: [{ title: "Examples", examples: [{ title: "Popover Mode (Swatch Only)", language: "html", code: '<input class="sg-input-color" type="color" value="#3b82f6" aria-label="Brand color" data-color-picker-mode="popover" />' }, { title: "Hex Mode with Value", language: "html", code: '<input class="sg-input-color" type="color" value="#3b82f6" aria-label="Pick a color" data-color-picker-mode="inline" data-color-picker-show-value />' }, { title: "OKLCH Mode with Value", language: "html", code: '<input class="sg-input-color" type="color" aria-label="OKLCH color" data-color-picker-mode="inline" data-color-picker-hue="240" data-color-picker-lightness="0.7" data-color-picker-chroma="0.15" data-color-picker-show-value />' }, { title: "Hex Input", language: "html", code: '<input class="sg-input-color" type="color" value="#3b82f6" aria-label="Pick a color" data-color-picker-mode="inline" data-color-picker-input />' }, { title: "Compact (Swatch + Popover + Input)", language: "html", code: '<input class="sg-input-color" type="color" value="#10b981" aria-label="Pick a color" data-color-picker-mode="popover" data-color-picker-input />' }, { title: "Compact (No Input)", language: "html", code: '<input class="sg-input-color" type="color" value="#10b981" aria-label="Pick a color" data-color-picker-mode="popover" />' }, { title: "Direction", language: "html", code: `<div class="sg-demo-colorpicker-1">
+  <input class="sg-input-color" type="color" value="#ef4444" aria-label="Top" data-color-picker-mode="popover" data-color-picker-direction="top" />
+  <input class="sg-input-color" type="color" value="#f59e0b" aria-label="Right" data-color-picker-mode="popover" data-color-picker-direction="right" />
+  <input class="sg-input-color" type="color" value="#10b981" aria-label="Bottom" data-color-picker-mode="popover" data-color-picker-direction="bottom" />
+  <input class="sg-input-color" type="color" value="#3b82f6" aria-label="Left" data-color-picker-mode="popover" data-color-picker-direction="left" />
+</div>`, cssCode: `.sg-demo-colorpicker-1 {
+  display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
+}` }, { title: "Independent Sizes", language: "html", code: `<div class="sg-demo-colorpicker-1">
+  <input class="sg-input-color" type="color" value="#6366f1" aria-label="Custom" data-color-picker-mode="inline" data-color-picker-ring-size="30" data-color-picker-swatch-size="8" data-color-picker-thickness="3.5" data-color-picker-show-value />
+  <input class="sg-input-color" type="color" value="#22c55e" aria-label="Custom Popover" data-color-picker-mode="popover" data-color-picker-ring-size="40" data-color-picker-swatch-size="6" data-color-picker-input />
+</div>`, cssCode: `.sg-demo-colorpicker-1 {
+  display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
+}` }, { title: "Sizes", language: "html", code: `<div class="sg-demo-colorpicker-1">
+  <input class="sg-input-color" type="color" value="#3b82f6" aria-label="Small" data-color-picker-mode="inline" data-color-picker-size="30" data-color-picker-thickness="4" />
+  <input class="sg-input-color" type="color" value="#10b981" aria-label="Tiny" data-color-picker-mode="inline" data-color-picker-size="20" data-color-picker-thickness="2.5" data-color-picker-swatch-size="4" />
+</div>`, cssCode: `.sg-demo-colorpicker-1 {
+  display:flex;flex-wrap:wrap;gap:var(--sg-gap-grouped);align-items:center;
+}` }, { title: "Disabled", language: "html", code: '<input class="sg-input-color" type="color" value="#e11d48" aria-label="Disabled" data-color-picker-mode="inline" disabled />' }] }]
+  },
+  "/components/native/input-variants/datalist": {
+    componentName: "Datalist Input",
+    sections: [{ title: "Examples", examples: [{ title: "Datalist (Autocomplete)", description: "Use a native datalist when suggestions can remain browser-provided while the text input uses SigUI styling.", language: "svelte", code: `<div class="sg-input-wrapper" data-max-width="sm">
+  <label class="sg-input-label" for="input-browser-demo">Browser</label>
+  <input class="sg-input" id="input-browser-demo" list="browsers-demo" placeholder="Start typing..." />
   <datalist id="browsers-demo">
-    <option value="Chrome" />
-    <option value="Firefox" />
-    <option value="Safari" />
-    <option value="Edge" />
-    <option value="Opera" />
-    <option value="Brave" />
-    <option value="Arc" />
+    <option value="Chrome"></option>
+    <option value="Firefox"></option>
+    <option value="Safari"></option>
+    <option value="Edge"></option>
+    <option value="Opera"></option>
+    <option value="Brave"></option>
+    <option value="Arc"></option>
   </datalist>
   <span class="sg-input-description">Type to see suggestions from the datalist.</span>
-</div>`, cssCode: `.sg-demo-inputvariants-1 {
-  max-width: 300px;
-}` }] }]
+</div>` }] }]
+  },
+  "/components/native/input-variants/date": {
+    componentName: "Date Input",
+    sections: [{ title: "Examples", examples: [{ title: "Date Input", description: "Use sg-input-date when the control should preserve the custom DatePicker behavior while fitting native form layouts.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-date-empty">Date</label>
+    <sg-input-date id="input-date-empty" label="Date" placeholder="Select date" max-width="sm"></sg-input-date>
+  </div>
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-date-filled">Date (pre-filled)</label>
+    <sg-input-date id="input-date-filled" label="Date" value="2026-03-04" max-width="sm"></sg-input-date>
+  </div>
+</sg-stack>` }] }]
+  },
+  "/components/native/input-variants/datetime-local": {
+    componentName: "DateTime Local Input",
+    sections: [{ title: "Examples", examples: [{ title: "DateTime-Local Input", description: "Use sg-input-datetime-local for local appointment or scheduling values that need both date and time.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-datetime-empty">Date & Time</label>
+    <sg-input-datetime-local id="input-datetime-empty" label="Date and time" placeholder="Select date and time" max-width="sm"></sg-input-datetime-local>
+  </div>
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-datetime-filled">Date & Time (pre-filled)</label>
+    <sg-input-datetime-local id="input-datetime-filled" label="Date and time" value="2026-03-04T14:30" max-width="sm"></sg-input-datetime-local>
+  </div>
+</sg-stack>` }] }]
+  },
+  "/components/native/input-variants/file": {
+    componentName: "File Input",
+    sections: [{ title: "Examples", examples: [{ title: "File Input", description: "Use the sg-input-file class on native file inputs so upload controls match the SigUI form surface.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="md">
+    <label class="sg-input-label" for="input-file-single">Upload file</label>
+    <input class="sg-input-file" id="input-file-single" type="file" />
+  </div>
+  <div class="sg-input-wrapper" data-max-width="md">
+    <label class="sg-input-label" for="input-file-images">Upload images</label>
+    <input class="sg-input-file" id="input-file-images" type="file" multiple accept="image/*" />
+  </div>
+</sg-stack>` }] }]
+  },
+  "/components/native/input-variants/month": {
+    componentName: "Month Input",
+    sections: [{ title: "Examples", examples: [{ title: "Month Input", description: "Use sg-input-month for billing periods, reporting months, and other month-granularity values.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-month-empty">Month</label>
+    <sg-input-month id="input-month-empty" label="Month" placeholder="Select month" max-width="sm"></sg-input-month>
+  </div>
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-month-filled">Month (pre-filled)</label>
+    <sg-input-month id="input-month-filled" label="Month" value="2026-03" max-width="sm"></sg-input-month>
+  </div>
+</sg-stack>` }] }]
+  },
+  "/components/native/input-variants/time": {
+    componentName: "Time Input",
+    sections: [{ title: "Examples", examples: [{ title: "Time Input", description: "Use sg-input-time for time-of-day values with the same sizing and form-state behavior as other SigUI inputs.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-time-empty">Time</label>
+    <sg-input-time id="input-time-empty" label="Time" placeholder="Select time" max-width="sm"></sg-input-time>
+  </div>
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-time-filled">Time (pre-filled)</label>
+    <sg-input-time id="input-time-filled" label="Time" value="14:30" max-width="sm"></sg-input-time>
+  </div>
+</sg-stack>` }] }]
+  },
+  "/components/native/input-variants/week": {
+    componentName: "Week Input",
+    sections: [{ title: "Examples", examples: [{ title: "Week Input", description: "Use sg-input-week for planning and reporting workflows that identify ISO weeks.", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-week-empty">Week</label>
+    <sg-input-week id="input-week-empty" label="Week" placeholder="Select week" max-width="sm"></sg-input-week>
+  </div>
+  <div class="sg-input-wrapper" data-max-width="sm">
+    <label class="sg-input-label" for="input-week-filled">Week (pre-filled)</label>
+    <sg-input-week id="input-week-filled" label="Week" value="2026-W10" max-width="sm"></sg-input-week>
+  </div>
+</sg-stack>` }] }]
   },
   "/components/native/kbd": {
     componentName: "Kbd",
-    sections: [{ title: "Examples", examples: [{ title: "Keyboard Shortcuts", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap={true}>
+    sections: [{ title: "Examples", examples: [{ title: "Keyboard Shortcuts", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
     <span class="sg-demo-kbd-1">
       <span class="sg-kbd-group">
           <kbd class="sg-kbd">Ctrl</kbd>+<kbd class="sg-kbd">S</kbd>
@@ -25782,39 +26090,42 @@ console.log(result.formatted[500]);
   "/components/native/label": {
     componentName: "Label",
     sections: [{ title: "Examples", examples: [{ title: "Form Labels", language: "svelte", code: `<sg-stack gap="grouped">
-    <div>
-      <label class="sg-label" for="demo-name">Name</label>
-      <input id="demo-name" type="text" class="sg-demo-label-1" />
+    <div class="sg-input-wrapper" data-max-width="md">
+      <label class="sg-label" for="label-name-demo">Name</label>
+      <input id="label-name-demo" type="text" class="sg-input" />
     </div>
-    <div>
-      <label class="sg-label" for="demo-email" data-required>Email</label>
-      <input id="demo-email" type="email" class="sg-demo-label-2" />
+    <div class="sg-input-wrapper" data-max-width="md">
+      <label class="sg-label" for="label-email-demo" data-required>Email</label>
+      <input id="label-email-demo" type="email" class="sg-input" required />
     </div>
-    <sg-stack direction="horizontal" gap="grouped" align="center">
-        <label class="sg-label" data-size="sm">Small</label>
-        <label class="sg-label" data-size="md">Medium</label>
-        <label class="sg-label" data-size="lg">Large</label>
+    <sg-stack gap="related">
+      <div class="sg-input-wrapper" data-max-width="sm">
+        <label class="sg-label" data-size="sm" for="label-small-demo">Small</label>
+        <input id="label-small-demo" type="text" class="sg-input" />
+      </div>
+      <div class="sg-input-wrapper" data-max-width="sm">
+        <label class="sg-label" data-size="md" for="label-medium-demo">Medium</label>
+        <input id="label-medium-demo" type="text" class="sg-input" />
+      </div>
+      <div class="sg-input-wrapper" data-max-width="sm">
+        <label class="sg-label" data-size="lg" for="label-large-demo">Large</label>
+        <input id="label-large-demo" type="text" class="sg-input" />
+      </div>
     </sg-stack>
-</sg-stack>`, cssCode: `.sg-demo-label-1 {
-  display: block; margin-top: var(--sg-space-1); padding: var(--sg-space-2); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); width: 100%; box-sizing: border-box
-}
-
-.sg-demo-label-2 {
-  display: block; margin-top: var(--sg-space-1); padding: var(--sg-space-2); border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); width: 100%; box-sizing: border-box
-}` }] }]
+</sg-stack>` }] }]
   },
   "/components/native/link": {
     componentName: "Link",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Link", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap={true}>
+    sections: [{ title: "Examples", examples: [{ title: "Basic Link", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
     <a class="sg-link" href="/components" data-nav>Components</a>
     <a class="sg-link" href="https://example.com" target="_blank" rel="noopener noreferrer">External link</a>
-</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap={true}>
+</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
     <a class="sg-link" href="#" data-color="primary">Primary</a>
     <a class="sg-link" href="#" data-color="muted">Muted</a>
     <sg-text color="danger">
       <a class="sg-link" href="#" data-color="inherit">Inherit (danger)</a>
     </sg-text>
-</sg-stack>` }, { title: "Underline Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap={true}>
+</sg-stack>` }, { title: "Underline Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center" wrap>
     <a class="sg-link" href="#" data-underline="always">Always underlined</a>
     <a class="sg-link" href="#" data-underline="hover">Underline on hover</a>
     <a class="sg-link" href="#" data-underline="none">No underline</a>
@@ -25830,47 +26141,45 @@ console.log(result.formatted[500]);
   "/components/native/meter": {
     componentName: "Meter",
     sections: [{ title: "Examples", examples: [{ title: "Optimum Range", language: "svelte", code: `<sg-stack gap="grouped">
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Disk usage (optimum)</span>
-    <meter class="sg-meter" value="0.7" min="0" max="1" low="0.3" high="0.7" optimum="0.8"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-disk-optimum" class="sg-meter-label">Disk usage (optimum)</span>
+    <meter class="sg-meter" value="0.7" min="0" max="1" low="0.3" high="0.7" optimum="0.8" aria-labelledby="meter-disk-optimum"></meter>
   </div>
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Disk usage (suboptimum)</span>
-    <meter class="sg-meter" value="0.85" min="0" max="1" low="0.3" high="0.7" optimum="0.5"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-disk-suboptimum" class="sg-meter-label">Disk usage (suboptimum)</span>
+    <meter class="sg-meter" value="0.85" min="0" max="1" low="0.3" high="0.7" optimum="0.5" aria-labelledby="meter-disk-suboptimum"></meter>
   </div>
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Disk usage (critical)</span>
-    <meter class="sg-meter" value="0.95" min="0" max="1" low="0.3" high="0.7" optimum="0.2"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-disk-critical" class="sg-meter-label">Disk usage (critical)</span>
+    <meter class="sg-meter" value="0.95" min="0" max="1" low="0.3" high="0.7" optimum="0.2" aria-labelledby="meter-disk-critical"></meter>
   </div>
 </sg-stack>` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Small</span>
-    <meter class="sg-meter" data-size="sm" value="0.6" min="0" max="1"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-size-small" class="sg-meter-label">Small</span>
+    <meter class="sg-meter" data-size="sm" value="0.6" min="0" max="1" aria-labelledby="meter-size-small"></meter>
   </div>
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Medium (default)</span>
-    <meter class="sg-meter" data-size="md" value="0.6" min="0" max="1"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-size-medium" class="sg-meter-label">Medium (default)</span>
+    <meter class="sg-meter" data-size="md" value="0.6" min="0" max="1" aria-labelledby="meter-size-medium"></meter>
   </div>
-  <div class="sg-meter-wrapper">
-    <span class="sg-meter-label">Large</span>
-    <meter class="sg-meter" data-size="lg" value="0.6" min="0" max="1"></meter>
+  <div class="sg-meter-wrapper" data-max-width="md">
+    <span id="meter-size-large" class="sg-meter-label">Large</span>
+    <meter class="sg-meter" data-size="lg" value="0.6" min="0" max="1" aria-labelledby="meter-size-large"></meter>
   </div>
-</sg-stack>` }, { title: "With Description", language: "svelte", code: `<div class="sg-meter-wrapper sg-demo-meter-1">
-  <span class="sg-meter-label">Battery</span>
-  <meter class="sg-meter" value="0.35" min="0" max="1" low="0.2" high="0.8" optimum="0.9"></meter>
-  <span class="sg-meter-description">35% remaining</span>
-</div>`, cssCode: `.sg-demo-meter-1 {
-  max-width: 300px;
-}` }] }]
+</sg-stack>` }, { title: "With Description", language: "svelte", code: `<div class="sg-meter-wrapper" data-max-width="sm">
+  <span id="meter-battery-label" class="sg-meter-label">Battery</span>
+  <meter class="sg-meter" value="0.35" min="0" max="1" low="0.2" high="0.8" optimum="0.9" aria-labelledby="meter-battery-label" aria-describedby="meter-battery-description"></meter>
+  <span id="meter-battery-description" class="sg-meter-description">35% remaining</span>
+</div>` }] }]
   },
   "/components/native/output": {
     componentName: "Output",
     sections: [{ title: "Examples", examples: [{ title: "Calculation Result", language: "svelte", code: `<form oninput="result.value = Number(a.value) + Number(b.value)" class="sg-demo-output-1">
-  <input class="sg-input sg-demo-output-2" type="number" name="a" value="10" />
+  <input id="output-a" class="sg-input sg-demo-output-2" type="number" name="a" value="10" aria-label="First number" />
   <span class="sg-demo-output-3">+</span>
-  <input class="sg-input sg-demo-output-4" type="number" name="b" value="5" />
+  <input id="output-b" class="sg-input sg-demo-output-4" type="number" name="b" value="5" aria-label="Second number" />
   <span class="sg-demo-output-5">=</span>
-  <output class="sg-output" name="result">15</output>
+  <output class="sg-output" name="result" for="output-a output-b">15</output>
 </form>`, cssCode: `.sg-demo-output-1 {
   display: inline-flex; align-items: center; gap: var(--sg-space-2); flex-wrap: wrap;
 }
@@ -25889,11 +26198,11 @@ console.log(result.formatted[500]);
 
 .sg-demo-output-5 {
   font-weight: 600; color: var(--sg-color-text-muted);
-}` }, { title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+}` }, { title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
   <output class="sg-output" data-size="sm">Small</output>
   <output class="sg-output">Default</output>
   <output class="sg-output" data-size="lg">Large</output>
-</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap={true}>
+</sg-stack>` }, { title: "Color Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center" wrap>
   <output class="sg-output" data-color="primary">$42.00</output>
   <output class="sg-output" data-color="success">+12.5%</output>
   <output class="sg-output" data-color="danger">-8.3%</output>
@@ -25903,50 +26212,46 @@ console.log(result.formatted[500]);
   "/components/native/progress": {
     componentName: "Progress",
     sections: [{ title: "Examples", examples: [{ title: "Determinate Progress", language: "svelte", code: `<div class="demo-progress-tracks">
-    <progress class="sg-progress" value={25} max={100}></progress>
-    <progress class="sg-progress" value={50} max={100}></progress>
-    <progress class="sg-progress" value={75} max={100}></progress>
-    <progress class="sg-progress" value={100} max={100}></progress>
+  <span id="progress-upload-25" class="demo-progress-label">Uploading assets: 25%</span>
+  <progress class="sg-progress" data-max-width="md" value="25" max="100" aria-labelledby="progress-upload-25"></progress>
+  <span id="progress-upload-50" class="demo-progress-label">Uploading assets: 50%</span>
+  <progress class="sg-progress" data-max-width="md" value="50" max="100" aria-labelledby="progress-upload-50"></progress>
+  <span id="progress-upload-75" class="demo-progress-label">Uploading assets: 75%</span>
+  <progress class="sg-progress" data-max-width="md" value="75" max="100" aria-labelledby="progress-upload-75"></progress>
+  <span id="progress-upload-100" class="demo-progress-label">Uploading assets: 100%</span>
+  <progress class="sg-progress" data-max-width="md" value="100" max="100" aria-labelledby="progress-upload-100"></progress>
 </div>`, cssCode: `.demo-progress-tracks {
   display: grid;
-  gap: var(--sg-gap-grouped, 1rem);
+  gap: var(--sg-gap-related, 0.5rem);
 }
 
-.demo-progress-tracks .sg-progress {
-  width: 100%;
-}` }, { title: "Indeterminate", language: "svelte", code: `<div class="demo-progress-indeterminate">
-  <progress class="sg-progress"></progress>
-</div>`, cssCode: `.demo-progress-indeterminate {
-  width: 100%;
-  max-width: 28rem;
-}
-
-.demo-progress-indeterminate .sg-progress {
-  width: 100%;
-}` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
-    <progress class="sg-progress" value={60} max={100} data-size="sm"></progress>
-    <progress class="sg-progress" value={60} max={100} data-size="md"></progress>
-    <progress class="sg-progress" value={60} max={100} data-size="lg"></progress>
+.demo-progress-label {
+  color: var(--sg-color-text-muted);
+  font-size: var(--sg-text-sm);
+}` }, { title: "Indeterminate", language: "svelte", code: '<progress class="sg-progress" data-max-width="md" aria-label="Loading reports"></progress>' }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
+  <progress class="sg-progress" data-max-width="md" value="60" max="100" data-size="sm" aria-label="Small progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="60" max="100" data-size="md" aria-label="Medium progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="60" max="100" data-size="lg" aria-label="Large progress example"></progress>
 </sg-stack>` }, { title: "Colors", language: "svelte", code: `<sg-stack gap="grouped">
-    <progress class="sg-progress" value={70} max={100} data-color="primary"></progress>
-    <progress class="sg-progress" value={70} max={100} data-color="success"></progress>
-    <progress class="sg-progress" value={70} max={100} data-color="warning"></progress>
-    <progress class="sg-progress" value={70} max={100} data-color="danger"></progress>
-    <progress class="sg-progress" value={70} max={100} data-color="info"></progress>
+  <progress class="sg-progress" data-max-width="md" value="70" max="100" data-color="primary" aria-label="Primary progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="70" max="100" data-color="success" aria-label="Success progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="70" max="100" data-color="warning" aria-label="Warning progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="70" max="100" data-color="danger" aria-label="Danger progress example"></progress>
+  <progress class="sg-progress" data-max-width="md" value="70" max="100" data-color="info" aria-label="Info progress example"></progress>
 </sg-stack>` }] }]
   },
   "/components/native/prose": {
     componentName: "Prose",
-    sections: [{ title: "Examples", examples: [{ title: "Blockquote", language: "svelte", code: `<sg-stack gap="grouped">
+    sections: [{ title: "Examples", examples: [{ title: "Blockquote", language: "svelte", code: `<sg-stack class="sg-prose" data-max-width="md" gap="grouped">
   <blockquote>
     <p>Design is not just what it looks like and feels like. Design is how it works.</p>
-    <cite>– Steve Jobs</cite>
+    <cite>&mdash; Steve Jobs</cite>
   </blockquote>
   <blockquote>
     <p>The best interface is no interface.</p>
-    <footer>– Golden Krishna, <cite>The Best Interface Is No Interface</cite></footer>
+    <footer>&mdash; Golden Krishna, <cite>The Best Interface Is No Interface</cite></footer>
   </blockquote>
-</sg-stack>` }, { title: "Figure & Figcaption", language: "svelte", code: `<sg-stack gap="grouped">
+</sg-stack>` }, { title: "Figure & Figcaption", language: "svelte", code: `<sg-stack class="sg-prose" data-max-width="md" gap="grouped">
   <figure>
     <div class="sg-demo-prose-1">
       Image placeholder
@@ -25959,7 +26264,7 @@ console.log(result.formatted[500]);
   </figure>
 </sg-stack>`, cssCode: `.sg-demo-prose-1 {
   width: 100%; height: 120px; background: var(--sg-surface-container-high); border-radius: var(--sg-radius-md); display: flex; align-items: center; justify-content: center; color: var(--sg-color-text-muted);
-}` }, { title: "Abbreviation", language: "svelte", code: `<sg-stack gap="grouped">
+}` }, { title: "Abbreviation", language: "svelte", code: `<sg-stack class="sg-prose" data-max-width="md" gap="grouped">
   <p class="sg-demo-prose-1">
     The <abbr title="HyperText Markup Language">HTML</abbr> specification
     and <abbr title="Cascading Style Sheets">CSS</abbr> standard are maintained
@@ -25975,7 +26280,7 @@ console.log(result.formatted[500]);
 
 .sg-demo-prose-2 {
   margin: 0; color: var(--sg-color-text);
-}` }, { title: "Inline Quotation", language: "svelte", code: `<sg-stack gap="grouped">
+}` }, { title: "Inline Quotation", language: "svelte", code: `<sg-stack class="sg-prose" data-max-width="md" gap="grouped">
   <p class="sg-demo-prose-1">
     The HTML spec notes that <q>the q element represents phrasing content quoted from another source</q>.
   </p>
@@ -25988,10 +26293,20 @@ console.log(result.formatted[500]);
 
 .sg-demo-prose-2 {
   margin: 0; color: var(--sg-color-text);
-}` }, { title: "Combined Prose", language: "svelte", code: `<sg-stack gap="grouped">
+}` }, { title: "Readable Measure", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-prose" data-max-width="sm">
+    <p>Small measure keeps dense notes short and easy to scan.</p>
+  </div>
+  <div class="sg-prose" data-max-width="lg">
+    <p>Large measure gives long-form content more room while still keeping line length controlled.</p>
+  </div>
+  <div class="sg-prose" data-max-width="full">
+    <p>Full measure can follow the parent container when a layout already controls the readable width.</p>
+  </div>
+</sg-stack>` }, { title: "Combined Prose", language: "svelte", code: `<sg-stack class="sg-prose" data-max-width="md" gap="grouped">
   <blockquote>
     <p>Good design is as little design as possible.</p>
-    <cite>– Dieter Rams</cite>
+    <cite>&mdash; Dieter Rams</cite>
   </blockquote>
   <figure>
     <div class="sg-demo-prose-1">
@@ -26000,7 +26315,7 @@ console.log(result.formatted[500]);
     <figcaption>The ten principles articulated by Dieter Rams in the 1970s.</figcaption>
   </figure>
   <p class="sg-demo-prose-2">
-    The <abbr title="User Interface">UI</abbr> should feel <q>invisible</q> –
+    The <abbr title="User Interface">UI</abbr> should feel <q>invisible</q> &mdash;
     working so naturally that the user forgets it's there.
   </p>
 </sg-stack>`, cssCode: `.sg-demo-prose-1 {
@@ -26013,434 +26328,476 @@ console.log(result.formatted[500]);
   },
   "/components/native/radio": {
     componentName: "RadioGroup",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<div>
-  <div class="sg-radio-group" onchange={(e) => { const el = (e.target as HTMLInputElement); if (el.checked) radioValue = el.value; }}>
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<div class="sg-radio-group" data-max-width="sm" role="radiogroup" aria-label="Example options">
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="usage" value="option1" checked>
+    <span class="sg-radio-content"><span class="sg-radio-label">Option 1</span></span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="usage" value="option2">
+    <span class="sg-radio-content"><span class="sg-radio-label">Option 2</span></span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="usage" value="option3">
+    <span class="sg-radio-content"><span class="sg-radio-label">Option 3</span></span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="usage" value="disabled" disabled>
+    <span class="sg-radio-content"><span class="sg-radio-label">Disabled option</span></span>
+  </label>
+</div>` }, { title: "Horizontal Layout", language: "svelte", code: `<div class="sg-radio-group" data-orientation="horizontal" data-max-width="md" role="radiogroup" aria-label="Density">
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="horizontal" value="default" checked>
+    <span class="sg-radio-content"><span class="sg-radio-label">Default</span></span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="horizontal" value="comfortable">
+    <span class="sg-radio-content"><span class="sg-radio-label">Comfortable</span></span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="horizontal" value="compact">
+    <span class="sg-radio-content"><span class="sg-radio-label">Compact</span></span>
+  </label>
+</div>` }, { title: "Sizes", language: "svelte", code: `<div class="sg-demo-radiogroup-1">
+  <div class="sg-radio-group" data-size="sm" data-max-width="sm" role="radiogroup" aria-label="Small radio size">
     <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="usage" value="option1" checked={radioValue === "option1"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Option 1</span></span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="usage" value="option2" checked={radioValue === "option2"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Option 2</span></span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="usage" value="option3" checked={radioValue === "option3"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Option 3</span></span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="usage" value="disabled" disabled={true}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Disabled option</span></span>
-    </label>
-  </div>
-  <p class="sg-demo-radiogroup-1">Selected: {radioValue}</p>
-</div>`, cssCode: `.sg-demo-radiogroup-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "Horizontal Layout", language: "svelte", code: `<div>
-  <div class="sg-radio-group" data-orientation="horizontal" onchange={(e) => { const el = (e.target as HTMLInputElement); if (el.checked) horizontalValue = el.value; }}>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="horizontal" value="default" checked={horizontalValue === "default"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Default</span></span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="horizontal" value="comfortable" checked={horizontalValue === "comfortable"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Comfortable</span></span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="horizontal" value="compact" checked={horizontalValue === "compact"}>
-      <span class="sg-radio-content"><span class="sg-radio-label">Compact</span></span>
-    </label>
-  </div>
-  <p class="sg-demo-radiogroup-1">Selected: {horizontalValue}</p>
-</div>`, cssCode: `.sg-demo-radiogroup-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "Sizes", language: "svelte", code: `<div class="sg-demo-radiogroup-1">
-  <div class="sg-radio-group" data-size="sm" onchange={(e) => { const el = (e.target as HTMLInputElement); if (el.checked) sizeValue = el.value; }}>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="sizes" value="sm" checked={sizeValue === "sm"}>
+      <input type="radio" class="sg-radio" name="sizes-sm" value="sm" checked>
       <span class="sg-radio-content"><span class="sg-radio-label">Small</span></span>
     </label>
+  </div>
+  <div class="sg-radio-group" data-size="md" data-max-width="sm" role="radiogroup" aria-label="Medium radio size">
     <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="sizes" value="md" checked={sizeValue === "md"}>
+      <input type="radio" class="sg-radio" name="sizes-md" value="md" checked>
       <span class="sg-radio-content"><span class="sg-radio-label">Medium</span></span>
     </label>
+  </div>
+  <div class="sg-radio-group" data-size="lg" data-max-width="sm" role="radiogroup" aria-label="Large radio size">
     <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="sizes" value="lg" checked={sizeValue === "lg"}>
+      <input type="radio" class="sg-radio" name="sizes-lg" value="lg" checked>
       <span class="sg-radio-content"><span class="sg-radio-label">Large</span></span>
     </label>
   </div>
 </div>`, cssCode: `.sg-demo-radiogroup-1 {
-  display: flex; flex-direction: column; gap: var(--sg-gap-grouped)
-}` }, { title: "With Description", language: "svelte", code: `<div>
-  <div class="sg-radio-group">
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="notify" value="email">
-      <span class="sg-radio-content">
-        <span class="sg-radio-label">Email</span>
-        <span class="sg-radio-description">Receive notifications via email</span>
-      </span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="notify" value="sms">
-      <span class="sg-radio-content">
-        <span class="sg-radio-label">SMS</span>
-        <span class="sg-radio-description">Receive notifications via text message</span>
-      </span>
-    </label>
-    <label class="sg-radio-group-item">
-      <input type="radio" class="sg-radio" name="notify" value="push">
-      <span class="sg-radio-content">
-        <span class="sg-radio-label">Push</span>
-        <span class="sg-radio-description">Receive push notifications on your device</span>
-      </span>
-    </label>
-  </div>
+  display: grid; gap: var(--sg-gap-grouped)
+}` }, { title: "With Description", language: "svelte", code: `<div class="sg-radio-group" data-max-width="md" role="radiogroup" aria-label="Notification method">
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="notify" value="email" checked>
+    <span class="sg-radio-content">
+      <span class="sg-radio-label">Email</span>
+      <span class="sg-radio-description">Receive notifications via email</span>
+    </span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="notify" value="sms">
+    <span class="sg-radio-content">
+      <span class="sg-radio-label">SMS</span>
+      <span class="sg-radio-description">Receive notifications via text message</span>
+    </span>
+  </label>
+  <label class="sg-radio-group-item">
+    <input type="radio" class="sg-radio" name="notify" value="push">
+    <span class="sg-radio-content">
+      <span class="sg-radio-label">Push</span>
+      <span class="sg-radio-description">Receive push notifications on your device</span>
+    </span>
+  </label>
 </div>` }] }]
   },
   "/components/native/search-input": {
     componentName: "SearchInput",
-    sections: [{ title: "Examples", examples: [{ title: "Basic", language: "svelte", code: `<div class="sg-demo-searchinput-1">
-  <input type="search" class="sg-search-input" placeholder="Search components..." />
-</div>`, cssCode: `.sg-demo-searchinput-1 {
-  max-width: 400px;
-}` }, { title: "With Value & Events", language: "svelte", code: `<div class="sg-demo-searchinput-1">
-  <sg-stack gap="related">
-      <input type="search" class="sg-search-input" value="Svelte" placeholder="Search components..." />
-      <sg-text size="sm" color="muted">Typing: "Svelte"</sg-text>
-      <sg-text size="sm" color="success">Submitted: "Svelte"</sg-text>
-  </sg-stack>
-</div>`, cssCode: `.sg-demo-searchinput-1 {
-  max-width: 400px;
-}` }, { title: "Loading State", language: "svelte", code: `<div class="sg-demo-searchinput-1">
-  <input type="search" class="sg-search-input" value="Loading" placeholder="Fetching results..." />
-</div>`, cssCode: `.sg-demo-searchinput-1 {
-  max-width: 400px;
-}` }, { title: "Disabled", language: "svelte", code: `<div class="sg-demo-searchinput-1">
-  <input type="search" class="sg-search-input" disabled placeholder="Search is disabled" />
-</div>`, cssCode: `.sg-demo-searchinput-1 {
-  max-width: 400px;
-}` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
-    <div class="sg-demo-searchinput-1">
-      <input type="search" class="sg-search-input" placeholder="Small search..." />
-    </div>
-    <div class="sg-demo-searchinput-2">
-      <input type="search" class="sg-search-input" placeholder="Medium search..." />
-    </div>
-    <div class="sg-demo-searchinput-3">
-      <input type="search" class="sg-search-input" placeholder="Large search..." />
-    </div>
-</sg-stack>`, cssCode: `.sg-demo-searchinput-1 {
-  max-width: 400px;
-}
-
-.sg-demo-searchinput-2 {
-  max-width: 400px;
-}
-
-.sg-demo-searchinput-3 {
-  max-width: 400px;
-}` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Basic", language: "svelte", code: `<div class="sg-search-input-wrapper" data-max-width="md">
+  <input type="search" class="sg-search-input" placeholder="Search components..." aria-label="Search components" />
+</div>` }, { title: "With Value and Clear", language: "svelte", code: `<sg-stack gap="related">
+  <div class="sg-search-input-wrapper" data-max-width="md">
+    <input type="search" class="sg-search-input" value="Svelte" placeholder="Search components..." aria-label="Search components" />
+    <button class="sg-search-clear" type="button" aria-label="Clear search" onclick="const input = this.parentElement.querySelector('input'); input.value = ''; input.focus();">&times;</button>
+  </div>
+  <sg-text size="sm" color="muted">Typing: "Svelte"</sg-text>
+  <sg-text size="sm" color="success">Submitted: "Svelte"</sg-text>
+</sg-stack>` }, { title: "Loading State", language: "svelte", code: `<div class="sg-search-input-wrapper" data-max-width="md" data-loading>
+  <input type="search" class="sg-search-input" value="Loading" placeholder="Fetching results..." aria-label="Search while loading" aria-busy="true" />
+  <span class="sg-search-status" aria-hidden="true"></span>
+</div>` }, { title: "Disabled", language: "svelte", code: `<div class="sg-search-input-wrapper" data-max-width="md">
+  <input type="search" class="sg-search-input" disabled placeholder="Search is disabled" aria-label="Disabled search" />
+</div>` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-search-input-wrapper" data-size="sm" data-max-width="md">
+    <input type="search" class="sg-search-input" placeholder="Small search..." aria-label="Small search" />
+  </div>
+  <div class="sg-search-input-wrapper" data-max-width="md">
+    <input type="search" class="sg-search-input" placeholder="Medium search..." aria-label="Medium search" />
+  </div>
+  <div class="sg-search-input-wrapper" data-size="lg" data-max-width="md">
+    <input type="search" class="sg-search-input" placeholder="Large search..." aria-label="Large search" />
+  </div>
+</sg-stack>` }] }]
   },
   "/components/native/select": {
     componentName: "NativeSelect",
     sections: [{ title: "Examples", examples: [{ title: "Native Select", language: "svelte", code: `<sg-stack gap="grouped">
-    <div class="sg-demo-nativeselect-1">
-      <select class="sg-native-select" value={value} oninput={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} onchange={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} onclick={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} ontoggle={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }}>
-          <option value="">Choose...</option>
-          <option value="us">United States</option>
-          <option value="uk">United Kingdom</option>
-          <option value="de">Germany</option>
-          <option value="fr">France</option>
-          <option value="jp">Japan</option>
-      </select>
-    </div>
-    <div class="sg-demo-nativeselect-2">
-      <select class="sg-native-select">
-          <option value="">Choose...</option>
-          <option value="a">Option A</option>
-      </select>
-    </div>
-    <div class="sg-demo-nativeselect-3">
-      <select class="sg-native-select" disabled={true}>
-          <option value="">Unavailable</option>
-      </select>
-    </div>
-</sg-stack>`, cssCode: `.sg-demo-nativeselect-1 {
-  max-width: 300px
-}
-
-.sg-demo-nativeselect-2 {
-  max-width: 300px
-}
-
-.sg-demo-nativeselect-3 {
-  max-width: 300px
-}` }] }]
+  <div class="sg-native-select-wrapper" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-country">Country</label>
+    <select id="select-country" name="country" class="sg-native-select" aria-describedby="select-country-description" required>
+      <option value="" disabled selected>Choose...</option>
+      <option value="us">United States</option>
+      <option value="uk">United Kingdom</option>
+      <option value="de">Germany</option>
+      <option value="fr">France</option>
+      <option value="jp">Japan</option>
+    </select>
+    <span id="select-country-description" class="sg-native-select-description">Select one country for billing.</span>
+  </div>
+  <div class="sg-native-select-wrapper" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-option">Option</label>
+    <select id="select-option" class="sg-native-select">
+      <option value="">Choose...</option>
+      <option value="a" selected>Option A</option>
+    </select>
+  </div>
+  <div class="sg-native-select-wrapper" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-disabled">Disabled</label>
+    <select id="select-disabled" class="sg-native-select" disabled>
+      <option value="">Unavailable</option>
+    </select>
+  </div>
+</sg-stack>` }, { title: "Density and Validation", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-native-select-wrapper" data-density="compact" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-density-compact">Compact</label>
+    <select id="select-density-compact" class="sg-native-select">
+      <option>Compact spacing</option>
+      <option>Second option</option>
+    </select>
+  </div>
+  <div class="sg-native-select-wrapper" data-density="spacious" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-density-spacious">Spacious</label>
+    <select id="select-density-spacious" class="sg-native-select">
+      <option>Spacious spacing</option>
+      <option>Second option</option>
+    </select>
+  </div>
+  <div class="sg-native-select-wrapper" data-max-width="sm">
+    <label class="sg-native-select-label" for="select-invalid">Required status</label>
+    <select id="select-invalid" class="sg-native-select" data-validation="invalid" aria-describedby="select-invalid-error">
+      <option value="" selected>Choose a status</option>
+      <option value="active">Active</option>
+      <option value="paused">Paused</option>
+    </select>
+    <span id="select-invalid-error" class="sg-native-select-error">Select a valid status.</span>
+  </div>
+</sg-stack>` }] }]
   },
   "/components/native/slider": {
     componentName: "Slider",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<div>
-  <input type="range" class="sg-slider" value={sliderValue} oninput={(e) => { const el = e.currentTarget as any; sliderValue = (el.value ?? sliderValue); }} onchange={(e) => { const el = e.currentTarget as any; sliderValue = (el.value ?? sliderValue); }} onclick={(e) => { const el = e.currentTarget as any; sliderValue = (el.value ?? sliderValue); }} ontoggle={(e) => { const el = e.currentTarget as any; sliderValue = (el.value ?? sliderValue); }} min={0} max={100} step={1} />
-  <div class="sg-demo-slider-1">
-    <input type="range" class="sg-slider" value={30} min={0} max={100} disabled={true} />
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-slider-wrapper" data-max-width="md">
+    <div class="sg-slider-header">
+      <label class="sg-slider-label" for="slider-volume">Volume</label>
+      <span class="sg-slider-value">50%</span>
+    </div>
+    <input id="slider-volume" type="range" class="sg-slider" value="50" min="0" max="100" step="1" aria-valuetext="50 percent" />
   </div>
-</div>`, cssCode: `.sg-demo-slider-1 {
-  margin-top: var(--sg-space-3)
-}` }] }]
+  <div class="sg-slider-wrapper" data-max-width="md">
+    <div class="sg-slider-header">
+      <label class="sg-slider-label" for="slider-steps">Step size</label>
+      <span class="sg-slider-value">3</span>
+    </div>
+    <input id="slider-steps" type="range" class="sg-slider" value="3" min="1" max="5" step="1" />
+    <span class="sg-slider-description">Uses discrete integer steps from 1 to 5.</span>
+  </div>
+  <div class="sg-slider-wrapper" data-max-width="md">
+    <label class="sg-slider-label" for="slider-disabled">Disabled</label>
+    <input id="slider-disabled" type="range" class="sg-slider" value="30" min="0" max="100" disabled />
+  </div>
+</sg-stack>` }] }]
   },
   "/components/native/switch": {
     componentName: "Switch",
     sections: [{ title: "Examples", examples: [{ title: "States", language: "svelte", code: `<sg-stack gap="grouped">
-    <input type="checkbox" class="sg-switch" role="switch" checked={switchChecked} oninput={(e) => { const el = e.currentTarget as any; switchChecked = (el.checked ?? switchChecked); }} onchange={(e) => { const el = e.currentTarget as any; switchChecked = (el.checked ?? switchChecked); }} onclick={(e) => { const el = e.currentTarget as any; switchChecked = (el.checked ?? switchChecked); }} ontoggle={(e) => { const el = e.currentTarget as any; switchChecked = (el.checked ?? switchChecked); }} />
-    <input type="checkbox" class="sg-switch" role="switch" disabled={true} />
+  <label class="sg-switch-wrapper">
+    <input type="checkbox" class="sg-switch" role="switch" name="notifications" checked>
+    <span>
+      <span class="sg-switch-label">Notifications</span>
+      <span class="sg-switch-description">Send product updates and account alerts.</span>
+    </span>
+  </label>
+  <label class="sg-switch-wrapper">
+    <input type="checkbox" class="sg-switch" role="switch" name="marketing">
+    <span class="sg-switch-label">Marketing emails</span>
+  </label>
+  <label class="sg-switch-wrapper">
+    <input type="checkbox" class="sg-switch" role="switch" disabled>
+    <span class="sg-switch-label">Disabled setting</span>
+  </label>
+</sg-stack>` }, { title: "Sizes", language: "svelte", code: `<sg-stack gap="grouped">
+  <label class="sg-switch-wrapper" data-size="sm">
+    <input type="checkbox" class="sg-switch" role="switch" checked>
+    <span class="sg-switch-label">Small</span>
+  </label>
+  <label class="sg-switch-wrapper">
+    <input type="checkbox" class="sg-switch" role="switch" checked>
+    <span class="sg-switch-label">Medium</span>
+  </label>
+  <label class="sg-switch-wrapper" data-size="lg">
+    <input type="checkbox" class="sg-switch" role="switch" checked>
+    <span class="sg-switch-label">Large</span>
+  </label>
 </sg-stack>` }] }]
   },
   "/components/native/table": {
     componentName: "Table",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Table", language: "svelte", code: `<table class="sg-table" aria-label="Users table">
-  <thead class="sg-table-header">
-    <tr class="sg-table-row">
-      <th class="sg-table-head">Name</th>
-      <th class="sg-table-head">Email</th>
-      <th class="sg-table-head">Role</th>
-    </tr>
-  </thead>
-  <tbody class="sg-table-body">
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">Alice Johnson</td>
-      <td class="sg-table-cell">alice@example.com</td>
-      <td class="sg-table-cell">Admin</td>
-    </tr>
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">Bob Smith</td>
-      <td class="sg-table-cell">bob@example.com</td>
-      <td class="sg-table-cell">Editor</td>
-    </tr>
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">Carol White</td>
-      <td class="sg-table-cell">carol@example.com</td>
-      <td class="sg-table-cell">Viewer</td>
-    </tr>
-  </tbody>
-</table>` }, { title: "Striped Table", language: "svelte", code: `<table class="sg-table" data-striped aria-label="Invoices table">
-  <caption class="sg-table-caption">
-    A list of your recent invoices.
-  </caption>
-  <thead class="sg-table-header">
-    <tr class="sg-table-row">
-      <th class="sg-table-head">Invoice</th>
-      <th class="sg-table-head">Status</th>
-      <th class="sg-table-head">Method</th>
-      <th class="sg-table-head">Amount</th>
-    </tr>
-  </thead>
-  <tbody class="sg-table-body">
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">INV001</td>
-      <td class="sg-table-cell">Paid</td>
-      <td class="sg-table-cell">Credit Card</td>
-      <td class="sg-table-cell">$250.00</td>
-    </tr>
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">INV002</td>
-      <td class="sg-table-cell">Pending</td>
-      <td class="sg-table-cell">PayPal</td>
-      <td class="sg-table-cell">$150.00</td>
-    </tr>
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">INV003</td>
-      <td class="sg-table-cell">Unpaid</td>
-      <td class="sg-table-cell">Bank Transfer</td>
-      <td class="sg-table-cell">$350.00</td>
-    </tr>
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">INV004</td>
-      <td class="sg-table-cell">Paid</td>
-      <td class="sg-table-cell">Credit Card</td>
-      <td class="sg-table-cell">$450.00</td>
-    </tr>
-  </tbody>
-  <tfoot class="sg-table-footer">
-    <tr class="sg-table-row">
-      <td class="sg-table-cell">Total</td>
-      <td class="sg-table-cell"></td>
-      <td class="sg-table-cell"></td>
-      <td class="sg-table-cell">$1,200.00</td>
-    </tr>
-  </tfoot>
-</table>` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Basic Table", language: "svelte", code: `<div class="sg-table-wrapper" data-max-width="lg">
+  <table class="sg-table" aria-label="Users table">
+    <thead class="sg-table-header">
+      <tr class="sg-table-row">
+        <th class="sg-table-head" scope="col">Name</th>
+        <th class="sg-table-head" scope="col">Email</th>
+        <th class="sg-table-head" scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody class="sg-table-body">
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">Alice Johnson</td>
+        <td class="sg-table-cell">alice@example.com</td>
+        <td class="sg-table-cell">Admin</td>
+      </tr>
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">Bob Smith</td>
+        <td class="sg-table-cell">bob@example.com</td>
+        <td class="sg-table-cell">Editor</td>
+      </tr>
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">Carol White</td>
+        <td class="sg-table-cell">carol@example.com</td>
+        <td class="sg-table-cell">Viewer</td>
+      </tr>
+    </tbody>
+  </table>
+</div>` }, { title: "Striped Table", language: "svelte", code: `<div class="sg-table-wrapper" data-max-width="lg">
+  <table class="sg-table" data-striped>
+    <caption class="sg-table-caption">
+      A list of your recent invoices.
+    </caption>
+    <thead class="sg-table-header">
+      <tr class="sg-table-row">
+        <th class="sg-table-head" scope="col">Invoice</th>
+        <th class="sg-table-head" scope="col">Status</th>
+        <th class="sg-table-head" scope="col">Method</th>
+        <th class="sg-table-head" scope="col">Amount</th>
+      </tr>
+    </thead>
+    <tbody class="sg-table-body">
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">INV001</td>
+        <td class="sg-table-cell">Paid</td>
+        <td class="sg-table-cell">Credit Card</td>
+        <td class="sg-table-cell">$250.00</td>
+      </tr>
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">INV002</td>
+        <td class="sg-table-cell">Pending</td>
+        <td class="sg-table-cell">PayPal</td>
+        <td class="sg-table-cell">$150.00</td>
+      </tr>
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">INV003</td>
+        <td class="sg-table-cell">Unpaid</td>
+        <td class="sg-table-cell">Bank Transfer</td>
+        <td class="sg-table-cell">$350.00</td>
+      </tr>
+      <tr class="sg-table-row">
+        <td class="sg-table-cell">INV004</td>
+        <td class="sg-table-cell">Paid</td>
+        <td class="sg-table-cell">Credit Card</td>
+        <td class="sg-table-cell">$450.00</td>
+      </tr>
+    </tbody>
+    <tfoot class="sg-table-footer">
+      <tr class="sg-table-row">
+        <th class="sg-table-cell" scope="row">Total</th>
+        <td class="sg-table-cell"></td>
+        <td class="sg-table-cell"></td>
+        <td class="sg-table-cell">$1,200.00</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>` }, { title: "Density", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-table-wrapper" data-density="compact" data-max-width="md">
+    <table class="sg-table" aria-label="Compact table">
+      <tbody class="sg-table-body">
+        <tr class="sg-table-row"><th class="sg-table-head" scope="row">Compact</th><td class="sg-table-cell">Dense rows</td></tr>
+        <tr class="sg-table-row"><th class="sg-table-head" scope="row">Use case</th><td class="sg-table-cell">Administration</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sg-table-wrapper" data-density="spacious" data-max-width="md">
+    <table class="sg-table" aria-label="Spacious table">
+      <tbody class="sg-table-body">
+        <tr class="sg-table-row"><th class="sg-table-head" scope="row">Spacious</th><td class="sg-table-cell">Breathable rows</td></tr>
+        <tr class="sg-table-row"><th class="sg-table-head" scope="row">Use case</th><td class="sg-table-cell">Readable summaries</td></tr>
+      </tbody>
+    </table>
+  </div>
+</sg-stack>` }] }]
   },
   "/components/native/textarea": {
     componentName: "Textarea",
     sections: [{ title: "Examples", examples: [{ title: "Basic Textarea", language: "svelte", code: `<sg-stack gap="grouped">
-    <textarea class="sg-textarea" placeholder="Tell us about yourself..." maxlength={200} value={bioValue} oninput={(e) => { const el = e.currentTarget as any; bioValue = (el.value ?? bioValue); }} onchange={(e) => { const el = e.currentTarget as any; bioValue = (el.value ?? bioValue); }} onclick={(e) => { const el = e.currentTarget as any; bioValue = (el.value ?? bioValue); }} ontoggle={(e) => { const el = e.currentTarget as any; bioValue = (el.value ?? bioValue); }}></textarea>
-    <textarea class="sg-textarea" placeholder="Additional notes..." rows={5}></textarea>
-    <textarea class="sg-textarea"></textarea>
-    <textarea class="sg-textarea" disabled={true} value="Cannot edit"></textarea>
-</sg-stack>` }, { title: "Auto-grow Textarea", language: "svelte", code: `<sg-stack gap="grouped">
-    <textarea class="sg-textarea"
-      placeholder="Type multiple lines to see the textarea expand automatically..."
-      value={autogrowValue} oninput={(e) => { const el = e.currentTarget as any; autogrowValue = (el.value ?? autogrowValue); }} onchange={(e) => { const el = e.currentTarget as any; autogrowValue = (el.value ?? autogrowValue); }} onclick={(e) => { const el = e.currentTarget as any; autogrowValue = (el.value ?? autogrowValue); }} ontoggle={(e) => { const el = e.currentTarget as any; autogrowValue = (el.value ?? autogrowValue); }}
-    ></textarea>
-    <textarea class="sg-textarea"
-      value="This is read-only content that cannot be edited."
-      readonly={true}
-    ></textarea>
+  <div class="sg-textarea-wrapper" data-max-width="md">
+    <label class="sg-textarea-label" for="textarea-bio">Bio</label>
+    <textarea id="textarea-bio" name="bio" class="sg-textarea" placeholder="Tell us about yourself..." maxlength="200" aria-describedby="textarea-bio-description"></textarea>
+    <span id="textarea-bio-description" class="sg-textarea-description">Maximum 200 characters.</span>
+  </div>
+  <div class="sg-textarea-wrapper" data-max-width="md">
+    <label class="sg-textarea-label" for="textarea-notes">Additional notes</label>
+    <textarea id="textarea-notes" class="sg-textarea" placeholder="Additional notes..." rows="5"></textarea>
+  </div>
+  <div class="sg-textarea-wrapper" data-max-width="md">
+    <label class="sg-textarea-label" for="textarea-disabled">Disabled</label>
+    <textarea id="textarea-disabled" class="sg-textarea" disabled>Cannot edit</textarea>
+  </div>
+</sg-stack>` }, { title: "Auto-grow and Validation", language: "svelte", code: `<sg-stack gap="grouped">
+  <div class="sg-textarea-wrapper" data-max-width="md" data-density="compact">
+    <label class="sg-textarea-label" for="textarea-autogrow">Auto-grow</label>
+    <textarea id="textarea-autogrow" class="sg-textarea" data-autogrow placeholder="Type multiple lines to let supported browsers grow the field."></textarea>
+  </div>
+  <div class="sg-textarea-wrapper" data-max-width="md">
+    <label class="sg-textarea-label" for="textarea-readonly">Read-only</label>
+    <textarea id="textarea-readonly" class="sg-textarea" readonly>This is read-only content that cannot be edited.</textarea>
+  </div>
+  <div class="sg-textarea-wrapper" data-max-width="md">
+    <label class="sg-textarea-label" for="textarea-invalid">Feedback</label>
+    <textarea id="textarea-invalid" class="sg-textarea" data-validation="invalid" aria-describedby="textarea-invalid-error">Too short.</textarea>
+    <span id="textarea-invalid-error" class="sg-textarea-error">Enter at least 20 characters.</span>
+  </div>
 </sg-stack>` }] }]
   },
   "/components/native/toggle": {
     componentName: "Toggle",
     sections: [{ title: "Examples", examples: [{ title: "Toggle Buttons", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <button class="sg-toggle" aria-pressed={bold} oninput={(e) => { const el = e.currentTarget as any; bold = (el.pressed ?? bold); }} onchange={(e) => { const el = e.currentTarget as any; bold = (el.pressed ?? bold); }} onclick={(e) => { const el = e.currentTarget as any; bold = (el.pressed ?? bold); }} ontoggle={(e) => { const el = e.currentTarget as any; bold = (el.pressed ?? bold); }} aria-label="Bold"><strong>B</strong></button>
-    <button class="sg-toggle" aria-pressed={italic} oninput={(e) => { const el = e.currentTarget as any; italic = (el.pressed ?? italic); }} onchange={(e) => { const el = e.currentTarget as any; italic = (el.pressed ?? italic); }} onclick={(e) => { const el = e.currentTarget as any; italic = (el.pressed ?? italic); }} ontoggle={(e) => { const el = e.currentTarget as any; italic = (el.pressed ?? italic); }} aria-label="Italic"><em>I</em></button>
-</sg-stack>
-<p class="sg-demo-toggle-1">Bold: {bold}, Italic: {italic}</p>`, cssCode: `.sg-demo-toggle-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "Outline Variant", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <button class="sg-toggle" data-variant="outline" aria-label="Bold"><strong>B</strong></button>
+    <button class="sg-toggle" aria-pressed="false" aria-label="Bold"><strong>B</strong></button>
+    <button class="sg-toggle" aria-pressed="true" aria-label="Italic"><em>I</em></button>
+    <button class="sg-toggle" aria-pressed="false" aria-label="Underline" disabled><u>U</u></button>
+</sg-stack>` }, { title: "Outline Variant", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
+    <button class="sg-toggle" data-variant="outline" aria-pressed="false" aria-label="Bold"><strong>B</strong></button>
     <button class="sg-toggle" data-variant="outline" aria-pressed="true" aria-label="Italic"><em>I</em></button>
-</sg-stack>` }, { title: "Toggle Group (Single)", language: "svelte", code: `<sg-toggle-group type="single" value={alignment} oninput={(e) => { const el = e.currentTarget as any; alignment = (el.value ?? alignment); }} onchange={(e) => { const el = e.currentTarget as any; alignment = (el.value ?? alignment); }} onclick={(e) => { const el = e.currentTarget as any; alignment = (el.value ?? alignment); }} ontoggle={(e) => { const el = e.currentTarget as any; alignment = (el.value ?? alignment); }} aria-label="Text alignment">
+</sg-stack>` }, { title: "Toggle Group (Single)", language: "svelte", code: `<sg-toggle-group type="single" value="center" aria-label="Text alignment">
     <button class="sg-toggle" value="left" aria-label="Align left">Left</button>
     <button class="sg-toggle" value="center" aria-label="Align center">Center</button>
     <button class="sg-toggle" value="right" aria-label="Align right">Right</button>
-</sg-toggle-group>
-<p class="sg-demo-toggle-1">Alignment: {alignment}</p>`, cssCode: `.sg-demo-toggle-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "Toggle Group (Multiple)", language: "svelte", code: `<sg-toggle-group type="multiple" value={formats} oninput={(e) => { const el = e.currentTarget as any; formats = (el.value ?? formats); }} onchange={(e) => { const el = e.currentTarget as any; formats = (el.value ?? formats); }} onclick={(e) => { const el = e.currentTarget as any; formats = (el.value ?? formats); }} ontoggle={(e) => { const el = e.currentTarget as any; formats = (el.value ?? formats); }} variant="outline" aria-label="Text formatting">
+</sg-toggle-group>` }, { title: "Toggle Group (Multiple)", language: "svelte", code: `<sg-toggle-group type="multiple" value="bold,underline" variant="outline" aria-label="Text formatting">
     <button class="sg-toggle" value="bold" aria-label="Bold"><strong>B</strong></button>
     <button class="sg-toggle" value="italic" aria-label="Italic"><em>I</em></button>
     <button class="sg-toggle" value="underline" aria-label="Underline"><u>U</u></button>
-</sg-toggle-group>
-<p class="sg-demo-toggle-1">Formats: {formats.join(", ") || "none"}</p>`, cssCode: `.sg-demo-toggle-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
-    <button class="sg-toggle" data-size="sm" aria-label="Small toggle">SM</button>
-    <button class="sg-toggle" data-size="md" aria-label="Medium toggle">MD</button>
-    <button class="sg-toggle" data-size="lg" aria-label="Large toggle">LG</button>
+</sg-toggle-group>` }, { title: "Sizes", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" align="center">
+    <button class="sg-toggle" data-size="sm" aria-pressed="false" aria-label="Small toggle">SM</button>
+    <button class="sg-toggle" data-size="md" aria-pressed="false" aria-label="Medium toggle">MD</button>
+    <button class="sg-toggle" data-size="lg" aria-pressed="false" aria-label="Large toggle">LG</button>
 </sg-stack>` }] }]
   },
   "/components/overlays/accordion": {
     componentName: "AccordionRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-accordion-root>
-    <sg-accordion-item value="item1">
-        <sg-accordion-trigger>What is SigUI?</sg-accordion-trigger>
-        <sg-accordion-content>
-            <p class="sg-demo-accordionroot-1">SigUI is a comprehensive design system built on perceptual color science, fluid typography, and accessible interaction patterns.</p>
-        </sg-accordion-content>
-    </sg-accordion-item>
-    <sg-accordion-item value="item2">
-        <sg-accordion-trigger>How does it work?</sg-accordion-trigger>
-        <sg-accordion-content>
-            <p class="sg-demo-accordionroot-2">Core algorithms are pure TypeScript with no runtime dependencies. The Svelte layer provides reactive components with constrained typed props.</p>
-        </sg-accordion-content>
-    </sg-accordion-item>
-    <sg-accordion-item value="item3" disabled={true}>
-        <sg-accordion-trigger>Disabled Item</sg-accordion-trigger>
-        <sg-accordion-content>
-          <p>This won't open.</p>
-        </sg-accordion-content>
-    </sg-accordion-item>
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-accordion-root max-width="md">
+  <sg-accordion-item value="item1" open>
+    <sg-accordion-trigger>What is SigUI?</sg-accordion-trigger>
+    <sg-accordion-content><p class="sg-demo-accordionroot-1">SigUI is a comprehensive design system built on perceptual color science, fluid typography, and accessible interaction patterns.</p></sg-accordion-content>
+  </sg-accordion-item>
+  <sg-accordion-item value="item2">
+    <sg-accordion-trigger>How does it work?</sg-accordion-trigger>
+    <sg-accordion-content><p class="sg-demo-accordionroot-2">Core algorithms are pure TypeScript with no runtime dependencies. The Svelte layer provides reactive components with constrained typed props.</p></sg-accordion-content>
+  </sg-accordion-item>
+  <sg-accordion-item value="item3" disabled>
+    <sg-accordion-trigger>Disabled Item</sg-accordion-trigger>
+    <sg-accordion-content><p>This will not open.</p></sg-accordion-content>
+  </sg-accordion-item>
 </sg-accordion-root>`, cssCode: `.sg-demo-accordionroot-1 {
   padding: var(--sg-space-3) 0; color: var(--sg-color-text-secondary); margin: 0;
 }
 
 .sg-demo-accordionroot-2 {
   padding: var(--sg-space-3) 0; color: var(--sg-color-text-secondary); margin: 0;
-}` }, { title: "Multiple Open", language: "svelte", code: `<sg-accordion-root multiple={true}>
-    <sg-accordion-item value="multi1">
-        <sg-accordion-trigger>Can open multiple panels at once</sg-accordion-trigger>
-        <sg-accordion-content>
-            <p class="sg-demo-accordionroot-1">With the multiple prop, you can have several accordion items open simultaneously. This is useful for FAQ sections where users may want to compare answers.</p>
-        </sg-accordion-content>
-    </sg-accordion-item>
-    <sg-accordion-item value="multi2">
-        <sg-accordion-trigger>This can be open too</sg-accordion-trigger>
-        <sg-accordion-content>
-            <p class="sg-demo-accordionroot-2">Both items can be expanded at the same time, unlike the default behavior where opening one item closes the others.</p>
-        </sg-accordion-content>
-    </sg-accordion-item>
+}` }, { title: "Multiple Open", language: "html", code: `<sg-accordion-root multiple max-width="md">
+  <sg-accordion-item value="multi1" open>
+    <sg-accordion-trigger>Can open multiple panels at once</sg-accordion-trigger>
+    <sg-accordion-content><p class="sg-demo-accordionroot-1">With the multiple prop, you can have several accordion items open simultaneously.</p></sg-accordion-content>
+  </sg-accordion-item>
+  <sg-accordion-item value="multi2" open>
+    <sg-accordion-trigger>This can be open too</sg-accordion-trigger>
+    <sg-accordion-content><p class="sg-demo-accordionroot-2">Both items can be expanded at the same time.</p></sg-accordion-content>
+  </sg-accordion-item>
 </sg-accordion-root>`, cssCode: `.sg-demo-accordionroot-1 {
   padding: var(--sg-space-3) 0; color: var(--sg-color-text-secondary); margin: 0;
 }
 
 .sg-demo-accordionroot-2 {
   padding: var(--sg-space-3) 0; color: var(--sg-color-text-secondary); margin: 0;
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-accordionroot-1">Accordion machine can be toggled with <code>featureFlags.accordionMachine</code>.</p>', cssCode: `.sg-demo-accordionroot-1 {
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-accordionroot-1">Accordion machine can be toggled with <code>featureFlags.accordionMachine</code>.</p>', cssCode: `.sg-demo-accordionroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/alert-dialog": {
     componentName: "AlertDialogRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Destructive Confirmation", language: "svelte", code: `<sg-alert-dialog-root open={alertOpen} oninput={(e) => { const el = e.currentTarget as any; alertOpen = (el.open ?? alertOpen); }} onchange={(e) => { const el = e.currentTarget as any; alertOpen = (el.open ?? alertOpen); }} onclick={(e) => { const el = e.currentTarget as any; alertOpen = (el.open ?? alertOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; alertOpen = (el.open ?? alertOpen); }}>
-    <sg-alert-dialog-trigger>
-        <button class="sg-button" data-color="danger" onclick={() => alertOpen = true}>Delete Account</button>
-    </sg-alert-dialog-trigger>
-    <sg-alert-dialog-content aria-label="Delete account confirmation">
-        <sg-alert-dialog-header>
-            <sg-alert-dialog-title>Are you sure?</sg-alert-dialog-title>
-            <sg-alert-dialog-description>This action cannot be undone. Your account and all data will be permanently deleted.</sg-alert-dialog-description>
-        </sg-alert-dialog-header>
-        <sg-alert-dialog-footer>
-            <sg-alert-dialog-cancel>Cancel</sg-alert-dialog-cancel>
-            <sg-alert-dialog-action color="danger">Delete</sg-alert-dialog-action>
-        </sg-alert-dialog-footer>
-    </sg-alert-dialog-content>
-</sg-alert-dialog-root>` }, { title: "Simple Alert", language: "svelte", code: `<sg-alert-dialog-root open={deleteOpen} oninput={(e) => { const el = e.currentTarget as any; deleteOpen = (el.open ?? deleteOpen); }} onchange={(e) => { const el = e.currentTarget as any; deleteOpen = (el.open ?? deleteOpen); }} onclick={(e) => { const el = e.currentTarget as any; deleteOpen = (el.open ?? deleteOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; deleteOpen = (el.open ?? deleteOpen); }}>
-    <sg-alert-dialog-trigger>
-        <button class="sg-button" onclick={() => deleteOpen = true}>Show Alert</button>
-    </sg-alert-dialog-trigger>
-    <sg-alert-dialog-content aria-label="Cookie consent">
-        <sg-alert-dialog-header>
-            <sg-alert-dialog-title>Accept Cookies</sg-alert-dialog-title>
-            <sg-alert-dialog-description>We use cookies to enhance your experience. By continuing to browse, you agree to our use of cookies.</sg-alert-dialog-description>
-        </sg-alert-dialog-header>
-        <sg-alert-dialog-footer>
-            <sg-alert-dialog-cancel>Decline</sg-alert-dialog-cancel>
-            <sg-alert-dialog-action>Accept</sg-alert-dialog-action>
-        </sg-alert-dialog-footer>
-    </sg-alert-dialog-content>
-</sg-alert-dialog-root>` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-alertdialogroot-1">AlertDialog machine can be toggled with <code>featureFlags.alertDialogMachine</code>.</p>', cssCode: `.sg-demo-alertdialogroot-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Destructive Confirmation", language: "html", code: `<sg-alert-dialog-root max-width="md">
+  <sg-alert-dialog-trigger>
+    <button class="sg-button" data-color="danger">Delete Account</button>
+  </sg-alert-dialog-trigger>
+  <sg-alert-dialog-content aria-label="Delete account confirmation">
+    <sg-alert-dialog-header>
+      <sg-alert-dialog-title>Are you sure?</sg-alert-dialog-title>
+      <sg-alert-dialog-description>This action cannot be undone. Your account and all data will be permanently deleted.</sg-alert-dialog-description>
+    </sg-alert-dialog-header>
+    <sg-alert-dialog-footer>
+      <sg-alert-dialog-cancel>Cancel</sg-alert-dialog-cancel>
+      <sg-alert-dialog-action color="danger">Delete</sg-alert-dialog-action>
+    </sg-alert-dialog-footer>
+  </sg-alert-dialog-content>
+</sg-alert-dialog-root>` }, { title: "Simple Alert", language: "html", code: `<sg-alert-dialog-root>
+  <sg-alert-dialog-trigger>
+    <button class="sg-button">Show Alert</button>
+  </sg-alert-dialog-trigger>
+  <sg-alert-dialog-content aria-label="Cookie consent">
+    <sg-alert-dialog-header>
+      <sg-alert-dialog-title>Accept Cookies</sg-alert-dialog-title>
+      <sg-alert-dialog-description>We use cookies to enhance your experience. By continuing to browse, you agree to our use of cookies.</sg-alert-dialog-description>
+    </sg-alert-dialog-header>
+    <sg-alert-dialog-footer>
+      <sg-alert-dialog-cancel>Decline</sg-alert-dialog-cancel>
+      <sg-alert-dialog-action>Accept</sg-alert-dialog-action>
+    </sg-alert-dialog-footer>
+  </sg-alert-dialog-content>
+</sg-alert-dialog-root>` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-alertdialogroot-1">AlertDialog machine can be toggled with <code>featureFlags.alertDialogMachine</code>.</p>', cssCode: `.sg-demo-alertdialogroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/breadcrumb": {
     componentName: "Breadcrumb",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Breadcrumb", language: "svelte", code: `<sg-breadcrumb>
-    <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
-    <sg-breadcrumb-separator />
-    <sg-breadcrumb-item href="/components">Components</sg-breadcrumb-item>
-    <sg-breadcrumb-separator />
-    <sg-breadcrumb-item current={true}>Breadcrumb</sg-breadcrumb-item>
-</sg-breadcrumb>` }, { title: "With Custom Separator", language: "svelte", code: `<sg-breadcrumb>
-    <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
-    <sg-breadcrumb-separator>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </sg-breadcrumb-separator>
-    <sg-breadcrumb-item href="/components">Components</sg-breadcrumb-item>
-    <sg-breadcrumb-separator>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </sg-breadcrumb-separator>
-    <sg-breadcrumb-item current={true}>Breadcrumb</sg-breadcrumb-item>
-</sg-breadcrumb>` }, { title: "Collapsed with Ellipsis", language: "svelte", code: `<sg-breadcrumb>
-    <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
-    <sg-breadcrumb-separator />
-    <sg-breadcrumb-item>
-        <sg-breadcrumb-ellipsis />
-    </sg-breadcrumb-item>
-    <sg-breadcrumb-separator />
-    <sg-breadcrumb-item href="/docs/components">Components</sg-breadcrumb-item>
-    <sg-breadcrumb-separator />
-    <sg-breadcrumb-item current={true}>
-        <sg-breadcrumb-page>Breadcrumb</sg-breadcrumb-page>
-    </sg-breadcrumb-item>
+    sections: [{ title: "Examples", examples: [{ title: "Basic Breadcrumb", language: "html", code: `<sg-breadcrumb>
+  <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-separator></sg-breadcrumb-separator>
+  <sg-breadcrumb-item href="/components">Components</sg-breadcrumb-item>
+  <sg-breadcrumb-separator></sg-breadcrumb-separator>
+  <sg-breadcrumb-item current>Breadcrumb</sg-breadcrumb-item>
+</sg-breadcrumb>` }, { title: "With Custom Separator", language: "html", code: `<sg-breadcrumb>
+  <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-separator>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </sg-breadcrumb-separator>
+  <sg-breadcrumb-item href="/components">Components</sg-breadcrumb-item>
+  <sg-breadcrumb-separator>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </sg-breadcrumb-separator>
+  <sg-breadcrumb-item current>Breadcrumb</sg-breadcrumb-item>
+</sg-breadcrumb>` }, { title: "Collapsed with Ellipsis", language: "html", code: `<sg-breadcrumb>
+  <sg-breadcrumb-item href="/">Home</sg-breadcrumb-item>
+  <sg-breadcrumb-separator></sg-breadcrumb-separator>
+  <sg-breadcrumb-item><sg-breadcrumb-ellipsis></sg-breadcrumb-ellipsis></sg-breadcrumb-item>
+  <sg-breadcrumb-separator></sg-breadcrumb-separator>
+  <sg-breadcrumb-item href="/docs/components">Components</sg-breadcrumb-item>
+  <sg-breadcrumb-separator></sg-breadcrumb-separator>
+  <sg-breadcrumb-item current><sg-breadcrumb-page>Breadcrumb</sg-breadcrumb-page></sg-breadcrumb-item>
 </sg-breadcrumb>` }] }]
   },
   "/components/overlays/collapsible": {
     componentName: "CollapsibleRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Collapsible", language: "svelte", code: `<sg-collapsible-root>
+    sections: [{ title: "Examples", examples: [{ title: "Basic Collapsible", language: "html", code: `<sg-collapsible-root>
     <sg-collapsible-trigger>
         <button class="sg-button" data-color="secondary">Toggle Content</button>
     </sg-collapsible-trigger>
@@ -26455,106 +26812,91 @@ console.log(result.formatted[500]);
 
 .sg-demo-collapsibleroot-2 {
   margin: 0
-}` }, { title: "Disabled", language: "svelte", code: `<sg-collapsible-root disabled={true}>
+}` }, { title: "Disabled", language: "html", code: `<sg-collapsible-root disabled max-width="md">
     <sg-collapsible-trigger>
-        <button class="sg-button" data-color="secondary" disabled={true}>Cannot Toggle</button>
+        <button class="sg-button" data-color="secondary" disabled>Cannot Toggle</button>
     </sg-collapsible-trigger>
     <sg-collapsible-content>
         <p class="sg-demo-collapsibleroot-1">This content cannot be revealed.</p>
     </sg-collapsible-content>
 </sg-collapsible-root>`, cssCode: `.sg-demo-collapsibleroot-1 {
   padding: var(--sg-space-3) 0; color: var(--sg-color-text-secondary)
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-collapsibleroot-1">Collapsible machine can be toggled with <code>featureFlags.collapsibleMachine</code>.</p>', cssCode: `.sg-demo-collapsibleroot-1 {
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-collapsibleroot-1">Collapsible machine can be toggled with <code>featureFlags.collapsibleMachine</code>.</p>', cssCode: `.sg-demo-collapsibleroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/combobox": {
     componentName: "ComboboxRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Searchable Dropdown", language: "svelte", code: `<div class="sg-demo-comboboxroot-1">
-  <sg-combobox-root label="Framework" value={value} oninput={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} onchange={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} onclick={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} ontoggle={(e) => { const el = e.currentTarget as any; value = (el.value ?? value); }} placeholder="Search frameworks...">
-      <sg-combobox-input />
-      <sg-combobox-content>
-          <sg-combobox-item value="svelte">Svelte</sg-combobox-item>
-          <sg-combobox-item value="react">React</sg-combobox-item>
-          <sg-combobox-item value="vue">Vue</sg-combobox-item>
-          <sg-combobox-item value="angular">Angular</sg-combobox-item>
-          <sg-combobox-item value="solid">SolidJS</sg-combobox-item>
-          <sg-combobox-empty>No results found</sg-combobox-empty>
-      </sg-combobox-content>
-  </sg-combobox-root>
-</div>
-{#if value}
-  <p class="sg-demo-comboboxroot-2">Selected: {value}</p>
-{/if}`, cssCode: `.sg-demo-comboboxroot-1 {
-  max-width: 300px
-}
-
-.sg-demo-comboboxroot-2 {
+    sections: [{ title: "Examples", examples: [{ title: "Searchable Dropdown", language: "html", code: `<sg-combobox-root label="Framework" placeholder="Search frameworks..." max-width="sm">
+  <sg-combobox-input></sg-combobox-input>
+  <sg-combobox-content>
+    <sg-combobox-item value="svelte">Svelte</sg-combobox-item>
+    <sg-combobox-item value="react">React</sg-combobox-item>
+    <sg-combobox-item value="vue">Vue</sg-combobox-item>
+    <sg-combobox-item value="angular">Angular</sg-combobox-item>
+    <sg-combobox-item value="solid">SolidJS</sg-combobox-item>
+    <sg-combobox-empty>No results found</sg-combobox-empty>
+  </sg-combobox-content>
+</sg-combobox-root>`, cssCode: `.sg-demo-comboboxroot-2 {
   margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
 }` }] }]
   },
   "/components/overlays/command": {
     componentName: "CommandRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Command Palette", language: "svelte", code: `<div class="sg-demo-commandroot-1">
-  <sg-command-root aria-label="Command menu">
-      <sg-command-input placeholder="Type a command..." />
-      <sg-command-list>
-          <sg-command-group heading="Actions">
-              <sg-command-item value="new-file">New File</sg-command-item>
-              <sg-command-item value="save">Save</sg-command-item>
-              <sg-command-item value="copy">Copy</sg-command-item>
-          </sg-command-group>
-          <sg-command-separator />
-          <sg-command-group heading="Navigation">
-              <sg-command-item value="home">Home</sg-command-item>
-              <sg-command-item value="settings">Settings</sg-command-item>
-              <sg-command-item value="profile">Profile</sg-command-item>
-          </sg-command-group>
-          <sg-command-empty>No results found</sg-command-empty>
-      </sg-command-list>
-  </sg-command-root>
-</div>`, cssCode: `.sg-demo-commandroot-1 {
-  max-width: 400px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden
-}` }] }]
+    sections: [{ title: "Examples", examples: [{ title: "Command Palette", language: "html", code: `<sg-command-root aria-label="Command menu" max-width="md">
+  <sg-command-input placeholder="Type a command..."></sg-command-input>
+  <sg-command-list>
+    <sg-command-group heading="Actions">
+      <sg-command-item value="new-file">New File</sg-command-item>
+      <sg-command-item value="save">Save</sg-command-item>
+      <sg-command-item value="copy">Copy</sg-command-item>
+    </sg-command-group>
+    <sg-command-separator></sg-command-separator>
+    <sg-command-group heading="Navigation">
+      <sg-command-item value="home">Home</sg-command-item>
+      <sg-command-item value="settings">Settings</sg-command-item>
+      <sg-command-item value="profile">Profile</sg-command-item>
+    </sg-command-group>
+    <sg-command-empty>No results found</sg-command-empty>
+  </sg-command-list>
+</sg-command-root>` }] }]
   },
   "/components/overlays/context-menu": {
     componentName: "ContextMenuRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Right-Click Menu", language: "svelte", code: `<sg-context-menu-root>
-    <sg-context-menu-trigger>
-        <div class="sg-demo-contextmenuroot-1">
-          Right-click this area
-        </div>
-    </sg-context-menu-trigger>
-    <sg-context-menu-content aria-label="Context actions">
-        <sg-context-menu-label>Actions</sg-context-menu-label>
-        <sg-context-menu-item onselect={() => console.log("Edit")}>Edit</sg-context-menu-item>
-        <sg-context-menu-item onselect={() => console.log("Copy")}>Copy</sg-context-menu-item>
-        <sg-context-menu-item onselect={() => console.log("Paste")}>Paste</sg-context-menu-item>
-        <sg-context-menu-separator />
-        <sg-context-menu-sub>
-            <sg-context-menu-sub-trigger>Share</sg-context-menu-sub-trigger>
-            <sg-context-menu-sub-content aria-label="Share options">
-                <sg-context-menu-item onselect={() => console.log("Email")}>Email</sg-context-menu-item>
-                <sg-context-menu-item onselect={() => console.log("Message")}>Message</sg-context-menu-item>
-                <sg-context-menu-item onselect={() => console.log("Copy Link")}>Copy Link</sg-context-menu-item>
-            </sg-context-menu-sub-content>
-        </sg-context-menu-sub>
-        <sg-context-menu-separator />
-        <sg-context-menu-item disabled={true}>Disabled Item</sg-context-menu-item>
-        <sg-context-menu-item onselect={() => console.log("Delete")}>Delete</sg-context-menu-item>
-    </sg-context-menu-content>
+    sections: [{ title: "Examples", examples: [{ title: "Right-Click Menu", language: "html", code: `<sg-context-menu-root max-width="md">
+  <sg-context-menu-trigger>
+    <div class="sg-demo-contextmenuroot-1">Right-click this area</div>
+  </sg-context-menu-trigger>
+  <sg-context-menu-content aria-label="Context actions">
+    <sg-context-menu-label>Actions</sg-context-menu-label>
+    <sg-context-menu-item>Edit</sg-context-menu-item>
+    <sg-context-menu-item>Copy</sg-context-menu-item>
+    <sg-context-menu-item>Paste</sg-context-menu-item>
+    <sg-context-menu-separator></sg-context-menu-separator>
+    <sg-context-menu-sub>
+      <sg-context-menu-sub-trigger>Share</sg-context-menu-sub-trigger>
+      <sg-context-menu-sub-content aria-label="Share options">
+        <sg-context-menu-item>Email</sg-context-menu-item>
+        <sg-context-menu-item>Message</sg-context-menu-item>
+        <sg-context-menu-item>Copy Link</sg-context-menu-item>
+      </sg-context-menu-sub-content>
+    </sg-context-menu-sub>
+    <sg-context-menu-separator></sg-context-menu-separator>
+    <sg-context-menu-item disabled>Disabled Item</sg-context-menu-item>
+    <sg-context-menu-item>Delete</sg-context-menu-item>
+  </sg-context-menu-content>
 </sg-context-menu-root>`, cssCode: `.sg-demo-contextmenuroot-1 {
   background: var(--sg-surface-container-high); border: var(--sg-border-medium) dashed var(--sg-color-border); border-radius: var(--sg-radius-md); padding: var(--sg-space-12); text-align: center; color: var(--sg-color-text-secondary); cursor: context-menu
 }` }] }]
   },
   "/components/overlays/date-picker": {
     componentName: "DatePickerRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Date Selection", language: "svelte", code: `<sg-date-picker-root label="Select date">
+    sections: [{ title: "Examples", examples: [{ title: "Date Selection", language: "html", code: `<sg-date-picker-root label="Select date" max-width="sm">
   <sg-date-picker-trigger>Pick a date</sg-date-picker-trigger>
   <sg-date-picker-content>
     <sg-date-picker-calendar></sg-date-picker-calendar>
   </sg-date-picker-content>
-</sg-date-picker-root>` }, { title: "Programmatic i18n", description: "Set locale and rely on built-in browser locale formatting.", language: "js", code: `<sg-date-picker-root locale="de-DE" label="Datum wählen">
+</sg-date-picker-root>` }, { title: "Programmatic i18n", description: "Set locale and rely on built-in browser locale formatting.", language: "html", code: `<sg-date-picker-root locale="de-DE" label="Datum wählen">
   <sg-date-picker-trigger>Datum wählen</sg-date-picker-trigger>
   <sg-date-picker-content>
     <sg-date-picker-calendar></sg-date-picker-calendar>
@@ -26563,45 +26905,43 @@ console.log(result.formatted[500]);
   },
   "/components/overlays/details": {
     componentName: "Details",
-    sections: [{ title: "Examples", examples: [{ title: "Native disclosure primitive", language: "html", code: `<sg-details>
+    sections: [{ title: "Examples", examples: [{ title: "Native disclosure primitive", language: "html", code: `<sg-details max-width="md">
   <summary>Release Notes</summary>
   <p>Version 0.1 ships new utility primitives.</p>
 </sg-details>` }] }]
   },
   "/components/overlays/dialog": {
     componentName: "DialogRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-dialog-root open={dialogOpen} oninput={(e) => { const el = e.currentTarget as any; dialogOpen = (el.open ?? dialogOpen); }} onchange={(e) => { const el = e.currentTarget as any; dialogOpen = (el.open ?? dialogOpen); }} onclick={(e) => { const el = e.currentTarget as any; dialogOpen = (el.open ?? dialogOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; dialogOpen = (el.open ?? dialogOpen); }}>
-    <sg-dialog-trigger>
-        <button class="sg-button" data-color="primary">Open Dialog</button>
-    </sg-dialog-trigger>
-    <sg-dialog-content>
-        <sg-dialog-header>
-            <sg-dialog-title as="h2">Edit Profile</sg-dialog-title>
-            <sg-dialog-description>Make changes to your profile here. Click save when you're done.</sg-dialog-description>
-        </sg-dialog-header>
-        <div class="sg-demo-dialogroot-1">
-          <p class="sg-demo-dialogroot-2">Dialog body content goes here.</p>
-        </div>
-        <sg-dialog-footer>
-            <sg-dialog-close>
-                <button class="sg-button" data-color="secondary">Cancel</button>
-            </sg-dialog-close>
-            <button class="sg-button" data-color="primary" onclick={() => dialogOpen = false}>Save Changes</button>
-        </sg-dialog-footer>
-    </sg-dialog-content>
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-dialog-root max-width="md">
+  <sg-dialog-trigger>
+    <button class="sg-button" data-color="primary">Open Dialog</button>
+  </sg-dialog-trigger>
+  <sg-dialog-content aria-label="Edit profile">
+    <sg-dialog-header>
+      <sg-dialog-title as="h2">Edit Profile</sg-dialog-title>
+      <sg-dialog-description>Make changes to your profile here. Click save when you are done.</sg-dialog-description>
+    </sg-dialog-header>
+    <div class="sg-demo-dialogroot-1">
+      <p class="sg-demo-dialogroot-2">Dialog body content goes here.</p>
+    </div>
+    <sg-dialog-footer>
+      <sg-dialog-close><button class="sg-button" data-color="secondary">Cancel</button></sg-dialog-close>
+      <sg-dialog-close><button class="sg-button" data-color="primary">Save Changes</button></sg-dialog-close>
+    </sg-dialog-footer>
+  </sg-dialog-content>
 </sg-dialog-root>`, cssCode: `.sg-demo-dialogroot-1 {
   padding: var(--sg-space-4) 0;
 }
 
 .sg-demo-dialogroot-2 {
   color: var(--sg-color-text-secondary); margin: 0;
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-dialogroot-1">Dialog machine can be toggled with <code>featureFlags.dialogMachine</code>.</p>', cssCode: `.sg-demo-dialogroot-1 {
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-dialogroot-1">Dialog machine can be toggled with <code>featureFlags.dialogMachine</code>.</p>', cssCode: `.sg-demo-dialogroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/dock": {
     componentName: "DockRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Basic dock", language: "svelte", code: `<div class="sg-demo-dockroot-1">
+    sections: [{ title: "Examples", examples: [{ title: "Basic dock", language: "html", code: `<div class="sg-demo-dockroot-1">
   <sg-dock-root aria-label="Application dock">
     <sg-dock-item aria-label="Home">\uD83C\uDFE0</sg-dock-item>
     <sg-dock-item aria-label="Search">\uD83D\uDD0D</sg-dock-item>
@@ -26613,8 +26953,8 @@ console.log(result.formatted[500]);
   </sg-dock-root>
 </div>`, cssCode: `.sg-demo-dockroot-1 {
   min-height: calc(48px * 1.5 + 1.5rem); display: flex; align-items: flex-end;
-}` }, { title: "Custom magnification (2x)", language: "svelte", code: `<div class="sg-demo-dockroot-1">
-  <sg-dock-root magnification={2} aria-label="Large magnification dock">
+}` }, { title: "Custom magnification (2x)", language: "html", code: `<div class="sg-demo-dockroot-1">
+  <sg-dock-root magnification="2" aria-label="Large magnification dock">
     <sg-dock-item aria-label="Files">\uD83D\uDCC1</sg-dock-item>
     <sg-dock-item aria-label="Terminal">\uD83D\uDCBB</sg-dock-item>
     <sg-dock-item aria-label="Browser">\uD83C\uDF10</sg-dock-item>
@@ -26623,21 +26963,21 @@ console.log(result.formatted[500]);
   </sg-dock-root>
 </div>`, cssCode: `.sg-demo-dockroot-1 {
   min-height: calc(48px * 2 + 1.5rem); display: flex; align-items: flex-end;
-}` }, { title: "With separators and disabled item", language: "svelte", code: `<div class="sg-demo-dockroot-1">
+}` }, { title: "With separators and disabled item", language: "html", code: `<div class="sg-demo-dockroot-1">
   <sg-dock-root aria-label="Dock with groups">
     <sg-dock-item aria-label="Home">\uD83C\uDFE0</sg-dock-item>
     <sg-dock-item aria-label="Search">\uD83D\uDD0D</sg-dock-item>
-    <sg-dock-separator />
+    <sg-dock-separator></sg-dock-separator>
     <sg-dock-item aria-label="Mail">✉️</sg-dock-item>
     <sg-dock-item aria-label="Calendar">\uD83D\uDCC5</sg-dock-item>
-    <sg-dock-separator />
+    <sg-dock-separator></sg-dock-separator>
     <sg-dock-item aria-label="Trash" disabled>\uD83D\uDDD1️</sg-dock-item>
     <sg-dock-item aria-label="Settings">⚙️</sg-dock-item>
   </sg-dock-root>
 </div>`, cssCode: `.sg-demo-dockroot-1 {
   min-height: calc(48px * 1.5 + 1.5rem); display: flex; align-items: flex-end;
-}` }, { title: "Small icons (8bu)", language: "svelte", code: `<div class="sg-demo-dockroot-1">
-  <sg-dock-root iconSize={8} aria-label="Small dock">
+}` }, { title: "Small icons (8bu)", language: "html", code: `<div class="sg-demo-dockroot-1">
+  <sg-dock-root icon-size="8" aria-label="Small dock">
     <sg-dock-item aria-label="Star">⭐</sg-dock-item>
     <sg-dock-item aria-label="Heart">❤️</sg-dock-item>
     <sg-dock-item aria-label="Fire">\uD83D\uDD25</sg-dock-item>
@@ -26647,52 +26987,24 @@ console.log(result.formatted[500]);
   min-height: calc(32px * 1.5 + 1.5rem); display: flex; align-items: flex-end;
 }` }] }]
   },
-  "/components/overlays/drawer": {
-    componentName: "DrawerRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Bottom Drawer", language: "svelte", code: `<sg-drawer-root open={drawerOpen} oninput={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} onchange={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} onclick={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; drawerOpen = (el.open ?? drawerOpen); }}>
-    <sg-drawer-trigger>
-        <button class="sg-button" data-color="primary" onclick={() => drawerOpen = true}>Open Drawer</button>
-    </sg-drawer-trigger>
-    <sg-drawer-content aria-label="Example drawer">
-        <div class="sg-demo-drawerroot-1">
-          <sg-drawer-handle />
-          <h3 class="sg-demo-drawerroot-2">Drawer Panel</h3>
-          <p class="sg-demo-drawerroot-3">This is a dialog-based drawer that slides up from the bottom.</p>
-          <button class="sg-button" data-color="primary" onclick={() => drawerOpen = false}>Close</button>
-        </div>
-    </sg-drawer-content>
-</sg-drawer-root>`, cssCode: `.sg-demo-drawerroot-1 {
-  padding: var(--sg-pad-card, 1.5rem)
-}
-
-.sg-demo-drawerroot-2 {
-  margin: var(--sg-space-4) 0 var(--sg-space-2)
-}
-
-.sg-demo-drawerroot-3 {
-  color: var(--sg-color-text-secondary); margin: 0 0 var(--sg-space-4)
-}` }] }]
-  },
   "/components/overlays/dropdown": {
     componentName: "Dropdown",
-    sections: [{ title: "Examples", examples: [{ title: "Dropdown container", language: "html", code: `<sg-dropdown open>
+    sections: [{ title: "Examples", examples: [{ title: "Dropdown container", language: "html", code: `<sg-dropdown open display="block" max-width="sm">
   <sg-card><sg-card-body>Dropdown content</sg-card-body></sg-card>
 </sg-dropdown>` }] }]
   },
   "/components/overlays/hover-card": {
     componentName: "HoverCardRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Hover Card", language: "svelte", code: `<div class="sg-demo-hovercardroot-1">
+    sections: [{ title: "Examples", examples: [{ title: "Hover Card", language: "html", code: `<div class="sg-demo-hovercardroot-1">
   Hover over
-  <sg-hover-card-root>
-      <sg-hover-card-trigger>
-          <a href="#" onclick={(e) => e.preventDefault()} class="sg-demo-hovercardroot-5">@sigui</a>
-      </sg-hover-card-trigger>
-      <sg-hover-card-content aria-label="User profile">
-          <div class="sg-demo-hovercardroot-2">
-            <h4 class="sg-demo-hovercardroot-3">SigUI Design System</h4>
-            <p class="sg-demo-hovercardroot-4">A comprehensive design system built on perceptual color science and accessible patterns.</p>
-          </div>
-      </sg-hover-card-content>
+  <sg-hover-card-root max-width="sm">
+    <sg-hover-card-trigger><a href="#" class="sg-demo-hovercardroot-5">@sigui</a></sg-hover-card-trigger>
+    <sg-hover-card-content aria-label="User profile">
+      <div class="sg-demo-hovercardroot-2">
+        <h4 class="sg-demo-hovercardroot-3">SigUI Design System</h4>
+        <p class="sg-demo-hovercardroot-4">A comprehensive design system built on perceptual color science and accessible patterns.</p>
+      </div>
+    </sg-hover-card-content>
   </sg-hover-card-root>
   to see the card.
 </div>`, cssCode: `.sg-demo-hovercardroot-1 {
@@ -26718,439 +27030,423 @@ console.log(result.formatted[500]);
   },
   "/components/overlays/menu": {
     componentName: "MenuRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-menu-root open={menuOpen} oninput={(e) => { const el = e.currentTarget as any; menuOpen = (el.open ?? menuOpen); }} onchange={(e) => { const el = e.currentTarget as any; menuOpen = (el.open ?? menuOpen); }} onclick={(e) => { const el = e.currentTarget as any; menuOpen = (el.open ?? menuOpen); }} ontoggle={(e) => { const el = e.currentTarget as any; menuOpen = (el.open ?? menuOpen); }}>
-    <sg-menu-trigger>
-        <button class="sg-button" data-color="secondary">Open Menu</button>
-    </sg-menu-trigger>
-    <sg-menu-content>
-        <sg-menu-item onselect={() => console.log("Edit")}>Edit</sg-menu-item>
-        <sg-menu-item onselect={() => console.log("Copy")}>Copy</sg-menu-item>
-        <sg-menu-item onselect={() => console.log("Delete")}>Delete</sg-menu-item>
-        <sg-menu-item disabled={true}>Disabled Item</sg-menu-item>
-    </sg-menu-content>
-</sg-menu-root>` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-menuroot-1">Menu machine can be toggled with <code>featureFlags.menuMachine</code>.</p>', cssCode: `.sg-demo-menuroot-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-menu-root max-width="sm">
+  <sg-menu-trigger>
+    <button class="sg-button" data-color="secondary">Open Menu</button>
+  </sg-menu-trigger>
+  <sg-menu-content aria-label="Actions">
+    <sg-menu-item>Edit</sg-menu-item>
+    <sg-menu-item>Copy</sg-menu-item>
+    <sg-menu-item>Delete</sg-menu-item>
+    <sg-menu-item disabled>Disabled Item</sg-menu-item>
+  </sg-menu-content>
+</sg-menu-root>` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-menuroot-1">Menu machine can be toggled with <code>featureFlags.menuMachine</code>.</p>', cssCode: `.sg-demo-menuroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/menubar": {
     componentName: "MenubarRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Application Menu Bar", language: "svelte", code: `<sg-menubar-root aria-label="Application menu">
-    <sg-menubar-menu label="File">
-        <sg-menubar-trigger>File</sg-menubar-trigger>
-        <sg-menubar-content>
-            <sg-menubar-item onselect={() => console.log("New Tab")}>
-                New Tab <sg-menubar-shortcut>Cmd+T</sg-menubar-shortcut>
-            </sg-menubar-item>
-            <sg-menubar-item onselect={() => console.log("New Window")}>
-                New Window <sg-menubar-shortcut>Cmd+N</sg-menubar-shortcut>
-            </sg-menubar-item>
-            <sg-menubar-item disabled={true}>New Incognito Window</sg-menubar-item>
-            <sg-menubar-separator />
-            <sg-menubar-sub>
-                <sg-menubar-sub-trigger>Share</sg-menubar-sub-trigger>
-                <sg-menubar-sub-content>
-                    <sg-menubar-item>Email link</sg-menubar-item>
-                    <sg-menubar-item>Messages</sg-menubar-item>
-                    <sg-menubar-item>Notes</sg-menubar-item>
-                </sg-menubar-sub-content>
-            </sg-menubar-sub>
-            <sg-menubar-separator />
-            <sg-menubar-item onselect={() => console.log("Print")}>
-                Print... <sg-menubar-shortcut>Cmd+P</sg-menubar-shortcut>
-            </sg-menubar-item>
-        </sg-menubar-content>
-    </sg-menubar-menu>
-    <sg-menubar-menu label="Edit">
-        <sg-menubar-trigger>Edit</sg-menubar-trigger>
-        <sg-menubar-content>
-            <sg-menubar-item>Undo</sg-menubar-item>
-            <sg-menubar-item>Redo</sg-menubar-item>
-            <sg-menubar-separator />
-            <sg-menubar-item>Cut</sg-menubar-item>
-            <sg-menubar-item>Copy</sg-menubar-item>
-            <sg-menubar-item>Paste</sg-menubar-item>
-        </sg-menubar-content>
-    </sg-menubar-menu>
-    <sg-menubar-menu label="View">
-        <sg-menubar-trigger>View</sg-menubar-trigger>
-        <sg-menubar-content>
-            <sg-menubar-checkbox-item checked={bookmarksChecked} oninput={(e) => { const el = e.currentTarget as any; bookmarksChecked = (el.checked ?? bookmarksChecked); }} onchange={(e) => { const el = e.currentTarget as any; bookmarksChecked = (el.checked ?? bookmarksChecked); }} onclick={(e) => { const el = e.currentTarget as any; bookmarksChecked = (el.checked ?? bookmarksChecked); }} ontoggle={(e) => { const el = e.currentTarget as any; bookmarksChecked = (el.checked ?? bookmarksChecked); }} onselect={(v) => bookmarksChecked = v}>
-              Always Show Bookmarks Bar
-            </sg-menubar-checkbox-item>
-            <sg-menubar-checkbox-item checked={urlsChecked} oninput={(e) => { const el = e.currentTarget as any; urlsChecked = (el.checked ?? urlsChecked); }} onchange={(e) => { const el = e.currentTarget as any; urlsChecked = (el.checked ?? urlsChecked); }} onclick={(e) => { const el = e.currentTarget as any; urlsChecked = (el.checked ?? urlsChecked); }} ontoggle={(e) => { const el = e.currentTarget as any; urlsChecked = (el.checked ?? urlsChecked); }} onselect={(v) => urlsChecked = v}>
-              Always Show Full URLs
-            </sg-menubar-checkbox-item>
-            <sg-menubar-separator />
-            <sg-menubar-item>Reload</sg-menubar-item>
-            <sg-menubar-item disabled={true}>Force Reload</sg-menubar-item>
-            <sg-menubar-separator />
-            <sg-menubar-item>Toggle Fullscreen</sg-menubar-item>
-        </sg-menubar-content>
-    </sg-menubar-menu>
-    <sg-menubar-menu label="Profiles">
-        <sg-menubar-trigger>Profiles</sg-menubar-trigger>
-        <sg-menubar-content>
-            <sg-menubar-radio-group value={profileValue} oninput={(e) => { const el = e.currentTarget as any; profileValue = (el.value ?? profileValue); }} onclick={(e) => { const el = e.currentTarget as any; profileValue = (el.value ?? profileValue); }} ontoggle={(e) => { const el = e.currentTarget as any; profileValue = (el.value ?? profileValue); }} onchange={(e) => { const v = ((e as CustomEvent<any>).detail ?? (e.currentTarget as any).value); profileValue = v }}>
-                <sg-menubar-radio-item value="andy">Andy</sg-menubar-radio-item>
-                <sg-menubar-radio-item value="benoit">Benoit</sg-menubar-radio-item>
-                <sg-menubar-radio-item value="luis">Luis</sg-menubar-radio-item>
-            </sg-menubar-radio-group>
-            <sg-menubar-separator />
-            <sg-menubar-item>Edit...</sg-menubar-item>
-            <sg-menubar-item>Add Profile...</sg-menubar-item>
-        </sg-menubar-content>
-    </sg-menubar-menu>
-</sg-menubar-root>` }, { title: "With Keyboard Shortcuts", language: "svelte", code: `<sg-menubar-root aria-label="Shortcuts demo">
-    <sg-menubar-menu label="File">
-        <sg-menubar-trigger>File</sg-menubar-trigger>
-        <sg-menubar-content>
-            <sg-menubar-item>New <sg-menubar-shortcut>Cmd+N</sg-menubar-shortcut></sg-menubar-item>
-            <sg-menubar-item>Open <sg-menubar-shortcut>Cmd+O</sg-menubar-shortcut></sg-menubar-item>
-            <sg-menubar-separator />
-            <sg-menubar-item>Save <sg-menubar-shortcut>Cmd+S</sg-menubar-shortcut></sg-menubar-item>
-            <sg-menubar-item>Save As... <sg-menubar-shortcut>Cmd+Shift+S</sg-menubar-shortcut></sg-menubar-item>
-        </sg-menubar-content>
-    </sg-menubar-menu>
+    sections: [{ title: "Examples", examples: [{ title: "Application Menu Bar", language: "html", code: `<sg-menubar-root aria-label="Application menu" max-width="lg">
+  <sg-menubar-menu label="File">
+    <sg-menubar-trigger>File</sg-menubar-trigger>
+    <sg-menubar-content>
+      <sg-menubar-item>New Tab <sg-menubar-shortcut>Cmd+T</sg-menubar-shortcut></sg-menubar-item>
+      <sg-menubar-item>New Window <sg-menubar-shortcut>Cmd+N</sg-menubar-shortcut></sg-menubar-item>
+      <sg-menubar-item disabled>New Private Window</sg-menubar-item>
+      <sg-menubar-separator></sg-menubar-separator>
+      <sg-menubar-sub>
+        <sg-menubar-sub-trigger>Share</sg-menubar-sub-trigger>
+        <sg-menubar-sub-content>
+          <sg-menubar-item>Email link</sg-menubar-item>
+          <sg-menubar-item>Messages</sg-menubar-item>
+          <sg-menubar-item>Notes</sg-menubar-item>
+        </sg-menubar-sub-content>
+      </sg-menubar-sub>
+      <sg-menubar-separator></sg-menubar-separator>
+      <sg-menubar-item>Print <sg-menubar-shortcut>Cmd+P</sg-menubar-shortcut></sg-menubar-item>
+    </sg-menubar-content>
+  </sg-menubar-menu>
+  <sg-menubar-menu label="Edit">
+    <sg-menubar-trigger>Edit</sg-menubar-trigger>
+    <sg-menubar-content>
+      <sg-menubar-item>Undo</sg-menubar-item>
+      <sg-menubar-item>Redo</sg-menubar-item>
+      <sg-menubar-separator></sg-menubar-separator>
+      <sg-menubar-item>Cut</sg-menubar-item>
+      <sg-menubar-item>Copy</sg-menubar-item>
+      <sg-menubar-item>Paste</sg-menubar-item>
+    </sg-menubar-content>
+  </sg-menubar-menu>
+  <sg-menubar-menu label="View">
+    <sg-menubar-trigger>View</sg-menubar-trigger>
+    <sg-menubar-content>
+      <sg-menubar-checkbox-item checked>Show Bookmarks Bar</sg-menubar-checkbox-item>
+      <sg-menubar-checkbox-item>Show Full URLs</sg-menubar-checkbox-item>
+      <sg-menubar-separator></sg-menubar-separator>
+      <sg-menubar-radio-group value="comfortable">
+        <sg-menubar-radio-item value="compact">Compact</sg-menubar-radio-item>
+        <sg-menubar-radio-item value="comfortable">Comfortable</sg-menubar-radio-item>
+      </sg-menubar-radio-group>
+    </sg-menubar-content>
+  </sg-menubar-menu>
+</sg-menubar-root>` }, { title: "With Keyboard Shortcuts", language: "html", code: `<sg-menubar-root aria-label="Shortcuts demo">
+  <sg-menubar-menu label="File">
+    <sg-menubar-trigger>File</sg-menubar-trigger>
+    <sg-menubar-content>
+      <sg-menubar-item>New <sg-menubar-shortcut>Cmd+N</sg-menubar-shortcut></sg-menubar-item>
+      <sg-menubar-item>Open <sg-menubar-shortcut>Cmd+O</sg-menubar-shortcut></sg-menubar-item>
+      <sg-menubar-separator></sg-menubar-separator>
+      <sg-menubar-item>Save <sg-menubar-shortcut>Cmd+S</sg-menubar-shortcut></sg-menubar-item>
+      <sg-menubar-item>Save As <sg-menubar-shortcut>Cmd+Shift+S</sg-menubar-shortcut></sg-menubar-item>
+    </sg-menubar-content>
+  </sg-menubar-menu>
 </sg-menubar-root>` }] }]
   },
   "/components/overlays/navigation-menu": {
     componentName: "NavigationMenuRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Navigation Menu", language: "svelte", code: `<sg-navigation-menu-root aria-label="Main navigation">
-    <sg-navigation-menu-list>
-        <sg-navigation-menu-item value="getting-started">
-            <sg-navigation-menu-trigger>Getting Started</sg-navigation-menu-trigger>
-            <sg-navigation-menu-content value="getting-started">
-                <sg-navigation-menu-link href="/components">Components</sg-navigation-menu-link>
-                <sg-navigation-menu-link href="/system">Design System</sg-navigation-menu-link>
-            </sg-navigation-menu-content>
-        </sg-navigation-menu-item>
-        <sg-navigation-menu-item value="resources">
-            <sg-navigation-menu-trigger>Resources</sg-navigation-menu-trigger>
-            <sg-navigation-menu-content value="resources">
-                <sg-navigation-menu-link href="/build/tokens">Tokens</sg-navigation-menu-link>
-                <sg-navigation-menu-link href="/icons/browser">Icons</sg-navigation-menu-link>
-            </sg-navigation-menu-content>
-        </sg-navigation-menu-item>
-        <sg-navigation-menu-item value="about">
-            <sg-navigation-menu-link href="/philosophy">Philosophy</sg-navigation-menu-link>
-        </sg-navigation-menu-item>
-    </sg-navigation-menu-list>
+    sections: [{ title: "Examples", examples: [{ title: "Navigation Menu", language: "html", code: `<sg-navigation-menu-root aria-label="Main navigation" max-width="lg">
+  <sg-navigation-menu-list>
+    <sg-navigation-menu-item value="getting-started">
+      <sg-navigation-menu-trigger>Getting Started</sg-navigation-menu-trigger>
+      <sg-navigation-menu-content value="getting-started">
+        <sg-navigation-menu-link href="/components">Components</sg-navigation-menu-link>
+        <sg-navigation-menu-link href="/system">Design System</sg-navigation-menu-link>
+      </sg-navigation-menu-content>
+    </sg-navigation-menu-item>
+    <sg-navigation-menu-item value="resources">
+      <sg-navigation-menu-trigger>Resources</sg-navigation-menu-trigger>
+      <sg-navigation-menu-content value="resources">
+        <sg-navigation-menu-link href="/build/tokens">Tokens</sg-navigation-menu-link>
+        <sg-navigation-menu-link href="/icons/browser">Icons</sg-navigation-menu-link>
+      </sg-navigation-menu-content>
+    </sg-navigation-menu-item>
+    <sg-navigation-menu-item value="about">
+      <sg-navigation-menu-link href="/philosophy">Philosophy</sg-navigation-menu-link>
+    </sg-navigation-menu-item>
+  </sg-navigation-menu-list>
 </sg-navigation-menu-root>` }] }]
   },
   "/components/overlays/pagination": {
     componentName: "PaginationRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Pagination", language: "svelte", code: `<sg-pagination-root page={page} oninput={(e) => { const el = e.currentTarget as any; page = (el.page ?? page); }} onchange={(e) => { const el = e.currentTarget as any; page = (el.page ?? page); }} onclick={(e) => { const el = e.currentTarget as any; page = (el.page ?? page); }} ontoggle={(e) => { const el = e.currentTarget as any; page = (el.page ?? page); }} total={100} perPage={10} aria-label="Pagination">
-    <sg-pagination-previous />
-    <sg-pagination-items />
-    <sg-pagination-next />
+    sections: [{ title: "Examples", examples: [{ title: "Basic Pagination", language: "html", code: `<sg-pagination-root page="3" total="100" per-page="10" aria-label="Pagination">
+  <sg-pagination-previous></sg-pagination-previous>
+  <sg-pagination-items></sg-pagination-items>
+  <sg-pagination-next></sg-pagination-next>
 </sg-pagination-root>
-<p class="sg-demo-paginationroot-1">Current page: {page}</p>`, cssCode: `.sg-demo-paginationroot-1 {
-  margin-top: var(--sg-space-2); color: var(--text-3); font-size: var(--sg-text-sm)
-}` }, { title: "With First/Last Buttons", language: "svelte", code: `<sg-pagination-root total={500} perPage={10} aria-label="Pagination with first/last">
-    <sg-pagination-first />
-    <sg-pagination-previous />
-    <sg-pagination-items />
-    <sg-pagination-next />
-    <sg-pagination-last />
-</sg-pagination-root>` }, { title: "Few Pages", language: "svelte", code: `<sg-pagination-root total={30} perPage={10} aria-label="Short pagination">
-    <sg-pagination-previous />
-    <sg-pagination-items />
-    <sg-pagination-next />
-</sg-pagination-root>` }, { title: "Custom Labels", language: "svelte", code: `<sg-pagination-root total={100} perPage={10} aria-label="Custom labels pagination">
-    <sg-pagination-first>First</sg-pagination-first>
-    <sg-pagination-previous>Prev</sg-pagination-previous>
-    <sg-pagination-items />
-    <sg-pagination-next>Next</sg-pagination-next>
-    <sg-pagination-last>Last</sg-pagination-last>
+<p class="sg-demo-pagination-note">Current page: 3</p>`, cssCode: `.sg-demo-pagination-note {
+  margin: var(--sg-gap-related) 0 0;
+  color: var(--sg-color-text-secondary);
+  font-size: var(--sg-text-sm);
+}` }, { title: "With First/Last Buttons", language: "html", code: `<sg-pagination-root page="5" total="500" per-page="10" aria-label="Pagination with first and last">
+  <sg-pagination-first></sg-pagination-first>
+  <sg-pagination-previous></sg-pagination-previous>
+  <sg-pagination-items></sg-pagination-items>
+  <sg-pagination-next></sg-pagination-next>
+  <sg-pagination-last></sg-pagination-last>
+</sg-pagination-root>` }, { title: "Few Pages", language: "html", code: `<sg-pagination-root page="1" total="30" per-page="10" aria-label="Short pagination">
+  <sg-pagination-previous></sg-pagination-previous>
+  <sg-pagination-items></sg-pagination-items>
+  <sg-pagination-next></sg-pagination-next>
+</sg-pagination-root>` }, { title: "Custom Labels", language: "html", code: `<sg-pagination-root page="4" total="100" per-page="10" aria-label="Custom labels pagination">
+  <sg-pagination-first>First</sg-pagination-first>
+  <sg-pagination-previous>Prev</sg-pagination-previous>
+  <sg-pagination-items></sg-pagination-items>
+  <sg-pagination-next>Next</sg-pagination-next>
+  <sg-pagination-last>Last</sg-pagination-last>
 </sg-pagination-root>` }] }]
   },
   "/components/overlays/popover": {
     componentName: "PopoverRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-popover-root>
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-popover-root max-width="sm">
   <sg-popover-trigger>
     <button class="sg-button" data-color="secondary">Toggle Popover</button>
   </sg-popover-trigger>
-  <sg-popover-content>
-    <div class="sg-demo-popoverroot-1">
-      <h4 class="sg-demo-popoverroot-2">Popover Content</h4>
-      <p class="sg-demo-popoverroot-3">
-        This popover appears relative to the trigger.
-      </p>
+  <sg-popover-content aria-label="Popover example">
+    <div class="sg-demo-popover-usage">
+      <h4 class="sg-demo-popover-title">Popover Content</h4>
+      <p class="sg-demo-popover-copy">This popover appears relative to the trigger.</p>
     </div>
   </sg-popover-content>
-</sg-popover-root>`, cssCode: `.sg-demo-popoverroot-1 {
-  padding: var(--sg-pad-input)
+</sg-popover-root>`, cssCode: `.sg-demo-popover-usage {
+  display: grid;
+  gap: var(--sg-gap-related);
 }
 
-.sg-demo-popoverroot-2 {
-  margin: 0 0 var(--sg-space-2)
+.sg-demo-popover-title {
+  margin: 0;
 }
 
-.sg-demo-popoverroot-3 {
-  margin: 0; color: var(--sg-color-text-secondary); font-size: var(--sg-text-sm)
-}` }, { title: "Topbar-Like Scenario", language: "svelte", code: `<div class="popover-topbar-test">
+.sg-demo-popover-copy {
+  margin: 0;
+  color: var(--sg-color-text-secondary);
+  font-size: var(--sg-text-sm);
+}` }, { title: "Topbar-Like Scenario", language: "html", code: `<div class="popover-topbar-test">
   <div class="popover-topbar-test-inner">
     <span>Topbar popover test</span>
-    <div class="sg-demo-popoverroot-1">
+    <div class="sg-demo-popover-actions">
       <sg-popover-root>
         <sg-popover-trigger>
           <button class="sg-button" data-color="secondary">Open menu</button>
         </sg-popover-trigger>
-        <sg-popover-content>
-          <div class="sg-demo-popoverroot-2">
-            <strong class="sg-demo-popoverroot-3">Quick actions</strong>
-            <a href="#" class="sg-demo-popoverroot-4">View profile</a>
-            <a href="#" class="sg-demo-popoverroot-5">Settings</a>
+        <sg-popover-content aria-label="Quick actions">
+          <div class="sg-demo-popover-menu">
+            <strong class="sg-demo-popover-menu-title">Quick actions</strong>
+            <a href="#" class="sg-demo-popover-link">View profile</a>
+            <a href="#" class="sg-demo-popover-link">Settings</a>
           </div>
         </sg-popover-content>
       </sg-popover-root>
-      <sg-color-picker value="#3b82f6" size={30} thickness={4} mode="popover" label="Brand color" />
+      <sg-color-picker value="#3b82f6" size="30" thickness="4" mode="popover" label="Brand color"></sg-color-picker>
     </div>
   </div>
-</div>`, cssCode: `.sg-demo-popoverroot-1 {
-  display:flex;align-items:center;gap:var(--sg-gap-related);
+</div>`, cssCode: `.sg-demo-popover-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sg-gap-related);
 }
 
-.sg-demo-popoverroot-2 {
-  display:flex;flex-direction:column;gap:var(--sg-gap-tight);min-width:14rem;
+.sg-demo-popover-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sg-gap-tight);
+  min-width: 14rem;
 }
 
-.sg-demo-popoverroot-3 {
-  font-size:var(--sg-text-sm);
+.sg-demo-popover-menu-title {
+  font-size: var(--sg-text-sm);
 }
 
-.sg-demo-popoverroot-4 {
-  color:var(--sg-color-link);text-decoration:none;
+.sg-demo-popover-link {
+  color: var(--sg-color-link);
+  text-decoration: none;
 }
 
-.sg-demo-popoverroot-5 {
-  color:var(--sg-color-link);text-decoration:none;
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-popoverroot-1">Popover machine can be toggled with <code>featureFlags.popoverMachine</code>.</p>', cssCode: `.sg-demo-popoverroot-1 {
+.sg-demo-popover-link:hover {
+  text-decoration: underline;
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-popoverroot-1">Popover machine can be toggled with <code>featureFlags.popoverMachine</code>.</p>', cssCode: `.sg-demo-popoverroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/popup": {
     componentName: "Popup",
-    sections: [{ title: "Examples", examples: [{ title: "Positioned popup", language: "html", code: `<div class="sg-demo-popup-1">
-  <sg-popup open>
-    <sg-card><sg-card-body>Popup content</sg-card-body></sg-card>
-  </sg-popup>
-</div>`, cssCode: `.sg-demo-popup-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Positioned popup", language: "html", code: `<div class="sg-demo-popup-stage">
+  <span class="sg-demo-popup-anchor-wrap">
+    <button class="sg-button sg-popup-anchor" data-color="secondary">Anchor</button>
+    <sg-popup open anchor="trigger" max-width="sm">
+      <strong>Popup content</strong>
+      <p class="sg-demo-popup-copy">Lightweight floating content anchored below the trigger.</p>
+    </sg-popup>
+  </span>
+</div>`, cssCode: `.sg-demo-popup-stage {
+  min-height: 9rem;
+}
+
+.sg-demo-popup-anchor-wrap {
   position: relative;
-  min-height: 5rem;
+  display: inline-block;
+}
+
+.sg-demo-popup-copy {
+  margin: var(--sg-gap-tight) 0 0;
+  color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/select": {
     componentName: "SelectRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-select-root label="Choose a framework">
-    <sg-select-trigger>Select a framework</sg-select-trigger>
-    <sg-select-content>
-        <sg-select-item value="svelte">Svelte</sg-select-item>
-        <sg-select-item value="react">React</sg-select-item>
-        <sg-select-item value="vue">Vue</sg-select-item>
-        <sg-select-item value="angular" disabled={true}>Angular (disabled)</sg-select-item>
-    </sg-select-content>
-</sg-select-root>` }, { title: "Grouped Options", language: "svelte", code: `<sg-select-root label="Select timezone">
-    <sg-select-trigger>Select timezone</sg-select-trigger>
-    <sg-select-content>
-        <sg-select-group>
-            <sg-select-label>Americas</sg-select-label>
-            <sg-select-item value="est">Eastern Standard Time</sg-select-item>
-            <sg-select-item value="pst">Pacific Standard Time</sg-select-item>
-        </sg-select-group>
-        <sg-select-group>
-            <sg-select-label>Europe</sg-select-label>
-            <sg-select-item value="gmt">Greenwich Mean Time</sg-select-item>
-            <sg-select-item value="cet">Central European Time</sg-select-item>
-        </sg-select-group>
-    </sg-select-content>
-</sg-select-root>` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-selectroot-1">Select machine can be toggled with <code>featureFlags.selectMachine</code>.</p>', cssCode: `.sg-demo-selectroot-1 {
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-select-root label="Choose a framework" max-width="sm">
+  <sg-select-trigger>Select a framework</sg-select-trigger>
+  <sg-select-content>
+    <sg-select-item value="svelte">Svelte</sg-select-item>
+    <sg-select-item value="react">React</sg-select-item>
+    <sg-select-item value="vue">Vue</sg-select-item>
+    <sg-select-item value="angular" disabled>Angular (disabled)</sg-select-item>
+  </sg-select-content>
+</sg-select-root>` }, { title: "Grouped Options", language: "html", code: `<sg-select-root label="Select timezone" max-width="md">
+  <sg-select-trigger>Select timezone</sg-select-trigger>
+  <sg-select-content>
+    <sg-select-group>
+      <sg-select-label>Americas</sg-select-label>
+      <sg-select-item value="est">Eastern Standard Time</sg-select-item>
+      <sg-select-item value="pst">Pacific Standard Time</sg-select-item>
+    </sg-select-group>
+    <sg-select-group>
+      <sg-select-label>Europe</sg-select-label>
+      <sg-select-item value="gmt">Greenwich Mean Time</sg-select-item>
+      <sg-select-item value="cet">Central European Time</sg-select-item>
+    </sg-select-group>
+  </sg-select-content>
+</sg-select-root>` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-selectroot-1">Select machine can be toggled with <code>featureFlags.selectMachine</code>.</p>', cssCode: `.sg-demo-selectroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/sheet": {
     componentName: "SheetRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Side Variants", language: "svelte", code: `<sg-stack direction="horizontal" gap="related" wrap={true}>
-    <sg-sheet-root side="right" open={sheetRight} oninput={(e) => { const el = e.currentTarget as any; sheetRight = (el.open ?? sheetRight); }} onchange={(e) => { const el = e.currentTarget as any; sheetRight = (el.open ?? sheetRight); }} onclick={(e) => { const el = e.currentTarget as any; sheetRight = (el.open ?? sheetRight); }} ontoggle={(e) => { const el = e.currentTarget as any; sheetRight = (el.open ?? sheetRight); }}>
-        <sg-sheet-trigger>
-            <button class="sg-button" data-color="primary" onclick={() => sheetRight = true}>Open Right</button>
-        </sg-sheet-trigger>
-        <sg-sheet-content aria-label="Right sheet">
-            <sg-sheet-header>
-                <sg-sheet-title>Right Panel</sg-sheet-title>
-                <sg-sheet-description>This sheet slides in from the right edge.</sg-sheet-description>
-            </sg-sheet-header>
-            <div class="sg-demo-sheetroot-1">
-              <p class="sg-demo-sheetroot-2">Content goes here.</p>
-            </div>
-            <sg-sheet-footer>
-                <button class="sg-button" data-color="ghost" onclick={() => sheetRight = false}>Cancel</button>
-                <button class="sg-button" data-color="primary" onclick={() => sheetRight = false}>Save</button>
-            </sg-sheet-footer>
-        </sg-sheet-content>
-    </sg-sheet-root>
-    <sg-sheet-root side="left" open={sheetLeft} oninput={(e) => { const el = e.currentTarget as any; sheetLeft = (el.open ?? sheetLeft); }} onchange={(e) => { const el = e.currentTarget as any; sheetLeft = (el.open ?? sheetLeft); }} onclick={(e) => { const el = e.currentTarget as any; sheetLeft = (el.open ?? sheetLeft); }} ontoggle={(e) => { const el = e.currentTarget as any; sheetLeft = (el.open ?? sheetLeft); }}>
-        <sg-sheet-trigger>
-            <button class="sg-button" data-color="secondary" onclick={() => sheetLeft = true}>Open Left</button>
-        </sg-sheet-trigger>
-        <sg-sheet-content aria-label="Left sheet">
-            <sg-sheet-header>
-                <sg-sheet-title>Left Panel</sg-sheet-title>
-                <sg-sheet-description>Navigation drawer pattern.</sg-sheet-description>
-            </sg-sheet-header>
-            <div class="sg-demo-sheetroot-3">
-              <p class="sg-demo-sheetroot-4">Content goes here.</p>
-            </div>
-            <sg-sheet-footer>
-                <button class="sg-button" data-color="secondary" onclick={() => sheetLeft = false}>Close</button>
-            </sg-sheet-footer>
-        </sg-sheet-content>
-    </sg-sheet-root>
-    <sg-sheet-root side="bottom" open={sheetBottom} oninput={(e) => { const el = e.currentTarget as any; sheetBottom = (el.open ?? sheetBottom); }} onchange={(e) => { const el = e.currentTarget as any; sheetBottom = (el.open ?? sheetBottom); }} onclick={(e) => { const el = e.currentTarget as any; sheetBottom = (el.open ?? sheetBottom); }} ontoggle={(e) => { const el = e.currentTarget as any; sheetBottom = (el.open ?? sheetBottom); }}>
-        <sg-sheet-trigger>
-            <button class="sg-button" data-color="ghost" onclick={() => sheetBottom = true}>Open Bottom</button>
-        </sg-sheet-trigger>
-        <sg-sheet-content aria-label="Bottom sheet">
-            <sg-sheet-header>
-                <sg-sheet-title>Bottom Sheet</sg-sheet-title>
-                <sg-sheet-description>Mobile-friendly bottom panel.</sg-sheet-description>
-            </sg-sheet-header>
-            <div class="sg-demo-sheetroot-5">
-              <p class="sg-demo-sheetroot-6">Content goes here.</p>
-            </div>
-            <sg-sheet-footer>
-                <button class="sg-button" data-color="ghost" onclick={() => sheetBottom = false}>Close</button>
-            </sg-sheet-footer>
-        </sg-sheet-content>
-    </sg-sheet-root>
-</sg-stack>`, cssCode: `.sg-demo-sheetroot-1 {
-  flex: 1; padding: var(--sg-space-4) 0;
-}
-
-.sg-demo-sheetroot-2 {
-  color: var(--sg-color-text-secondary); margin: 0;
-}
-
-.sg-demo-sheetroot-3 {
-  flex: 1; padding: var(--sg-space-4) 0;
-}
-
-.sg-demo-sheetroot-4 {
-  color: var(--sg-color-text-secondary); margin: 0;
-}
-
-.sg-demo-sheetroot-5 {
-  flex: 1; padding: var(--sg-space-4) 0;
-}
-
-.sg-demo-sheetroot-6 {
-  color: var(--sg-color-text-secondary); margin: 0;
-}` }, { title: "With Close Button", language: "svelte", code: `<sg-sheet-root open={sheetForm} oninput={(e) => { const el = e.currentTarget as any; sheetForm = (el.open ?? sheetForm); }} onchange={(e) => { const el = e.currentTarget as any; sheetForm = (el.open ?? sheetForm); }} onclick={(e) => { const el = e.currentTarget as any; sheetForm = (el.open ?? sheetForm); }} ontoggle={(e) => { const el = e.currentTarget as any; sheetForm = (el.open ?? sheetForm); }}>
-    <sg-sheet-trigger>
-        <button class="sg-button" data-color="primary" onclick={() => sheetForm = true}>Open Form Sheet</button>
-    </sg-sheet-trigger>
-    <sg-sheet-content aria-label="Edit profile form">
-        <sg-sheet-close>
-            <span class="sg-demo-sheetroot-1">&#10005;</span>
-        </sg-sheet-close>
-        <sg-sheet-header>
-            <sg-sheet-title>Edit profile</sg-sheet-title>
-            <sg-sheet-description>Make changes to your profile here. Click save when you're done.</sg-sheet-description>
-        </sg-sheet-header>
-        <div class="sg-demo-sheetroot-2">
-          <p class="sg-demo-sheetroot-3">Form fields would go here...</p>
-        </div>
-        <sg-sheet-footer>
-            <button class="sg-button" data-color="ghost" onclick={() => sheetForm = false}>Cancel</button>
-            <button class="sg-button" data-color="primary" onclick={() => sheetForm = false}>Save changes</button>
-        </sg-sheet-footer>
+    sections: [{ title: "Examples", examples: [{ title: "Side Variants", language: "html", code: `<sg-stack direction="horizontal" gap="related" wrap>
+  <sg-sheet-root side="right" size="sm">
+    <sg-sheet-trigger><button class="sg-button" data-color="primary">Open Right</button></sg-sheet-trigger>
+    <sg-sheet-content aria-label="Right sheet">
+      <sg-sheet-header>
+        <sg-sheet-title>Right Panel</sg-sheet-title>
+        <sg-sheet-description>This sheet slides in from the right edge.</sg-sheet-description>
+      </sg-sheet-header>
+      <div class="sg-demo-sheet-body"><p class="sg-demo-sheet-copy">Content goes here.</p></div>
+      <sg-sheet-footer><sg-sheet-close><button class="sg-button" data-color="primary">Save</button></sg-sheet-close></sg-sheet-footer>
     </sg-sheet-content>
-</sg-sheet-root>`, cssCode: `.sg-demo-sheetroot-1 {
-  font-size: 1.25rem;
+  </sg-sheet-root>
+  <sg-sheet-root side="left" size="sm">
+    <sg-sheet-trigger><button class="sg-button" data-color="secondary">Open Left</button></sg-sheet-trigger>
+    <sg-sheet-content aria-label="Left sheet">
+      <sg-sheet-header>
+        <sg-sheet-title>Left Panel</sg-sheet-title>
+        <sg-sheet-description>Navigation panel pattern.</sg-sheet-description>
+      </sg-sheet-header>
+      <div class="sg-demo-sheet-body"><p class="sg-demo-sheet-copy">Content goes here.</p></div>
+      <sg-sheet-footer><sg-sheet-close><button class="sg-button" data-color="secondary">Close</button></sg-sheet-close></sg-sheet-footer>
+    </sg-sheet-content>
+  </sg-sheet-root>
+  <sg-sheet-root side="bottom" size="sm">
+    <sg-sheet-trigger><button class="sg-button" data-color="ghost">Open Bottom</button></sg-sheet-trigger>
+    <sg-sheet-content aria-label="Bottom sheet">
+      <sg-sheet-header>
+        <sg-sheet-title>Bottom Sheet</sg-sheet-title>
+        <sg-sheet-description>Mobile-friendly bottom panel.</sg-sheet-description>
+      </sg-sheet-header>
+      <div class="sg-demo-sheet-body"><p class="sg-demo-sheet-copy">Content goes here.</p></div>
+      <sg-sheet-footer><sg-sheet-close><button class="sg-button" data-color="ghost">Close</button></sg-sheet-close></sg-sheet-footer>
+    </sg-sheet-content>
+  </sg-sheet-root>
+</sg-stack>`, cssCode: `.sg-demo-sheet-body {
+  flex: 1;
+  min-block-size: 8rem;
+  padding: var(--sg-space-4) 0;
 }
 
-.sg-demo-sheetroot-2 {
-  flex: 1; padding: var(--sg-space-4) 0;
+.sg-demo-sheet-copy {
+  margin: 0;
+  color: var(--sg-color-text-secondary);
+}` }, { title: "With Close Button", language: "html", code: `<sg-sheet-root size="md">
+  <sg-sheet-trigger><button class="sg-button" data-color="primary">Open Form Sheet</button></sg-sheet-trigger>
+  <sg-sheet-content aria-label="Edit profile form">
+    <sg-sheet-close placement="corner" aria-label="Close sheet"><span class="sg-demo-sheet-close-icon" aria-hidden="true">x</span></sg-sheet-close>
+    <sg-sheet-header>
+      <sg-sheet-title>Edit profile</sg-sheet-title>
+      <sg-sheet-description>Make changes to your profile here. Click save when you are done.</sg-sheet-description>
+    </sg-sheet-header>
+    <div class="sg-demo-sheet-body"><p class="sg-demo-sheet-copy">Form fields would go here.</p></div>
+    <sg-sheet-footer>
+      <sg-sheet-close><button class="sg-button" data-color="ghost">Cancel</button></sg-sheet-close>
+      <sg-sheet-close><button class="sg-button" data-color="primary">Save changes</button></sg-sheet-close>
+    </sg-sheet-footer>
+  </sg-sheet-content>
+</sg-sheet-root>`, cssCode: `.sg-demo-sheet-close-icon {
+  font-size: 1.125rem;
+  line-height: 1;
 }
 
-.sg-demo-sheetroot-3 {
-  color: var(--sg-color-text-secondary); margin: 0 0 var(--sg-space-2);
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-sheetroot-1">Sheet machine can be toggled with <code>featureFlags.sheetMachine</code>.</p>', cssCode: `.sg-demo-sheetroot-1 {
-  margin: 0; color: var(--sg-color-text-secondary);
+.sg-demo-sheet-body {
+  flex: 1;
+  min-block-size: 8rem;
+  padding: var(--sg-space-4) 0;
+}
+
+.sg-demo-sheet-copy {
+  margin: 0;
+  color: var(--sg-color-text-secondary);
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-sheet-note">Sheet machine can be toggled with <code>featureFlags.sheetMachine</code>.</p>', cssCode: `.sg-demo-sheet-note {
+  margin: 0;
+  color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/sidebar": {
     componentName: "SidebarRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Collapsible Sidebar", language: "svelte", code: `<div class="sg-demo-sidebarroot-1">
-  <sg-sidebar-root state={sidebarState} oninput={(e) => { const el = e.currentTarget as any; sidebarState = (el.state ?? sidebarState); }} onchange={(e) => { const el = e.currentTarget as any; sidebarState = (el.state ?? sidebarState); }} onclick={(e) => { const el = e.currentTarget as any; sidebarState = (el.state ?? sidebarState); }} ontoggle={(e) => { const el = e.currentTarget as any; sidebarState = (el.state ?? sidebarState); }} aria-label="Example sidebar">
-      <sg-sidebar-header>
-          <sg-sidebar-toggle />
-          <span class="sg-demo-sidebarroot-2">My App</span>
-      </sg-sidebar-header>
-      <sg-sidebar-content>
-          <sg-sidebar-section title="Main">
-              <sg-sidebar-item active={true}>Dashboard</sg-sidebar-item>
-              <sg-sidebar-item>Projects</sg-sidebar-item>
-              <sg-sidebar-item>Tasks</sg-sidebar-item>
-          </sg-sidebar-section>
-          <sg-sidebar-separator />
-          <sg-sidebar-section title="Settings">
-              <sg-sidebar-item>Account</sg-sidebar-item>
-              <sg-sidebar-item disabled={true}>Billing</sg-sidebar-item>
-          </sg-sidebar-section>
-      </sg-sidebar-content>
-      <sg-sidebar-footer>
-          <span class="sg-demo-sidebarroot-3">v1.0.0</span>
-      </sg-sidebar-footer>
+    sections: [{ title: "Examples", examples: [{ title: "Collapsible Sidebar", language: "html", code: `<div class="sg-demo-sidebarroot-1">
+  <sg-sidebar-root state="expanded" width="16rem" collapsed-width="4rem" max-width="18rem" aria-label="Example sidebar">
+    <sg-sidebar-header>
+      <sg-sidebar-toggle></sg-sidebar-toggle>
+      <span class="sg-demo-sidebarroot-2">My App</span>
+    </sg-sidebar-header>
+    <sg-sidebar-content>
+      <sg-sidebar-section title="Main">
+        <sg-sidebar-item active><span class="sg-sidebar-item-icon" aria-hidden="true">D</span><span class="sg-sidebar-item-label">Dashboard</span></sg-sidebar-item>
+        <sg-sidebar-item><span class="sg-sidebar-item-icon" aria-hidden="true">P</span><span class="sg-sidebar-item-label">Projects</span></sg-sidebar-item>
+        <sg-sidebar-item><span class="sg-sidebar-item-icon" aria-hidden="true">T</span><span class="sg-sidebar-item-label">Tasks</span></sg-sidebar-item>
+      </sg-sidebar-section>
+      <sg-sidebar-separator></sg-sidebar-separator>
+      <sg-sidebar-section title="Settings" collapsible>
+        <sg-sidebar-item><span class="sg-sidebar-item-icon" aria-hidden="true">A</span><span class="sg-sidebar-item-label">Account</span></sg-sidebar-item>
+        <sg-sidebar-item disabled><span class="sg-sidebar-item-icon" aria-hidden="true">B</span><span class="sg-sidebar-item-label">Billing</span></sg-sidebar-item>
+      </sg-sidebar-section>
+    </sg-sidebar-content>
+    <sg-sidebar-footer><span class="sg-demo-sidebarroot-3">v1.0.0</span></sg-sidebar-footer>
   </sg-sidebar-root>
-  <div class="sg-demo-sidebarroot-4">
-    Main content area
-  </div>
+  <div class="sg-demo-sidebarroot-4">Main content area</div>
 </div>`, cssCode: `.sg-demo-sidebarroot-1 {
-  height: 350px; border: var(--sg-border-thin) solid var(--sg-color-border); border-radius: var(--sg-radius-md); overflow: hidden; display: flex
+  display: flex;
+  min-height: 22rem;
+  overflow: hidden;
+  border: var(--sg-border-thin) solid var(--sg-color-border);
+  border-radius: var(--sg-radius-md);
+  background: var(--sg-surface-container-lowest);
 }
 
 .sg-demo-sidebarroot-2 {
-  font-weight: var(--sg-weight-semibold)
+  font-weight: var(--sg-weight-semibold);
+  white-space: nowrap;
 }
 
 .sg-demo-sidebarroot-3 {
-  font-size: var(--sg-text-xs); color: var(--text-3)
+  font-size: var(--sg-text-xs);
+  color: var(--sg-color-text-secondary);
+  white-space: nowrap;
 }
 
 .sg-demo-sidebarroot-4 {
-  flex: 1; padding: var(--sg-space-4); display: flex; align-items: center; justify-content: center; color: var(--sg-color-text-secondary)
-}` }] }]
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sg-gap-separated);
+  background: var(--sg-surface-container-low);
+  color: var(--sg-color-text-secondary);
+}
+` }] }]
   },
   "/components/overlays/tab-group": {
     componentName: "TabGroup",
-    sections: [{ title: "Examples", examples: [{ title: "Tab grouping container", language: "html", code: `<sg-tab-group orientation="horizontal">
-  <sg-tabs-root>
+    sections: [{ title: "Examples", examples: [{ title: "Tab grouping container", language: "html", code: `<sg-tab-group orientation="horizontal" max-width="md">
+  <sg-tabs-root default-value="overview">
     <sg-tabs-list>
-      <sg-tabs-trigger value="a">Overview</sg-tabs-trigger>
-      <sg-tabs-trigger value="b">Settings</sg-tabs-trigger>
+      <sg-tabs-trigger value="overview">Overview</sg-tabs-trigger>
+      <sg-tabs-trigger value="settings">Settings</sg-tabs-trigger>
     </sg-tabs-list>
+    <sg-tabs-content value="overview">
+      <p>Overview content.</p>
+    </sg-tabs-content>
+    <sg-tabs-content value="settings">
+      <p>Settings content.</p>
+    </sg-tabs-content>
   </sg-tabs-root>
 </sg-tab-group>` }] }]
   },
   "/components/overlays/tabs": {
     componentName: "TabsRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "svelte", code: `<sg-tabs-root value={tabValue} oninput={(e) => { const el = e.currentTarget as any; tabValue = (el.value ?? tabValue); }} onchange={(e) => { const el = e.currentTarget as any; tabValue = (el.value ?? tabValue); }} onclick={(e) => { const el = e.currentTarget as any; tabValue = (el.value ?? tabValue); }} ontoggle={(e) => { const el = e.currentTarget as any; tabValue = (el.value ?? tabValue); }}>
-    <sg-tabs-list>
-        <sg-tabs-trigger value="tab1">Overview</sg-tabs-trigger>
-        <sg-tabs-trigger value="tab2">Features</sg-tabs-trigger>
-        <sg-tabs-trigger value="tab3">Settings</sg-tabs-trigger>
-        <sg-tabs-trigger value="tab4" disabled={true}>Disabled</sg-tabs-trigger>
-    </sg-tabs-list>
-    <sg-tabs-content value="tab1">
-        <p class="sg-demo-tabsroot-1">Overview panel content. Use arrow keys to navigate between tabs.</p>
-    </sg-tabs-content>
-    <sg-tabs-content value="tab2">
-        <p class="sg-demo-tabsroot-2">Features panel content.</p>
-    </sg-tabs-content>
-    <sg-tabs-content value="tab3">
-        <p class="sg-demo-tabsroot-3">Settings panel content.</p>
-    </sg-tabs-content>
+    sections: [{ title: "Examples", examples: [{ title: "Usage", language: "html", code: `<sg-tabs-root max-width="md">
+  <sg-tabs-list>
+    <sg-tabs-trigger value="tab1">Overview</sg-tabs-trigger>
+    <sg-tabs-trigger value="tab2">Features</sg-tabs-trigger>
+    <sg-tabs-trigger value="tab3">Settings</sg-tabs-trigger>
+    <sg-tabs-trigger value="tab4" disabled>Disabled</sg-tabs-trigger>
+  </sg-tabs-list>
+  <sg-tabs-content value="tab1">
+    <p class="sg-demo-tabsroot-1">Overview panel content.</p>
+  </sg-tabs-content>
+  <sg-tabs-content value="tab2">
+    <p class="sg-demo-tabsroot-2">Features panel content.</p>
+  </sg-tabs-content>
+  <sg-tabs-content value="tab3">
+    <p class="sg-demo-tabsroot-3">Settings panel content.</p>
+  </sg-tabs-content>
 </sg-tabs-root>`, cssCode: `.sg-demo-tabsroot-1 {
   padding: var(--sg-space-4); color: var(--sg-color-text-secondary)
 }
@@ -27161,21 +27457,21 @@ console.log(result.formatted[500]);
 
 .sg-demo-tabsroot-3 {
   padding: var(--sg-space-4); color: var(--sg-color-text-secondary)
-}` }, { title: "Uncontrolled with defaultValue", language: "svelte", code: `<sg-tabs-root value={uncontrolledTabValue} oninput={(e) => { const el = e.currentTarget as any; uncontrolledTabValue = (el.value ?? uncontrolledTabValue); }} onchange={(e) => { const el = e.currentTarget as any; uncontrolledTabValue = (el.value ?? uncontrolledTabValue); }} onclick={(e) => { const el = e.currentTarget as any; uncontrolledTabValue = (el.value ?? uncontrolledTabValue); }} ontoggle={(e) => { const el = e.currentTarget as any; uncontrolledTabValue = (el.value ?? uncontrolledTabValue); }} defaultValue="tab1">
-    <sg-tabs-list loop={false}>
-        <sg-tabs-trigger value="tab1">Tab 1</sg-tabs-trigger>
-        <sg-tabs-trigger value="tab2">Tab 2</sg-tabs-trigger>
-        <sg-tabs-trigger value="tab3">Tab 3</sg-tabs-trigger>
-    </sg-tabs-list>
-    <sg-tabs-content value="tab1">
-        <p class="sg-demo-tabsroot-1">First tab content. Loop is disabled - arrow keys stop at first/last tab.</p>
-    </sg-tabs-content>
-    <sg-tabs-content value="tab2">
-        <p class="sg-demo-tabsroot-2">Second tab content.</p>
-    </sg-tabs-content>
-    <sg-tabs-content value="tab3">
-        <p class="sg-demo-tabsroot-3">Third tab content.</p>
-    </sg-tabs-content>
+}` }, { title: "Uncontrolled with defaultValue", language: "html", code: `<sg-tabs-root default-value="tab1" max-width="md">
+  <sg-tabs-list loop="false">
+    <sg-tabs-trigger value="tab1">Tab 1</sg-tabs-trigger>
+    <sg-tabs-trigger value="tab2">Tab 2</sg-tabs-trigger>
+    <sg-tabs-trigger value="tab3">Tab 3</sg-tabs-trigger>
+  </sg-tabs-list>
+  <sg-tabs-content value="tab1">
+    <p class="sg-demo-tabsroot-1">First tab content.</p>
+  </sg-tabs-content>
+  <sg-tabs-content value="tab2">
+    <p class="sg-demo-tabsroot-2">Second tab content.</p>
+  </sg-tabs-content>
+  <sg-tabs-content value="tab3">
+    <p class="sg-demo-tabsroot-3">Third tab content.</p>
+  </sg-tabs-content>
 </sg-tabs-root>`, cssCode: `.sg-demo-tabsroot-1 {
   padding: var(--sg-space-4); color: var(--sg-color-text-secondary)
 }
@@ -27186,61 +27482,37 @@ console.log(result.formatted[500]);
 
 .sg-demo-tabsroot-3 {
   padding: var(--sg-space-4); color: var(--sg-color-text-secondary)
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-tabsroot-1">Tabs machine can be toggled with <code>featureFlags.tabsMachine</code>.</p>', cssCode: `.sg-demo-tabsroot-1 {
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-tabsroot-1">Tabs machine can be toggled with <code>featureFlags.tabsMachine</code>.</p>', cssCode: `.sg-demo-tabsroot-1 {
   margin: 0; color: var(--sg-color-text-secondary);
 }` }] }]
   },
   "/components/overlays/tooltip": {
     componentName: "TooltipRoot",
-    sections: [{ title: "Examples", examples: [{ title: "Basic Usage", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped">
-    <sg-tooltip-root content="This is a tooltip" delay={300}>
-        <sg-tooltip-trigger>
-            <button class="sg-button" data-color="secondary">Hover me</button>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-    <sg-tooltip-root content="Another tooltip with longer text" delay={300}>
-        <sg-tooltip-trigger>
-            <sg-badge color="info">Hover this badge</sg-badge>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-</sg-stack>` }, { title: "Positioning", language: "svelte", code: `<sg-stack direction="horizontal" gap="grouped" align="center">
-    <sg-tooltip-root content="Tooltip on top" side="top" delay={100}>
-        <sg-tooltip-trigger>
-            <button class="sg-button" data-color="secondary">Top</button>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-    <sg-tooltip-root content="Tooltip on right" side="right" delay={100}>
-        <sg-tooltip-trigger>
-            <button class="sg-button" data-color="secondary">Right</button>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-    <sg-tooltip-root content="Tooltip on bottom" side="bottom" delay={100}>
-        <sg-tooltip-trigger>
-            <button class="sg-button" data-color="secondary">Bottom</button>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-    <sg-tooltip-root content="Tooltip on left" side="left" delay={100}>
-        <sg-tooltip-trigger>
-            <button class="sg-button" data-color="secondary">Left</button>
-        </sg-tooltip-trigger>
-        <sg-tooltip-content />
-    </sg-tooltip-root>
-</sg-stack>` }, { title: "As Child", language: "svelte", code: `<sg-tooltip-root content="Click to navigate" side="top" delay={200}>
-    <sg-tooltip-trigger asChild={true}>
-        <a href="#" class="sg-demo-tooltiproot-1">
-          Link with tooltip
-        </a>
-    </sg-tooltip-trigger>
-    <sg-tooltip-content />
-</sg-tooltip-root>`, cssCode: `.sg-demo-tooltiproot-1 {
-  color: var(--sg-color-primary); text-decoration: underline;
-}` }, { title: "Feature Flag", language: "svelte", code: '<p class="sg-demo-tooltiproot-1">Tooltip machine can be toggled with <code>featureFlags.tooltipMachine</code>.</p>', cssCode: `.sg-demo-tooltiproot-1 {
-  margin: 0; color: var(--sg-color-text-secondary);
+    sections: [{ title: "Examples", examples: [{ title: "Basic Usage", language: "html", code: `<sg-stack direction="horizontal" gap="grouped">
+  <sg-tooltip-root content="This is a tooltip" delay="300" side="bottom">
+    <sg-tooltip-trigger><button class="sg-button" data-color="secondary">Hover me</button></sg-tooltip-trigger>
+    <sg-tooltip-content></sg-tooltip-content>
+  </sg-tooltip-root>
+  <sg-tooltip-root content="Another tooltip with longer text" delay="300" side="bottom" max-width="sm">
+    <sg-tooltip-trigger><sg-badge color="info">Hover this badge</sg-badge></sg-tooltip-trigger>
+    <sg-tooltip-content></sg-tooltip-content>
+  </sg-tooltip-root>
+</sg-stack>` }, { title: "Positioning", language: "html", code: `<sg-stack direction="horizontal" gap="grouped" align="center">
+  <sg-tooltip-root content="Tooltip on top" side="top" delay="100"><sg-tooltip-trigger><button class="sg-button" data-color="secondary">Top</button></sg-tooltip-trigger><sg-tooltip-content></sg-tooltip-content></sg-tooltip-root>
+  <sg-tooltip-root content="Tooltip on right" side="right" delay="100"><sg-tooltip-trigger><button class="sg-button" data-color="secondary">Right</button></sg-tooltip-trigger><sg-tooltip-content></sg-tooltip-content></sg-tooltip-root>
+  <sg-tooltip-root content="Tooltip on bottom" side="bottom" delay="100"><sg-tooltip-trigger><button class="sg-button" data-color="secondary">Bottom</button></sg-tooltip-trigger><sg-tooltip-content></sg-tooltip-content></sg-tooltip-root>
+  <sg-tooltip-root content="Tooltip on left" side="left" delay="100"><sg-tooltip-trigger><button class="sg-button" data-color="secondary">Left</button></sg-tooltip-trigger><sg-tooltip-content></sg-tooltip-content></sg-tooltip-root>
+</sg-stack>` }, { title: "As Child", language: "html", code: `<sg-tooltip-root content="Click to navigate" side="top" delay="200">
+  <sg-tooltip-trigger as-child>
+    <a href="#" class="sg-demo-tooltip-link">Link with tooltip</a>
+  </sg-tooltip-trigger>
+  <sg-tooltip-content></sg-tooltip-content>
+</sg-tooltip-root>`, cssCode: `.sg-demo-tooltip-link {
+  color: var(--sg-color-primary);
+  text-decoration: underline;
+}` }, { title: "Feature Flag", language: "html", code: '<p class="sg-demo-tooltip-note">Tooltip machine can be toggled with <code>featureFlags.tooltipMachine</code>.</p>', cssCode: `.sg-demo-tooltip-note {
+  margin: 0;
+  color: var(--sg-color-text-secondary);
 }` }] }]
   }
 };
@@ -27277,7 +27549,8 @@ var manifest = [
     avoidWhen: "App UI controls or dense data layouts that should use dedicated components.",
     semanticRole: "semantic text flow",
     props: {
-      class: { type: "string", description: "Optional sg-prose container class for readable prose rhythm and typography." }
+      class: { type: "string", description: "Optional sg-prose container class for readable prose rhythm and typography." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "md", description: "Caps the prose measure for readable line lengths. Use --sg-prose-max-width for custom CSS lengths." }
     },
     slots: ["default"]
   },
@@ -27289,9 +27562,23 @@ var manifest = [
     whenToUse: 'Collecting multi-line text input. Use class="sg-textarea" on a native <textarea>.',
     avoidWhen: "Single-line text - use Input.",
     semanticRole: "textbox",
-    accessibilityRequirements: "Associate label with textarea via for/id.",
+    accessibilityRequirements: ["Associate label with textarea via for/id.", "Use aria-describedby for helper or error text."],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-textarea" on a native <textarea> element.' }
+      class: { type: "string", required: true, description: 'Use class="sg-textarea" on a native <textarea> element.' },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the textarea width while allowing it to shrink to available space. Use --sg-textarea-max-width for custom CSS lengths." },
+      "data-density": { type: "string", values: DENSITIES, default: "comfortable", description: "Adjusts textarea padding when placed on .sg-textarea-wrapper." },
+      "data-resize": { type: "string", values: ["none", "vertical", "both"], description: "Controls native textarea resizing." },
+      "data-autogrow": { type: "boolean", default: false, description: "Enables CSS field-sizing auto growth where supported and disables manual resize." },
+      "data-validation": { type: "string", values: ["invalid"], description: "Applies invalid border styling." },
+      id: { type: "string", description: "Native id used by an associated label." },
+      name: { type: "string", description: "Native form field name." },
+      placeholder: { type: "string", description: "Placeholder text shown before a value is entered." },
+      rows: { type: "number|string", description: "Native visible row count." },
+      maxlength: { type: "number|string", description: "Maximum number of characters allowed." },
+      disabled: { type: "boolean", default: false, description: "Disables the textarea." },
+      readonly: { type: "boolean", default: false, description: "Makes the value read-only while keeping the textarea focusable." },
+      required: { type: "boolean", default: false, description: "Requires a value before form submission." },
+      "aria-describedby": { type: "string", description: "ID reference for helper or error text." }
     },
     slots: []
   },
@@ -27303,11 +27590,14 @@ var manifest = [
     whenToUse: 'To present the result of a user action or calculation. Use class="sg-output".',
     avoidWhen: "For static text display - use Text or Badge instead.",
     semanticRole: "status",
-    accessibilityRequirements: "The output element is automatically associated with form inputs via the for attribute.",
+    accessibilityRequirements: ["Associate calculation outputs with their source controls using the for attribute.", "Use name when the output needs to be referenced from form scripts."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-output" on the <output> element.' },
       "data-size": { type: "string", values: SIZES, default: "md", description: "Text size variant." },
-      "data-color": { type: "string", values: ["primary", "success", "danger", "warning"], description: "Semantic color variant." }
+      "data-color": { type: "string", values: ["primary", "success", "danger", "warning"], description: "Semantic color variant." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the output width while allowing it to shrink to available space. Use --sg-output-max-width for custom CSS lengths." },
+      name: { type: "string", description: "Names the output so form scripts can update it." },
+      for: { type: "string", description: "Space-separated list of input ids that contribute to the output value." }
     },
     slots: ["default"]
   },
@@ -27319,12 +27609,13 @@ var manifest = [
     whenToUse: 'Triggering actions (submit, toggle, navigate). Use class="sg-button" on a native <button> or <a>.',
     avoidWhen: "Navigating to a new page without an action - use a plain <a> link. For toggle states, consider Switch.",
     semanticRole: "button (or link when href is set)",
-    accessibilityRequirements: "Must have visible text content or aria-label. Links cannot be disabled.",
+    accessibilityRequirements: ["Must have visible text content or aria-label. Links cannot be disabled.", "When data-loading is used for an in-progress action, pair it with disabled or aria-busy as appropriate."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-button" on a native <button> or <a> element.' },
-      "data-color": { type: "ColorVariant", values: COLOR_VARIANTS, default: "primary", description: "Visual color theme of the button." },
-      "data-size": { type: "Size", values: SIZES, default: "md", description: "Button size." },
-      "data-loading": { type: "boolean", default: false, description: "Shows spinner and disables interaction." }
+      "data-color": { type: "ColorVariant", values: ["primary", "secondary", "danger", "success", "warning", "info", "ghost", "outline"], default: "primary", description: "Visual color theme of the button." },
+      "data-size": { type: "Size", values: ["sm", "md", "lg", "icon", "icon-sm", "icon-lg"], default: "md", description: "Button size. Icon sizes make square icon-only buttons." },
+      "data-loading": { type: "boolean", default: false, description: "Shows spinner and disables interaction." },
+      "data-disabled": { type: "boolean", default: false, description: "Visually disables a button or link. Use native disabled on <button> when possible; use aria-disabled on links." }
     },
     slots: ["default"]
   },
@@ -27336,10 +27627,14 @@ var manifest = [
     whenToUse: 'Text links in prose, navigation links, external references. Use class="sg-link" on a native <a>.',
     avoidWhen: "Button-styled links (use Button with href). Navigation bars (use NavigationMenu).",
     semanticRole: "link",
+    accessibilityRequirements: ["Use meaningful link text that describes the destination.", 'For target="_blank", include rel="noopener noreferrer".'],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-link" on a native <a> element.' },
       "data-color": { type: "string", values: ["primary", "muted", "inherit"], default: "primary", description: "Link color variant." },
-      "data-underline": { type: "string", values: ["always", "hover", "none"], default: "always", description: "Underline behavior." }
+      "data-underline": { type: "string", values: ["always", "hover", "none"], default: "always", description: "Underline behavior." },
+      href: { type: "string", description: "Link destination." },
+      target: { type: "string", description: "Native anchor target, such as _blank." },
+      rel: { type: "string", description: "Relationship tokens for the link target." }
     },
     slots: ["default"]
   },
@@ -27351,11 +27646,20 @@ var manifest = [
     whenToUse: 'Choosing one option from a small set (2-7 visible options). Use class="sg-radio-group" on a wrapper with <label class="sg-radio-group-item"> children.',
     avoidWhen: "More than 7 options - use Select. Multiple selections - use Checkbox.",
     semanticRole: "radiogroup",
-    accessibilityRequirements: "Each radio input requires an associated label.",
+    accessibilityRequirements: ["Each radio input requires an associated label.", "Label the group with aria-label, aria-labelledby, or a fieldset/legend."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-radio-group" on the wrapper element.' },
       "data-orientation": { type: "string", values: ["horizontal", "vertical"], default: "vertical", description: "Layout direction." },
-      "data-size": { type: "Size", values: SIZES, default: "md", description: "Size of radio buttons." }
+      "data-size": { type: "Size", values: SIZES, default: "md", description: "Size of radio buttons." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the radio group width while allowing it to shrink to available space. Use --sg-radio-group-max-width for custom CSS lengths." },
+      role: { type: "string", default: "radiogroup", description: 'Use role="radiogroup" when the radios are not wrapped in a fieldset.' },
+      "aria-label": { type: "string", description: "Accessible group label when there is no visible legend or heading." },
+      "aria-labelledby": { type: "string", description: "ID reference for a visible radio group label." },
+      name: { type: "string", description: "Shared native input name used to connect radios into one exclusive group." },
+      value: { type: "string", description: "Native radio input value submitted when selected." },
+      checked: { type: "boolean", default: false, description: "Marks the default selected radio input." },
+      disabled: { type: "boolean", default: false, description: "Disables an individual radio input." },
+      required: { type: "boolean", default: false, description: "Requires a selection before form submission." }
     },
     slots: ["default"]
   },
@@ -27363,15 +27667,21 @@ var manifest = [
     name: "Toggle",
     importPath: "sg/toggle",
     category: "form",
-    description: 'CSS-only styled pressable toggle button. Apply class="sg-toggle" on a native <button> with aria-pressed.',
-    whenToUse: 'Binary toggle controls in toolbars. Use class="sg-toggle" on a native <button aria-pressed>.',
+    description: 'Styled pressable toggle button. Apply class="sg-toggle" on a native <button> with aria-pressed.',
+    whenToUse: 'Binary toggle controls in toolbars. Use class="sg-toggle" on a native <button aria-pressed>; the SigUI runtime toggles standalone button state.',
     avoidWhen: "On/off settings - use Switch. Multiple exclusive options - use ToggleGroup.",
     semanticRole: "button with aria-pressed",
-    accessibilityRequirements: "Uses aria-pressed for toggle state. Requires aria-label.",
+    accessibilityRequirements: ["Uses aria-pressed for toggle state. Requires aria-label.", "Standalone toggles need aria-pressed; toggle groups manage aria-pressed on their children."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-toggle" on a native <button> with aria-pressed.' },
       "data-size": { type: "Size", values: SIZES, default: "md", description: "Toggle size." },
-      "data-variant": { type: "string", values: ["default", "outline"], default: "default", description: "Visual variant." }
+      "data-variant": { type: "string", values: ["default", "outline"], default: "default", description: "Visual variant." },
+      "aria-pressed": { type: "boolean|string", required: true, description: "Pressed state for standalone toggle buttons. Managed automatically inside sg-toggle-group." },
+      "aria-label": { type: "string", description: "Accessible label when the visible content is an icon or abbreviated text." },
+      value: { type: "string", description: "Selection value when used inside sg-toggle-group." },
+      disabled: { type: "boolean", default: false, description: "Disables the native button." },
+      "data-disabled": { type: "boolean", default: false, description: "Applies disabled styling for non-native disabled cases." },
+      "aria-disabled": { type: "boolean|string", description: "Marks non-native disabled cases as unavailable to assistive technology." }
     },
     slots: ["default"]
   },
@@ -27382,14 +27692,17 @@ var manifest = [
     description: "Group of mutually exclusive or multi-select toggles.",
     whenToUse: "Grouping related toggle options (text alignment, view modes).",
     semanticRole: "group",
-    accessibilityRequirements: "Uses role='group'. Children are Toggle components that read context.",
+    accessibilityRequirements: ["Uses role='group'. Children are Toggle components that read context."],
     parent: "Toggle",
     props: {
       type: { type: "string", values: ["single", "multiple"], required: true, description: "Selection mode." },
       value: { type: "string | string[]", description: "Selected value(s). Bindable." },
       size: { type: "Size", values: SIZES, default: "md", description: "Size applied to all child toggles." },
       disabled: { type: "boolean", default: false, description: "Disables all child toggles." },
-      onchange: { type: "(value: string | string[]) => void", description: "Called when selection changes." }
+      variant: { type: "string", values: ["default", "outline"], default: "default", description: "Visual variant applied to grouped toggles." },
+      onchange: { type: "(value: string | string[]) => void", description: "Called when selection changes." },
+      "aria-label": { type: "string", description: "Accessible group label." },
+      "aria-labelledby": { type: "string", description: "ID reference for a visible group label." }
     },
     slots: ["default"]
   },
@@ -27401,7 +27714,7 @@ var manifest = [
     whenToUse: "Separating content with native semantics and SigUI styling.",
     avoidWhen: "Spacing alone provides enough distinction.",
     semanticRole: "separator",
-    accessibilityRequirements: 'Use role="separator" + aria-orientation="vertical" for vertical separators. Add aria-hidden for decorative usage.',
+    accessibilityRequirements: ['Use role="separator" + aria-orientation="vertical" for vertical separators. Add aria-hidden for decorative usage.'],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-separator" on a native element.' },
       "data-orientation": { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Separator direction." },
@@ -27417,11 +27730,14 @@ var manifest = [
     whenToUse: "Visually separating groups of content within a section using native markup.",
     avoidWhen: "Spacing alone provides sufficient visual separation - use Spacer or Stack gap.",
     semanticRole: "separator",
+    accessibilityRequirements: ["Native <hr> exposes separator semantics automatically.", 'When using a <div> for vertical orientation, add role="separator" and aria-orientation="vertical".'],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-divider" on a native <hr> or <div>.' },
       "data-orientation": { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Line direction." },
       "data-color": { type: "string", values: DIVIDER_COLORS, default: "default", description: "Line color intensity." },
-      "data-spacing": { type: "SpacingRelationship", values: SPACING_RELATIONSHIPS, description: "Margin around the divider." }
+      "data-spacing": { type: "SpacingRelationship", values: SPACING_RELATIONSHIPS, description: "Margin around the divider." },
+      role: { type: "string", description: 'Use role="separator" when the divider is rendered as a non-native element.' },
+      "aria-orientation": { type: "string", values: ["horizontal", "vertical"], description: "Required for non-native vertical separators." }
     },
     slots: []
   },
@@ -27433,9 +27749,17 @@ var manifest = [
     whenToUse: 'Collecting single-line text input (email, password, search, etc.). Use class="sg-input" on a native <input>.',
     avoidWhen: "Multi-line text - use a textarea. Selection from options - use Select.",
     semanticRole: "textbox",
-    accessibilityRequirements: "Associate label with input via for/id.",
+    accessibilityRequirements: ["Associate label with input via for/id."],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-input" on a native <input> element.' }
+      class: { type: "string", required: true, description: 'Use class="sg-input" on a native <input> element.' },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the input width while allowing it to shrink to available space. Use --sg-input-max-width for custom CSS lengths." },
+      "data-density": { type: "Density", values: DENSITIES, description: "Apply to .sg-input-wrapper to tune input padding and height." },
+      "data-validation": { type: "string", values: ["valid", "invalid"], description: "Validation state styling for the input border." },
+      type: { type: "string", description: "Native input type, such as text, email, password, url, tel, search, or number." },
+      placeholder: { type: "string", description: "Placeholder text." },
+      disabled: { type: "boolean", default: false, description: "Disables the input." },
+      readonly: { type: "boolean", default: false, description: "Makes the input read-only while keeping it focusable." },
+      required: { type: "boolean", default: false, description: "Marks the native input as required." }
     },
     slots: []
   },
@@ -27458,14 +27782,41 @@ var manifest = [
     name: "InputVariants",
     importPath: "sg/input-variants",
     category: "form",
-    description: "Native input type variants (date, time, file, color, datalist) using SigUI input classes.",
-    whenToUse: "Documenting and styling specialized native input types with existing sg-input utility classes.",
-    avoidWhen: "Building bespoke picker workflows that need composed behavior (use DatePicker, ColorPicker, or Input components).",
-    semanticRole: "native input semantics",
+    description: "Native input type variants plus composed temporal picker input elements and enhanced native color inputs.",
+    whenToUse: "Styling specialized native input types or using input-oriented date, time, month, week, and enhanced native color controls with SigUI form styling.",
+    avoidWhen: "Building a custom picker workflow that needs bespoke composition beyond the input-oriented variants.",
+    semanticRole: "native input semantics and composed picker controls",
     props: {
       class: { type: "string", required: true, description: "Use class names like sg-input, sg-input-file, and sg-input-color on native input elements." },
-      type: { type: "string", values: ["date", "time", "datetime-local", "file", "color"], description: "Native input type variant to render." },
-      list: { type: "string", description: "Optional datalist id for autocomplete suggestions." }
+      type: { type: "string", values: ["date", "time", "datetime-local", "month", "week", "file", "color"], description: "Native input type variant to render." },
+      "sg-input-date": { type: "element", description: "Composed date input variant using the DatePicker implementation." },
+      "sg-input-time": { type: "element", description: "Composed time input variant using a styled native time control." },
+      "sg-input-datetime-local": { type: "element", description: "Composed local date and time input variant using a styled native datetime-local control." },
+      "sg-input-month": { type: "element", description: "Composed month input variant using a styled native month control." },
+      "sg-input-week": { type: "element", description: "Composed week input variant using a styled native week control." },
+      "max-width": { type: "string", values: ["xs", "sm", "md", "lg", "full"], default: "full", description: "Caps composed temporal picker width while allowing it to shrink to available space." },
+      list: { type: "string", description: "Optional datalist id for autocomplete suggestions." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps sg-input and sg-input-file variants while allowing them to shrink to available space. Use --sg-input-max-width or --sg-input-file-max-width for custom CSS lengths." },
+      "data-color-picker-input": { type: "boolean", default: false, description: "Shows an editable hex field in the enhanced native color picker." },
+      "data-color-picker-show-value": { type: "boolean", default: false, description: "Shows the current hex value in the enhanced native color picker." },
+      "data-color-picker-swatch": { type: "boolean", default: true, description: "Controls whether the enhanced native color picker renders the swatch control." },
+      "data-color-picker-popover": { type: "boolean", default: false, description: "Boolean alias for ColorPicker popover behavior; prefer data-color-picker-mode for clarity." },
+      "data-color-picker-mode": { type: "string", values: ["inline", "popover"], default: "popover", description: "Renders the enhanced native color input as an inline color wheel or a swatch-triggered popover." },
+      "data-color-picker-direction": { type: "string", values: ["top", "bottom", "left", "right"], default: "bottom", description: "Preferred inline layout or popup placement for input.sg-input-color[type=color]." },
+      "data-color-picker-hue": { type: "number", description: "Initial OKLCH hue in degrees when no native hex value is supplied." },
+      "data-color-picker-lightness": { type: "number", description: "Initial OKLCH lightness from 0 to 1 when no native hex value is supplied." },
+      "data-color-picker-chroma": { type: "number", description: "Initial OKLCH chroma when no native hex value is supplied." },
+      "data-color-picker-size": { type: "number", description: "Color wheel size in base units for the enhanced native color picker." },
+      "data-color-picker-ring-size": { type: "number", description: "Color wheel ring diameter in base units for the enhanced native color picker." },
+      "data-color-picker-swatch-size": { type: "number", description: "Swatch size in base units for the enhanced native color picker." },
+      "data-color-picker-thickness": { type: "number", description: "Hue ring thickness in base units for the enhanced native color picker." },
+      value: { type: "string", description: "Native input value." },
+      min: { type: "string", description: "Minimum value for temporal native controls." },
+      max: { type: "string", description: "Maximum value for temporal native controls." },
+      step: { type: "string", description: "Step granularity for temporal native controls." },
+      disabled: { type: "boolean", default: false, description: "Disables the input." },
+      multiple: { type: "boolean", default: false, description: "Allows multiple files for file inputs." },
+      accept: { type: "string", description: "Accepted file MIME types or extensions for file inputs." }
     },
     slots: ["default"]
   },
@@ -27477,9 +27828,10 @@ var manifest = [
     whenToUse: "Accessible progressive disclosure where native browser semantics are preferred. Each item is a <details> element; add a shared name attribute for mutually exclusive behavior.",
     avoidWhen: "You need rich animation/state control - use AccordionRoot.",
     semanticRole: "group of disclosure widgets",
-    accessibilityRequirements: "Provides native disclosure semantics through <details>/<summary>. No JavaScript required.",
+    accessibilityRequirements: ["Provides native disclosure semantics through <details>/<summary>. No JavaScript required.", "Native <details> has no disabled state; use inert together with data-disabled when an item must not be interactive."],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-native-accordion" on the wrapper element.' }
+      class: { type: "string", required: true, description: 'Use class="sg-native-accordion" on the wrapper element.' },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the accordion width while allowing it to shrink to available space. Use --sg-native-accordion-max-width for custom CSS lengths." }
     },
     slots: ["default"]
   },
@@ -27494,7 +27846,8 @@ var manifest = [
     props: {
       name: { type: "string", description: "Shared name for mutually exclusive behavior. Omit for independent items." },
       open: { type: "boolean", default: false, description: "Whether this item starts expanded." },
-      "data-disabled": { type: "boolean", default: false, description: "Disables this item visually and prevents interaction." }
+      "data-disabled": { type: "boolean", default: false, description: "Styles the item as disabled. Pair with inert to prevent native details interaction." },
+      inert: { type: "boolean", default: false, description: "Prevents interaction and focus for disabled native details items." }
     },
     slots: ["trigger", "default"]
   },
@@ -27506,9 +27859,20 @@ var manifest = [
     whenToUse: 'Search fields, filter inputs. Use class="sg-search-input" on a native <input type="search">.',
     avoidWhen: "General text input (use Input). Autocomplete search with dropdown (use Combobox).",
     semanticRole: "searchbox",
-    accessibilityRequirements: "Requires associated label or aria-label.",
+    accessibilityRequirements: ["Requires associated label or aria-label.", 'When using the clear button pattern, keep the button type="button" and provide aria-label="Clear search".', 'When showing loading state, set aria-busy="true" on the input or surrounding search region.'],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-search-input" on a native <input type="search">.' }
+      class: { type: "string", required: true, description: 'Use class="sg-search-input" on a native <input type="search">.' },
+      "data-size": { type: "string", values: SIZES, default: "md", description: "Search input size." },
+      "data-loading": { type: "boolean", default: false, description: "Place on .sg-search-input-wrapper to show the loading spinner and hide the clear button." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the search input width while allowing it to shrink to available space. Use --sg-search-input-max-width for custom CSS lengths." },
+      placeholder: { type: "string", description: "Placeholder text shown before a search query is entered." },
+      value: { type: "string", description: "Current native input value." },
+      name: { type: "string", description: "Native form field name." },
+      disabled: { type: "boolean", default: false, description: "Disables the search input." },
+      readonly: { type: "boolean", default: false, description: "Makes the input value read-only while keeping it focusable." },
+      required: { type: "boolean", default: false, description: "Requires a search value before form submission." },
+      "aria-label": { type: "string", description: "Accessible label when there is no visible label." },
+      "aria-busy": { type: "boolean|string", description: "Signals that search results are currently loading." }
     },
     slots: []
   },
@@ -27520,10 +27884,19 @@ var manifest = [
     whenToUse: 'To display a scalar measurement within a known range (e.g. disk usage, battery level). Use class="sg-meter".',
     avoidWhen: "For task completion or loading - use Progress instead.",
     semanticRole: "meter",
-    accessibilityRequirements: "Provide meaningful min/max/low/high/optimum values and a label.",
+    accessibilityRequirements: ["Provide meaningful min/max/low/high/optimum values and a label.", "Associate visible labels and descriptions with the meter using aria-labelledby and aria-describedby."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-meter" on the <meter> element.' },
-      "data-size": { type: "string", values: SIZES, default: "md", description: "Visual height of the meter bar." }
+      "data-size": { type: "string", values: SIZES, default: "md", description: "Visual height of the meter bar." },
+      value: { type: "number|string", required: true, description: "Current scalar value for the meter." },
+      min: { type: "number|string", default: "0", description: "Minimum value for the measured range." },
+      max: { type: "number|string", default: "1", description: "Maximum value for the measured range." },
+      low: { type: "number|string", description: "Boundary below which the value is considered low." },
+      high: { type: "number|string", description: "Boundary above which the value is considered high." },
+      optimum: { type: "number|string", description: "Preferred value within the measured range." },
+      "aria-labelledby": { type: "string", description: "ID reference for the visible meter label." },
+      "aria-describedby": { type: "string", description: "ID reference for supplemental meter description text." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the meter width while allowing it to shrink to available space. Use --sg-meter-max-width for custom CSS lengths." }
     },
     slots: []
   },
@@ -27561,10 +27934,11 @@ var manifest = [
     whenToUse: 'To visually and semantically group related form controls. Use class="sg-fieldset" and class="sg-legend".',
     avoidWhen: "For non-form grouping - use Card or Section instead.",
     semanticRole: "group",
-    accessibilityRequirements: "Use <legend> to label the group; screen readers announce it to users.",
+    accessibilityRequirements: ["Use <legend> to label the group; screen readers announce it to users."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-fieldset" on the <fieldset> element.' },
-      disabled: { type: "boolean", default: false, description: "Disables all controls within the fieldset." }
+      disabled: { type: "boolean", default: false, description: "Disables all controls within the fieldset." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the fieldset width while allowing it to shrink to available space. Use --sg-fieldset-max-width for custom CSS lengths." }
     },
     slots: ["default"]
   },
@@ -27576,6 +27950,7 @@ var manifest = [
     whenToUse: "Adding a label to a custom form control not covered by Input/Textarea.",
     avoidWhen: "Using Input or Textarea - they include labels automatically.",
     semanticRole: "label",
+    accessibilityRequirements: ["Associate each label with a control using for/id or by wrapping the control.", "When data-required is shown, also mark the related form control as required."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-label" on a native <label>.' },
       for: { type: "string", description: "ID of the form element this label is for." },
@@ -27588,13 +27963,24 @@ var manifest = [
     name: "NativeSelect",
     importPath: "sg/native-select",
     category: "form",
-    description: 'CSS-only styled native <select>. Apply class="sg-native-select" on a wrapper with a native <select> element inside.',
-    whenToUse: 'When you need a native select for mobile-friendly option picking. Use class="sg-native-select" on a wrapper element.',
+    description: 'CSS-only styled native <select>. Apply class="sg-native-select" on a native <select> element.',
+    whenToUse: 'When you need a native select for mobile-friendly option picking. Use class="sg-native-select" on a native <select> element.',
     avoidWhen: "When you need custom option rendering - use Select or Combobox instead.",
     semanticRole: "combobox (native)",
-    accessibilityRequirements: "Associate label with select via for/id.",
+    accessibilityRequirements: ["Associate label with select via for/id.", "Use aria-describedby for helper or error text.", "Disabled placeholder options should use disabled and selected when they are not valid choices."],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-native-select" on the wrapper element.' }
+      class: { type: "string", required: true, description: 'Use class="sg-native-select" on a native <select> element.' },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the select width while allowing it to shrink to available space. Use --sg-native-select-max-width for custom CSS lengths." },
+      "data-density": { type: "string", values: DENSITIES, default: "comfortable", description: "Adjusts select padding when placed on .sg-native-select-wrapper." },
+      "data-validation": { type: "string", values: ["invalid"], description: "Applies invalid border styling to the select." },
+      id: { type: "string", description: "Native id used by an associated label." },
+      name: { type: "string", description: "Native form field name." },
+      value: { type: "string", description: "Current selected option value." },
+      disabled: { type: "boolean", default: false, description: "Disables the select." },
+      required: { type: "boolean", default: false, description: "Requires a selected value before form submission." },
+      multiple: { type: "boolean", default: false, description: "Allows multiple option selection." },
+      size: { type: "number|string", description: "Native visible-row count for listbox-style selects." },
+      "aria-describedby": { type: "string", description: "ID reference for helper or error text." }
     },
     slots: ["default"]
   },
@@ -27606,7 +27992,7 @@ var manifest = [
     whenToUse: "Persistent status messages, notifications, and callouts with native HTML.",
     avoidWhen: "Auto-dismissing notices (use Toast) or destructive confirmations (use AlertDialog).",
     semanticRole: "alert or status",
-    accessibilityRequirements: 'Use role="alert" for assertive announcements or role="status" for polite updates.',
+    accessibilityRequirements: ['Use role="alert" for assertive announcements or role="status" for polite updates.'],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-alert" on a native container.' },
       "data-color": { type: "ColorVariant", values: COLOR_VARIANTS, default: "info", description: "Semantic alert color." },
@@ -27648,10 +28034,14 @@ var manifest = [
     whenToUse: "Displaying tabular data with rows and columns.",
     avoidWhen: "Simple key-value pairs - use a description list. Card layouts - use Grid + Card.",
     semanticRole: "table",
-    accessibilityRequirements: "Uses native <table> semantics. Add aria-label for context.",
+    accessibilityRequirements: ["Uses native <table> semantics. Add aria-label for context."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-table" on a native <table> element.' },
-      "data-striped": { type: "boolean", default: false, description: "Enable striped row background." }
+      "data-striped": { type: "boolean", default: false, description: "Enable striped row background." },
+      "data-density": { type: "string", values: DENSITIES, default: "comfortable", description: "Adjusts table cell spacing using semantic density tokens." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the table width while allowing it to shrink to available space. Use --sg-table-max-width for custom CSS lengths." },
+      "aria-label": { type: "string", description: "Accessible table label when there is no caption." },
+      "aria-describedby": { type: "string", description: "ID reference for supplemental table description text." }
     },
     slots: ["default"]
   },
@@ -27699,7 +28089,8 @@ var manifest = [
     whenToUse: "Always inside a TableRow within TableHeader.",
     parent: "Table",
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-table-head" on <th>.' }
+      class: { type: "string", required: true, description: 'Use class="sg-table-head" on <th>.' },
+      scope: { type: "string", values: ["col", "row", "colgroup", "rowgroup"], description: "Associates header cells with columns or rows." }
     },
     slots: ["default"]
   },
@@ -27748,9 +28139,20 @@ var manifest = [
     whenToUse: 'Selecting a value from a continuous or stepped range. Use class="sg-slider" on a native <input type="range">.',
     avoidWhen: "Precise numeric input - use Input with type='number'.",
     semanticRole: "slider",
-    accessibilityRequirements: "Requires associated label or aria-label.",
+    accessibilityRequirements: ["Requires associated label or aria-label.", "Use aria-valuetext when the numeric value needs a domain-specific label."],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-slider" on a native <input type="range">.' }
+      class: { type: "string", required: true, description: 'Use class="sg-slider" on a native <input type="range">.' },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the slider width while allowing it to shrink to available space. Use --sg-slider-max-width for custom CSS lengths." },
+      id: { type: "string", description: "Native id used by an associated label." },
+      name: { type: "string", description: "Native form field name." },
+      value: { type: "number|string", description: "Current slider value." },
+      min: { type: "number|string", default: "0", description: "Minimum slider value." },
+      max: { type: "number|string", default: "100", description: "Maximum slider value." },
+      step: { type: "number|string", default: "1", description: "Step increment for slider movement." },
+      disabled: { type: "boolean", default: false, description: "Disables the slider." },
+      required: { type: "boolean", default: false, description: "Requires a value before form submission." },
+      "aria-label": { type: "string", description: "Accessible label when there is no visible label." },
+      "aria-valuetext": { type: "string", description: "Human-readable text for the current value." }
     },
     slots: []
   },
@@ -27762,9 +28164,17 @@ var manifest = [
     whenToUse: 'On/off settings that take effect immediately (dark mode, notifications). Use class="sg-switch" on a native <input type="checkbox" role="switch">.',
     avoidWhen: "The choice doesn't take effect until form submission - use Checkbox.",
     semanticRole: "switch",
-    accessibilityRequirements: "Requires associated label or aria-label. Uses role='switch'.",
+    accessibilityRequirements: ["Requires associated label or aria-label.", 'Use role="switch" on the native checkbox input.'],
     props: {
-      class: { type: "string", required: true, description: 'Use class="sg-switch" on a native <input type="checkbox" role="switch">.' }
+      class: { type: "string", required: true, description: 'Use class="sg-switch" on a native <input type="checkbox" role="switch">.' },
+      "data-size": { type: "string", values: SIZES, default: "md", description: "Switch size. Can be set on .sg-switch-wrapper or directly on .sg-switch." },
+      role: { type: "string", default: "switch", description: 'Use role="switch" to expose on/off semantics.' },
+      name: { type: "string", description: "Native form field name." },
+      value: { type: "string", description: "Native checkbox value submitted when checked." },
+      checked: { type: "boolean", default: false, description: "Sets the switch to the on state." },
+      disabled: { type: "boolean", default: false, description: "Disables the switch." },
+      required: { type: "boolean", default: false, description: "Requires the switch before form submission." },
+      "aria-label": { type: "string", description: "Accessible label when there is no visible label." }
     },
     slots: []
   },
@@ -27776,7 +28186,7 @@ var manifest = [
     whenToUse: 'For simple modal dialogs without needing the full Dialog/AlertDialog component. Use class="sg-native-dialog".',
     avoidWhen: "When you need advanced features like nested dialogs, programmatic stacking, or complex composition - use Dialog or AlertDialog.",
     semanticRole: "dialog",
-    accessibilityRequirements: "Native <dialog> provides built-in focus trapping and escape-to-close. Add aria-labelledby for the title.",
+    accessibilityRequirements: ["Native <dialog> provides built-in focus trapping and escape-to-close. Add aria-labelledby for the title."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-native-dialog" on the <dialog> element.' },
       "data-size": { type: "string", values: ["sm", "md", "lg", "full"], default: "md", description: "Maximum width of the dialog." }
@@ -27791,11 +28201,16 @@ var manifest = [
     whenToUse: 'Showing progress of an operation. Use class="sg-progress" on a native <progress> element.',
     avoidWhen: "You need a loading placeholder - use Skeleton.",
     semanticRole: "progressbar",
-    accessibilityRequirements: "Requires associated label or aria-label.",
+    accessibilityRequirements: ["Requires an associated visible label, aria-labelledby, or aria-label.", "Omit value for indeterminate progress and provide text around the control that describes the operation."],
     props: {
       class: { type: "string", required: true, description: 'Use class="sg-progress" on a native <progress> element.' },
       "data-size": { type: "Size", values: SIZES, default: "md", description: "Progress bar height." },
-      "data-color": { type: "ColorVariant", values: ["primary", "success", "danger", "warning", "info"], default: "primary", description: "Progress bar color." }
+      "data-color": { type: "ColorVariant", values: ["primary", "success", "danger", "warning", "info"], default: "primary", description: "Progress bar color." },
+      value: { type: "number|string", description: "Current progress value. Omit the value attribute for indeterminate progress." },
+      max: { type: "number|string", default: "1", description: "Maximum progress value." },
+      "aria-label": { type: "string", description: "Accessible label when there is no visible label." },
+      "aria-labelledby": { type: "string", description: "ID reference for a visible progress label." },
+      "data-max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Caps the progress width while allowing it to shrink to available space. Use --sg-progress-max-width for custom CSS lengths." }
     },
     slots: []
   },
@@ -27810,9 +28225,9 @@ var manifest = [
     props: {
       side: { type: "string", values: ["left", "right"], default: "left", description: "Which side the sidebar appears on." },
       gap: { type: "SpacingRelationship", values: ["tight", "related", "grouped", "separated", "distinct"], default: "grouped", description: "Gestalt-based spacing between sidebar and content. tight~4px, related~8px, grouped~16px, separated~32px, distinct~64px." },
-      sidebarWidth: { type: "string", description: "Explicit sidebar width. Omit for intrinsic width based on content." },
+      "sidebar-width": { type: "string", description: "Explicit sidebar width. Omit for intrinsic width based on content." },
       collapsible: { type: "boolean", default: false, description: "Allow sidebar to collapse (requires collapse logic in SidebarLayoutSidebar)." },
-      collapseAt: { type: "CollapseBreakpoint", values: SIZES, default: "md", description: "Container width at which sidebar collapses to stacked layout. sm=30rem, md=48rem (default), lg=64rem." }
+      "collapse-at": { type: "CollapseBreakpoint", values: SIZES, default: "md", description: "Container width at which sidebar collapses to stacked layout. sm=30rem, md=48rem (default), lg=64rem." }
     },
     slots: ["default"]
   },
@@ -27848,14 +28263,15 @@ var manifest = [
     whenToUse: "To wrap any form control with consistent label, description, and error layout.",
     avoidWhen: "For inputs that already have their own label wiring (e.g. Input, Textarea with label prop).",
     semanticRole: "group",
-    accessibilityRequirements: "label prop is required. Error and description auto-wire aria-describedby.",
+    accessibilityRequirements: ["label prop is required. Error and description auto-wire aria-describedby."],
     props: {
       label: { type: "string", required: true, description: "Field label text" },
       error: { type: "string", description: "Error message" },
       description: { type: "string", description: "Help text" },
       required: { type: "boolean", default: false, description: "Show required indicator" },
       disabled: { type: "boolean", default: false, description: "Disable the field" },
-      htmlFor: { type: "string", description: "ID of the form control this field labels" }
+      htmlFor: { type: "string", description: "ID of the form control this field labels" },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional max width for the field." }
     },
     slots: ["default"]
   },
@@ -27871,6 +28287,13 @@ var manifest = [
       locale: { type: "string", description: "Optional locale override." },
       style: { type: "string", values: ["decimal", "currency", "percent", "unit"], default: "decimal", description: "Intl number style." },
       currency: { type: "string", description: "ISO currency code when style='currency'." },
+      "currency-display": { type: "string", values: ["symbol", "narrowSymbol", "code", "name"], description: "Currency display style." },
+      unit: { type: "string", description: "Unit identifier when style='unit', for example kilometer or byte." },
+      "unit-display": { type: "string", values: ["short", "narrow", "long"], description: "Unit display style." },
+      notation: { type: "string", values: ["standard", "scientific", "engineering", "compact"], description: "Number notation." },
+      "compact-display": { type: "string", values: ["short", "long"], description: "Compact notation display style." },
+      "sign-display": { type: "string", values: ["auto", "always", "exceptZero", "negative", "never"], description: "Controls when the sign is shown." },
+      "minimum-fraction-digits": { type: "number", description: "Minimum decimal precision." },
       "maximum-fraction-digits": { type: "number", description: "Maximum decimal precision." }
     },
     slots: []
@@ -27884,7 +28307,7 @@ var manifest = [
     avoidWhen: "You need a full status message - use Toast or an alert pattern.",
     semanticRole: "status",
     props: {
-      color: { type: "ColorVariant", values: COLOR_VARIANTS, default: "primary", description: "Semantic color indicating status." },
+      color: { type: "ColorVariant", values: ["primary", "secondary", "danger", "success", "warning", "info", "outline", "ghost"], default: "primary", description: "Semantic color indicating status." },
       size: { type: "Size", values: SIZES, default: "md", description: "Badge size." },
       icon: { type: "string", description: "Material Symbols icon name. Rendered before badge text." },
       href: { type: "string", description: "Renders as <a> when set." },
@@ -27897,14 +28320,14 @@ var manifest = [
     name: "GradientPattern",
     importPath: "sg/gradient-pattern",
     category: "basic",
-    description: "Dynamic gradient background patterns using preset factories. Supports 1–n semantic color tokens with fill/truncate to preset arity, numeric intensity (1–100), neutral-aware rendering, and extensible custom presets. Uses OKLCH color-mix for automatic dark mode and brand adaptation.",
-    whenToUse: "Add decorative gradient backgrounds to hero sections, cards, page backgrounds, or any container that needs visual richness. Use preset factories with parameters for positioned glows, directional auroras, etc. Adapts automatically to brand color, dark mode, and motion settings.",
+    description: "Dynamic decorative gradient background patterns using semantic color tokens and OKLCH color-mix.",
+    whenToUse: "Add decorative gradient backgrounds to hero sections, cards, page backgrounds, or any container that needs visual richness. Adapts automatically to brand color, dark mode, and motion settings.",
     avoidWhen: "Content needs maximum readability. Use solid backgrounds for text-heavy sections.",
     semanticRole: "presentation",
-    accessibilityRequirements: "Always decorative (aria-hidden). Content children remain accessible via inner content wrapper.",
+    accessibilityRequirements: ["Always decorative (aria-hidden). Content children remain accessible via inner content wrapper."],
     props: {
-      preset: { type: "PresetProp", values: ["mesh", "aurora", "glow", "sweep", "noise"], default: "mesh", description: "Gradient preset – built-in name or a PresetDefinition object from a factory function (e.g. glow({ positions, spread }))." },
-      colors: { type: "GradientColorToken[]", values: ["primary", "secondary", "tertiary", "accent", "success", "warning", "danger", "info", "neutral"], default: "primary", description: "Semantic color tokens (1–n). Fill/truncated to preset arity. When all tokens are 'neutral', algorithms shift lightness/chroma instead of hue." },
+      preset: { type: "PresetProp", values: ["mesh", "aurora", "glow", "sweep", "noise"], default: "mesh", description: "Gradient preset." },
+      colors: { type: "GradientColorToken[]", values: ["primary", "secondary", "tertiary", "accent", "success", "warning", "danger", "info", "neutral"], default: "primary", description: "Comma-separated semantic color tokens or CSS color values. When set to neutral, the pattern uses border/surface tones." },
       intensity: { type: "number", default: 30, description: "Intensity 1–100. Controls gradient opacity." },
       animated: { type: "boolean", default: false, description: "Enable ambient animation loop. Uses WAAPI, respects prefers-reduced-motion." },
       overlay: { type: "boolean", default: false, description: "Render as absolute-positioned layer behind content." },
@@ -27921,7 +28344,7 @@ var manifest = [
     whenToUse: "Brief, non-blocking feedback messages (success, error, info).",
     avoidWhen: "Blocking action needed - use AlertDialog. Persistent status - use Badge or inline message.",
     semanticRole: "alert or status",
-    accessibilityRequirements: "Uses role='status' (polite) or role='alert' (assertive) depending on color.",
+    accessibilityRequirements: ["Uses role='status' (polite) or role='alert' (assertive) depending on color."],
     props: {},
     slots: ["default"]
   },
@@ -27958,7 +28381,10 @@ var manifest = [
     whenToUse: "Creating horizontal or vertical overflow regions with consistent styling hooks.",
     semanticRole: "region",
     props: {
-      axis: { type: "string", values: ["x", "y", "both"], default: "x", description: "Primary scroll axis." }
+      axis: { type: "string", values: ["x", "y", "both"], default: "x", description: "Primary scroll axis." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains scroll container width." },
+      "max-height": { type: "Size", values: SIZES, description: "Constrains scroll container height." },
+      label: { type: "string", description: "Accessible region label." }
     },
     slots: ["default"]
   },
@@ -27970,10 +28396,11 @@ var manifest = [
     whenToUse: "Single expand/collapse section (show more, details).",
     avoidWhen: "Multiple collapsible sections - use Accordion.",
     semanticRole: "disclosure widget",
-    accessibilityRequirements: "Trigger should use aria-expanded and aria-controls.",
+    accessibilityRequirements: ["Trigger should use aria-expanded and aria-controls."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
       disabled: { type: "boolean", default: false, description: "Disables toggle." },
+      "max-width": { type: '"none" | "sm" | "md" | "lg" | "full"', values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains collapsible width." },
       onchange: { type: "(open: boolean) => void", description: "Called when open state changes." }
     },
     slots: ["default"]
@@ -28008,10 +28435,11 @@ var manifest = [
     whenToUse: "Destructive actions requiring confirmation (delete, discard, irreversible changes).",
     avoidWhen: "Non-destructive modals - use Dialog. Non-blocking info - use Popover or Toast.",
     semanticRole: "alertdialog",
-    accessibilityRequirements: "AlertDialogContent requires aria-label or aria-labelledby. Escape key is blocked.",
+    accessibilityRequirements: ["AlertDialogContent requires aria-label or aria-labelledby. Escape key is blocked."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      onclose: { type: "() => void", description: "Called when dialog is dismissed via explicit action." }
+      onclose: { type: "() => void", description: "Called when dialog is dismissed via explicit action." },
+      "max-width": { type: '"xs" | "sm" | "md" | "lg" | "xl"', default: "md", description: "Constrains the alert dialog panel width." }
     },
     slots: ["default"]
   },
@@ -28033,9 +28461,11 @@ var manifest = [
     description: "Content panel of an AlertDialog. Uses native <dialog>. Requires aria-label or aria-labelledby.",
     whenToUse: "Always inside an AlertDialogRoot.",
     semanticRole: "alertdialog",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "AlertDialogRoot",
-    props: {},
+    props: {
+      "max-width": { type: '"xs" | "sm" | "md" | "lg" | "xl"', default: "md", description: "Overrides the root max-width for this alert dialog panel." }
+    },
     slots: ["default"]
   },
   {
@@ -28110,14 +28540,16 @@ var manifest = [
     name: "TooltipRoot",
     importPath: "sg/tooltip",
     category: "overlay",
-    description: "Root controller for a tooltip. Uses CSS Anchor Positioning for placement.",
+    description: "Root controller for a tooltip with hover and focus triggered placement.",
     whenToUse: "Providing supplementary labels or descriptions on hover/focus.",
     avoidWhen: "Interactive content - use Popover. Critical information - display inline.",
     semanticRole: "tooltip",
-    accessibilityRequirements: "content is required. Auto-linked to trigger via aria-describedby.",
+    accessibilityRequirements: ["content is required. Auto-linked to trigger via aria-describedby."],
     props: {
       content: { type: "string", required: true, description: "Text shown in the tooltip." },
-      delay: { type: "number", default: 200, description: "Milliseconds before showing." }
+      delay: { type: "number", default: 700, description: "Milliseconds before showing." },
+      side: { type: '"top" | "right" | "bottom" | "left"', default: "top", description: "Preferred tooltip placement." },
+      "max-width": { type: '"xs" | "sm" | "md"', default: "xs", description: "Constrains tooltip text width before wrapping." }
     },
     slots: ["default"]
   },
@@ -28125,12 +28557,12 @@ var manifest = [
     name: "TooltipTrigger",
     importPath: "sg/tooltip",
     category: "overlay",
-    description: "Element that triggers the Tooltip on hover/focus. Sets CSS anchor-name for positioning.",
+    description: "Element that triggers the Tooltip on hover/focus.",
     whenToUse: "Always inside a TooltipRoot to identify the trigger element.",
     semanticRole: "none (wraps trigger content)",
     parent: "TooltipRoot",
     props: {
-      asChild: { type: "boolean", default: false, description: "Render as contents-only wrapper for direct child element." }
+      "as-child": { type: "boolean", default: false, description: "Render as contents-only wrapper for direct child element." }
     },
     slots: ["default"]
   },
@@ -28138,7 +28570,7 @@ var manifest = [
     name: "TooltipContent",
     importPath: "sg/tooltip",
     category: "overlay",
-    description: "Visual content of the Tooltip. Positioned via CSS Anchor Positioning relative to trigger.",
+    description: "Visual content of the Tooltip. Positioned relative to the trigger wrapper.",
     whenToUse: "Always inside a TooltipRoot.",
     semanticRole: "tooltip",
     parent: "TooltipRoot",
@@ -28196,7 +28628,8 @@ var manifest = [
     semanticRole: "status",
     props: {
       variant: { type: "string", values: ["default", "success", "warning", "danger"], default: "default", description: "Visual emphasis variant." },
-      size: { type: "Size", values: SIZES, default: "md", description: "Callout size scale." }
+      size: { type: "Size", values: SIZES, default: "md", description: "Callout size scale." },
+      "max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Optional max width." }
     },
     slots: ["default"]
   },
@@ -28223,12 +28656,14 @@ var manifest = [
     whenToUse: "Searchable/filterable selection from many options (search, tagging, autocomplete).",
     avoidWhen: "Few options without search - use Select. Free text - use Input.",
     semanticRole: "combobox + listbox",
-    accessibilityRequirements: "label is required. Input has role='combobox' with aria-autocomplete.",
+    accessibilityRequirements: ["label is required. Input has role='combobox' with aria-autocomplete."],
     props: {
       label: { type: "string", required: true, description: "Accessible label for the combobox - required." },
       value: { type: "string", description: "Currently selected value." },
       placeholder: { type: "string", default: "Search...", description: "Placeholder text for the input." },
       disabled: { type: "boolean", default: false, description: "Disables the combobox." },
+      open: { type: "boolean", default: false, description: "Controlled open state for the dropdown list." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl" | "full"', values: ["none", "xs", "sm", "md", "lg", "xl", "full"], default: "full", description: "Constrains combobox width." },
       onchange: { type: "(value: string) => void", description: "Called when selection changes." }
     },
     slots: ["default"]
@@ -28312,7 +28747,8 @@ var manifest = [
     semanticRole: "text",
     props: {
       value: { type: "number", required: true, description: "Raw byte value." },
-      decimals: { type: "number", default: 1, description: "Fraction digits for formatted output." }
+      decimals: { type: "number", default: 1, description: "Fraction digits for formatted output." },
+      base: { type: "number", values: [1000, 1024], default: 1024, description: "Unit step. Use 1000 for decimal storage/network metrics and 1024 for binary sizes." }
     },
     slots: []
   },
@@ -28324,13 +28760,15 @@ var manifest = [
     whenToUse: "Copying code snippets, URLs, IDs, or generated values.",
     avoidWhen: "Standard button actions that do not involve clipboard writes.",
     semanticRole: "button",
-    accessibilityRequirements: "Requires visible text or aria-label.",
+    accessibilityRequirements: ["Requires visible text or aria-label."],
     props: {
       for: { type: "string", description: "CSS selector used to resolve target text/value." },
       value: { type: "string", description: "Explicit value to copy (overrides for selector)." },
       "success-text": { type: "string", description: "Temporary label shown after a successful copy." },
       timeout: { type: "number", default: 1200, description: "Success-state reset delay in milliseconds." },
-      disabled: { type: "boolean", default: false, description: "Disable copy action." }
+      disabled: { type: "boolean", default: false, description: "Disable copy action." },
+      size: { type: "Size", values: SIZES, default: "md", description: "Button size." },
+      color: { type: "ColorVariant", values: ["primary", "secondary", "danger", "success", "warning", "info", "ghost", "outline"], default: "secondary", description: "Button color." }
     },
     slots: ["default"]
   },
@@ -28341,7 +28779,7 @@ var manifest = [
     description: "Renders one or more skip links for keyboard users to jump to major page regions.",
     whenToUse: "At the top of app/page layouts to improve keyboard navigation.",
     semanticRole: "navigation",
-    accessibilityRequirements: "Targets should be focusable and have stable IDs.",
+    accessibilityRequirements: ["Targets should be focusable and have stable IDs."],
     props: {
       links: { type: "SkipLinkConfig[]", description: "Array of skip link configs. Defaults to standard main/nav targets." }
     },
@@ -28355,7 +28793,7 @@ var manifest = [
     whenToUse: "For data visualization with simple datasets.",
     avoidWhen: "For complex interactive charts - use a dedicated charting library.",
     semanticRole: "img",
-    accessibilityRequirements: "role='img' with aria-label on SVG. Hidden <table> provides accessible data.",
+    accessibilityRequirements: ["role='img' with aria-label on SVG. Hidden <table> provides accessible data."],
     props: {
       type: { type: "ChartType", values: ["bar", "line", "area", "pie", "donut"], required: true, description: "Chart type" },
       data: { type: "ChartDataPoint[]", required: true, description: "Array of {label, value, color?} data points" },
@@ -28364,7 +28802,8 @@ var manifest = [
       color: { type: "ColorVariant", values: COLOR_VARIANTS, description: "Color variant" },
       showGrid: { type: "boolean", default: true, description: "Show grid lines (bar/line/area)" },
       showLabels: { type: "boolean", default: true, description: "Show axis labels" },
-      label: { type: "string", required: true, description: "Accessible label for the chart" }
+      label: { type: "string", required: true, description: "Accessible label for the chart" },
+      "max-width": { type: "Size", values: CONTAINER_SIZES, default: "full", description: "Constrains chart width." }
     },
     slots: []
   },
@@ -28379,7 +28818,9 @@ var manifest = [
       value: { type: "number", default: 0, description: "Selected rating value." },
       max: { type: "number", default: 5, description: "Maximum selectable rating." },
       readonly: { type: "boolean", default: false, description: "Prevents user interaction when true." },
-      "data-style": { type: "string", values: ["star", "heart"], default: "star", description: "Visual style of the rating symbols." }
+      "data-style": { type: "string", values: ["star", "heart"], default: "star", description: "Visual style of the rating symbols." },
+      size: { type: "Size", values: SIZES, default: "md", description: "Icon size." },
+      "aria-label": { type: "string", description: "Accessible label for the rating slider." }
     },
     slots: []
   },
@@ -28395,7 +28836,8 @@ var manifest = [
       elevation: { type: "Elevation", values: ELEVATIONS, default: 1, description: "Shadow depth level (0 = flat, 5 = highest)." },
       padding: { type: "boolean | Size", default: false, description: "Internal padding. true maps to 'md'. Accepts 'sm', 'md', 'lg'." },
       size: { type: "Size", values: SIZES, description: "Card width variant." },
-      density: { type: "Density", values: DENSITIES, description: "Adjusts internal spacing scale." }
+      density: { type: "Density", values: DENSITIES, description: "Adjusts internal spacing scale." },
+      "max-width": { type: "Size", values: CONTAINER_SIZES, default: "full", description: "Constrains the card width while preserving responsive behavior." }
     },
     slots: ["default"]
   },
@@ -28477,6 +28919,7 @@ var manifest = [
       relationship: { type: "SpacingRelationship | 'auto'", values: ["tight", "related", "grouped", "separated", "distinct", "auto"], description: "Alias for gap. Use 'auto' with data-depth to derive spacing by nesting level." },
       direction: { type: "string", values: ["vertical", "horizontal"], default: "vertical", description: "Main axis direction for child elements." },
       align: { type: "string", values: GRID_ALIGNMENTS, description: "Cross-axis alignment of children." },
+      justify: { type: "string", values: ["start", "center", "end", "space-between", "space-around", "space-evenly"], description: "Main-axis distribution of children." },
       wrap: { type: "boolean", default: false, description: "Allow children to wrap to next line when they overflow." },
       density: { type: "Density", values: DENSITIES, description: "Adjusts spacing scale for compact or spacious layouts." }
     },
@@ -28493,7 +28936,9 @@ var manifest = [
       value: { type: "string", required: true, description: "ISO date/time input." },
       locale: { type: "string", description: "Optional locale override (defaults to browser locale)." },
       "date-style": { type: "string", values: ["full", "long", "medium", "short"], default: "medium", description: "Date presentation style." },
-      "time-style": { type: "string", values: ["full", "long", "medium", "short"], description: "Optional time presentation style." }
+      "time-style": { type: "string", values: ["full", "long", "medium", "short"], description: "Optional time presentation style." },
+      "time-zone": { type: "string", description: "Optional IANA time zone such as UTC or America/New_York." },
+      hour12: { type: "boolean", description: "Force 12-hour or 24-hour time when a time style is shown." }
     },
     slots: []
   },
@@ -28520,14 +28965,15 @@ var manifest = [
     whenToUse: "Binary yes/no choices, or selecting multiple items from a list.",
     avoidWhen: "Mutually exclusive options - use RadioGroup. On/off toggle - consider Switch.",
     semanticRole: "checkbox",
-    accessibilityRequirements: "Requires associated label or aria-label.",
+    accessibilityRequirements: ["Requires associated label or aria-label."],
     props: {
       checked: { type: "boolean", default: false, description: "Initial checked state." },
       indeterminate: { type: "boolean", default: false, description: "Initial mixed state. First user toggle resolves to checked." },
       disabled: { type: "boolean", default: false, description: "Disables interaction and form submission." },
       "aria-label": { type: "string", description: "Accessible label when no visible text label is provided." },
       name: { type: "string", description: "Form field name forwarded to the internal input control." },
-      value: { type: "string", description: "Form value submitted when checked." }
+      value: { type: "string", description: "Form value submitted when checked." },
+      size: { type: "Size", values: SIZES, default: "md", description: "Checkbox control size." }
     },
     slots: ["default"]
   },
@@ -28544,7 +28990,9 @@ var manifest = [
       color: { type: "string", values: TEXT_COLORS, default: "primary", description: "Semantic text color." },
       weight: { type: "string", values: WEIGHTS, default: "normal", description: "Font weight." },
       align: { type: "string", values: ALIGNS, description: "Text alignment." },
-      as: { type: "string", values: ["p", "span", "div", "label"], default: "p", description: "HTML element to render." }
+      as: { type: "string", values: ["p", "span", "div", "label"], default: "p", description: 'Display hint. Use a native element with class="sg-text" when exact element semantics are required.' },
+      wrap: { type: "string", values: ["pretty", "normal", "nowrap"], default: "pretty", description: "Text wrapping behavior. nowrap truncates with an ellipsis." },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional max width for readable text measure." }
     },
     slots: ["default"]
   },
@@ -28568,7 +29016,9 @@ var manifest = [
     whenToUse: "Simple floating content where full Popover behavior is unnecessary.",
     semanticRole: "group",
     props: {
-      open: { type: "boolean", default: false, description: "Whether popup is visible." }
+      open: { type: "boolean", default: false, description: "Whether popup is visible." },
+      anchor: { type: '"trigger" | "none"', default: "none", description: "Adds a positioning hint for trigger-anchored wrapper styles." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md"', default: "none", description: "Constrains the popup wrapper width." }
     },
     slots: ["default"]
   },
@@ -28583,7 +29033,13 @@ var manifest = [
     props: {
       src: { type: "string", required: true, description: "Primary image source." },
       "reduced-src": { type: "string", description: "Fallback source used when prefers-reduced-motion is enabled." },
-      alt: { type: "string", default: "", description: "Accessible alternative text." }
+      alt: { type: "string", default: "", description: "Accessible alternative text." },
+      width: { type: "number", description: "Intrinsic image width." },
+      height: { type: "number", description: "Intrinsic image height." },
+      fit: { type: "string", values: ["contain", "cover"], default: "contain", description: "Image object-fit mode." },
+      radius: { type: "Size", values: ["sm", "md", "lg", "full"], description: "Image corner radius." },
+      loading: { type: "string", values: ["lazy", "eager"], default: "lazy", description: "Native image loading behavior." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains rendered image width." }
     },
     slots: []
   },
@@ -28595,7 +29051,7 @@ var manifest = [
     whenToUse: "Hero text animation, terminal effects, chatbot-style message reveal.",
     avoidWhen: "Static content that doesn't benefit from animation. Long paragraphs - can be disorienting.",
     semanticRole: "status",
-    accessibilityRequirements: "Sets aria-label to the full text so screen readers get the complete content immediately.",
+    accessibilityRequirements: ["Sets aria-label to the full text so screen readers get the complete content immediately."],
     props: {
       text: { type: "string | string[]", required: true, description: "Text to type out. Pass a string[] to cycle through multiple strings (type → pause → delete → next)." },
       speed: { type: "number", default: 50, description: "Milliseconds between each character." },
@@ -28615,12 +29071,12 @@ var manifest = [
     whenToUse: "Representing a user or entity with their photo or initials.",
     avoidWhen: "Displaying a generic icon - use Icon.",
     semanticRole: "img",
-    accessibilityRequirements: "alt is required. Falls back to initials derived from alt text.",
+    accessibilityRequirements: ["alt is required. Falls back to initials derived from alt text."],
     props: {
       src: { type: "string", description: "Image URL." },
       alt: { type: "string", required: true, description: "Alt text - required for accessibility. Initials are derived from this." },
       fallback: { type: "string", description: "Explicit initials or text shown when image fails." },
-      size: { type: "Size", values: SIZES, default: "md", description: "Avatar size." }
+      size: { type: "Size", values: ["sm", "md", "lg", "xl"], default: "md", description: "Avatar size." }
     },
     slots: ["default"]
   },
@@ -28652,11 +29108,12 @@ var manifest = [
     whenToUse: "Switching between panels of related content in the same view.",
     avoidWhen: "Page-level navigation - use links/router. Sequential steps - use a wizard.",
     semanticRole: "tablist + tabpanel",
-    accessibilityRequirements: "Arrow keys navigate tabs. Home/End jump to first/last tab. Tab panels are linked via aria-controls.",
+    accessibilityRequirements: ["Arrow keys navigate tabs. Home/End jump to first/last tab. Tab panels are linked via aria-controls."],
     props: {
       value: { type: "string", description: "Active tab value. Bindable." },
-      defaultValue: { type: "string", description: "Initial tab value when uncontrolled." },
-      onchange: { type: "(value: string) => void", description: "Called when active tab changes." }
+      "default-value": { type: "string", description: "Initial tab value when uncontrolled." },
+      onchange: { type: "(value: string) => void", description: "Called when active tab changes." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains tab interface width." }
     },
     slots: ["default"]
   },
@@ -28669,7 +29126,9 @@ var manifest = [
     semanticRole: "tablist",
     parent: "TabsRoot",
     props: {
-      loop: { type: "boolean", default: true, description: "Whether keyboard navigation loops from last to first tab." }
+      loop: { type: "boolean", default: true, description: "Whether keyboard navigation loops from last to first tab." },
+      variant: { type: '"line" | "pills"', default: "line", description: "Visual style for the tab triggers." },
+      justify: { type: '"start" | "center" | "end" | "space-between" | "space-around" | "space-evenly"', default: "start", description: "Horizontal distribution of tab triggers." }
     },
     slots: ["default"]
   },
@@ -28709,7 +29168,8 @@ var manifest = [
     avoidWhen: "For error states - use Alert instead.",
     props: {
       title: { type: "string", description: "Empty state heading" },
-      description: { type: "string", description: "Explanatory text" }
+      description: { type: "string", description: "Explanatory text" },
+      "max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Optional max width." }
     },
     slots: ["default", "icon", "actions"]
   },
@@ -28721,10 +29181,11 @@ var manifest = [
     whenToUse: "Modal interactions requiring user attention (confirmation, forms, detail views).",
     avoidWhen: "Non-blocking information - use Popover. Destructive confirmations - use AlertDialog.",
     semanticRole: "dialog",
-    accessibilityRequirements: "DialogContent requires aria-label or aria-labelledby. Focus is automatically trapped by native <dialog>.",
+    accessibilityRequirements: ["DialogContent requires aria-label or aria-labelledby. Focus is automatically trapped by native <dialog>."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      onclose: { type: "() => void", description: "Called when dialog is dismissed." }
+      onclose: { type: "() => void", description: "Called when dialog is dismissed." },
+      "max-width": { type: '"xs" | "sm" | "md" | "lg" | "xl"', default: "md", description: "Constrains the dialog panel width." }
     },
     slots: ["default"]
   },
@@ -28746,9 +29207,11 @@ var manifest = [
     description: "Content panel of a Dialog. Uses native <dialog> with showModal(). Requires aria-label or aria-labelledby for accessibility.",
     whenToUse: "Always inside a DialogRoot to provide the dialog content.",
     semanticRole: "dialog",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "DialogRoot",
-    props: {},
+    props: {
+      "max-width": { type: '"xs" | "sm" | "md" | "lg" | "xl"', default: "md", description: "Overrides the root max-width for this dialog panel." }
+    },
     slots: ["default"]
   },
   {
@@ -28759,7 +29222,9 @@ var manifest = [
     whenToUse: "Inside DialogContent, typically in DialogFooter or as a close button in the header.",
     semanticRole: "button",
     parent: "DialogRoot",
-    props: {},
+    props: {
+      placement: { type: '"inline" | "corner"', default: "inline", description: "Use corner for an icon-style close button pinned to the panel corner." }
+    },
     slots: ["default"]
   },
   {
@@ -28780,7 +29245,7 @@ var manifest = [
     description: "Title heading of a Dialog. Announced by screen readers when the dialog opens.",
     whenToUse: "Inside DialogHeader. Always required for accessible dialogs.",
     semanticRole: "heading",
-    accessibilityRequirements: "Required for accessible dialogs. Use aria-labelledby on DialogContent pointing to this title.",
+    accessibilityRequirements: ["Required for accessible dialogs. Use aria-labelledby on DialogContent pointing to this title."],
     parent: "DialogRoot",
     props: {
       as: { type: '"h1" | "h2" | "h3" | "h4" | "h5" | "h6"', default: "h2", description: "Heading level for semantic structure." }
@@ -28817,7 +29282,8 @@ var manifest = [
     whenToUse: "For images, videos, or embeds that need a consistent aspect ratio.",
     avoidWhen: "When content should flow naturally without ratio constraints.",
     props: {
-      ratio: { type: "number", default: 1, description: "Width-to-height ratio (e.g. 16/9)" }
+      ratio: { type: "number", default: 1, description: "Width-to-height ratio. Accepts a number or a fraction string such as '16 / 9'." },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional preview/container max width." }
     },
     slots: ["default"]
   },
@@ -28829,12 +29295,13 @@ var manifest = [
     whenToUse: "For lists or tables that split content across multiple pages.",
     avoidWhen: "For infinite scroll - use intersection observer instead.",
     semanticRole: "navigation",
-    accessibilityRequirements: "aria-label='Pagination' on nav. aria-current='page' on active page.",
+    accessibilityRequirements: ["aria-label='Pagination' on nav. aria-current='page' on active page."],
     props: {
       page: { type: "number", required: true, description: "Current active page (1-indexed)" },
       total: { type: "number", required: true, description: "Total number of items" },
-      perPage: { type: "number", default: 10, description: "Items per page" },
-      siblingCount: { type: "number", default: 1, description: "Number of page buttons on each side of active" }
+      "per-page": { type: "number", default: 10, description: "Items per page" },
+      "sibling-count": { type: "number", default: 1, description: "Number of page buttons on each side of active" },
+      "max-width": { type: '"none" | "xs" | "sm" | "md"', default: "none", description: "Constrains the pagination control width." }
     },
     slots: ["default"]
   },
@@ -28931,12 +29398,13 @@ var manifest = [
     whenToUse: "Toolbar actions where icon-only affordance is appropriate.",
     avoidWhen: "Primary actions that need explicit text labels.",
     semanticRole: "button",
-    accessibilityRequirements: "Requires aria-label when no visible text is present.",
+    accessibilityRequirements: ["Requires aria-label when no visible text is present."],
     props: {
       size: { type: "Size", values: SIZES, default: "md", description: "Button size." },
       color: { type: "ColorVariant", values: COLOR_VARIANTS, default: "ghost", description: "Visual color treatment." },
       disabled: { type: "boolean", default: false, description: "Disable interaction." },
-      pressed: { type: "boolean", description: "Optional toggle pressed state for aria-pressed semantics." }
+      pressed: { type: "boolean", description: "Optional toggle pressed state for aria-pressed semantics." },
+      icon: { type: "string", description: "Icon name rendered with sg-icon when no custom icon slot is needed." }
     },
     slots: ["default"]
   },
@@ -28965,7 +29433,9 @@ var manifest = [
     avoidWhen: "Native scrollbars are acceptable - use CSS overflow.",
     semanticRole: "none (container)",
     props: {
-      type: { type: "string", values: ["auto", "always", "scroll", "hover"], default: "hover", description: "Scrollbar visibility behavior." }
+      type: { type: "string", values: ["auto", "always", "scroll", "hover"], default: "hover", description: "Scrollbar visibility behavior." },
+      height: { type: "Size", values: SIZES, description: "Sets a fixed viewport height for scrollable demos and panels." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains scroll area width." }
     },
     slots: ["default"]
   },
@@ -28997,14 +29467,16 @@ var manifest = [
     category: "navigation",
     description: "Collapsible side navigation panel. Renders as <aside> with expandable/collapsible state.",
     whenToUse: "For persistent app-level navigation in dashboard or admin layouts.",
-    avoidWhen: "For temporary navigation panels - use Sheet or Drawer.",
+    avoidWhen: "For temporary navigation panels - use Sheet.",
     semanticRole: "complementary",
-    accessibilityRequirements: "aria-label on <aside>. Toggle button for collapse/expand.",
+    accessibilityRequirements: ["aria-label on <aside>. Toggle button for collapse/expand."],
     props: {
       state: { type: "string", values: ["expanded", "collapsed"], default: "expanded", description: "Current sidebar state" },
       collapsible: { type: "boolean", default: true, description: "Whether sidebar can be collapsed" },
       width: { type: "string", default: "16rem", description: "Width when expanded" },
-      collapsedWidth: { type: "string", default: "4rem", description: "Width when collapsed" },
+      "collapsed-width": { type: "string", default: "4rem", description: "Width when collapsed" },
+      "min-width": { type: "string", description: "Minimum sidebar width." },
+      "max-width": { type: "string", description: "Maximum sidebar width." },
       side: { type: "string", values: ["left", "right"], default: "left", description: "Which side of the viewport" }
     },
     slots: ["default"]
@@ -29045,7 +29517,8 @@ var manifest = [
     props: {
       title: { type: "string", description: "Section heading" },
       collapsible: { type: "boolean", default: false, description: "Whether section can collapse" },
-      defaultOpen: { type: "boolean", default: true, description: "Initial open state" }
+      open: { type: "boolean", default: true, description: "Controlled open state for the section" },
+      "default-open": { type: "boolean", default: true, description: "Initial open state" }
     },
     slots: ["default"]
   },
@@ -29092,7 +29565,7 @@ var manifest = [
     semanticRole: "none (layout primitive)",
     props: {
       size: { type: "string", values: CONTAINER_SIZES, default: "lg", description: "Max-width breakpoint. 'full' removes the constraint." },
-      padding: { type: "boolean", default: true, description: "Add horizontal padding to prevent content touching edges." }
+      padding: { type: "boolean", default: false, description: "Add horizontal padding to prevent content touching edges." }
     },
     slots: ["default"]
   },
@@ -29104,7 +29577,10 @@ var manifest = [
     whenToUse: "Side-by-side or stacked dual-panel interfaces.",
     semanticRole: "group",
     props: {
-      direction: { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Panel arrangement axis." }
+      direction: { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Panel arrangement axis." },
+      gap: { type: "SpacingRelationship", values: ["tight", "related", "grouped", "separated", "distinct"], default: "grouped", description: "Spacing between the two panels." },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional max width for the split layout." },
+      collapse: { type: "string", values: SIZES, description: "Viewport breakpoint where horizontal panels stack." }
     },
     slots: ["default"]
   },
@@ -29154,7 +29630,7 @@ var manifest = [
       thickness: { type: "number", default: 6, description: "Ring thickness in base units." },
       disabled: { type: "boolean", default: false, description: "Disable interaction." },
       label: { type: "string", required: true, description: "Accessible label for the hue slider." },
-      swatch: { type: "boolean", default: false, description: "Reserved for compatibility." },
+      swatch: { type: "boolean", default: true, description: "Shows the inline swatch/control panel. Set to false when embedding the wheel inside a separate trigger." },
       showValue: { type: "boolean", default: false, description: "Display current value as read-only text (hex or OKLCH depending on mode)." },
       input: { type: "boolean", default: false, description: "Enable editable value inputs (hex in value mode; L/C/H numeric inputs in OKLCH mode)." },
       mode: { type: "string", values: ["inline", "popover"], default: "inline", description: "Rendering mode. inline shows ring + swatch together; popover shows swatch/value and opens ring on click." },
@@ -29173,7 +29649,8 @@ var manifest = [
     semanticRole: "progressbar",
     props: {
       value: { type: "number", default: 0, description: "Current progress value." },
-      max: { type: "number", default: 100, description: "Maximum progress value." }
+      max: { type: "number", default: 100, description: "Maximum progress value." },
+      size: { type: "Size", values: SIZES, default: "md", description: "Ring size." }
     },
     slots: []
   },
@@ -29185,9 +29662,10 @@ var manifest = [
     whenToUse: "Progressive disclosure of multiple sections (FAQs, settings groups).",
     avoidWhen: "Only one section to expand - use Collapsible.",
     semanticRole: "group of disclosure widgets",
-    accessibilityRequirements: "Each item has a heading + button trigger. Keyboard: Enter/Space toggles, arrows navigate.",
+    accessibilityRequirements: ["Each item has a heading + button trigger. Keyboard: Enter/Space toggles, arrows navigate."],
     props: {
-      multiple: { type: "boolean", default: false, description: "Allow multiple items open at once." }
+      multiple: { type: "boolean", default: false, description: "Allow multiple items open at once." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg"', default: "none", description: "Constrains accordion width." }
     },
     slots: ["default"]
   },
@@ -29231,12 +29709,15 @@ var manifest = [
     name: "QrCode",
     importPath: "sg/qr-code",
     category: "data-display",
-    description: "QR-code-like visual encoding surface for short values.",
+    description: "Scannable SVG QR code for short text and URL values.",
     whenToUse: "Displaying quick-scannable references for links and IDs.",
     semanticRole: "img",
     props: {
       value: { type: "string", required: true, description: "Encoded content value." },
-      size: { type: "number", default: 128, description: "Rendered square size in CSS pixels." }
+      size: { type: "number", default: 128, description: "Rendered square size in CSS pixels." },
+      foreground: { type: "string", default: "#000", description: "Foreground color. Accepts a CSS color or semantic token such as primary." },
+      background: { type: "string", default: "#fff", description: "Background color. Accepts a CSS color or semantic token." },
+      label: { type: "string", description: "Accessible SVG label. Defaults to the encoded value." }
     },
     slots: []
   },
@@ -29248,7 +29729,7 @@ var manifest = [
     whenToUse: "Displaying icons alongside text or as standalone meaningful symbols. Use font mode with Material Symbols for large icon sets.",
     avoidWhen: "User avatar - use Avatar. Decorative images - use <img>.",
     semanticRole: "img (when label is set) or none (decorative)",
-    accessibilityRequirements: "Decorative icons are aria-hidden. Semantic icons require label prop for aria-label.",
+    accessibilityRequirements: ["Decorative icons are aria-hidden. Semantic icons require label prop for aria-label."],
     props: {
       name: { type: "string", description: "Icon name. In font mode (no children), rendered as ligature text for Material Symbols." },
       size: { type: "IconSize", values: ICON_SIZES, default: "default", description: "Icon size." },
@@ -29270,10 +29751,11 @@ var manifest = [
     whenToUse: "Contextual list of actions triggered from a button (more actions, user menu).",
     avoidWhen: "Navigation links - use a nav list. Form selection - use Select.",
     semanticRole: "menu",
-    accessibilityRequirements: "MenuContent requires aria-label or aria-labelledby. Arrow keys navigate items.",
+    accessibilityRequirements: ["MenuContent requires aria-label or aria-labelledby. Arrow keys navigate items."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      onclose: { type: "() => void", description: "Called when menu is dismissed." }
+      onclose: { type: "() => void", description: "Called when menu is dismissed." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the menu wrapper width." }
     },
     slots: ["default"]
   },
@@ -29295,7 +29777,7 @@ var manifest = [
     description: "Container for MenuItems. Uses native popover attribute.",
     whenToUse: "Always inside a MenuRoot.",
     semanticRole: "menu",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "MenuRoot",
     props: {},
     slots: ["default"]
@@ -29307,7 +29789,7 @@ var manifest = [
     description: "Single action item in a Menu.",
     whenToUse: "Always inside MenuContent.",
     semanticRole: "menuitem",
-    accessibilityRequirements: "Must have visible text content or aria-label.",
+    accessibilityRequirements: ["Must have visible text content or aria-label."],
     parent: "MenuRoot",
     props: {
       disabled: { type: "boolean", default: false, description: "Disables this menu item." },
@@ -29329,7 +29811,8 @@ var manifest = [
       title: { type: "string", description: "Optional title shown in the header bar." },
       showLineNumbers: { type: "boolean", default: false, description: "Show line number gutter." },
       highlightLines: { type: "number[]", description: "Array of 1-indexed line numbers to highlight." },
-      diff: { type: "boolean", default: false, description: "Enable diff mode – colors lines by +/- prefix." }
+      diff: { type: "boolean", default: false, description: "Enable diff mode – colors lines by +/- prefix." },
+      "max-width": { type: "Size", values: CONTAINER_SIZES, default: "full", description: "Constrains the code block width for dense documentation layouts." }
     },
     slots: ["highlighted"]
   },
@@ -29341,7 +29824,7 @@ var manifest = [
     whenToUse: "Indicating loading state for actions or content.",
     avoidWhen: "Content placeholder - use Skeleton. Known progress - use Progress.",
     semanticRole: "status",
-    accessibilityRequirements: "Uses role='status' with aria-label for screen readers.",
+    accessibilityRequirements: ["Uses role='status' with aria-label for screen readers."],
     props: {
       size: { type: "Size", values: SIZES, default: "md", description: "Spinner size." },
       label: { type: "string", default: "Loading", description: "Accessible label for screen readers." }
@@ -29371,13 +29854,14 @@ var manifest = [
     whenToUse: "For image galleries, testimonials, or any paginated slide content.",
     avoidWhen: "For static grids of items - use Grid instead.",
     semanticRole: "region with aria-roledescription='carousel'",
-    accessibilityRequirements: "aria-roledescription='carousel' on root. Arrow keys navigate slides (Left/Right for horizontal, Up/Down for vertical). Home/End jump to first/last slide. Slides have aria-roledescription='slide' and labeled 'Slide N of M'. Non-active slides have aria-hidden='true'. Autoplay pauses on hover/focus.",
+    accessibilityRequirements: ["aria-roledescription='carousel' on root. Arrow keys navigate slides (Left/Right for horizontal, Up/Down for vertical). Home/End jump to first/last slide. Slides have aria-roledescription='slide' and labeled 'Slide N of M'. Non-active slides have aria-hidden='true'. Autoplay pauses on hover/focus."],
     props: {
       orientation: { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Scroll direction" },
       loop: { type: "boolean", default: false, description: "Loop back to start/end" },
       autoplay: { type: "boolean", default: false, description: "Enable autoplay" },
       autoplayInterval: { type: "number", default: 5000, description: "Autoplay interval in ms" },
-      onchange: { type: "(index: number) => void", description: "Called when slide changes" }
+      onchange: { type: "(index: number) => void", description: "Called when slide changes" },
+      "max-width": { type: "Size", values: CONTAINER_SIZES, default: "full", description: "Constrains carousel width." }
     },
     slots: ["default"]
   },
@@ -29426,7 +29910,8 @@ var manifest = [
     whenToUse: "Wrapping one or more tab sets that share layout or context.",
     semanticRole: "tablist container",
     props: {
-      orientation: { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Tab orientation hint." }
+      orientation: { type: "string", values: ["horizontal", "vertical"], default: "horizontal", description: "Tab orientation hint." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains tab group width." }
     },
     slots: ["default"]
   },
@@ -29438,10 +29923,11 @@ var manifest = [
     whenToUse: "Non-modal overlays (additional info, forms, pickers) that can be dismissed by clicking outside.",
     avoidWhen: "Modal interaction requiring focus trap - use Dialog. Simple text hint - use Tooltip.",
     semanticRole: "dialog (non-modal)",
-    accessibilityRequirements: "PopoverContent requires aria-label or aria-labelledby.",
+    accessibilityRequirements: ["PopoverContent requires aria-label or aria-labelledby."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      onclose: { type: "() => void", description: "Called when popover is dismissed." }
+      onclose: { type: "() => void", description: "Called when popover is dismissed." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the popover wrapper width." }
     },
     slots: ["default"]
   },
@@ -29463,7 +29949,7 @@ var manifest = [
     description: "Content panel of a Popover. Uses native popover attribute with CSS Anchor Positioning.",
     whenToUse: "Always inside a PopoverRoot to provide the popover content.",
     semanticRole: "dialog (non-modal)",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "PopoverRoot",
     props: {},
     slots: ["default"]
@@ -29478,7 +29964,9 @@ var manifest = [
     semanticRole: "none",
     props: {
       src: { type: "string", required: true, description: "URL to fetch." },
-      mode: { type: "string", values: ["html", "text"], default: "html", description: "Injection mode for fetched response." }
+      mode: { type: "string", values: ["html", "text"], default: "html", description: "Injection mode for fetched response. HTML mode is sanitized unless trusted is set." },
+      trusted: { type: "boolean", default: false, description: "Bypass HTML sanitization for controlled, trusted markup sources." },
+      display: { type: "string", values: ["contents", "block"], default: "contents", description: "Host display mode. Use block when loading state styling or layout sizing is needed." }
     },
     slots: []
   },
@@ -29510,7 +29998,8 @@ var manifest = [
       title: { type: "string", description: "Section heading text." },
       description: { type: "string", description: "Descriptive text below the heading." },
       level: { type: "HeadingLevel", values: [1, 2, 3, 4, 5, 6], default: 2, description: "HTML heading level for the title." },
-      gap: { type: "SpacingRelationship", values: ["tight", "related", "grouped", "separated", "distinct"], default: "grouped", description: "Spacing between header and content. tight~4px, related~8px, grouped~16px, separated~32px, distinct~64px." }
+      gap: { type: "SpacingRelationship", values: ["tight", "related", "grouped", "separated", "distinct"], default: "grouped", description: "Spacing between header and content. tight~4px, related~8px, grouped~16px, separated~32px, distinct~64px." },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Constrains the generated header and content wrappers." }
     },
     slots: ["default"]
   },
@@ -29523,7 +30012,8 @@ var manifest = [
     semanticRole: "toolbar",
     props: {
       magnification: { type: "number", default: 1.5, description: "Hover magnification multiplier." },
-      iconSize: { type: "number", default: 12, description: "Base icon size in SigUI base-unit multiples." }
+      "icon-size": { type: "number", default: 12, description: "Base icon size in SigUI base-unit multiples." },
+      "max-width": { type: '"none" | "sm" | "md"', default: "none", description: "Constrains the dock width." }
     },
     slots: ["default"]
   },
@@ -29562,8 +30052,10 @@ var manifest = [
     whenToUse: "For application-style menu bars with multiple dropdown menus.",
     avoidWhen: "For a single dropdown menu - use Menu instead.",
     semanticRole: "menubar",
-    accessibilityRequirements: "Left/Right arrow keys navigate between menus. Down arrow opens dropdown.",
-    props: {},
+    accessibilityRequirements: ["Left/Right arrow keys navigate between menus. Down arrow opens dropdown."],
+    props: {
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the menubar width." }
+    },
     slots: ["default"]
   },
   {
@@ -29573,6 +30065,7 @@ var manifest = [
     description: "Individual menu within a MenubarRoot.",
     parent: "MenubarRoot",
     props: {
+      open: { type: "boolean", default: false, description: "Controlled open state for this menu." },
       label: { type: "string", required: true, description: "Menu label" }
     },
     slots: ["default"]
@@ -29672,7 +30165,9 @@ var manifest = [
     description: "Container for a submenu within a MenubarItem.",
     whenToUse: "For nested menu structures.",
     parent: "MenubarRoot",
-    props: {},
+    props: {
+      open: { type: "boolean", default: false, description: "Controlled open state for the submenu." }
+    },
     slots: ["default"]
   },
   {
@@ -29698,47 +30193,6 @@ var manifest = [
     slots: ["default"]
   },
   {
-    name: "DrawerRoot",
-    importPath: "sg/drawer",
-    category: "overlay",
-    description: "Bottom-anchored overlay panel using native <dialog>. Ideal for mobile-first interactions.",
-    whenToUse: "For mobile-friendly bottom sheets and action panels.",
-    avoidWhen: "For side panels - use Sheet. For centered modals - use Dialog.",
-    semanticRole: "dialog",
-    accessibilityRequirements: "ModalLabelProps: aria-label or aria-labelledby required on DrawerContent.",
-    props: {
-      open: { type: "boolean", default: false, description: "Whether the drawer is open" }
-    },
-    slots: ["default"]
-  },
-  {
-    name: "DrawerTrigger",
-    importPath: "sg/drawer",
-    category: "overlay",
-    description: "Button that opens the parent DrawerRoot.",
-    parent: "DrawerRoot",
-    props: {},
-    slots: ["default"]
-  },
-  {
-    name: "DrawerContent",
-    importPath: "sg/drawer",
-    category: "overlay",
-    description: "The <dialog> content panel of a Drawer.",
-    parent: "DrawerRoot",
-    props: {},
-    slots: ["default"]
-  },
-  {
-    name: "DrawerHandle",
-    importPath: "sg/drawer",
-    category: "overlay",
-    description: "Visual drag handle indicator for a Drawer.",
-    parent: "DrawerRoot",
-    props: {},
-    slots: []
-  },
-  {
     name: "AnimatePresence",
     importPath: "sg/animate-presence",
     category: "layout",
@@ -29760,7 +30214,9 @@ var manifest = [
     whenToUse: "File explorers, nested navigation, or hierarchical selection.",
     semanticRole: "tree",
     props: {
-      selectable: { type: "boolean", default: false, description: "Enables selection semantics for tree items." }
+      selectable: { type: "boolean", default: false, description: "Enables selection semantics for tree items." },
+      density: { type: "Density", values: DENSITIES, default: "comfortable", description: "Controls tree item compactness." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains tree width." }
     },
     slots: ["default"]
   },
@@ -29773,7 +30229,9 @@ var manifest = [
     avoidWhen: "Command/action lists with keyboard navigation (use Menu).",
     semanticRole: "group",
     props: {
-      open: { type: "boolean", default: false, description: "Whether dropdown content is open." }
+      open: { type: "boolean", default: false, description: "Whether dropdown content is open." },
+      display: { type: '"inline" | "block"', default: "inline", description: "Controls whether the dropdown sizes to content or fills its container." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the dropdown wrapper width." }
     },
     slots: ["default"]
   },
@@ -29804,7 +30262,10 @@ var manifest = [
       step: { type: "number", description: "Increment step value." },
       placeholder: { type: "string", description: "Placeholder text." },
       required: { type: "boolean", default: false, description: "Marks input as required." },
-      disabled: { type: "boolean", default: false, description: "Disables user input." }
+      disabled: { type: "boolean", default: false, description: "Disables user input." },
+      readonly: { type: "boolean", default: false, description: "Makes the input read-only." },
+      size: { type: "Size", values: SIZES, default: "md", description: "Input size." },
+      "max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Optional max width." }
     },
     slots: []
   },
@@ -29818,7 +30279,8 @@ var manifest = [
     semanticRole: "group",
     props: {
       size: { type: "Size", values: SIZES, default: "md", description: "Size of the group (sm, md, lg)" },
-      disabled: { type: "boolean", default: false, description: "Disable the entire input group" }
+      disabled: { type: "boolean", default: false, description: "Disable the entire input group" },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional max width for the group" }
     },
     slots: ["default"]
   },
@@ -29890,7 +30352,7 @@ var manifest = [
     parent: "InputGroup",
     props: {
       size: { type: "InputGroupButtonSize", values: ["xs", "icon-xs", "sm", "icon-sm"], default: "xs", description: "Button size" },
-      variant: { type: "ColorVariant", values: COLOR_VARIANTS, default: "ghost", description: "Color variant" },
+      variant: { type: "ColorVariant", values: ["primary", "secondary", "danger", "success", "warning", "info", "outline", "ghost"], default: "ghost", description: "Color variant" },
       disabled: { type: "boolean", default: false, description: "Disable the button" },
       type: { type: "string", values: ["button", "submit", "reset"], default: "button", description: "Button type" },
       href: { type: "string", description: "If provided, renders as anchor link" }
@@ -29905,12 +30367,14 @@ var manifest = [
     whenToUse: "Section headings that establish document hierarchy.",
     avoidWhen: "You just want large/bold text without semantic heading - use Text with weight='bold'.",
     semanticRole: "heading",
-    accessibilityRequirements: "Use sequential heading levels (h1 → h2 → h3). Never skip levels.",
+    accessibilityRequirements: ["Use sequential heading levels (h1 → h2 → h3). Never skip levels."],
     props: {
-      level: { type: "HeadingLevel", values: [1, 2, 3, 4, 5, 6], required: true, description: "Semantic heading level (h1-h6). Determines the HTML tag." },
+      level: { type: "HeadingLevel", values: [1, 2, 3, 4, 5, 6], required: true, description: 'Semantic heading level (1-6). Sets role="heading" and aria-level.' },
       size: { type: "HeadingSize", values: HEADING_SIZES, description: "Visual size. Auto-mapped from level if omitted." },
       color: { type: "string", values: HEADING_COLORS, default: "primary", description: "Semantic text color." },
-      align: { type: "string", values: ALIGNS, description: "Text alignment." }
+      align: { type: "string", values: ALIGNS, description: "Text alignment." },
+      wrap: { type: "string", values: ["balance", "pretty", "normal", "nowrap"], default: "balance", description: "Text wrapping behavior. nowrap truncates with an ellipsis." },
+      "max-width": { type: "string", values: CONTAINER_SIZES, default: "full", description: "Optional max width for long headings." }
     },
     slots: ["default"]
   },
@@ -29922,10 +30386,11 @@ var manifest = [
     whenToUse: "Side panels for navigation, filters, or detail views that slide in from an edge.",
     avoidWhen: "Centered modal - use Dialog. Small inline overlay - use Popover.",
     semanticRole: "dialog",
-    accessibilityRequirements: "SheetContent requires aria-label or aria-labelledby.",
+    accessibilityRequirements: ["SheetContent requires aria-label or aria-labelledby."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      side: { type: "string", values: ["top", "right", "bottom", "left"], default: "right", description: "Edge the panel slides in from." },
+      side: { type: '"top" | "right" | "bottom" | "left"', values: ["top", "right", "bottom", "left"], default: "right", description: "Edge the panel slides in from." },
+      size: { type: '"xs" | "sm" | "md" | "lg"', default: "sm", description: "Controls sheet width for left/right sheets and height for top/bottom sheets." },
       onclose: { type: "() => void", description: "Called when sheet is dismissed." }
     },
     slots: ["default"]
@@ -29948,7 +30413,7 @@ var manifest = [
     description: "Side-anchored content panel of a Sheet. Uses native <dialog> with showModal(). Requires aria-label or aria-labelledby.",
     whenToUse: "Always inside a SheetRoot.",
     semanticRole: "dialog",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "SheetRoot",
     props: {},
     slots: ["default"]
@@ -29962,7 +30427,8 @@ var manifest = [
     semanticRole: "button",
     parent: "SheetRoot",
     props: {
-      "aria-label": { type: "string", default: "Close", description: "Accessible label for the close button." }
+      "aria-label": { type: "string", default: "Close", description: "Accessible label for the close button." },
+      placement: { type: '"inline" | "corner"', default: "inline", description: "Use corner for an icon-style close button pinned to the panel corner." }
     },
     slots: ["default"]
   },
@@ -30020,12 +30486,13 @@ var manifest = [
     whenToUse: "Choosing one option from a list too long for radio buttons (>7 options).",
     avoidWhen: "Few visible options - use RadioGroup. Multi-select - use Checkbox group.",
     semanticRole: "listbox",
-    accessibilityRequirements: "label is required. Keyboard navigation with arrow keys.",
+    accessibilityRequirements: ["label is required. Keyboard navigation with arrow keys."],
     props: {
       label: { type: "string", required: true, description: "Accessible label for the select - required." },
       value: { type: "string", description: "Currently selected value." },
       placeholder: { type: "string", description: "Shown when no value is selected." },
       disabled: { type: "boolean", default: false, description: "Disables the select." },
+      "max-width": { type: '"xs" | "sm" | "md" | "lg" | "xl" | "none" | "full"', default: "none", description: "Constrains the rendered select width when the control should align with form layouts." },
       onchange: { type: "(value: string) => void", description: "Called when selection changes." }
     },
     slots: ["default"]
@@ -30095,7 +30562,7 @@ var manifest = [
     description: "Screen-reader live region announcer for route/page title changes.",
     whenToUse: "Client-side routed apps where page updates do not trigger full reload announcements.",
     semanticRole: "status",
-    accessibilityRequirements: "Provide a meaningful pageTitle on each route change.",
+    accessibilityRequirements: ["Provide a meaningful pageTitle on each route change."],
     props: {
       pageTitle: { type: "string", required: true, description: "Title text announced to assistive technology." }
     },
@@ -30109,14 +30576,15 @@ var manifest = [
     whenToUse: "When users need to pick a date from a visual calendar grid.",
     avoidWhen: "For simple date input - use a native date <input> instead.",
     semanticRole: "grid",
-    accessibilityRequirements: "Arrow keys navigate days (Left/Right/Up/Down). Home/End jump to first/last day. PageUp/PageDown change months. Enter/Space selects. Visual focus indicator on focused day.",
+    accessibilityRequirements: ["Arrow keys navigate days (Left/Right/Up/Down). Home/End jump to first/last day. PageUp/PageDown change months. Enter/Space selects. Visual focus indicator on focused day."],
     props: {
       mode: { type: "string", values: ["single", "range"], default: "single", description: "Single date or date range" },
       value: { type: "string", description: "Selected date (ISO format) or {start,end} for range mode" },
       "default-date": { type: "string", description: "Initial visible/selected date when value is not provided (ISO)" },
       min: { type: "string", description: "Minimum selectable date (ISO)" },
       max: { type: "string", description: "Maximum selectable date (ISO)" },
-      onchange: { type: "(value: string | {start: string, end: string}) => void", description: "Called when selection changes" }
+      onchange: { type: "(value: string | {start: string, end: string}) => void", description: "Called when selection changes" },
+      "max-width": { type: "string", values: ["sm", "md", "lg", "full"], default: "full", description: "Optional max width for the calendar surface." }
     },
     slots: []
   },
@@ -30129,7 +30597,8 @@ var manifest = [
     avoidWhen: "Complex keyboard-managed disclosure sets (use Accordion or Tabs).",
     semanticRole: "group",
     props: {
-      open: { type: "boolean", default: false, description: "Whether disclosure content is expanded." }
+      open: { type: "boolean", default: false, description: "Whether disclosure content is expanded." },
+      "max-width": { type: "Size", values: ["sm", "md", "lg", "full"], default: "full", description: "Constrains disclosure width." }
     },
     slots: ["default"]
   },
@@ -30141,8 +30610,10 @@ var manifest = [
     whenToUse: "Showing navigational hierarchy (Home > Section > Page).",
     avoidWhen: "Flat navigation with no hierarchy - use Tabs or links.",
     semanticRole: "navigation",
-    accessibilityRequirements: "Wrapped in <nav> with aria-label='Breadcrumb'. Last item has aria-current='page'.",
-    props: {},
+    accessibilityRequirements: ["Wrapped in <nav> with aria-label='Breadcrumb'. Last item has aria-current='page'."],
+    props: {
+      "max-width": { type: '"none" | "xs" | "sm" | "md"', default: "none", description: "Constrains the breadcrumb trail width." }
+    },
     slots: ["default"]
   },
   {
@@ -30199,9 +30670,10 @@ var manifest = [
     whenToUse: "Command palettes, searchable action lists, keyboard-driven navigation.",
     avoidWhen: "Simple dropdown selection - use Select or Combobox.",
     semanticRole: "listbox",
-    accessibilityRequirements: "Arrow keys navigate items. Enter selects. Built-in string matching filter.",
+    accessibilityRequirements: ["Arrow keys navigate items. Enter selects. Built-in string matching filter."],
     props: {
-      onselect: { type: "(value: string) => void", description: "Called when an item is selected." }
+      onselect: { type: "(value: string) => void", description: "Called when an item is selected." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the command palette width." }
     },
     slots: ["default"]
   },
@@ -30212,7 +30684,7 @@ var manifest = [
     description: "Dialog wrapper for a command palette, typically containing CommandRoot.",
     whenToUse: "Global command palette opened via keyboard shortcut (for example Cmd/Ctrl+K).",
     semanticRole: "dialog",
-    accessibilityRequirements: "Provide accessible labeling via aria-label or aria-labelledby.",
+    accessibilityRequirements: ["Provide accessible labeling via aria-label or aria-labelledby."],
     parent: "CommandRoot",
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
@@ -30312,12 +30784,17 @@ var manifest = [
     whenToUse: "Selecting a single date (booking, scheduling, birth date).",
     avoidWhen: "Date range - extend with two DatePickers. Time only - use a time input.",
     semanticRole: "group",
-    accessibilityRequirements: "label is required. Calendar uses role='grid' with arrow key navigation.",
+    accessibilityRequirements: ["label is required. Calendar uses role='grid' with arrow key navigation."],
     props: {
       value: { type: "string", description: "Selected date as ISO YYYY-MM-DD string." },
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
       label: { type: "string", required: true, description: "Accessible label - required." },
       disabled: { type: "boolean", default: false, description: "Disables the date picker." },
+      min: { type: "string", description: "Minimum selectable ISO date." },
+      max: { type: "string", description: "Maximum selectable ISO date." },
+      "default-date": { type: "string", description: "Initial visible month as an ISO date." },
+      locale: { type: "string", description: "Locale used to format the selected date." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md"', default: "none", description: "Constrains the date picker trigger width." },
       onchange: { type: "(value: string) => void", description: "Called when a date is selected." }
     },
     slots: ["default"]
@@ -30351,7 +30828,7 @@ var manifest = [
     description: "Calendar grid inside DatePickerContent. Renders month navigation and day grid.",
     whenToUse: "Always inside DatePickerContent.",
     semanticRole: "grid",
-    accessibilityRequirements: "Days are gridcells. Arrow keys navigate. Today is highlighted.",
+    accessibilityRequirements: ["Days are gridcells. Arrow keys navigate. Today is highlighted."],
     parent: "DatePickerRoot",
     props: {},
     slots: []
@@ -30364,13 +30841,16 @@ var manifest = [
     whenToUse: "Tabular data with sorting and/or pagination needs.",
     avoidWhen: "Simple static tables - use Table. Card layouts - use Grid + Card.",
     semanticRole: "table",
-    accessibilityRequirements: "Uses native <table> semantics. Sort headers use aria-sort.",
+    accessibilityRequirements: ["Uses native <table> semantics. Sort headers use aria-sort."],
     props: {
       sortColumn: { type: "string", description: "Currently sorted column name." },
       sortDirection: { type: "string", values: ["asc", "desc"], default: "asc", description: "Sort direction." },
       page: { type: "number", default: 1, description: "Current page number." },
       pageSize: { type: "number", default: 10, description: "Items per page." },
       totalItems: { type: "number", default: 0, description: "Total number of items for pagination." },
+      density: { type: "Density", values: DENSITIES, default: "comfortable", description: "Controls row compactness." },
+      striped: { type: "boolean", default: false, description: "Adds alternating row backgrounds using a midpoint surface color." },
+      "max-width": { type: "Size", values: CONTAINER_SIZES, default: "full", description: "Constrains table width." },
       onsort: { type: "(column: string, direction: SortDirection) => void", description: "Called when sort changes." },
       onpagechange: { type: "(page: number) => void", description: "Called when page changes." }
     },
@@ -30413,7 +30893,7 @@ var manifest = [
     description: "Sortable table header cell for DataTable. Clicking toggles sort direction.",
     whenToUse: "Inside a DataTableRow within DataTableHeader.",
     semanticRole: "columnheader",
-    accessibilityRequirements: "Uses aria-sort to indicate current sort state.",
+    accessibilityRequirements: ["Uses aria-sort to indicate current sort state."],
     parent: "DataTableRoot",
     props: {
       column: { type: "string", required: true, description: "Column identifier for sorting." }
@@ -30448,10 +30928,11 @@ var manifest = [
     whenToUse: "Contextual actions triggered by right-click (file operations, text formatting).",
     avoidWhen: "Button-triggered menus - use Menu. Page navigation - use NavigationMenu.",
     semanticRole: "menu",
-    accessibilityRequirements: "ContextMenuContent requires aria-label or aria-labelledby. Arrow keys navigate items.",
+    accessibilityRequirements: ["ContextMenuContent requires aria-label or aria-labelledby. Arrow keys navigate items."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      onclose: { type: "() => void", description: "Called when context menu is dismissed." }
+      onclose: { type: "() => void", description: "Called when context menu is dismissed." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the trigger region width." }
     },
     slots: ["default"]
   },
@@ -30473,7 +30954,7 @@ var manifest = [
     description: "Container for ContextMenuItems. Positioned at cursor.",
     whenToUse: "Always inside a ContextMenuRoot.",
     semanticRole: "menu",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "ContextMenuRoot",
     props: {},
     slots: ["default"]
@@ -30485,7 +30966,7 @@ var manifest = [
     description: "Single action item in a ContextMenu.",
     whenToUse: "Always inside ContextMenuContent.",
     semanticRole: "menuitem",
-    accessibilityRequirements: "Must have visible text content or aria-label.",
+    accessibilityRequirements: ["Must have visible text content or aria-label."],
     parent: "ContextMenuRoot",
     props: {
       disabled: { type: "boolean", default: false, description: "Disables this menu item." },
@@ -30537,7 +31018,7 @@ var manifest = [
     description: "Trigger item that opens a ContextMenuSub submenu.",
     whenToUse: "Inside ContextMenuContent to create a nested submenu.",
     semanticRole: "menuitem",
-    accessibilityRequirements: "Automatically has aria-expanded and aria-haspopup attributes.",
+    accessibilityRequirements: ["Automatically has aria-expanded and aria-haspopup attributes."],
     parent: "ContextMenuRoot",
     props: {
       disabled: { type: "boolean", default: false, description: "Disables the submenu trigger." }
@@ -30590,7 +31071,7 @@ var manifest = [
     description: "Drag handle between ResizablePanels with optional visual grip indicator.",
     whenToUse: "Always between ResizablePanels inside a ResizableRoot.",
     semanticRole: "separator",
-    accessibilityRequirements: "Has role='separator' with keyboard arrow support. Home/End keys resize to min/max.",
+    accessibilityRequirements: ["Has role='separator' with keyboard arrow support. Home/End keys resize to min/max."],
     parent: "ResizableRoot",
     props: {
       index: { type: "number", required: true, description: "Zero-based handle index (between panels)." },
@@ -30606,11 +31087,12 @@ var manifest = [
     whenToUse: "Showing additional information about a link or element on hover (user profiles, previews).",
     avoidWhen: "Interactive content that needs clicks - use Popover. Simple text hints - use Tooltip.",
     semanticRole: "dialog (non-modal)",
-    accessibilityRequirements: "HoverCardContent requires aria-label or aria-labelledby. Also opens on focus for keyboard users.",
+    accessibilityRequirements: ["HoverCardContent requires aria-label or aria-labelledby. Also opens on focus for keyboard users."],
     props: {
       open: { type: "boolean", default: false, description: "Controlled open state. Bindable." },
-      openDelay: { type: "number", default: 700, description: "Milliseconds before showing on hover." },
-      closeDelay: { type: "number", default: 300, description: "Milliseconds before hiding after mouse leaves." },
+      "open-delay": { type: "number", default: 700, description: "Milliseconds before showing on hover." },
+      "close-delay": { type: "number", default: 300, description: "Milliseconds before hiding after mouse leaves." },
+      "max-width": { type: '"none" | "xs" | "sm" | "md"', default: "none", description: "Constrains the hover card wrapper width." },
       onclose: { type: "() => void", description: "Called when hover card is dismissed." }
     },
     slots: ["default"]
@@ -30633,7 +31115,7 @@ var manifest = [
     description: "Content of the HoverCard. Stays open while hovered.",
     whenToUse: "Always inside a HoverCardRoot.",
     semanticRole: "dialog (non-modal)",
-    accessibilityRequirements: "Must have aria-label or aria-labelledby (enforced by ModalLabelProps type).",
+    accessibilityRequirements: ["Must have aria-label or aria-labelledby (enforced by ModalLabelProps type)."],
     parent: "HoverCardRoot",
     props: {},
     slots: ["default"]
@@ -30646,12 +31128,13 @@ var manifest = [
     whenToUse: "Collecting verification codes, PINs, or one-time passwords.",
     avoidWhen: "General text input - use Input. Password input - use Input with type='password'.",
     semanticRole: "textbox (hidden input)",
-    accessibilityRequirements: "Uses a hidden input for keyboard/paste support. aria-label required.",
+    accessibilityRequirements: ["Uses a hidden input for keyboard/paste support. aria-label required."],
     props: {
       value: { type: "string", default: "", description: "Current OTP value. Bindable." },
       length: { type: "number", default: 6, description: "Number of digits/characters." },
       disabled: { type: "boolean", default: false, description: "Disables the input." },
-      pattern: { type: "RegExp", description: "Pattern to filter allowed characters (e.g., digits only)." },
+      pattern: { type: "string", description: "Regular expression source used to filter allowed characters, for example \\d." },
+      "max-width": { type: '"none" | "xs" | "sm"', default: "none", description: "Constrains the OTP input width." },
       onchange: { type: "(value: string) => void", description: "Called when value changes." },
       oncomplete: { type: "(value: string) => void", description: "Called when all slots are filled." }
     },
@@ -30697,8 +31180,10 @@ var manifest = [
     whenToUse: "Top-level site navigation with dropdown sections.",
     avoidWhen: "Mobile navigation - use Sheet. Action menus - use Menu.",
     semanticRole: "navigation",
-    accessibilityRequirements: "Uses <nav> with aria-label. Submenus activated by hover and keyboard.",
-    props: {},
+    accessibilityRequirements: ["Uses <nav> with aria-label. Submenus activated by hover and keyboard."],
+    props: {
+      "max-width": { type: '"none" | "xs" | "sm" | "md" | "lg" | "xl"', default: "none", description: "Constrains the navigation menu width." }
+    },
     slots: ["default"]
   },
   {
@@ -30813,16 +31298,16 @@ function getComponentsByCategory() {
 
 // website/src/pages/components/ComponentsIndex.svelte
 var root_228 = from_html(`<sg-text> </sg-text>`, 2);
-var root_423 = from_html(`<sg-text> </sg-text>`, 2);
-var root_516 = from_html(`<a data-nav="" class="index-card"><sg-heading> </sg-heading> <sg-text> </sg-text></a>`, 2);
+var root_422 = from_html(`<sg-text> </sg-text>`, 2);
+var root_517 = from_html(`<a data-nav="" class="index-card"><sg-heading> </sg-heading> <sg-text> </sg-text></a>`, 2);
 var root_325 = from_html(`<div class="index-subgroup"><sg-heading> </sg-heading> <!> <div class="index-grid"></div></div>`, 2);
 var root_161 = from_html(`<div class="index-category-group"><sg-heading> </sg-heading> <!> <!></div>`, 2);
-var root35 = from_html(`<div class="section-index"><div class="section-header"><sg-heading>Components</sg-heading> <sg-text>Web Components organized by category and use-case so common patterns are faster to find.</sg-text></div> <!></div>`, 2);
+var root36 = from_html(`<div class="section-index"><div class="section-header"><sg-heading>Components</sg-heading> <sg-text>Web Components organized by category and use-case so common patterns are faster to find.</sg-text></div> <!></div>`, 2);
 function ComponentsIndex($$anchor, $$props) {
   push($$props, false);
   const categoryGroups = getComponentsByCategory();
   init();
-  var div = root35();
+  var div = root36();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -30863,7 +31348,7 @@ function ComponentsIndex($$anchor, $$props) {
       var node_3 = sibling(sg_heading_2, 2);
       {
         var consequent_1 = ($$anchor4) => {
-          var sg_text_2 = root_423();
+          var sg_text_2 = root_422();
           set_custom_element_data(sg_text_2, "size", "sm");
           set_custom_element_data(sg_text_2, "color", "muted");
           var text_3 = child(sg_text_2, true);
@@ -30878,7 +31363,7 @@ function ComponentsIndex($$anchor, $$props) {
       }
       var div_4 = sibling(node_3, 2);
       each(div_4, 5, () => get(subgroup).routes, index, ($$anchor4, item) => {
-        var a = root_516();
+        var a = root_517();
         var sg_heading_3 = child(a);
         set_custom_element_data(sg_heading_3, "level", 3);
         set_custom_element_data(sg_heading_3, "size", "lg");
@@ -33148,12 +33633,12 @@ function getIconCount() {
 }
 
 // website/src/pages/icons/IconsIndex.svelte
-var root36 = from_html(`<div class="section-index"><div class="section-header"><sg-heading>Icons</sg-heading> <sg-text> </sg-text></div> <div class="index-grid"><a href="/icons/browser" data-nav="" class="index-card"><sg-heading>Icon Browser</sg-heading> <sg-text>Search, filter, and preview icons with real-time variable font controls</sg-text></a> <a href="/components/data-display/icon" data-nav="" class="index-card"><sg-heading>Icon Component</sg-heading> <sg-text>API docs, sizing, colors, and SVG/font mode examples</sg-text></a></div></div>`, 2);
+var root37 = from_html(`<div class="section-index"><div class="section-header"><sg-heading>Icons</sg-heading> <sg-text> </sg-text></div> <div class="index-grid"><a href="/icons/browser" data-nav="" class="index-card"><sg-heading>Icon Browser</sg-heading> <sg-text>Search, filter, and preview icons with real-time variable font controls</sg-text></a> <a href="/components/data-display/icon" data-nav="" class="index-card"><sg-heading>Icon Component</sg-heading> <sg-text>API docs, sizing, colors, and SVG/font mode examples</sg-text></a></div></div>`, 2);
 function IconsIndex($$anchor, $$props) {
   push($$props, false);
   const count = getIconCount();
   init();
-  var div = root36();
+  var div = root37();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -33189,16 +33674,16 @@ function IconsIndex($$anchor, $$props) {
 var root_229 = from_html(`<button class="ib-clear-btn svelte-1ku5k9n">Clear search</button>`);
 var root_326 = from_html(`<button class="ib-clear-btn svelte-1ku5k9n">All categories</button>`);
 var root_166 = from_html(`&mdash; <!> <!>`, 1);
-var root_424 = from_html(`<button> </button>`);
-var root_517 = from_html(`<button> <span class="ib-cat-count svelte-1ku5k9n"> </span></button>`);
-var root_717 = from_html(`<button><sg-icon></sg-icon> <span class="ib-icon-name svelte-1ku5k9n"> </span></button>`, 2);
-var root_815 = from_html(`<button class="ib-show-more svelte-1ku5k9n"> </button>`);
-var root_620 = from_html(`<div class="ib-category-section svelte-1ku5k9n"><sg-heading> <span class="ib-category-count svelte-1ku5k9n"> </span></sg-heading> <div class="ib-icon-grid svelte-1ku5k9n"></div> <!></div>`, 2);
-var root_913 = from_html(`<div class="ib-empty svelte-1ku5k9n"><sg-icon></sg-icon> <p class="svelte-1ku5k9n">No icons match "<strong> </strong>"</p></div>`, 2);
-var root_1117 = from_html(`<span class="ib-tag svelte-1ku5k9n"> </span>`);
-var root_1214 = from_html(`<div><sg-icon></sg-icon> <span class="svelte-1ku5k9n"> </span></div>`, 2);
-var root_1011 = from_html(`<aside class="ib-detail svelte-1ku5k9n"><button class="ib-detail-close svelte-1ku5k9n" aria-label="Close detail"><span class="material-symbols-outlined">close</span></button> <div class="ib-detail-preview svelte-1ku5k9n"><sg-icon></sg-icon></div> <sg-heading> </sg-heading> <div class="ib-detail-tags svelte-1ku5k9n"></div> <div class="ib-detail-actions svelte-1ku5k9n"><button class="sg-button svelte-1ku5k9n" data-color="primary"><sg-icon></sg-icon> </button> <button class="sg-button svelte-1ku5k9n" data-color="secondary"><sg-icon></sg-icon> Copy name</button></div> <div class="ib-detail-code svelte-1ku5k9n"><code class="svelte-1ku5k9n"> </code></div> <div class="ib-detail-variants svelte-1ku5k9n"><span class="ib-detail-section-label svelte-1ku5k9n">Style comparison</span> <div class="ib-variant-row svelte-1ku5k9n"></div></div></aside>`, 2);
-var root37 = from_html(`<div class="icon-browser svelte-1ku5k9n"><div class="icon-browser-header svelte-1ku5k9n"><sg-heading>Icon Browser</sg-heading> <sg-text> <!></sg-text></div> <div class="ib-search-bar svelte-1ku5k9n"><input type="search" class="sg-search-input"/></div> <div class="ib-toolbar svelte-1ku5k9n"><div class="ib-toolbar-group svelte-1ku5k9n"><span class="ib-toolbar-label svelte-1ku5k9n">Style</span> <div class="ib-segmented svelte-1ku5k9n"></div></div> <div class="ib-toolbar-group svelte-1ku5k9n"><span class="ib-toolbar-label svelte-1ku5k9n">Fill</span> <button><sg-icon></sg-icon></button></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div></div> <div class="ib-categories svelte-1ku5k9n"><button>All</button> <!></div> <div><div class="ib-grid-area svelte-1ku5k9n"><!> <!></div> <!></div></div>`, 2);
+var root_423 = from_html(`<button> </button>`);
+var root_518 = from_html(`<button> <span class="ib-cat-count svelte-1ku5k9n"> </span></button>`);
+var root_718 = from_html(`<button><sg-icon></sg-icon> <span class="ib-icon-name svelte-1ku5k9n"> </span></button>`, 2);
+var root_816 = from_html(`<button class="ib-show-more svelte-1ku5k9n"> </button>`);
+var root_621 = from_html(`<div class="ib-category-section svelte-1ku5k9n"><sg-heading> <span class="ib-category-count svelte-1ku5k9n"> </span></sg-heading> <div class="ib-icon-grid svelte-1ku5k9n"></div> <!></div>`, 2);
+var root_914 = from_html(`<div class="ib-empty svelte-1ku5k9n"><sg-icon></sg-icon> <p class="svelte-1ku5k9n">No icons match "<strong> </strong>"</p></div>`, 2);
+var root_1118 = from_html(`<span class="ib-tag svelte-1ku5k9n"> </span>`);
+var root_1215 = from_html(`<div><sg-icon></sg-icon> <span class="svelte-1ku5k9n"> </span></div>`, 2);
+var root_1012 = from_html(`<aside class="ib-detail svelte-1ku5k9n"><button class="ib-detail-close svelte-1ku5k9n" aria-label="Close detail"><span class="material-symbols-outlined">close</span></button> <div class="ib-detail-preview svelte-1ku5k9n"><sg-icon></sg-icon></div> <sg-heading> </sg-heading> <div class="ib-detail-tags svelte-1ku5k9n"></div> <div class="ib-detail-actions svelte-1ku5k9n"><button class="sg-button svelte-1ku5k9n" data-color="primary"><sg-icon></sg-icon> </button> <button class="sg-button svelte-1ku5k9n" data-color="secondary"><sg-icon></sg-icon> Copy name</button></div> <div class="ib-detail-code svelte-1ku5k9n"><code class="svelte-1ku5k9n"> </code></div> <div class="ib-detail-variants svelte-1ku5k9n"><span class="ib-detail-section-label svelte-1ku5k9n">Style comparison</span> <div class="ib-variant-row svelte-1ku5k9n"></div></div></aside>`, 2);
+var root38 = from_html(`<div class="icon-browser svelte-1ku5k9n"><div class="icon-browser-header svelte-1ku5k9n"><sg-heading>Icon Browser</sg-heading> <sg-text> <!></sg-text></div> <div class="ib-search-bar svelte-1ku5k9n"><input type="search" class="sg-search-input"/></div> <div class="ib-toolbar svelte-1ku5k9n"><div class="ib-toolbar-group svelte-1ku5k9n"><span class="ib-toolbar-label svelte-1ku5k9n">Style</span> <div class="ib-segmented svelte-1ku5k9n"></div></div> <div class="ib-toolbar-group svelte-1ku5k9n"><span class="ib-toolbar-label svelte-1ku5k9n">Fill</span> <button><sg-icon></sg-icon></button></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div> <div class="ib-toolbar-group ib-toolbar-slider svelte-1ku5k9n"><input type="range" class="sg-slider svelte-1ku5k9n"/></div></div> <div class="ib-categories svelte-1ku5k9n"><button>All</button> <!></div> <div><div class="ib-grid-area svelte-1ku5k9n"><!> <!></div> <!></div></div>`, 2);
 var $$css26 = {
   hash: "svelte-1ku5k9n",
   code: `.icon-browser.svelte-1ku5k9n {padding-bottom:var(--sg-space-16);}.icon-browser-header.svelte-1ku5k9n {margin-bottom:var(--sg-space-8);}.ib-clear-btn.svelte-1ku5k9n {background:none;border:none;color:var(--sg-color-action-primary);font-size:var(--sg-text-base);cursor:pointer;text-decoration:underline;padding:0;font-family:inherit;}
@@ -33297,7 +33782,7 @@ function IconBrowserPage($$anchor, $$props) {
       next2.add(id);
     set(expandedCategories, next2, true);
   }
-  var div = root37();
+  var div = root38();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -33349,7 +33834,7 @@ function IconBrowserPage($$anchor, $$props) {
   var div_4 = child(div_3);
   var div_5 = sibling(child(div_4), 2);
   each(div_5, 20, () => ["outlined", "rounded", "sharp"], index, ($$anchor2, v) => {
-    var button_2 = root_424();
+    var button_2 = root_423();
     let classes;
     var text_2 = child(button_2, true);
     reset(button_2);
@@ -33399,7 +33884,7 @@ function IconBrowserPage($$anchor, $$props) {
   let classes_2;
   var node_3 = sibling(button_4, 2);
   each(node_3, 17, () => ICON_CATALOG, index, ($$anchor2, cat) => {
-    var button_5 = root_517();
+    var button_5 = root_518();
     let classes_3;
     var text_3 = child(button_5);
     var span = sibling(text_3);
@@ -33420,7 +33905,7 @@ function IconBrowserPage($$anchor, $$props) {
   var div_12 = child(div_11);
   var node_4 = child(div_12);
   each(node_4, 17, () => get(filteredCategories), index, ($$anchor2, cat) => {
-    var div_13 = root_620();
+    var div_13 = root_621();
     var sg_heading_1 = child(div_13);
     set_custom_element_data(sg_heading_1, "level", 2);
     set_custom_element_data(sg_heading_1, "size", "lg");
@@ -33431,7 +33916,7 @@ function IconBrowserPage($$anchor, $$props) {
     reset(sg_heading_1);
     var div_14 = sibling(sg_heading_1, 2);
     each(div_14, 21, () => get(cat).icons, (icon) => icon.name, ($$anchor3, icon) => {
-      var button_6 = root_717();
+      var button_6 = root_718();
       let classes_5;
       var sg_icon_1 = child(button_6);
       template_effect(() => set_custom_element_data(sg_icon_1, "name", get(icon).name));
@@ -33456,7 +33941,7 @@ function IconBrowserPage($$anchor, $$props) {
     var node_5 = sibling(div_14, 2);
     {
       var consequent_3 = ($$anchor3) => {
-        var button_7 = root_815();
+        var button_7 = root_816();
         var text_8 = child(button_7);
         reset(button_7);
         template_effect(() => set_text(text_8, `Show all ${get(cat).totalMatched ?? ""} icons in ${get(cat).label ?? ""}`));
@@ -33478,7 +33963,7 @@ function IconBrowserPage($$anchor, $$props) {
   var node_6 = sibling(node_4, 2);
   {
     var consequent_4 = ($$anchor2) => {
-      var div_15 = root_913();
+      var div_15 = root_914();
       var sg_icon_2 = child(div_15);
       set_custom_element_data(sg_icon_2, "name", "search_off");
       template_effect(() => set_custom_element_data(sg_icon_2, "variant", get(variant)));
@@ -33502,7 +33987,7 @@ function IconBrowserPage($$anchor, $$props) {
   var node_7 = sibling(div_12, 2);
   {
     var consequent_5 = ($$anchor2) => {
-      var aside = root_1011();
+      var aside = root_1012();
       var button_8 = child(aside);
       var div_16 = sibling(button_8, 2);
       var sg_icon_3 = child(div_16);
@@ -33520,7 +34005,7 @@ function IconBrowserPage($$anchor, $$props) {
       reset(sg_heading_2);
       var div_17 = sibling(sg_heading_2, 2);
       each(div_17, 21, () => get(selected).tags, index, ($$anchor3, tag2) => {
-        var span_3 = root_1117();
+        var span_3 = root_1118();
         var text_11 = child(span_3, true);
         reset(span_3);
         template_effect(() => set_text(text_11, get(tag2)));
@@ -33551,7 +34036,7 @@ function IconBrowserPage($$anchor, $$props) {
       var div_20 = sibling(div_19, 2);
       var div_21 = sibling(child(div_20), 2);
       each(div_21, 20, () => ["outlined", "rounded", "sharp"], index, ($$anchor3, v) => {
-        var div_22 = root_1214();
+        var div_22 = root_1215();
         let classes_6;
         var sg_icon_6 = child(div_22);
         template_effect(() => set_custom_element_data(sg_icon_6, "name", get(selected).name));
@@ -33627,12 +34112,12 @@ delegate(["click", "input"]);
 
 // website/src/components/DemoBlock.svelte
 var root_168 = from_html(`<sg-card-header><sg-heading> </sg-heading></sg-card-header>`, 2);
-var root_425 = from_html(`<div class="snippet-split svelte-1le7w72"><div class="html-snippet svelte-1le7w72"><sg-code-block></sg-code-block></div> <div class="css-snippet svelte-1le7w72"><sg-code-block></sg-code-block></div></div>`, 2);
-var root_621 = from_html(`<div><sg-code-block></sg-code-block></div>`, 2);
-var root_518 = from_html(`<sg-stack></sg-stack>`, 2);
+var root_424 = from_html(`<div class="snippet-split svelte-1le7w72"><div class="html-snippet svelte-1le7w72"><sg-code-block></sg-code-block></div> <div class="css-snippet svelte-1le7w72"><sg-code-block></sg-code-block></div></div>`, 2);
+var root_622 = from_html(`<div><sg-code-block></sg-code-block></div>`, 2);
+var root_519 = from_html(`<sg-stack></sg-stack>`, 2);
 var root_327 = from_html(`<div class="snippet-container svelte-1le7w72"><!></div>`);
-var root_718 = from_html(`<sg-code-block></sg-code-block>`, 2);
-var root38 = from_html(`<sg-card><!> <sg-card-body><!></sg-card-body> <!></sg-card>`, 2);
+var root_719 = from_html(`<sg-code-block></sg-code-block>`, 2);
+var root39 = from_html(`<sg-card><!> <sg-card-body><!></sg-card-body> <!></sg-card>`, 2);
 var $$css27 = {
   hash: "svelte-1le7w72",
   code: `.snippet-container.svelte-1le7w72 {container-type:inline-size;}.snippet-split.svelte-1le7w72 {display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);gap:0;align-items:stretch;width:100%;}.snippet-split.svelte-1le7w72 > div:where(.svelte-1le7w72) {display:flex;min-width:0;}
@@ -33648,7 +34133,7 @@ function DemoBlock($$anchor, $$props) {
   let code = prop($$props, "code", 3, ""), language = prop($$props, "language", 3, "svelte"), snippets = prop($$props, "snippets", 19, () => []);
   let htmlSnippet = user_derived(() => snippets().find((snippet2) => snippet2.language === "html"));
   let cssSnippet = user_derived(() => snippets().find((snippet2) => snippet2.language === "css"));
-  var sg_card = root38();
+  var sg_card = root39();
   set_custom_element_data(sg_card, "elevation", 0);
   var node = child(sg_card);
   {
@@ -33690,7 +34175,7 @@ function DemoBlock($$anchor, $$props) {
       var node_4 = child(div);
       {
         var consequent_2 = ($$anchor3) => {
-          var div_1 = root_425();
+          var div_1 = root_424();
           var div_2 = child(div_1);
           var sg_code_block = child(div_2);
           template_effect(() => set_custom_element_data(sg_code_block, "title", get(htmlSnippet).title));
@@ -33707,10 +34192,10 @@ function DemoBlock($$anchor, $$props) {
           append($$anchor3, div_1);
         };
         var alternate = ($$anchor3) => {
-          var sg_stack = root_518();
+          var sg_stack = root_519();
           set_custom_element_data(sg_stack, "gap", "related");
           each(sg_stack, 21, snippets, index, ($$anchor4, snippet2) => {
-            var div_4 = root_621();
+            var div_4 = root_622();
             let classes;
             var sg_code_block_2 = child(div_4);
             template_effect(() => set_custom_element_data(sg_code_block_2, "title", get(snippet2).title));
@@ -33734,7 +34219,7 @@ function DemoBlock($$anchor, $$props) {
       append($$anchor2, div);
     };
     var consequent_4 = ($$anchor2) => {
-      var sg_code_block_3 = root_718();
+      var sg_code_block_3 = root_719();
       template_effect(() => set_custom_element_data(sg_code_block_3, "code", code()));
       template_effect(() => set_custom_element_data(sg_code_block_3, "language", language()));
       append($$anchor2, sg_code_block_3);
@@ -33752,7 +34237,7 @@ function DemoBlock($$anchor, $$props) {
 }
 
 // website/src/components/PropsTable.svelte
-var root_426 = from_html(`<span class="props-required">*</span>`);
+var root_425 = from_html(`<span class="props-required">*</span>`);
 var root_328 = from_html(`<div class="props-row"><code> <!></code> <span> </span> <span> </span> <span class="props-desc"> </span></div>`);
 var root_230 = from_html(`<sg-heading> </sg-heading> <div class="props-grid"><div class="props-header"><span>Prop</span><span>Type</span><span>Default</span><span>Description</span></div> <!></div>`, 3);
 var root_169 = from_html(`<div class="props-table"></div>`);
@@ -33829,7 +34314,7 @@ function PropsTable($$anchor, $$props) {
           var node_2 = sibling(text_1);
           {
             var consequent = ($$anchor5) => {
-              var span = root_426();
+              var span = root_425();
               append($$anchor5, span);
             };
             if_block(node_2, ($$render) => {
@@ -33875,7 +34360,7 @@ function PropsTable($$anchor, $$props) {
 // website/src/components/ComponentDocLayout.svelte
 var root_170 = from_html(`<sg-text> </sg-text>`, 2);
 var root_231 = from_html(`<sg-code-block></sg-code-block>`, 2);
-var root39 = from_html(`<sg-stack><div class="page-header"><sg-heading> </sg-heading> <!></div> <!> <!> <!> <!></sg-stack>`, 2);
+var root40 = from_html(`<sg-stack><div class="page-header"><sg-heading> </sg-heading> <!></div> <!> <!> <!> <!></sg-stack>`, 2);
 function ComponentDocLayout($$anchor, $$props) {
   push($$props, true);
   let comp = user_derived(() => getComponent($$props.componentName) ?? getComponent($$props.componentName + "Root"));
@@ -33890,7 +34375,7 @@ function ComponentDocLayout($$anchor, $$props) {
     }
     return `import { ${names.join(", ")} } from "${get(comp).importPath}";`;
   });
-  var sg_stack = root39();
+  var sg_stack = root40();
   set_custom_element_data(sg_stack, "gap", "separated");
   var div = child(sg_stack);
   var sg_heading = child(div);
@@ -34053,28 +34538,337 @@ function isOpenAttrTruthy(host) {
   const value = host.getAttribute("open");
   return value === "" || value === "true";
 }
-function rehydrateSubtree(root40) {
-  if (!root40 || typeof root40.querySelectorAll !== "function")
+function rehydrateSubtree(root41) {
+  if (!root41 || typeof root41.querySelectorAll !== "function")
     return;
   if (typeof customElements !== "undefined" && customElements.upgrade) {
-    customElements.upgrade(root40);
+    customElements.upgrade(root41);
   }
-  const targets = [...root40.querySelectorAll("[data-sigui-component]")];
-  if (root40.matches?.("[data-sigui-component]"))
-    targets.unshift(root40);
+  const targets = [...root41.querySelectorAll("[data-sigui-component]")];
+  if (root41.matches?.("[data-sigui-component]"))
+    targets.unshift(root41);
   for (const el of targets) {
     el.rehydrate?.();
   }
 }
 
+// website/src/pages/components/preview-normalize.ts
+function normalizeRenderCode(html2) {
+  let normalized = html2.replace(/\{#(if|each|await)[^}]*\}/g, "").replace(/\{\/(if|each|await)\}/g, "").replace(/\{@(?:const|html)[^}]*\}/g, "");
+  normalized = stripEventHandlerAttributes(normalized);
+  normalized = normalizeStaticAttributeExpressions(normalized);
+  normalized = normalizeCustomElementAttributeNames(normalized);
+  return normalized.replace(/<(sg-[a-z0-9-]+)(\s[^<>]*?)?\/>/gi, (_match, tag2, attrs = "") => {
+    return `<${tag2}${attrs}></${tag2}>`;
+  });
+}
+function normalizeStaticAttributeExpressions(input) {
+  let out = "";
+  let i = 0;
+  while (i < input.length) {
+    if (!/\s/.test(input[i] ?? "")) {
+      out += input[i] ?? "";
+      i += 1;
+      continue;
+    }
+    const attrStart = i;
+    let j = i;
+    while (j < input.length && /\s/.test(input[j] ?? ""))
+      j += 1;
+    const nameStart = j;
+    if (!/[A-Za-z_:]/.test(input[j] ?? "")) {
+      out += input.slice(i, j);
+      i = j;
+      continue;
+    }
+    j += 1;
+    while (j < input.length && /[A-Za-z0-9_:.-]/.test(input[j] ?? ""))
+      j += 1;
+    const attrName = input.slice(nameStart, j);
+    let k = j;
+    while (k < input.length && /\s/.test(input[k] ?? ""))
+      k += 1;
+    if (input[k] !== "=") {
+      out += input.slice(i, k);
+      i = k;
+      continue;
+    }
+    k += 1;
+    while (k < input.length && /\s/.test(input[k] ?? ""))
+      k += 1;
+    if (input[k] !== "{") {
+      out += input.slice(i, k);
+      i = k;
+      continue;
+    }
+    const expressionEnd = findBalancedExpressionEnd(input, k);
+    if (expressionEnd === -1) {
+      out += input.slice(i, k + 1);
+      i = k + 1;
+      continue;
+    }
+    const rawExpression = input.slice(k + 1, expressionEnd);
+    const replacement = staticExpressionAttribute(attrName, rawExpression);
+    out += replacement ?? input.slice(attrStart, expressionEnd + 1);
+    i = expressionEnd + 1;
+  }
+  return out;
+}
+function stripEventHandlerAttributes(input) {
+  let out = "";
+  let i = 0;
+  while (i < input.length) {
+    const ch = input[i];
+    if (/\s/.test(ch ?? "")) {
+      let j = i;
+      while (j < input.length && /\s/.test(input[j] ?? ""))
+        j += 1;
+      const nameStart = j;
+      while (j < input.length && /[a-z-]/i.test(input[j] ?? ""))
+        j += 1;
+      const name = input.slice(nameStart, j).toLowerCase();
+      let k = j;
+      while (k < input.length && /\s/.test(input[k] ?? ""))
+        k += 1;
+      if (name.startsWith("on") && k < input.length && input[k] === "=") {
+        k += 1;
+        while (k < input.length && /\s/.test(input[k] ?? ""))
+          k += 1;
+        if (k < input.length && input[k] === "{") {
+          const expressionEnd = findBalancedExpressionEnd(input, k);
+          if (expressionEnd !== -1) {
+            i = expressionEnd + 1;
+            continue;
+          }
+        }
+      }
+    }
+    out += ch ?? "";
+    i += 1;
+  }
+  return out;
+}
+function normalizeCustomElementAttributeNames(input) {
+  let out = "";
+  let i = 0;
+  while (i < input.length) {
+    if (input[i] !== "<" || input[i + 1] === "/" || input.slice(i + 1, i + 4).toLowerCase() !== "sg-") {
+      out += input[i] ?? "";
+      i += 1;
+      continue;
+    }
+    const tagEnd = findTagEnd(input, i);
+    if (tagEnd === -1) {
+      out += input.slice(i);
+      break;
+    }
+    out += normalizeStartTagAttributeNames(input.slice(i, tagEnd + 1));
+    i = tagEnd + 1;
+  }
+  return out;
+}
+function staticExpressionAttribute(attrName, rawExpression) {
+  const expr = rawExpression.trim();
+  const htmlAttrName = toHtmlAttributeName(attrName);
+  if (/^-?(?:\d+|\d*\.\d+)$/.test(expr)) {
+    return ` ${htmlAttrName}="${expr}"`;
+  }
+  const quoted = parseStaticQuotedString(expr);
+  if (quoted !== null) {
+    return ` ${htmlAttrName}="${escapeAttributeValue(quoted)}"`;
+  }
+  const template = parseStaticTemplateLiteral(expr);
+  if (template !== null) {
+    return ` ${htmlAttrName}="${escapeAttributeValue(template)}"`;
+  }
+  const array = parseStaticScalarArray(expr);
+  if (array !== null) {
+    return ` ${htmlAttrName}="${escapeAttributeValue(array)}"`;
+  }
+  if (expr === "true") {
+    return ` ${htmlAttrName}`;
+  }
+  if (expr === "false" || expr === "null" || expr === "undefined") {
+    return "";
+  }
+  return null;
+}
+function findBalancedExpressionEnd(input, openBraceIndex) {
+  let depth = 0;
+  let quote = null;
+  let escaped = false;
+  for (let i = openBraceIndex;i < input.length; i += 1) {
+    const ch = input[i];
+    if (quote) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (ch === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (ch === quote) {
+        quote = null;
+      }
+      continue;
+    }
+    if (ch === "'" || ch === '"' || ch === "`") {
+      quote = ch;
+      continue;
+    }
+    if (ch === "{") {
+      depth += 1;
+      continue;
+    }
+    if (ch === "}") {
+      depth -= 1;
+      if (depth === 0)
+        return i;
+    }
+  }
+  return -1;
+}
+function findTagEnd(input, tagStart) {
+  let quote = null;
+  for (let i = tagStart + 1;i < input.length; i += 1) {
+    const ch = input[i];
+    if (quote) {
+      if (ch === quote)
+        quote = null;
+      continue;
+    }
+    if (ch === "'" || ch === '"') {
+      quote = ch;
+      continue;
+    }
+    if (ch === ">")
+      return i;
+  }
+  return -1;
+}
+function normalizeStartTagAttributeNames(tag2) {
+  const nameMatch = tag2.match(/^<sg-[^\s/>]+/i);
+  if (!nameMatch)
+    return tag2;
+  let out = nameMatch[0];
+  let i = out.length;
+  while (i < tag2.length) {
+    const ch = tag2[i];
+    if (ch === ">" || ch === "/" && tag2[i + 1] === ">") {
+      out += tag2.slice(i);
+      break;
+    }
+    if (/\s/.test(ch ?? "")) {
+      let whitespaceEnd = i;
+      while (whitespaceEnd < tag2.length && /\s/.test(tag2[whitespaceEnd] ?? ""))
+        whitespaceEnd += 1;
+      out += tag2.slice(i, whitespaceEnd);
+      i = whitespaceEnd;
+      continue;
+    }
+    const attrStart = i;
+    while (i < tag2.length && !/[\s=/>]/.test(tag2[i] ?? ""))
+      i += 1;
+    if (attrStart === i) {
+      out += tag2[i] ?? "";
+      i += 1;
+      continue;
+    }
+    out += toHtmlAttributeName(tag2.slice(attrStart, i));
+    while (i < tag2.length && /\s/.test(tag2[i] ?? "")) {
+      out += tag2[i];
+      i += 1;
+    }
+    if (tag2[i] !== "=")
+      continue;
+    out += tag2[i];
+    i += 1;
+    while (i < tag2.length && /\s/.test(tag2[i] ?? "")) {
+      out += tag2[i];
+      i += 1;
+    }
+    if (tag2[i] === '"' || tag2[i] === "'") {
+      const quote = tag2[i];
+      out += quote;
+      i += 1;
+      while (i < tag2.length) {
+        out += tag2[i];
+        if (tag2[i] === quote) {
+          i += 1;
+          break;
+        }
+        i += 1;
+      }
+      continue;
+    }
+    while (i < tag2.length && !/[\s>]/.test(tag2[i] ?? "")) {
+      out += tag2[i];
+      i += 1;
+    }
+  }
+  return out;
+}
+function parseStaticQuotedString(expr) {
+  const quote = expr[0];
+  if (quote !== '"' && quote !== "'" || expr[expr.length - 1] !== quote)
+    return null;
+  return unescapeJsStringContent(expr.slice(1, -1));
+}
+function parseStaticTemplateLiteral(expr) {
+  if (expr[0] !== "`" || expr[expr.length - 1] !== "`")
+    return null;
+  const content = expr.slice(1, -1);
+  if (hasUnescapedInterpolation(content))
+    return null;
+  return unescapeJsStringContent(content);
+}
+function parseStaticScalarArray(expr) {
+  if (!expr.startsWith("[") || !expr.endsWith("]"))
+    return null;
+  const content = expr.slice(1, -1).trim();
+  if (!content)
+    return "";
+  if (!/^-?(?:\d+|\d*\.\d+)(?:\s*,\s*-?(?:\d+|\d*\.\d+))*\s*,?$/.test(content))
+    return null;
+  return content.replace(/,\s*$/, "").split(/\s*,\s*/).join(",");
+}
+function hasUnescapedInterpolation(content) {
+  let escaped = false;
+  for (let i = 0;i < content.length; i += 1) {
+    const ch = content[i];
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+    if (ch === "\\") {
+      escaped = true;
+      continue;
+    }
+    if (ch === "$" && content[i + 1] === "{")
+      return true;
+  }
+  return false;
+}
+function unescapeJsStringContent(content) {
+  return content.replace(/\\`/g, "`").replace(/\\'/g, "'").replace(/\\"/g, '"').replace(/\\n/g, `
+`).replace(/\\r/g, "\r").replace(/\\t/g, "\t").replace(/\\\\/g, "\\");
+}
+function toHtmlAttributeName(name) {
+  return name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").replace(/_/g, "-").toLowerCase();
+}
+function escapeAttributeValue(value) {
+  return value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 // website/src/pages/components/GeneratedComponentPage.svelte
-var root_427 = from_html(`<sg-text> </sg-text>`, 2);
+var root_426 = from_html(`<sg-text> </sg-text>`, 2);
 var root_329 = from_html(`<sg-stack><sg-heading> </sg-heading> <!></sg-stack>`, 2);
-var root_816 = from_html(`<sg-text> </sg-text>`, 2);
-var root_719 = from_html(`<!> <div class="generated-demo svelte-15lavgm"><!></div>`, 1);
-var root_914 = from_html(`<sg-text> </sg-text>`, 2);
+var root_817 = from_html(`<sg-text> </sg-text>`, 2);
+var root_720 = from_html(`<!> <div class="generated-demo svelte-15lavgm"><!></div>`, 1);
+var root_915 = from_html(`<sg-text> </sg-text>`, 2);
 var root_233 = from_html(`<div class="generated-section svelte-15lavgm"><!> <!></div>`);
-var root40 = from_html(`<div><!></div>`);
+var root41 = from_html(`<div><!></div>`);
 var $$css28 = {
   hash: "svelte-15lavgm",
   code: `.generated-section.svelte-15lavgm {display:grid;gap:var(--sg-gap-grouped, 1rem);}.generated-section.svelte-15lavgm + .generated-section:where(.svelte-15lavgm) {margin-top:var(--sg-space-8, 2rem);}.generated-demo.svelte-15lavgm {display:grid;gap:var(--sg-gap-grouped, 1rem);align-items:start;}
@@ -34085,7 +34879,7 @@ var $$css28 = {
 
   /* Intrinsically-sized elements should not stretch to fill the grid. */.generated-demo.svelte-15lavgm > :is(
     button, input, select, textarea, fieldset, dialog,
-    label, span, code, sg-card, .sg-card
+    label, span, code
   ) {justify-self:start;}.generated-demo.svelte-15lavgm * {box-sizing:border-box;}`
 };
 function GeneratedComponentPage($$anchor, $$props) {
@@ -34093,77 +34887,6 @@ function GeneratedComponentPage($$anchor, $$props) {
   append_styles($$anchor, $$css28);
   let pageRoot = null;
   let hljsRetryTimer = null;
-  function normalizeRenderCode(html2) {
-    let normalized = html2.replace(/\{#(if|each|await)[^}]*\}/g, "").replace(/\{\/(if|each|await)\}/g, "").replace(/\{@(?:const|html)[^}]*\}/g, "");
-    normalized = stripEventHandlerAttributes(normalized);
-    normalized = normalizeStaticAttributeExpressions(normalized);
-    return normalized.replace(/<(sg-[a-z0-9-]+)(\s[^<>]*?)?\/>/gi, (_match, tag2, attrs = "") => {
-      return `<${tag2}${attrs}></${tag2}>`;
-    });
-  }
-  function normalizeStaticAttributeExpressions(input) {
-    return input.replace(/\s([^\s=/>]+)=\{([^{}]+)\}/g, (_match, attrName, expression) => {
-      const expr = expression.trim();
-      if (/^-?(?:\d+|\d*\.\d+)$/.test(expr)) {
-        return ` ${attrName}="${expr}"`;
-      }
-      const quoted = expr.match(/^(['"])([\s\S]*)\1$/);
-      if (quoted) {
-        return ` ${attrName}="${quoted[2]}"`;
-      }
-      if (expr === "true") {
-        return ` ${attrName}`;
-      }
-      if (expr === "false" || expr === "null" || expr === "undefined") {
-        return "";
-      }
-      return ` ${attrName}={${expression}}`;
-    });
-  }
-  function stripEventHandlerAttributes(input) {
-    let out = "";
-    let i = 0;
-    while (i < input.length) {
-      const ch = input[i];
-      if (/\s/.test(ch)) {
-        let j = i;
-        while (j < input.length && /\s/.test(input[j]))
-          j += 1;
-        const nameStart = j;
-        while (j < input.length && /[a-z-]/i.test(input[j]))
-          j += 1;
-        const name = input.slice(nameStart, j).toLowerCase();
-        let k = j;
-        while (k < input.length && /\s/.test(input[k]))
-          k += 1;
-        if (name.startsWith("on") && k < input.length && input[k] === "=") {
-          k += 1;
-          while (k < input.length && /\s/.test(input[k]))
-            k += 1;
-          if (k < input.length && input[k] === "{") {
-            let depth = 0;
-            while (k < input.length) {
-              if (input[k] === "{")
-                depth += 1;
-              else if (input[k] === "}") {
-                depth -= 1;
-                if (depth === 0) {
-                  k += 1;
-                  break;
-                }
-              }
-              k += 1;
-            }
-            i = k;
-            continue;
-          }
-        }
-      }
-      out += ch;
-      i += 1;
-    }
-    return out;
-  }
   function hasSyntaxTokens(codeEl) {
     return !!codeEl.querySelector("[class*='hljs-']");
   }
@@ -34250,7 +34973,7 @@ ${html2}</div>`;
       }
     };
   });
-  var div = root40();
+  var div = root41();
   var node_1 = child(div);
   ComponentDocLayout(node_1, {
     get componentName() {
@@ -34273,7 +34996,7 @@ ${html2}</div>`;
             var node_4 = sibling(sg_heading, 2);
             {
               var consequent = ($$anchor5) => {
-                var sg_text = root_427();
+                var sg_text = root_426();
                 set_custom_element_data(sg_text, "color", "secondary");
                 var text_1 = child(sg_text, true);
                 reset(sg_text);
@@ -34310,11 +35033,11 @@ ${html2}</div>`;
                 var node_6 = first_child(fragment_2);
                 {
                   var consequent_3 = ($$anchor6) => {
-                    var fragment_3 = root_719();
+                    var fragment_3 = root_720();
                     var node_7 = first_child(fragment_3);
                     {
                       var consequent_2 = ($$anchor7) => {
-                        var sg_text_1 = root_816();
+                        var sg_text_1 = root_817();
                         set_custom_element_data(sg_text_1, "size", "sm");
                         set_custom_element_data(sg_text_1, "color", "secondary");
                         var text_2 = child(sg_text_1, true);
@@ -34335,7 +35058,7 @@ ${html2}</div>`;
                   };
                   var d = user_derived(() => shouldRenderPreview(get(example)));
                   var consequent_4 = ($$anchor6) => {
-                    var sg_text_2 = root_914();
+                    var sg_text_2 = root_915();
                     set_custom_element_data(sg_text_2, "size", "sm");
                     set_custom_element_data(sg_text_2, "color", "secondary");
                     var text_3 = child(sg_text_2, true);
@@ -35060,12 +35783,12 @@ function validateDTCG(tokenTree) {
 // website/src/sections/TokensSection.svelte
 var root_171 = from_html(`<div> </div>`);
 var root_235 = from_html(`<div class="brand-comparison svelte-1nokl7n"><div class="brand-col"><sg-heading>Base Theme</sg-heading> <pre class="code-output code-output-sm svelte-1nokl7n"> </pre></div> <div class="brand-col"><sg-heading>Brand Theme</sg-heading> <pre class="code-output code-output-sm svelte-1nokl7n"> </pre></div></div>`, 2);
-var root_428 = from_html(`<sg-badge> </sg-badge>`, 2);
-var root_519 = from_html(`<sg-badge>No breaking changes</sg-badge>`, 2);
-var root_720 = from_html(`<div class="diff-row svelte-1nokl7n"><code class="svelte-1nokl7n"> </code> <span class="diff-old svelte-1nokl7n"> </span> <span class="diff-new svelte-1nokl7n"> </span></div>`);
-var root_622 = from_html(`<div class="diff-table svelte-1nokl7n" style="margin-top: var(--sg-space-3)"><div class="diff-header svelte-1nokl7n"><span>Token</span> <span>Before</span> <span>After</span></div> <!></div>`);
+var root_427 = from_html(`<sg-badge> </sg-badge>`, 2);
+var root_520 = from_html(`<sg-badge>No breaking changes</sg-badge>`, 2);
+var root_721 = from_html(`<div class="diff-row svelte-1nokl7n"><code class="svelte-1nokl7n"> </code> <span class="diff-old svelte-1nokl7n"> </span> <span class="diff-new svelte-1nokl7n"> </span></div>`);
+var root_623 = from_html(`<div class="diff-table svelte-1nokl7n" style="margin-top: var(--sg-space-3)"><div class="diff-header svelte-1nokl7n"><span>Token</span> <span>Before</span> <span>After</span></div> <!></div>`);
 var root_330 = from_html(`<div class="diff-summary svelte-1nokl7n" style="margin-top: var(--sg-space-4)"><sg-badge> </sg-badge> <sg-badge> </sg-badge> <sg-badge> </sg-badge> <!></div> <!>`, 3);
-var root41 = from_html(`<sg-section><div class="subsection"><sg-heading>Theme Builder</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Primary Color</span> <sg-color-picker></sg-color-picker></div></div> <!></div> <div class="subsection"><sg-heading>Build Pipeline Output</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Format</span> <sg-toggle-group><button class="sg-toggle" value="json">JSON</button> <button class="sg-toggle" value="css">CSS</button> <button class="sg-toggle" value="ts">TypeScript</button></sg-toggle-group></div></div> <pre class="code-output svelte-1nokl7n"> </pre></div> <div class="subsection"><sg-heading>Brand Theming</sg-heading> <div class="controls"><div class="control-group"><span class="card-label"> </span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Brand Override</span> <sg-color-picker></sg-color-picker></div></div> <!></div> <div class="subsection"><sg-heading>Token Diff</sg-heading> <button class="sg-button"> </button> <!></div></sg-section>`, 2);
+var root42 = from_html(`<sg-section><div class="subsection"><sg-heading>Theme Builder</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Primary Color</span> <sg-color-picker></sg-color-picker></div></div> <!></div> <div class="subsection"><sg-heading>Build Pipeline Output</sg-heading> <div class="controls"><div class="control-group"><span class="card-label">Format</span> <sg-toggle-group><button class="sg-toggle" value="json">JSON</button> <button class="sg-toggle" value="css">CSS</button> <button class="sg-toggle" value="ts">TypeScript</button></sg-toggle-group></div></div> <pre class="code-output svelte-1nokl7n"> </pre></div> <div class="subsection"><sg-heading>Brand Theming</sg-heading> <div class="controls"><div class="control-group"><span class="card-label"> </span> <sg-color-picker></sg-color-picker></div> <div class="control-group"><span class="card-label">Brand Override</span> <sg-color-picker></sg-color-picker></div></div> <!></div> <div class="subsection"><sg-heading>Token Diff</sg-heading> <button class="sg-button"> </button> <!></div></sg-section>`, 2);
 var $$css29 = {
   hash: "svelte-1nokl7n",
   code: ".validation-badge.svelte-1nokl7n {display:inline-block;padding:var(--sg-space-1-5) var(--sg-space-4);border-radius:var(--sg-radius-full);font-size:var(--sg-text-xs);font-weight:var(--sg-weight-bold);}.validation-badge.valid.svelte-1nokl7n {background:var(--sg-color-success-subtle);color:var(--sg-color-success);border:var(--sg-border-thin) solid oklch(from var(--sg-color-success) l c h / 0.2);}.validation-badge.invalid.svelte-1nokl7n {background:var(--sg-color-danger-subtle);color:var(--sg-color-danger);border:var(--sg-border-thin) solid oklch(from var(--sg-color-danger) l c h / 0.2);}.code-output.svelte-1nokl7n {background:var(--surface);border:var(--sg-border-thin) solid var(--sg-color-border);border-radius:var(--radius-sm);padding:var(--sg-space-4);font-family:var(--sg-font-mono);font-size:var(--sg-text-xs);color:var(--sg-color-text-secondary);overflow-x:auto;max-height:400px;overflow-y:auto;white-space:pre;line-height:1.5;}.code-output-sm.svelte-1nokl7n {max-height:200px;}.brand-comparison.svelte-1nokl7n {display:grid;grid-template-columns:1fr 1fr;gap:var(--sg-gap-grouped);margin-top:var(--sg-space-4);}.diff-summary.svelte-1nokl7n {display:flex;gap:var(--sg-space-3);flex-wrap:wrap;}.diff-table.svelte-1nokl7n {font-size:var(--sg-text-xs);}.diff-header.svelte-1nokl7n {display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sg-space-3);padding:var(--sg-space-2) 0;border-bottom:var(--sg-border-medium) solid var(--sg-color-border);font-weight:var(--sg-weight-semibold);font-size:var(--sg-text-xs);text-transform:uppercase;letter-spacing:var(--sg-tracking-caps);color:var(--text-3);}.diff-row.svelte-1nokl7n {display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sg-space-3);padding:var(--sg-space-1-5) 0;border-bottom:var(--sg-border-thin) solid var(--sg-color-border);align-items:center;}.diff-row.svelte-1nokl7n code:where(.svelte-1nokl7n) {font-size:var(--sg-text-xs);}.diff-old.svelte-1nokl7n {color:var(--sg-color-danger);font-size:var(--sg-text-xs);font-family:var(--sg-font-mono);}.diff-new.svelte-1nokl7n {color:var(--sg-color-success);font-size:var(--sg-text-xs);font-family:var(--sg-font-mono);}\n\n@media (max-width: 768px) {.brand-comparison.svelte-1nokl7n {grid-template-columns:1fr;}\n}"
@@ -35184,7 +35907,7 @@ function TokensSection($$anchor, $$props) {
       return null;
     }
   });
-  var sg_section = root41();
+  var sg_section = root42();
   set_custom_element_data(sg_section, "id", "tokens");
   set_custom_element_data(sg_section, "title", "Design Tokens & Theming");
   set_custom_element_data(sg_section, "description", "W3C DTCG token pipeline: generate theme trees, build CSS/JSON/TypeScript, validate tokens, compare brands, and detect breaking changes.");
@@ -35319,7 +36042,7 @@ function TokensSection($$anchor, $$props) {
       var node_3 = sibling(sg_badge_2, 2);
       {
         var consequent_2 = ($$anchor3) => {
-          var sg_badge_3 = root_428();
+          var sg_badge_3 = root_427();
           set_custom_element_data(sg_badge_3, "color", "danger");
           var text_9 = child(sg_badge_3);
           reset(sg_badge_3);
@@ -35327,7 +36050,7 @@ function TokensSection($$anchor, $$props) {
           append($$anchor3, sg_badge_3);
         };
         var alternate = ($$anchor3) => {
-          var sg_badge_4 = root_519();
+          var sg_badge_4 = root_520();
           set_custom_element_data(sg_badge_4, "color", "success");
           append($$anchor3, sg_badge_4);
         };
@@ -35342,10 +36065,10 @@ function TokensSection($$anchor, $$props) {
       var node_4 = sibling(div_15, 2);
       {
         var consequent_3 = ($$anchor3) => {
-          var div_16 = root_622();
+          var div_16 = root_623();
           var node_5 = sibling(child(div_16), 2);
           each(node_5, 17, () => get(diffResult).diff.changed.slice(0, 20), index, ($$anchor4, change) => {
-            var div_17 = root_720();
+            var div_17 = root_721();
             var code = child(div_17);
             var text_10 = child(code, true);
             reset(code);
@@ -35464,9 +36187,9 @@ function TokensSection($$anchor, $$props) {
 delegate(["input", "change", "click"]);
 
 // website/src/pages/build/TokensPage.svelte
-var root42 = from_html(`<div class="page"><div class="page-header"><sg-heading>Design Tokens & Theming</sg-heading> <sg-text>DTCG-compliant token pipeline - build CSS custom properties, JSON, or TypeScript from a theme definition with validation and diff detection.</sg-text></div> <sg-code-block></sg-code-block> <sg-code-block></sg-code-block> <!></div>`, 2);
+var root43 = from_html(`<div class="page"><div class="page-header"><sg-heading>Design Tokens & Theming</sg-heading> <sg-text>DTCG-compliant token pipeline - build CSS custom properties, JSON, or TypeScript from a theme definition with validation and diff detection.</sg-text></div> <sg-code-block></sg-code-block> <sg-code-block></sg-code-block> <!></div>`, 2);
 function TokensPage($$anchor) {
-  var div = root42();
+  var div = root43();
   var div_1 = child(div);
   var sg_heading = child(div_1);
   set_custom_element_data(sg_heading, "level", 1);
@@ -35509,10 +36232,10 @@ const resolved = resolveTheme(config);
 }
 
 // website/src/App.svelte
-var root_175 = from_html(`<main class="main-content main-content-full"><!> <footer><sg-container><sg-text>Built with <a href="/" data-nav="" class="footer-link">SigUI</a> &mdash; a comprehensive design system for the modern web</sg-text></sg-container></footer></main>`, 2);
+var root_175 = from_html(`<main class="main-content main-content-full"><!> <!></main>`);
 var root_362 = from_html(`<div class="page"><sg-heading>Not Found</sg-heading> <sg-text>The page <code> </code> doesn't exist.</sg-text> <sg-text><a href="/" data-nav="" class="go-home-link">Go home</a></sg-text></div>`, 2);
-var root_236 = from_html(`<sg-resizable-root><sg-resizable-panel><!></sg-resizable-panel> <sg-resizable-handle></sg-resizable-handle> <sg-resizable-panel><main class="main-content"><!> <sg-container><!></sg-container> <footer><sg-container><sg-text>Built with <a href="/" data-nav="" class="footer-link">SigUI</a> &mdash; a comprehensive design system for the modern web</sg-text></sg-container></footer></main></sg-resizable-panel></sg-resizable-root>`, 2);
-var root43 = from_html(`<sg-toast-provider><!> <div class="app-layout"><!></div></sg-toast-provider>`, 2);
+var root_236 = from_html(`<sg-resizable-root><sg-resizable-panel><!></sg-resizable-panel> <sg-resizable-handle></sg-resizable-handle> <sg-resizable-panel><main class="main-content"><!> <sg-container><!></sg-container> <!></main></sg-resizable-panel></sg-resizable-root>`, 2);
+var root44 = from_html(`<sg-toast-provider><!> <div class="app-layout"><!></div></sg-toast-provider>`, 2);
 function App($$anchor, $$props) {
   push($$props, true);
   const componentPathAliases = {
@@ -35617,7 +36340,7 @@ function App($$anchor, $$props) {
     }
   });
   onDestroy(() => unsub?.());
-  var sg_toast_provider = root43();
+  var sg_toast_provider = root44();
   set_custom_element_data(sg_toast_provider, "position", "bottom-center");
   var node = child(sg_toast_provider);
   Topbar(node, {
@@ -35642,14 +36365,8 @@ function App($$anchor, $$props) {
       var main = root_175();
       var node_2 = child(main);
       HomePage(node_2, { onColorSelect });
-      var footer = sibling(node_2, 2);
-      var sg_container = child(footer);
-      set_custom_element_data(sg_container, "size", "lg");
-      var sg_text = child(sg_container);
-      set_custom_element_data(sg_text, "size", "sm");
-      set_custom_element_data(sg_text, "color", "muted");
-      reset(sg_container);
-      reset(footer);
+      var node_3 = sibling(node_2, 2);
+      Footer(node_3, {});
       reset(main);
       append($$anchor2, main);
     };
@@ -35662,8 +36379,8 @@ function App($$anchor, $$props) {
       set_custom_element_data(sg_resizable_panel, "minSize", 12);
       set_custom_element_data(sg_resizable_panel, "maxSize", 35);
       set_class(sg_resizable_panel, 1, "sidebar-panel");
-      var node_3 = child(sg_resizable_panel);
-      Sidebar(node_3, {});
+      var node_4 = child(sg_resizable_panel);
+      Sidebar(node_4, {});
       reset(sg_resizable_panel);
       var sg_resizable_handle = sibling(sg_resizable_panel, 2);
       set_custom_element_data(sg_resizable_handle, "index", 0);
@@ -35672,11 +36389,11 @@ function App($$anchor, $$props) {
       set_custom_element_data(sg_resizable_panel_1, "defaultSize", 82);
       set_custom_element_data(sg_resizable_panel_1, "minSize", 50);
       var main_1 = child(sg_resizable_panel_1);
-      var node_4 = child(main_1);
-      Breadcrumbs(node_4, {});
-      var sg_container_1 = sibling(node_4, 2);
-      set_custom_element_data(sg_container_1, "size", "lg");
-      var node_5 = child(sg_container_1);
+      var node_5 = child(main_1);
+      Breadcrumbs(node_5, {});
+      var sg_container = sibling(node_5, 2);
+      set_custom_element_data(sg_container, "size", "lg");
+      var node_6 = child(sg_container);
       {
         var consequent_1 = ($$anchor3) => {
           PhilosophyIndex($$anchor3, {});
@@ -35767,7 +36484,7 @@ function App($$anchor, $$props) {
         var consequent_28 = ($$anchor3) => {
           const sub = user_derived(() => findRoute(get(resolvedComponentPath))?.route);
           var fragment_26 = comment();
-          var node_6 = first_child(fragment_26);
+          var node_7 = first_child(fragment_26);
           {
             var consequent_27 = ($$anchor4) => {
               {
@@ -35785,7 +36502,7 @@ function App($$anchor, $$props) {
                 });
               }
             };
-            if_block(node_6, ($$render) => {
+            if_block(node_7, ($$render) => {
               if (get(sub)?.children)
                 $$render(consequent_27);
             });
@@ -35816,19 +36533,19 @@ function App($$anchor, $$props) {
           var div_1 = root_362();
           var sg_heading = child(div_1);
           set_custom_element_data(sg_heading, "level", 1);
-          var sg_text_1 = sibling(sg_heading, 2);
-          set_custom_element_data(sg_text_1, "color", "secondary");
-          var code = sibling(child(sg_text_1));
+          var sg_text = sibling(sg_heading, 2);
+          set_custom_element_data(sg_text, "color", "secondary");
+          var code = sibling(child(sg_text));
           var text2 = child(code, true);
           reset(code);
           next();
-          reset(sg_text_1);
-          var sg_text_2 = sibling(sg_text_1, 2);
+          reset(sg_text);
+          var sg_text_1 = sibling(sg_text, 2);
           reset(div_1);
           template_effect(() => set_text(text2, get(currentPath2)));
           append($$anchor3, div_1);
         };
-        if_block(node_5, ($$render) => {
+        if_block(node_6, ($$render) => {
           if (get(currentPath2) === "/philosophy")
             $$render(consequent_1);
           else if (get(currentPath2) === "/philosophy/perception")
@@ -35897,15 +36614,9 @@ function App($$anchor, $$props) {
             $$render(alternate, false);
         });
       }
-      reset(sg_container_1);
-      var footer_1 = sibling(sg_container_1, 2);
-      var sg_container_2 = child(footer_1);
-      set_custom_element_data(sg_container_2, "size", "lg");
-      var sg_text_3 = child(sg_container_2);
-      set_custom_element_data(sg_text_3, "size", "sm");
-      set_custom_element_data(sg_text_3, "color", "muted");
-      reset(sg_container_2);
-      reset(footer_1);
+      reset(sg_container);
+      var node_8 = sibling(sg_container, 2);
+      Footer(node_8, {});
       reset(main_1);
       reset(sg_resizable_panel_1);
       reset(sg_resizable_root);
@@ -35930,7 +36641,7 @@ __export(exports_animated_image, {
   SiguiAnimatedImage: () => SiguiAnimatedImage
 });
 class SiguiAnimatedImage extends SiguiElement {
-  static observedAttributes = ["src", "alt", "reduced-src"];
+  static observedAttributes = ["src", "alt", "reduced-src", "width", "height", "fit", "radius", "loading", "max-width"];
   static componentKey = "animated-image";
   connectedCallback() {
     super.connectedCallback();
@@ -35955,6 +36666,15 @@ class SiguiAnimatedImage extends SiguiElement {
     }
     img.src = effectiveSrc;
     img.alt = this.getAttribute("alt") ?? "";
+    img.loading = this.getAttribute("loading") === "eager" ? "eager" : "lazy";
+    if (this.hasAttribute("width"))
+      img.setAttribute("width", this.getAttribute("width") ?? "");
+    else
+      img.removeAttribute("width");
+    if (this.hasAttribute("height"))
+      img.setAttribute("height", this.getAttribute("height") ?? "");
+    else
+      img.removeAttribute("height");
   }
 }
 
@@ -35964,8 +36684,37 @@ __export(exports_aspect_ratio, {
   SiguiAspectRatio: () => SiguiAspectRatio
 });
 class SiguiAspectRatio extends SiguiElement {
-  static observedAttributes = ["ratio"];
+  static observedAttributes = ["ratio", "max-width"];
   static componentKey = "aspect-ratio";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncRatio();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "ratio" && oldValue !== newValue)
+      this.syncRatio();
+  }
+  syncRatio() {
+    this.style.setProperty("--_aspect-ratio", normalizeAspectRatio(this.getAttribute("ratio")));
+  }
+}
+function normalizeAspectRatio(value) {
+  const ratio = value?.trim();
+  if (!ratio)
+    return "1 / 1";
+  const numeric = Number(ratio);
+  if (Number.isFinite(numeric) && numeric > 0)
+    return String(numeric);
+  const fraction = ratio.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);
+  if (!fraction)
+    return "1 / 1";
+  const width = Number(fraction[1]);
+  const height = Number(fraction[2]);
+  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+    return "1 / 1";
+  }
+  return `${width} / ${height}`;
 }
 
 // packages/components/src/components/primitives/Avatar/avatar.js
@@ -35976,6 +36725,80 @@ __export(exports_avatar, {
 class SiguiAvatar extends SiguiElement {
   static observedAttributes = ["src", "alt", "fallback", "size"];
   static componentKey = "avatar";
+  constructor() {
+    super();
+    this._lastSrc = null;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderAvatar();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "src" && oldValue !== newValue) {
+      delete this.dataset.imageError;
+      this._lastSrc = null;
+    }
+    if (this.isConnected)
+      this.renderAvatar();
+  }
+  renderAvatar() {
+    const src = this.getAttribute("src");
+    const alt = this.getAttribute("alt") ?? "";
+    const label = alt || this.getAttribute("fallback") || "Avatar";
+    this.setAttribute("role", "img");
+    this.setAttribute("aria-label", label);
+    if (src !== this._lastSrc) {
+      delete this.dataset.imageError;
+      this._lastSrc = src;
+    }
+    this.removeGenerated();
+    if (src && this.dataset.imageError !== "true") {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = alt;
+      img.dataset.siguiGenerated = "avatar";
+      img.addEventListener("error", () => {
+        this.dataset.imageError = "true";
+        img.remove();
+        this.renderFallback();
+      }, { once: true });
+      this.prepend(img);
+      return;
+    }
+    this.renderFallback();
+  }
+  removeGenerated() {
+    for (const child2 of [...this.children]) {
+      if (child2.dataset.siguiGenerated === "avatar")
+        child2.remove();
+    }
+  }
+  renderFallback() {
+    if (this.hasCustomContent())
+      return;
+    const fallback2 = this.getAttribute("fallback") || initialsFrom(this.getAttribute("alt") ?? "") || "?";
+    const span = document.createElement("span");
+    span.className = "sg-avatar-fallback";
+    span.dataset.siguiGenerated = "avatar";
+    span.textContent = fallback2;
+    this.append(span);
+  }
+  hasCustomContent() {
+    for (const node of this.childNodes) {
+      if (node.nodeType === 3 && node.textContent?.trim())
+        return true;
+      if (node.nodeType === 1 && node.dataset.siguiGenerated !== "avatar")
+        return true;
+    }
+    return false;
+  }
+}
+function initialsFrom(value) {
+  const parts = value.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length)
+    return "";
+  return parts.slice(0, 2).map((part) => part[0]?.toUpperCase() ?? "").join("");
 }
 
 // packages/components/src/components/primitives/Badge/badge.js
@@ -35986,16 +36809,158 @@ __export(exports_badge, {
 class SiguiBadge extends SiguiElement {
   static observedAttributes = ["color", "size", "icon", "href", "target", "rel"];
   static componentKey = "badge";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncBadge();
+    this.on(this, "click", (event2) => this.activateLink(event2));
+    this.on(this, "keydown", (event2) => {
+      if (!(event2 instanceof KeyboardEvent) || event2.key !== "Enter")
+        return;
+      this.activateLink(event2);
+    });
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncBadge();
+  }
+  syncBadge() {
+    const href = this.getAttribute("href");
+    if (href) {
+      this.dataset.href = href;
+      if (!this.hasAttribute("role"))
+        this.setAttribute("role", "link");
+      if (!this.hasAttribute("tabindex"))
+        this.tabIndex = 0;
+      if (this.getAttribute("target") === "_blank" && !this.hasAttribute("rel")) {
+        this.setAttribute("rel", "noopener noreferrer");
+      }
+    } else {
+      delete this.dataset.href;
+      if (this.getAttribute("role") === "link")
+        this.removeAttribute("role");
+      if (this.getAttribute("tabindex") === "0")
+        this.removeAttribute("tabindex");
+    }
+    this.renderIcon();
+  }
+  renderIcon() {
+    const icon = this.getAttribute("icon");
+    const existing = this.querySelector(":scope > sg-icon[data-sigui-generated='badge-icon']");
+    if (!icon) {
+      existing?.remove();
+      return;
+    }
+    if (existing) {
+      existing.setAttribute("name", icon);
+      return;
+    }
+    const iconEl = document.createElement("sg-icon");
+    iconEl.setAttribute("name", icon);
+    iconEl.setAttribute("aria-hidden", "true");
+    iconEl.setAttribute("data-sigui-generated", "badge-icon");
+    this.prepend(iconEl);
+  }
+  activateLink(event2) {
+    const href = this.getAttribute("href");
+    if (!href || event2.defaultPrevented)
+      return;
+    event2.preventDefault();
+    const target = this.getAttribute("target") || "_self";
+    if (target === "_blank") {
+      window.open(href, target, "noopener,noreferrer");
+    } else {
+      window.location.href = href;
+    }
+  }
 }
 
 // packages/components/src/components/recipes/Breadcrumb/breadcrumb.js
 var exports_breadcrumb = {};
 __export(exports_breadcrumb, {
+  SiguiBreadcrumbSeparator: () => SiguiBreadcrumbSeparator,
+  SiguiBreadcrumbPage: () => SiguiBreadcrumbPage,
+  SiguiBreadcrumbItem: () => SiguiBreadcrumbItem,
+  SiguiBreadcrumbEllipsis: () => SiguiBreadcrumbEllipsis,
   SiguiBreadcrumb: () => SiguiBreadcrumb
 });
 class SiguiBreadcrumb extends SiguiElement {
-  static observedAttributes = [];
+  static observedAttributes = ["max-width"];
   static componentKey = "breadcrumb";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Breadcrumb");
+    this.setAttribute("role", "navigation");
+  }
+}
+
+class SiguiBreadcrumbItem extends SiguiElement {
+  static observedAttributes = ["href", "current"];
+  static componentKey = "breadcrumb-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.sync();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.sync();
+  }
+  sync() {
+    const href = this.getAttribute("href");
+    const current = this.hasAttribute("current");
+    if (current)
+      this.setAttribute("aria-current", "page");
+    else
+      this.removeAttribute("aria-current");
+    const existing = this.querySelector("[data-sigui-part='breadcrumb-item']");
+    if (existing) {
+      if (href && existing instanceof HTMLAnchorElement)
+        existing.href = href;
+      return;
+    }
+    const wrapper = href && !current ? document.createElement("a") : document.createElement("span");
+    wrapper.dataset.siguiPart = "breadcrumb-item";
+    wrapper.className = href && !current ? "sg-breadcrumb-link" : "sg-breadcrumb-text";
+    if (wrapper instanceof HTMLAnchorElement)
+      wrapper.href = href || "#";
+    while (this.firstChild)
+      wrapper.append(this.firstChild);
+    this.append(wrapper);
+  }
+}
+
+class SiguiBreadcrumbSeparator extends SiguiElement {
+  static componentKey = "breadcrumb-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-hidden", "true");
+    if (!this.textContent?.trim() && this.children.length === 0)
+      this.textContent = "/";
+  }
+}
+
+class SiguiBreadcrumbEllipsis extends SiguiElement {
+  static componentKey = "breadcrumb-ellipsis";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.textContent?.trim()) {
+      this.textContent = "...";
+      const label = document.createElement("span");
+      label.className = "sg-breadcrumb-ellipsis-text";
+      label.textContent = this.getAttribute("aria-label") || "Show more";
+      this.append(label);
+    }
+  }
+}
+
+class SiguiBreadcrumbPage extends SiguiElement {
+  static componentKey = "breadcrumb-page";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-current", "page");
+  }
 }
 
 // packages/components/src/components/primitives/ButtonGroup/button-group.js
@@ -36006,6 +36971,34 @@ __export(exports_button_group, {
 class SiguiButtonGroup extends SiguiElement {
   static observedAttributes = ["size", "color", "orientation"];
   static componentKey = "button-group";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncButtonGroup();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncButtonGroup();
+  }
+  rehydrate() {
+    this.syncButtonGroup();
+  }
+  syncButtonGroup() {
+    if (!this.dataset.orientation)
+      this.dataset.orientation = "horizontal";
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "group");
+    const size = this.getAttribute("size");
+    const color = this.getAttribute("color");
+    for (const child2 of this.children) {
+      if (!(child2 instanceof HTMLElement))
+        continue;
+      if (size && !child2.hasAttribute("data-size"))
+        child2.dataset.size = size;
+      if (color && !child2.hasAttribute("data-color"))
+        child2.dataset.color = color;
+    }
+  }
 }
 
 // packages/components/src/components/primitives/Calendar/calendar.js
@@ -36039,7 +37032,7 @@ function getResolvedLocale(preferredLocale) {
 
 // packages/components/src/components/primitives/Calendar/calendar.js
 class SiguiCalendar extends SiguiElement {
-  static observedAttributes = ["mode", "value", "default-date", "min", "max", "locale", "onchange"];
+  static observedAttributes = ["mode", "value", "default-date", "min", "max", "locale", "onchange", "max-width"];
   static componentKey = "calendar";
   _viewDate = undefined;
   _focusedDate = null;
@@ -36424,7 +37417,7 @@ __export(exports_callout, {
   SiguiCallout: () => SiguiCallout
 });
 class SiguiCallout extends SiguiElement {
-  static observedAttributes = ["variant", "size"];
+  static observedAttributes = ["variant", "size", "max-width"];
   static componentKey = "callout";
   connectedCallback() {
     super.connectedCallback();
@@ -36445,7 +37438,7 @@ __export(exports_card, {
   SiguiCard: () => SiguiCard
 });
 class SiguiCard extends SiguiElement {
-  static observedAttributes = ["elevation", "padding", "size", "density"];
+  static observedAttributes = ["elevation", "padding", "size", "density", "max-width"];
   static componentKey = "card";
   syncAttributesToDataset() {
     super.syncAttributesToDataset();
@@ -36501,11 +37494,225 @@ class SiguiCardTitle extends SiguiElement {
 var exports_carousel = {};
 __export(exports_carousel, {
   SiguiCarouselRoot: () => SiguiCarouselRoot,
+  SiguiCarouselPrevious: () => SiguiCarouselPrevious,
+  SiguiCarouselNext: () => SiguiCarouselNext,
+  SiguiCarouselItem: () => SiguiCarouselItem,
+  SiguiCarouselContent: () => SiguiCarouselContent,
   SiguiCarousel: () => SiguiCarouselRoot
 });
 class SiguiCarouselRoot extends SiguiElement {
-  static observedAttributes = ["orientation", "loop", "autoplay", "autoplay-interval", "onchange"];
+  static observedAttributes = ["orientation", "loop", "autoplay", "autoplay-interval", "onchange", "max-width"];
   static componentKey = "carousel-root";
+  constructor() {
+    super();
+    this.index = 0;
+    this.paused = false;
+    this.autoplayTimer = null;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureClass("sg-carousel");
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "region");
+    this.setAttribute("aria-roledescription", "carousel");
+    this.on(this, "keydown", (event2) => this.onKeydown(event2));
+    this.on(this, "mouseenter", () => {
+      this.paused = true;
+    });
+    this.on(this, "mouseleave", () => {
+      this.paused = false;
+    });
+    this.on(this, "focusin", () => {
+      this.paused = true;
+    });
+    this.on(this, "focusout", () => {
+      this.paused = false;
+    });
+    queueMicrotask(() => this.refresh());
+    this.syncAutoplay();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.stopAutoplay();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (!this.isConnected || oldValue === newValue)
+      return;
+    this.refresh();
+    this.syncAutoplay();
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='carousel-item']")];
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='carousel-content']");
+  }
+  get orientation() {
+    return this.getAttribute("orientation") === "vertical" ? "vertical" : "horizontal";
+  }
+  get loop() {
+    return isTruthyAttribute(this, "loop");
+  }
+  goTo(index2) {
+    const items = this.items;
+    if (!items.length)
+      return;
+    const last = items.length - 1;
+    const next2 = this.loop ? wrap(index2, items.length) : Math.min(last, Math.max(0, index2));
+    if (next2 === this.index) {
+      this.refresh();
+      return;
+    }
+    this.index = next2;
+    this.refresh();
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { index: next2 } }));
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { index: next2 } }));
+  }
+  next() {
+    this.goTo(this.index + 1);
+  }
+  previous() {
+    this.goTo(this.index - 1);
+  }
+  refresh() {
+    const items = this.items;
+    this.index = Math.min(Math.max(0, this.index), Math.max(0, items.length - 1));
+    items.forEach((item, index2) => {
+      item.setAttribute("role", "group");
+      item.setAttribute("aria-roledescription", "slide");
+      item.setAttribute("aria-label", `Slide ${index2 + 1} of ${items.length}`);
+      item.toggleAttribute("aria-hidden", index2 !== this.index);
+    });
+    this.updateButtons();
+    this.scrollToCurrent();
+  }
+  updateButtons() {
+    const atStart = this.index <= 0;
+    const atEnd = this.index >= this.items.length - 1;
+    for (const button of this.querySelectorAll("[data-sigui-component='carousel-previous'], [data-sigui-component='carousel-next']")) {
+      const isPrevious = button.dataset.siguiComponent === "carousel-previous";
+      const disabled = !this.loop && (isPrevious ? atStart : atEnd);
+      button.toggleAttribute("aria-disabled", disabled);
+      button.toggleAttribute("disabled", disabled);
+    }
+  }
+  scrollToCurrent() {
+    const content = this.content;
+    const item = this.items[this.index];
+    if (!content || !item)
+      return;
+    const top = this.orientation === "vertical" ? item.offsetTop : 0;
+    const left = this.orientation === "horizontal" ? item.offsetLeft : 0;
+    content.scrollTo({ left, top, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  }
+  onKeydown(event2) {
+    const previousKey = this.orientation === "vertical" ? "ArrowUp" : "ArrowLeft";
+    const nextKey = this.orientation === "vertical" ? "ArrowDown" : "ArrowRight";
+    if (event2.key === previousKey) {
+      event2.preventDefault();
+      this.previous();
+    } else if (event2.key === nextKey) {
+      event2.preventDefault();
+      this.next();
+    } else if (event2.key === "Home") {
+      event2.preventDefault();
+      this.goTo(0);
+    } else if (event2.key === "End") {
+      event2.preventDefault();
+      this.goTo(this.items.length - 1);
+    }
+  }
+  syncAutoplay() {
+    this.stopAutoplay();
+    if (!isTruthyAttribute(this, "autoplay") || prefersReducedMotion())
+      return;
+    const interval = Math.max(1000, Number(this.getAttribute("autoplay-interval") ?? "5000") || 5000);
+    this.autoplayTimer = setInterval(() => {
+      if (!this.paused)
+        this.next();
+    }, interval);
+  }
+  stopAutoplay() {
+    if (this.autoplayTimer)
+      clearInterval(this.autoplayTimer);
+    this.autoplayTimer = null;
+  }
+}
+class SiguiCarouselContent extends SiguiElement {
+  static componentKey = "carousel-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("tabindex", "0");
+    queueMicrotask(() => findRoot(this)?.refresh());
+  }
+}
+
+class SiguiCarouselItem extends SiguiElement {
+  static componentKey = "carousel-item";
+  connectedCallback() {
+    super.connectedCallback();
+    queueMicrotask(() => findRoot(this)?.refresh());
+  }
+}
+
+class SiguiCarouselPrevious extends SiguiElement {
+  static componentKey = "carousel-previous";
+  connectedCallback() {
+    super.connectedCallback();
+    setupButton(this, "previous", "Previous slide", "<");
+    this.on(this, "click", () => {
+      if (this.hasAttribute("disabled"))
+        return;
+      findRoot(this)?.previous();
+    });
+  }
+}
+
+class SiguiCarouselNext extends SiguiElement {
+  static componentKey = "carousel-next";
+  connectedCallback() {
+    super.connectedCallback();
+    setupButton(this, "next", "Next slide", ">");
+    this.on(this, "click", () => {
+      if (this.hasAttribute("disabled"))
+        return;
+      findRoot(this)?.next();
+    });
+  }
+}
+function setupButton(button, direction, label, glyph) {
+  button.ensureClass("sg-carousel-button");
+  button.dataset.direction = direction;
+  button.setAttribute("role", "button");
+  button.setAttribute("tabindex", "0");
+  if (!button.hasAttribute("aria-label"))
+    button.setAttribute("aria-label", label);
+  if (!button.textContent?.trim())
+    button.textContent = glyph;
+  button.addEventListener("keydown", (event2) => {
+    if (!(event2 instanceof KeyboardEvent))
+      return;
+    if (event2.key !== "Enter" && event2.key !== " ")
+      return;
+    event2.preventDefault();
+    button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+  });
+}
+function findRoot(element2) {
+  return element2.closest("[data-sigui-component='carousel-root']");
+}
+function wrap(index2, length) {
+  return (index2 % length + length) % length;
+}
+function isTruthyAttribute(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
+}
+function prefersReducedMotion() {
+  return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 // packages/components/src/components/primitives/Chart/chart.js
@@ -36513,9 +37720,217 @@ var exports_chart = {};
 __export(exports_chart, {
   SiguiChart: () => SiguiChart
 });
+var SVG_WIDTH = 640;
+var SVG_HEIGHT = 320;
+var CHART_MARGIN = { top: 24, right: 24, bottom: 44, left: 48 };
+var COLOR_VARS = {
+  primary: "var(--sg-color-primary, var(--sg-color-link, #6366f1))",
+  secondary: "var(--sg-color-secondary, #64748b)",
+  danger: "var(--sg-color-danger, #ef4444)",
+  success: "var(--sg-color-success, #22c55e)",
+  warning: "var(--sg-color-warning, #f59e0b)",
+  info: "var(--sg-color-info, #06b6d4)",
+  ghost: "var(--sg-color-text-secondary, #64748b)"
+};
+
 class SiguiChart extends SiguiElement {
-  static observedAttributes = ["type", "data", "width", "height", "color", "show-grid", "show-labels", "label"];
+  static observedAttributes = ["type", "data", "width", "height", "color", "show-grid", "show-labels", "label", "max-width"];
   static componentKey = "chart";
+  _data = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this.render();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "data")
+      this._data = null;
+    if (this.isConnected)
+      this.render();
+  }
+  get data() {
+    return this.getData();
+  }
+  set data(value) {
+    this._data = normalizeData(value);
+    if (this.isConnected)
+      this.render();
+  }
+  getData() {
+    if (this._data)
+      return this._data;
+    const raw = this.getAttribute("data");
+    if (!raw)
+      return [];
+    try {
+      return normalizeData(JSON.parse(raw));
+    } catch {
+      return [];
+    }
+  }
+  render() {
+    const type = normalizeType(this.getAttribute("type"));
+    const label = this.getAttribute("label") ?? "Chart";
+    const data = this.getData();
+    const width = this.getAttribute("width") ?? "100%";
+    const height = this.getAttribute("height") ?? "300px";
+    const showGrid = readBoolAttr(this, "show-grid", true);
+    const showLabels = readBoolAttr(this, "show-labels", true);
+    const color = resolveColor(this.getAttribute("color") ?? "primary");
+    this.style.width = width;
+    this.style.setProperty("--_chart-height", height);
+    this.setAttribute("role", "img");
+    this.setAttribute("aria-label", label);
+    const svg = renderChartSvg({ type, data, label, color, showGrid, showLabels });
+    this.innerHTML = `${svg}${renderAccessibleTable(label, data)}`;
+  }
+}
+function readBoolAttr(el, name, fallback2) {
+  if (!el.hasAttribute(name))
+    return fallback2;
+  const raw = (el.getAttribute(name) ?? "").trim().toLowerCase();
+  if (!raw)
+    return true;
+  return !(raw === "false" || raw === "0" || raw === "no" || raw === "off");
+}
+function normalizeType(type) {
+  return type === "line" || type === "area" || type === "pie" || type === "donut" ? type : "bar";
+}
+function normalizeData(value) {
+  if (!Array.isArray(value))
+    return [];
+  return value.map((item, index2) => {
+    if (!item || typeof item !== "object")
+      return null;
+    const record = item;
+    const numeric = Number(record.value);
+    if (!Number.isFinite(numeric))
+      return null;
+    return {
+      label: String(record.label ?? `Item ${index2 + 1}`),
+      value: numeric,
+      color: typeof record.color === "string" ? record.color : undefined
+    };
+  }).filter((item) => item !== null);
+}
+function resolveColor(value) {
+  return COLOR_VARS[value] ?? value;
+}
+function renderChartSvg(options) {
+  const { type, data, label, color, showGrid, showLabels } = options;
+  if (data.length === 0) {
+    return `<svg class="sg-chart-svg" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}" role="img" aria-label="${esc(label)}"><text x="${SVG_WIDTH / 2}" y="${SVG_HEIGHT / 2}" text-anchor="middle" fill="currentColor">No data</text></svg>`;
+  }
+  if (type === "pie" || type === "donut") {
+    return renderPieSvg(type, data, label, color);
+  }
+  return renderCartesianSvg(type, data, label, color, showGrid, showLabels);
+}
+function renderCartesianSvg(type, data, label, color, showGrid, showLabels) {
+  const plotWidth = SVG_WIDTH - CHART_MARGIN.left - CHART_MARGIN.right;
+  const plotHeight = SVG_HEIGHT - CHART_MARGIN.top - CHART_MARGIN.bottom;
+  const max = Math.max(...data.map((item) => Math.max(0, item.value)), 1);
+  const xStep = plotWidth / Math.max(1, data.length);
+  const barWidth = Math.max(4, xStep * 0.58);
+  const grid = showGrid ? renderGrid(max, plotWidth, plotHeight) : "";
+  const labels = showLabels ? renderAxisLabels(data, max, plotWidth, plotHeight) : "";
+  const body = type === "bar" ? renderBars(data, color, max, plotHeight, xStep, barWidth) : renderLineLike(type, data, color, max, plotWidth, plotHeight);
+  return `<svg class="sg-chart-svg" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}" role="img" aria-label="${esc(label)}">` + `<g transform="translate(${CHART_MARGIN.left} ${CHART_MARGIN.top})">` + grid + body + labels + `</g>` + `</svg>`;
+}
+function renderGrid(max, width, height) {
+  const lines = [];
+  for (let i = 0;i <= 4; i += 1) {
+    const y = height / 4 * i;
+    const value = max - max / 4 * i;
+    lines.push(`<line class="sg-chart-grid-line" x1="0" y1="${round3(y)}" x2="${round3(width)}" y2="${round3(y)}" stroke="var(--sg-color-border, #e2e8f0)" stroke-width="1"/>`);
+    lines.push(`<text class="sg-chart-axis-label" x="-8" y="${round3(y + 4)}" text-anchor="end" fill="var(--sg-color-text-secondary, #64748b)" font-size="11">${formatNumber(value)}</text>`);
+  }
+  return lines.join("");
+}
+function renderAxisLabels(data, max, width, height) {
+  const xStep = width / Math.max(1, data.length);
+  const labels = [`<line x1="0" y1="${height}" x2="${width}" y2="${height}" stroke="var(--sg-color-border, #e2e8f0)" stroke-width="1"/>`];
+  data.forEach((item, index2) => {
+    const x = xStep * index2 + xStep / 2;
+    labels.push(`<text class="sg-chart-axis-label" x="${round3(x)}" y="${height + 22}" text-anchor="middle" fill="var(--sg-color-text-secondary, #64748b)" font-size="11">${esc(truncate(item.label, 14))}</text>`);
+  });
+  return labels.join("");
+}
+function renderBars(data, color, max, height, xStep, barWidth) {
+  return data.map((item, index2) => {
+    const value = Math.max(0, item.value);
+    const barHeight = value / max * height;
+    const x = xStep * index2 + (xStep - barWidth) / 2;
+    const y = height - barHeight;
+    return `<rect class="sg-chart-bar" x="${round3(x)}" y="${round3(y)}" width="${round3(barWidth)}" height="${round3(barHeight)}" rx="4" fill="${esc(item.color ?? color)}"><title>${esc(item.label)}: ${formatNumber(item.value)}</title></rect>`;
+  }).join("");
+}
+function renderLineLike(type, data, color, max, width, height) {
+  const points = data.map((item, index2) => {
+    const x = data.length === 1 ? width / 2 : width / (data.length - 1) * index2;
+    const y = height - Math.max(0, item.value) / max * height;
+    return { x, y, item };
+  });
+  const path = points.map((point, index2) => `${index2 === 0 ? "M" : "L"}${round3(point.x)} ${round3(point.y)}`).join(" ");
+  const area = type === "area" ? `<path class="sg-chart-area" d="${path} L${round3(points.at(-1)?.x ?? 0)} ${height} L${round3(points[0]?.x ?? 0)} ${height} Z" fill="${esc(color)}" opacity="0.18"/>` : "";
+  const dots = points.map((point) => `<circle class="sg-chart-point" cx="${round3(point.x)}" cy="${round3(point.y)}" r="4" fill="${esc(color)}"><title>${esc(point.item.label)}: ${formatNumber(point.item.value)}</title></circle>`).join("");
+  return `${area}<path class="sg-chart-line" d="${path}" fill="none" stroke="${esc(color)}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${dots}`;
+}
+function renderPieSvg(type, data, label, color) {
+  const values = data.map((item) => ({ ...item, value: Math.max(0, item.value) })).filter((item) => item.value > 0);
+  const total = values.reduce((sum, item) => sum + item.value, 0);
+  if (total <= 0) {
+    return `<svg class="sg-chart-svg" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}" role="img" aria-label="${esc(label)}"><text x="${SVG_WIDTH / 2}" y="${SVG_HEIGHT / 2}" text-anchor="middle" fill="currentColor">No positive values</text></svg>`;
+  }
+  const cx = SVG_WIDTH / 2;
+  const cy = SVG_HEIGHT / 2;
+  const radius = 112;
+  let start = -Math.PI / 2;
+  const slices = values.map((item, index2) => {
+    const angle = item.value / total * Math.PI * 2;
+    const end = start + angle;
+    const fill = item.color ?? paletteColor(index2, color);
+    const path = angle >= Math.PI * 2 - 0.0001 ? `<circle cx="${cx}" cy="${cy}" r="${radius}" fill="${esc(fill)}"/>` : `<path d="${describeSlice(cx, cy, radius, start, end)}" fill="${esc(fill)}"/>`;
+    start = end;
+    return `<g class="sg-chart-slice">${path}<title>${esc(item.label)}: ${formatNumber(item.value)}</title></g>`;
+  }).join("");
+  const hole = type === "donut" ? `<circle cx="${cx}" cy="${cy}" r="${radius * 0.58}" fill="var(--sg-surface-container-low, var(--surface, #fff))"/>` : "";
+  return `<svg class="sg-chart-svg" viewBox="0 0 ${SVG_WIDTH} ${SVG_HEIGHT}" role="img" aria-label="${esc(label)}">${slices}${hole}</svg>`;
+}
+function describeSlice(cx, cy, radius, start, end) {
+  const x1 = cx + Math.cos(start) * radius;
+  const y1 = cy + Math.sin(start) * radius;
+  const x2 = cx + Math.cos(end) * radius;
+  const y2 = cy + Math.sin(end) * radius;
+  const largeArc = end - start > Math.PI ? 1 : 0;
+  return `M${cx} ${cy} L${round3(x1)} ${round3(y1)} A${radius} ${radius} 0 ${largeArc} 1 ${round3(x2)} ${round3(y2)} Z`;
+}
+function paletteColor(index2, fallback2) {
+  const palette = [
+    fallback2,
+    "var(--sg-color-info, #06b6d4)",
+    "var(--sg-color-success, #22c55e)",
+    "var(--sg-color-warning, #f59e0b)",
+    "var(--sg-color-danger, #ef4444)",
+    "var(--sg-color-secondary, #64748b)"
+  ];
+  return palette[index2 % palette.length] ?? fallback2;
+}
+function renderAccessibleTable(label, data) {
+  const rows = data.map((item) => `<tr><th scope="row">${esc(item.label)}</th><td>${formatNumber(item.value)}</td></tr>`).join("");
+  return `<table class="sg-chart-table"><caption>${esc(label)}</caption><thead><tr><th scope="col">Label</th><th scope="col">Value</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function round3(value) {
+  return Number(value.toFixed(2));
+}
+function formatNumber(value) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/\.?0+$/, "");
+}
+function truncate(value, length) {
+  return value.length > length ? `${value.slice(0, length - 1)}...` : value;
+}
+function esc(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // packages/components/src/components/primitives/Checkbox/checkbox.js
@@ -36607,8 +38022,8 @@ function lockDocumentScroll(doc) {
     bodyOverflowY: body.style.overflowY,
     bodyPosition: body.style.position,
     bodyTop: body.style.top,
-    bodyLeft: body.style.left,
-    bodyRight: body.style.right,
+    bodyInsetInlineStart: body.style.insetInlineStart,
+    bodyInsetInlineEnd: body.style.insetInlineEnd,
     bodyWidth: body.style.width
   };
   DOCUMENT_SCROLL_LOCKS.set(doc, state2);
@@ -36618,8 +38033,8 @@ function lockDocumentScroll(doc) {
   body.style.overflowY = "hidden";
   body.style.position = "fixed";
   body.style.top = `-${state2.scrollY}px`;
-  body.style.left = "0";
-  body.style.right = "0";
+  body.style.insetInlineStart = "0";
+  body.style.insetInlineEnd = "0";
   body.style.width = "100%";
 }
 function unlockDocumentScroll(doc) {
@@ -36643,8 +38058,8 @@ function unlockDocumentScroll(doc) {
   body.style.overflowY = state2.bodyOverflowY;
   body.style.position = state2.bodyPosition;
   body.style.top = state2.bodyTop;
-  body.style.left = state2.bodyLeft;
-  body.style.right = state2.bodyRight;
+  body.style.insetInlineStart = state2.bodyInsetInlineStart;
+  body.style.insetInlineEnd = state2.bodyInsetInlineEnd;
   body.style.width = state2.bodyWidth;
   win.scrollTo(state2.scrollX, state2.scrollY);
 }
@@ -36653,6 +38068,32 @@ function syncOptionalAttribute(el, attr2, value) {
     el.setAttribute(attr2, value);
   else
     el.removeAttribute(attr2);
+}
+function canUseNativePopover(el) {
+  return typeof el.showPopover === "function" && typeof el.hidePopover === "function";
+}
+function isNativePopoverOpen(el) {
+  try {
+    return el.matches(":popover-open");
+  } catch {
+    return false;
+  }
+}
+function syncNativePopover(panel, visible) {
+  if (!canUseNativePopover(panel)) {
+    panel.hidden = !visible;
+    return;
+  }
+  panel.hidden = false;
+  const open = isNativePopoverOpen(panel);
+  try {
+    if (visible && !open)
+      panel.showPopover();
+    if (!visible && open)
+      panel.hidePopover();
+  } catch {
+    panel.hidden = !visible;
+  }
 }
 function getMachine(el) {
   return el?.[MACHINE];
@@ -36681,7 +38122,7 @@ function markComponent(host, componentKey) {
   host.ensureClass(`sg-${componentKey}`);
   host.dataset.siguiComponent = componentKey;
 }
-function findRoot(host, rootKey) {
+function findRoot2(host, rootKey) {
   return host.closest(`[data-sigui-component='${rootKey}']`);
 }
 function setupMachine(host, definition, featureFlag) {
@@ -36768,7 +38209,10 @@ class OpenableRoot extends SiguiElement {
     cleanupMachine(this);
     super.disconnectedCallback();
   }
-  attributeChangedCallback() {
+  attributeChangedCallback(name, _oldValue, _newValue) {
+    this.syncAttributesToDataset();
+    if (name !== "open")
+      return;
     syncOpenMachine(this);
     this.dispatchEvent(new CustomEvent("sigui:toggle", { bubbles: true, detail: { open: isOpenAttrTruthy(this) } }));
   }
@@ -36794,30 +38238,46 @@ class OpenTrigger extends SiguiElement {
     this._rootKey = rootKey;
     markComponent(this, key2);
     this.dataset.siguiParent = rootKey;
-    this._root = findRoot(this, rootKey);
-    const control = ensureInternalControl(this, "button[data-sigui-part='control']", () => document.createElement("button"));
-    if (!(control instanceof HTMLButtonElement))
-      return;
-    control.type = "button";
-    control.dataset.siguiPart = "control";
-    if (!control.textContent?.trim())
-      control.textContent = this.getAttribute("label") || "Toggle";
-    if (control.dataset.siguiBound !== "1") {
-      control.dataset.siguiBound = "1";
-      this.on(control, "click", () => {
-        if (!isHTMLElement(this._root ?? null))
-          return;
-        const root44 = this._root;
-        if (isOpenAttrTruthy(root44))
-          root44.removeAttribute("open");
-        else
-          root44.setAttribute("open", "");
-      });
+    this._root = findRoot2(this, rootKey);
+    const existingButton = this.querySelector("button[data-sigui-part='control'], :scope > button");
+    const target = existingButton instanceof HTMLButtonElement ? existingButton : this;
+    const toggle = () => {
+      if (!isHTMLElement(this._root ?? null))
+        return;
+      const root45 = this._root;
+      if (isOpenAttrTruthy(root45))
+        root45.removeAttribute("open");
+      else
+        root45.setAttribute("open", "");
+    };
+    if (target instanceof HTMLButtonElement) {
+      target.type = "button";
+      target.dataset.siguiPart = "control";
+      if (!target.textContent?.trim())
+        target.textContent = this.getAttribute("label") || "Toggle";
+    } else {
+      this.setAttribute("role", "button");
+      this.tabIndex = this.hasAttribute("disabled") ? -1 : 0;
+      if (!this.textContent?.trim() && this.getAttribute("label"))
+        this.textContent = this.getAttribute("label");
+    }
+    if (target.dataset.siguiBound !== "1") {
+      target.dataset.siguiBound = "1";
+      this.on(target, "click", toggle);
+      if (target === this) {
+        this.on(this, "keydown", (event2) => {
+          const key3 = event2.key;
+          if (key3 === "Enter" || key3 === " ") {
+            event2.preventDefault();
+            toggle();
+          }
+        });
+      }
     }
   }
   rehydrate() {
     if (this._rootKey)
-      this._root = findRoot(this, this._rootKey);
+      this._root = findRoot2(this, this._rootKey);
   }
 }
 
@@ -36834,7 +38294,7 @@ class PanelContent extends SiguiElement {
     this._panelOptions = options;
     markComponent(this, key2);
     this.dataset.siguiParent = rootKey;
-    this._root = findRoot(this, rootKey);
+    this._root = findRoot2(this, rootKey);
     this._role = role;
     this._render();
     if (isHTMLElement(this._root)) {
@@ -36859,8 +38319,9 @@ class PanelContent extends SiguiElement {
     const opts = this._panelOptions;
     const panelTag = opts.panelTag || "div";
     const isDialogPanel = panelTag === "dialog";
-    let panel = this.querySelector("[data-sigui-part='panel']");
-    if (!panel) {
+    const isPopoverPanel = opts.popover === "auto" || opts.popover === "manual";
+    let panel = isDialogPanel ? this.querySelector("[data-sigui-part='panel']") : this;
+    if (isDialogPanel && !panel) {
       const serverRendered = this.querySelector(`:scope > ${panelTag}`);
       if (serverRendered) {
         panel = serverRendered;
@@ -36887,6 +38348,35 @@ class PanelContent extends SiguiElement {
           this.on(panel, "cancel", (e) => e.preventDefault());
         }
       }
+    }
+    if (!panel)
+      return;
+    if (!isDialogPanel) {
+      panel.dataset.siguiPart = "panel";
+      if (opts.panelClass)
+        panel.classList.add(opts.panelClass);
+    }
+    if (isPopoverPanel) {
+      panel.setAttribute("popover", opts.popover || "auto");
+      if (panel.dataset.siguiPopoverBound !== "1") {
+        panel.dataset.siguiPopoverBound = "1";
+        this.on(panel, "toggle", (e) => {
+          if (!this._root || !isOpenAttrTruthy(this._root))
+            return;
+          const newState = e.newState;
+          if (newState === "closed") {
+            this._root.removeAttribute("open");
+          } else if (newState === undefined) {
+            queueMicrotask(() => {
+              if (this._root && isOpenAttrTruthy(this._root) && !isNativePopoverOpen(panel)) {
+                this._root.removeAttribute("open");
+              }
+            });
+          }
+        });
+      }
+    } else {
+      panel.removeAttribute("popover");
     }
     panel.setAttribute("role", this._role || "region");
     this._panel = panel;
@@ -36921,9 +38411,12 @@ class PanelContent extends SiguiElement {
           panel.removeAttribute("open");
         }
       }
+    } else if (isPopoverPanel) {
+      syncNativePopover(panel, visible);
     } else {
       panel.hidden = !visible;
       this.hidden = !visible;
+      panel.dataset.state = visible ? "open" : "closed";
     }
     this._configurePanel(panel);
   }
@@ -36950,7 +38443,7 @@ class PanelContent extends SiguiElement {
   }
   rehydrate() {
     if (this._rootKey) {
-      this._root = findRoot(this, this._rootKey);
+      this._root = findRoot2(this, this._rootKey);
       this._panel = null;
       this._render();
     }
@@ -36966,12 +38459,20 @@ class CloseButton extends SiguiElement {
     this._rootKey = rootKey;
     markComponent(this, key2);
     this.dataset.siguiParent = rootKey;
-    this._root = findRoot(this, rootKey);
+    this._root = findRoot2(this, rootKey);
     const control = ensureInternalControl(this, "button[data-sigui-part='control']", () => document.createElement("button"));
     if (!(control instanceof HTMLButtonElement))
       return;
+    if (control.parentElement === this) {
+      const siblings = [...this.childNodes].filter((node) => node !== control);
+      for (const node of siblings)
+        control.appendChild(node);
+    }
     control.type = "button";
     control.dataset.siguiPart = "control";
+    const explicitLabel = this.getAttribute("aria-label") || this.getAttribute("label");
+    if (explicitLabel)
+      control.setAttribute("aria-label", explicitLabel);
     if (!control.textContent?.trim())
       control.textContent = this.getAttribute("label") || "Close";
     if (control.dataset.siguiBound !== "1") {
@@ -36981,7 +38482,7 @@ class CloseButton extends SiguiElement {
   }
   rehydrate() {
     if (this._rootKey)
-      this._root = findRoot(this, this._rootKey);
+      this._root = findRoot2(this, this._rootKey);
   }
 }
 
@@ -36995,7 +38496,7 @@ class TitlePart extends SiguiElement {
 
 // packages/components/src/components/primitives/Checkbox/checkbox.js
 class SiguiCheckbox extends SiguiElement {
-  static observedAttributes = ["checked", "indeterminate", "disabled", "required", "name", "value", "aria-label"];
+  static observedAttributes = ["checked", "indeterminate", "disabled", "required", "name", "value", "aria-label", "size"];
   static componentKey = "checkbox";
   static cssClass = "sg-checkbox-wrapper";
   static contract = Object.freeze({
@@ -37071,8 +38572,8 @@ class SiguiCheckbox extends SiguiElement {
   syncNonStateAttrsToControl() {
     if (!(this._control instanceof HTMLInputElement))
       return;
-    this._control.disabled = this.hasAttribute("disabled");
-    this._control.required = this.hasAttribute("required");
+    this._control.disabled = isBooleanAttr(this, "disabled");
+    this._control.required = isBooleanAttr(this, "required");
     const name = this.getAttribute("name");
     if (name == null)
       this._control.removeAttribute("name");
@@ -37128,12 +38629,12 @@ class SiguiCheckbox extends SiguiElement {
     const machine = this.ensureMachine();
     if (!machine)
       return;
-    if (this.hasAttribute("indeterminate")) {
+    if (isBooleanAttr(this, "indeterminate")) {
       if (machine.state !== "indeterminate")
         machine.send("SET_INDETERMINATE");
       return;
     }
-    if (this.hasAttribute("checked")) {
+    if (isBooleanAttr(this, "checked")) {
       if (machine.state !== "checked")
         machine.send("CHECK");
       return;
@@ -37159,6 +38660,9 @@ class SiguiCheckbox extends SiguiElement {
       machine.send("UNCHECK");
   }
 }
+function isBooleanAttr(element2, name) {
+  return element2.hasAttribute(name) && element2.getAttribute(name) !== "false";
+}
 
 // packages/components/src/components/primitives/Cluster/cluster.js
 var exports_cluster = {};
@@ -37176,7 +38680,7 @@ __export(exports_code_block, {
   SiguiCodeBlock: () => SiguiCodeBlock
 });
 class SiguiCodeBlock extends SiguiElement {
-  static observedAttributes = ["code", "language", "title", "show-line-numbers", "highlight-lines", "diff"];
+  static observedAttributes = ["code", "language", "title", "show-line-numbers", "highlight-lines", "diff", "max-width"];
   static componentKey = "code-block";
   constructor() {
     super();
@@ -37216,16 +38720,18 @@ class SiguiCodeBlock extends SiguiElement {
     const code = this.getAttribute("code") ?? "";
     const language = this.getAttribute("language") ?? "";
     const title = this.getAttribute("title");
-    const showLineNumbers = this.hasAttribute("show-line-numbers");
+    const showLineNumbers = isTruthyAttribute2(this, "show-line-numbers");
     const highlightLinesAttr = this.getAttribute("highlight-lines");
-    const diff = this.hasAttribute("diff");
+    const diff = isTruthyAttribute2(this, "diff");
     const highlightSet = new Set(highlightLinesAttr ? highlightLinesAttr.split(",").map((n) => parseInt(n.trim(), 10)) : []);
     const useLineMode = showLineNumbers || diff || highlightSet.size > 0;
     if (diff)
       this.dataset.diff = "";
+    else
+      delete this.dataset.diff;
     let html2 = "";
     if (title) {
-      html2 += `<div class="sg-code-block-header">` + `<span class="sg-code-block-title">${esc(title)}</span>` + `<button type="button" class="sg-code-block-copy" aria-label="Copy code">Copy</button>` + `</div>`;
+      html2 += `<div class="sg-code-block-header">` + `<span class="sg-code-block-title">${esc2(title)}</span>` + `<button type="button" class="sg-code-block-copy" aria-label="Copy code">Copy</button>` + `</div>`;
     } else {
       html2 += `<button type="button" class="sg-code-block-copy sg-code-block-copy-floating" aria-label="Copy code">Copy</button>`;
     }
@@ -37256,13 +38762,13 @@ class SiguiCodeBlock extends SiguiElement {
             attrs.push(`data-diff="${dt}"`);
         }
         const lineNum = showLineNumbers ? `<span class="sg-code-block-line-number">${i + 1}</span>` : "";
-        const content = highlighted && highlighted[i] !== undefined ? highlighted[i] : esc(line);
+        const content = highlighted && highlighted[i] !== undefined ? highlighted[i] : esc2(line);
         linesHtml += `<span class="sg-code-block-line" ${attrs.join(" ")}>${lineNum}<span class="sg-code-block-line-content">${content}</span>
 </span>`;
       }
       html2 += `<pre class="sg-code-block-pre"><code class="sg-code-block-code hljs">${linesHtml}</code></pre>`;
     } else {
-      html2 += `<pre class="sg-code-block-pre"><code class="sg-code-block-code${language ? ` language-${esc(language)}` : ""}">${esc(code.trim())}</code></pre>`;
+      html2 += `<pre class="sg-code-block-pre"><code class="sg-code-block-code${language ? ` language-${esc2(language)}` : ""}">${esc2(code.trim())}</code></pre>`;
       requestAnimationFrame(() => {
         const hljs = globalThis.hljs;
         const codeEl = this.querySelector(".sg-code-block-code");
@@ -37293,8 +38799,14 @@ class SiguiCodeBlock extends SiguiElement {
     }
   }
 }
-function esc(s) {
+function esc2(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function isTruthyAttribute2(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
 }
 
 // packages/components/src/components/primitives/ColorPicker/color-picker.js
@@ -37303,29 +38815,36 @@ __export(exports_color_picker, {
   SiguiColorPicker: () => SiguiColorPicker
 });
 
-// packages/core/src/runtime/spacing.js
-var baseUnitCache = new WeakMap;
+// packages/dom/src/spacing/base-unit.js
+var _baseUnitCache = new WeakMap;
 function readBaseUnit(element2) {
   const now2 = typeof performance !== "undefined" ? performance.now() : 0;
   const frame = Math.floor(now2 / 16);
-  const root44 = typeof document !== "undefined" ? element2 ?? document.documentElement : null;
-  if (!root44)
-    return 4;
-  const cached = baseUnitCache.get(root44);
-  if (cached && cached.frame === frame)
-    return cached.value;
-  const raw = getComputedStyle(root44).getPropertyValue("--sg-base-unit").trim();
-  let value = 4;
-  if (raw) {
-    const parsed = parseFloat(raw);
-    if (!Number.isNaN(parsed)) {
-      value = raw.endsWith("rem") ? parsed * 16 : parsed;
+  const el = typeof document !== "undefined" ? element2 ?? document.documentElement : null;
+  if (el) {
+    const cached = _baseUnitCache.get(el);
+    if (cached && cached.frame === frame) {
+      return cached.value;
     }
   }
-  baseUnitCache.set(root44, { value, frame });
+  let value = 4;
+  if (el) {
+    const raw = getComputedStyle(el).getPropertyValue("--sg-base-unit").trim();
+    if (raw) {
+      if (raw.endsWith("rem")) {
+        const parsed = parseFloat(raw);
+        if (!Number.isNaN(parsed))
+          value = parsed * 16;
+      } else {
+        const parsed = parseFloat(raw);
+        if (!Number.isNaN(parsed))
+          value = raw.endsWith("px") ? parsed : parsed;
+      }
+    }
+    _baseUnitCache.set(el, { value, frame });
+  }
   return value;
 }
-
 // packages/components/src/components/primitives/ColorPicker/color-picker.js
 var DEFAULT_HUE = 0;
 var DEFAULT_LIGHTNESS = 0.7;
@@ -37341,7 +38860,7 @@ function readNumber(value, fallback2) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback2;
 }
-function readBoolAttr(el, name, fallback2 = false) {
+function readBoolAttr2(el, name, fallback2 = false) {
   if (!el.hasAttribute(name))
     return fallback2;
   const raw = (el.getAttribute(name) ?? "").trim().toLowerCase();
@@ -37392,6 +38911,7 @@ class SiguiColorPicker extends SiguiElement {
     this._input = null;
     this._popup = null;
     this._triggerButton = null;
+    this._triggerRoot = null;
     this._oklchInputs = null;
     this._lastCommittedHex = null;
     this._geometry = {
@@ -37414,6 +38934,10 @@ class SiguiColorPicker extends SiguiElement {
     this._syncFromAttributes();
     this._render();
     this._rendered = true;
+  }
+  disconnectedCallback() {
+    this._removeFloatingPopup();
+    super.disconnectedCallback();
   }
   attributeChangedCallback(name, _oldValue, newValue) {
     super.attributeChangedCallback(name, _oldValue, newValue);
@@ -37508,10 +39032,12 @@ class SiguiColorPicker extends SiguiElement {
     };
   }
   _render() {
+    this._removeFloatingPopup();
     this._resolveSizes();
     this.textContent = "";
     this._triggerButton = null;
     this._popup = null;
+    this._triggerRoot = null;
     this._oklchInputs = null;
     this._input = null;
     this._value = null;
@@ -37532,8 +39058,13 @@ class SiguiColorPicker extends SiguiElement {
     if (mode === "inline")
       return false;
     if (this.hasAttribute("popover"))
-      return readBoolAttr(this, "popover", false);
+      return readBoolAttr2(this, "popover", false);
     return false;
+  }
+  _shouldRenderSwatch() {
+    if (!this.hasAttribute("swatch"))
+      return true;
+    return readBoolAttr2(this, "swatch", true);
   }
   _renderInline(direction) {
     const container = document.createElement("div");
@@ -37541,8 +39072,23 @@ class SiguiColorPicker extends SiguiElement {
     if (this.hasAttribute("disabled"))
       container.setAttribute("data-disabled", "");
     const wheel = this._buildWheel();
-    const control = this._buildControlPanel(false);
-    container.append(control, wheel);
+    if (this._shouldRenderSwatch()) {
+      const control = this._buildControlPanel(false);
+      container.append(control, wheel);
+    } else {
+      const value = this._buildValueDisplay();
+      if (value) {
+        const control = document.createElement("div");
+        control.style.display = "inline-flex";
+        control.style.flexDirection = "column";
+        control.style.alignItems = "center";
+        control.style.gap = "6px";
+        control.append(value);
+        container.append(control, wheel);
+      } else {
+        container.append(wheel);
+      }
+    }
     container.style.flexDirection = direction === "top" ? "column-reverse" : direction === "bottom" ? "column" : direction === "left" ? "row-reverse" : "row";
     this._root = container;
     this.append(container);
@@ -37560,8 +39106,9 @@ class SiguiColorPicker extends SiguiElement {
     popup.className = "sg-color-picker-trigger-popup";
     popup.style.display = "none";
     popup.style.position = "fixed";
-    popup.style.zIndex = "999";
+    popup.style.zIndex = "2147483000";
     popup.style.overflow = "visible";
+    popup.setAttribute("popover", "manual");
     const wheelWrap = document.createElement("div");
     wheelWrap.className = "sg-color-picker";
     wheelWrap.append(this._buildWheel());
@@ -37595,38 +39142,89 @@ class SiguiColorPicker extends SiguiElement {
       popup.style.left = `${Math.round(left)}px`;
       popup.style.top = `${Math.round(top)}px`;
     };
-    button.addEventListener("click", () => {
-      if (popup.style.display === "none") {
-        popup.style.display = "flex";
-        placePopup();
-        requestAnimationFrame(placePopup);
-      } else {
-        popup.style.display = "none";
-      }
+    const isPopupOpen = () => popup.style.display !== "none";
+    const mountPopup = () => {
+      if (popup.parentNode !== document.body)
+        document.body.append(popup);
+    };
+    const hidePopup = () => {
+      if (!isPopupOpen())
+        return;
+      try {
+        if (typeof popup.hidePopover === "function" && popup.matches(":popover-open")) {
+          popup.hidePopover();
+        }
+      } catch {}
+      popup.style.display = "none";
+      button.setAttribute("aria-expanded", "false");
+      if (popup.parentNode === document.body && trigger.isConnected)
+        trigger.append(popup);
+    };
+    const showPopup = () => {
+      mountPopup();
+      popup.style.display = "flex";
+      try {
+        if (typeof popup.showPopover === "function" && !popup.matches(":popover-open")) {
+          popup.showPopover();
+        }
+      } catch {}
+      button.setAttribute("aria-expanded", "true");
+      placePopup();
+      requestAnimationFrame(placePopup);
+    };
+    button.setAttribute("aria-haspopup", "dialog");
+    button.setAttribute("aria-expanded", "false");
+    button.addEventListener("click", (event2) => {
+      event2.preventDefault();
+      event2.stopPropagation();
+      if (isPopupOpen())
+        hidePopup();
+      else
+        showPopup();
     });
     this.on(document, "pointerdown", (event2) => {
       const path = typeof event2.composedPath === "function" ? event2.composedPath() : [];
       const insideTrigger = path.includes(trigger) || trigger.contains(event2.target);
-      if (!insideTrigger)
-        popup.style.display = "none";
+      const insidePopup = path.includes(popup) || popup.contains(event2.target);
+      if (!insideTrigger && !insidePopup)
+        hidePopup();
+    });
+    this.on(document, "keydown", (event2) => {
+      if (!isPopupOpen())
+        return;
+      if (event2.key !== "Escape")
+        return;
+      hidePopup();
+      button.focus();
     });
     this.on(window, "resize", () => {
-      if (popup.style.display !== "none")
+      if (isPopupOpen())
         placePopup();
     });
     this.on(window, "scroll", () => {
-      if (popup.style.display !== "none")
+      if (isPopupOpen())
         placePopup();
     });
     this.on(document, "scroll", () => {
-      if (popup.style.display !== "none")
+      if (isPopupOpen())
         placePopup();
     }, { capture: true });
     trigger.append(control);
     trigger.append(popup);
     this._popup = popup;
+    this._triggerRoot = trigger;
     this._root = trigger;
     this.append(trigger);
+  }
+  _removeFloatingPopup() {
+    if (!this._popup)
+      return;
+    try {
+      if (typeof this._popup.hidePopover === "function" && this._popup.matches(":popover-open")) {
+        this._popup.hidePopover();
+      }
+    } catch {}
+    this._popup.remove();
   }
   _buildControlPanel(useButton) {
     const panel = document.createElement("div");
@@ -37659,10 +39257,10 @@ class SiguiColorPicker extends SiguiElement {
     return swatch;
   }
   _buildWheel() {
-    const wrap = document.createElement("div");
-    wrap.style.position = "relative";
-    wrap.style.width = `${this._geometry.ringSizePx}px`;
-    wrap.style.height = `${this._geometry.ringSizePx}px`;
+    const wrap2 = document.createElement("div");
+    wrap2.style.position = "relative";
+    wrap2.style.width = `${this._geometry.ringSizePx}px`;
+    wrap2.style.height = `${this._geometry.ringSizePx}px`;
     const blur = document.createElement("div");
     blur.className = "sg-color-picker-blur";
     blur.style.width = `${this._geometry.innerR * 2}px`;
@@ -37694,14 +39292,14 @@ class SiguiColorPicker extends SiguiElement {
     lcSlider.setAttribute("aria-valuenow", String(Math.round(this._lightness * 100)));
     lcSlider.setAttribute("aria-valuetext", `L ${this._lightness.toFixed(2)} C ${this._chroma.toFixed(3)}`);
     lcSlider.addEventListener("keydown", (event2) => this._onLCKeyDown(event2));
-    wrap.append(blur, canvas, lcSlider);
+    wrap2.append(blur, canvas, lcSlider);
     this._canvas = canvas;
     this._lcSlider = lcSlider;
     this._swatch = null;
-    return wrap;
+    return wrap2;
   }
   _buildValueDisplay() {
-    if (readBoolAttr(this, "input", false)) {
+    if (readBoolAttr2(this, "input", false)) {
       if (!this.hasAttribute("value")) {
         return this._buildOklchInputs();
       }
@@ -37729,7 +39327,7 @@ class SiguiColorPicker extends SiguiElement {
     }
     this._input = null;
     this._oklchInputs = null;
-    if (readBoolAttr(this, "show-value", false)) {
+    if (readBoolAttr2(this, "show-value", false)) {
       const value = document.createElement("span");
       value.className = "sg-color-picker-value";
       this._value = value;
@@ -37739,10 +39337,10 @@ class SiguiColorPicker extends SiguiElement {
     return null;
   }
   _buildOklchInputs() {
-    const wrap = document.createElement("div");
-    wrap.style.display = "inline-flex";
-    wrap.style.gap = "4px";
-    wrap.style.alignItems = "center";
+    const wrap2 = document.createElement("div");
+    wrap2.style.display = "inline-flex";
+    wrap2.style.gap = "4px";
+    wrap2.style.alignItems = "center";
     const inputL = document.createElement("input");
     inputL.className = "sg-color-picker-trigger-input";
     inputL.type = "number";
@@ -37771,11 +39369,11 @@ class SiguiColorPicker extends SiguiElement {
       input.disabled = this.hasAttribute("disabled");
       input.addEventListener("input", () => this._onOklchInput());
     }
-    wrap.append(inputL, inputC, inputH);
+    wrap2.append(inputL, inputC, inputH);
     this._oklchInputs = { l: inputL, c: inputC, h: inputH };
     this._input = null;
     this._value = null;
-    return wrap;
+    return wrap2;
   }
   _draw() {
     const canvas = this._canvas;
@@ -38123,23 +39721,685 @@ class SiguiColorPicker extends SiguiElement {
 // packages/components/src/components/primitives/Combobox/combobox.js
 var exports_combobox = {};
 __export(exports_combobox, {
+  SiguiComboboxSeparator: () => SiguiComboboxSeparator,
   SiguiComboboxRoot: () => SiguiComboboxRoot,
+  SiguiComboboxItem: () => SiguiComboboxItem,
+  SiguiComboboxInput: () => SiguiComboboxInput,
+  SiguiComboboxGroup: () => SiguiComboboxGroup,
+  SiguiComboboxEmpty: () => SiguiComboboxEmpty,
+  SiguiComboboxContent: () => SiguiComboboxContent,
   SiguiCombobox: () => SiguiComboboxRoot
 });
+function normalize2(value) {
+  return (value ?? "").trim().toLowerCase();
+}
+
 class SiguiComboboxRoot extends SiguiElement {
-  static observedAttributes = ["label", "value", "placeholder", "disabled", "onchange"];
+  static observedAttributes = ["label", "value", "placeholder", "disabled", "open", "onchange", "max-width"];
   static componentKey = "combobox-root";
+  static cssClass = "sg-combobox";
+  _activeIndex = -1;
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "group");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "keydown", (event2) => this.handleKeydown(event2));
+    }
+    this.refresh();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue === newValue)
+      return;
+    if (name === "open")
+      this.syncOpenState();
+    else
+      this.refresh();
+  }
+  rehydrate() {
+    this.refresh();
+  }
+  get input() {
+    return this.querySelector("input[data-sigui-part='combobox-input']");
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='combobox-content']");
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='combobox-item']")];
+  }
+  get emptyStates() {
+    return [...this.querySelectorAll("[data-sigui-component='combobox-empty']")];
+  }
+  get groups() {
+    return [...this.querySelectorAll("[data-sigui-component='combobox-group']")];
+  }
+  open() {
+    if (!this.hasAttribute("disabled"))
+      this.setAttribute("open", "");
+  }
+  close() {
+    this.removeAttribute("open");
+  }
+  refresh() {
+    const input = this.input;
+    if (input) {
+      input.placeholder = this.getAttribute("placeholder") || "Search...";
+      input.disabled = this.hasAttribute("disabled");
+      input.setAttribute("aria-label", this.getAttribute("label") || "Combobox");
+      input.setAttribute("aria-expanded", isOpenAttrTruthy(this) && !this.hasAttribute("disabled") ? "true" : "false");
+      if (this.hasAttribute("value")) {
+        const selected = this.items.find((item) => item.value === this.getAttribute("value"));
+        input.value = selected?.label || this.getAttribute("value") || input.value;
+      }
+    }
+    const query = normalize2(input?.value);
+    const selectedValue = this.getAttribute("value") ?? "";
+    let visibleCount = 0;
+    for (const item of this.items) {
+      const matches = !query || item.searchText.includes(query);
+      item.hidden = !matches;
+      item.setSelected(selectedValue !== "" && item.value === selectedValue);
+      if (matches && !item.disabled)
+        visibleCount += 1;
+    }
+    for (const group of this.groups)
+      group.syncVisibility();
+    for (const empty of this.emptyStates)
+      empty.hidden = visibleCount > 0;
+    this.syncOpenState();
+    this.setActiveIndex(visibleCount > 0 ? 0 : -1, false);
+  }
+  syncOpenState() {
+    const requestedOpen = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !requestedOpen) {
+      this.removeAttribute("open");
+      return;
+    }
+    const open = requestedOpen && !this.hasAttribute("disabled");
+    this.dataset.state = open ? "open" : "closed";
+    this.input?.setAttribute("aria-expanded", open ? "true" : "false");
+    if (this.content) {
+      this.content.hidden = !open;
+      this.content.dataset.state = open ? "open" : "closed";
+    }
+  }
+  visibleItems() {
+    return this.items.filter((item) => !item.hidden && !item.disabled);
+  }
+  setActiveIndex(index2, focus = true) {
+    const visibleItems = this.visibleItems();
+    if (visibleItems.length === 0) {
+      this._activeIndex = -1;
+      this.setActiveItem(null);
+      return;
+    }
+    const nextIndex = (index2 % visibleItems.length + visibleItems.length) % visibleItems.length;
+    const item = visibleItems[nextIndex] ?? null;
+    this._activeIndex = item ? this.items.indexOf(item) : -1;
+    this.setActiveItem(item);
+    if (focus)
+      item?.focus();
+  }
+  setActiveItem(activeItem) {
+    for (const item of this.items) {
+      const active = item === activeItem;
+      item.tabIndex = active ? 0 : -1;
+      item.dataset.active = active ? "true" : "false";
+    }
+    if (this.input) {
+      if (activeItem?.id)
+        this.input.setAttribute("aria-activedescendant", activeItem.id);
+      else
+        this.input.removeAttribute("aria-activedescendant");
+    }
+  }
+  selectItem(item) {
+    if (item.disabled)
+      return;
+    const value = item.value;
+    if (!value)
+      return;
+    this.setAttribute("value", value);
+    if (this.input)
+      this.input.value = item.label;
+    this.close();
+    item.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("sigui:change", { bubbles: true, detail: { value } }));
+  }
+  handleKeydown(event2) {
+    const visibleItems = this.visibleItems();
+    const activeItem = this.items[this._activeIndex] ?? null;
+    const currentVisibleIndex = activeItem ? visibleItems.indexOf(activeItem) : -1;
+    if (event2.key === "ArrowDown") {
+      event2.preventDefault();
+      this.open();
+      this.setActiveIndex(currentVisibleIndex + 1);
+    } else if (event2.key === "ArrowUp") {
+      event2.preventDefault();
+      this.open();
+      this.setActiveIndex(currentVisibleIndex - 1);
+    } else if (event2.key === "Enter") {
+      const item = this.items[this._activeIndex];
+      if (isOpenAttrTruthy(this) && item) {
+        event2.preventDefault();
+        this.selectItem(item);
+      }
+    } else if (event2.key === "Escape") {
+      this.close();
+      this.input?.focus();
+    }
+  }
+}
+class SiguiComboboxInput extends SiguiElement {
+  static componentKey = "combobox-input";
+  static cssClass = "sg-combobox-input-host";
+  _input = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this._input = this.ensureInput();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this._input, "focus", () => this.root?.open());
+      this.on(this._input, "input", () => {
+        this.root?.open();
+        this.root?.refresh();
+      });
+    }
+    this.root?.refresh();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='combobox-root']");
+  }
+  ensureInput() {
+    const existing = this.querySelector("input[data-sigui-part='combobox-input']");
+    if (existing instanceof HTMLInputElement)
+      return existing;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.autocomplete = "off";
+    input.dataset.siguiPart = "combobox-input";
+    input.className = "sg-combobox-input";
+    input.setAttribute("role", "combobox");
+    input.setAttribute("aria-autocomplete", "list");
+    this.replaceChildren(input);
+    return input;
+  }
+}
+
+class SiguiComboboxContent extends SiguiElement {
+  static componentKey = "combobox-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "listbox");
+    this.root?.syncOpenState();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='combobox-root']");
+  }
+}
+
+class SiguiComboboxItem extends SiguiElement {
+  static observedAttributes = ["value", "disabled"];
+  static componentKey = "combobox-item";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.id)
+      this.id = `sg-combobox-item-${Math.random().toString(36).slice(2, 10)}`;
+    this.setAttribute("role", "option");
+    this.tabIndex = -1;
+    this.syncAttributes();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "mousedown", (event2) => event2.preventDefault());
+      this.on(this, "click", () => this.root?.selectItem(this));
+    }
+    this.root?.refresh();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncAttributes();
+    this.root?.refresh();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='combobox-root']");
+  }
+  get value() {
+    return this.getAttribute("value") ?? this.label;
+  }
+  get label() {
+    return this.textContent?.trim() ?? "";
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  get searchText() {
+    return normalize2(`${this.value} ${this.label}`);
+  }
+  syncAttributes() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+  }
+  setSelected(selected) {
+    this.dataset.state = selected ? "selected" : "";
+    this.setAttribute("aria-selected", selected ? "true" : "false");
+  }
+}
+
+class SiguiComboboxEmpty extends SiguiElement {
+  static componentKey = "combobox-empty";
+}
+
+class SiguiComboboxGroup extends SiguiElement {
+  static observedAttributes = ["heading"];
+  static componentKey = "combobox-group";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "group");
+    this.syncHeading();
+    this.syncVisibility();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncHeading();
+  }
+  syncHeading() {
+    const heading = this.getAttribute("heading");
+    let headingEl = this.querySelector(":scope > .sg-combobox-group-heading");
+    if (!heading) {
+      headingEl?.remove();
+      return;
+    }
+    if (!headingEl) {
+      headingEl = document.createElement("div");
+      headingEl.className = "sg-combobox-group-heading";
+      this.prepend(headingEl);
+    }
+    headingEl.textContent = heading;
+  }
+  syncVisibility() {
+    const items = [...this.querySelectorAll("[data-sigui-component='combobox-item']")];
+    this.hidden = items.length > 0 && items.every((item) => item.hidden);
+  }
+}
+
+class SiguiComboboxSeparator extends SiguiElement {
+  static componentKey = "combobox-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
 }
 
 // packages/components/src/components/recipes/Command/command.js
 var exports_command = {};
 __export(exports_command, {
+  SiguiCommandShortcut: () => SiguiCommandShortcut,
+  SiguiCommandSeparator: () => SiguiCommandSeparator,
   SiguiCommandRoot: () => SiguiCommandRoot,
+  SiguiCommandList: () => SiguiCommandList,
+  SiguiCommandItem: () => SiguiCommandItem,
+  SiguiCommandInput: () => SiguiCommandInput,
+  SiguiCommandGroup: () => SiguiCommandGroup,
+  SiguiCommandEmpty: () => SiguiCommandEmpty,
+  SiguiCommandDialog: () => SiguiCommandDialog,
   SiguiCommand: () => SiguiCommandRoot
 });
+function isHTMLElement2(node) {
+  return !!node && node instanceof HTMLElement;
+}
+function normalize3(value) {
+  return (value ?? "").trim().toLowerCase();
+}
+
 class SiguiCommandRoot extends SiguiElement {
-  static observedAttributes = ["onselect"];
+  static observedAttributes = ["value", "onselect", "max-width"];
   static componentKey = "command-root";
+  static cssClass = "sg-command";
+  _activeIndex = -1;
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", this.getAttribute("role") || "application");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "keydown", (event2) => this.handleKeydown(event2));
+    }
+    this.refresh();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "max-width")
+      this.syncSizing();
+    if (name === "value" && oldValue !== newValue)
+      this.refresh();
+  }
+  rehydrate() {
+    this.syncSizing();
+    this.refresh();
+  }
+  syncSizing() {
+    const maxWidth = this.getAttribute("max-width") || "";
+    if (maxWidth)
+      this.dataset.maxWidth = maxWidth;
+    else
+      delete this.dataset.maxWidth;
+  }
+  get input() {
+    return this.querySelector("input[data-sigui-part='command-input']");
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='command-item']")];
+  }
+  get emptyStates() {
+    return [...this.querySelectorAll("[data-sigui-component='command-empty']")];
+  }
+  get groups() {
+    return [...this.querySelectorAll("[data-sigui-component='command-group']")];
+  }
+  refresh() {
+    const query = normalize3(this.input?.value);
+    const selectedValue = this.getAttribute("value") ?? "";
+    let visibleCount = 0;
+    for (const item of this.items) {
+      const matches = !query || item.searchText.includes(query);
+      item.hidden = !matches;
+      item.setSelected(selectedValue !== "" && item.value === selectedValue);
+      if (matches && !item.disabled)
+        visibleCount += 1;
+    }
+    for (const group of this.groups)
+      group.syncVisibility();
+    for (const empty of this.emptyStates)
+      empty.hidden = visibleCount > 0;
+    const visibleItems = this.visibleItems();
+    const activeItem = this.items[this._activeIndex] ?? null;
+    if (!activeItem || !visibleItems.includes(activeItem)) {
+      this.setActiveIndex(visibleItems.length > 0 ? 0 : -1, false);
+    } else {
+      this.setActiveItem(activeItem);
+    }
+  }
+  visibleItems() {
+    return this.items.filter((item) => !item.hidden && !item.disabled);
+  }
+  setActiveIndex(index2, focus = true) {
+    const visibleItems = this.visibleItems();
+    if (visibleItems.length === 0) {
+      this._activeIndex = -1;
+      this.setActiveItem(null);
+      return;
+    }
+    const nextIndex = (index2 % visibleItems.length + visibleItems.length) % visibleItems.length;
+    const item = visibleItems[nextIndex] ?? null;
+    this._activeIndex = item ? this.items.indexOf(item) : -1;
+    this.setActiveItem(item);
+    if (focus)
+      item?.focus();
+  }
+  setActiveItem(activeItem) {
+    for (const item of this.items) {
+      const active = item === activeItem;
+      item.tabIndex = active ? 0 : -1;
+      item.dataset.active = active ? "true" : "false";
+    }
+  }
+  selectItem(item) {
+    if (item.disabled)
+      return;
+    const value = item.value;
+    if (!value)
+      return;
+    this.setAttribute("value", value);
+    item.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("sigui:select", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value } }));
+  }
+  handleKeydown(event2) {
+    const visibleItems = this.visibleItems();
+    if (visibleItems.length === 0)
+      return;
+    const activeItem = this.items[this._activeIndex] ?? null;
+    const currentVisibleIndex = activeItem ? visibleItems.indexOf(activeItem) : -1;
+    if (event2.key === "ArrowDown") {
+      event2.preventDefault();
+      this.setActiveIndex(currentVisibleIndex + 1);
+    } else if (event2.key === "ArrowUp") {
+      event2.preventDefault();
+      this.setActiveIndex(currentVisibleIndex - 1);
+    } else if (event2.key === "Home") {
+      event2.preventDefault();
+      this.setActiveIndex(0);
+    } else if (event2.key === "End") {
+      event2.preventDefault();
+      this.setActiveIndex(visibleItems.length - 1);
+    } else if (event2.key === "Enter") {
+      const item = this.items[this._activeIndex];
+      if (item) {
+        event2.preventDefault();
+        this.selectItem(item);
+      }
+    }
+  }
+}
+class SiguiCommandInput extends SiguiElement {
+  static observedAttributes = ["placeholder", "value", "disabled"];
+  static componentKey = "command-input";
+  static cssClass = "sg-command-input-host";
+  _input = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this._input = this.ensureInput();
+    this.syncInput();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this._input, "input", () => {
+        this.setAttribute("value", this._input?.value ?? "");
+        this.root?.refresh();
+      });
+      this.on(this._input, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "ArrowDown" || key2 === "ArrowUp" || key2 === "Enter") {
+          this.root?.handleKeydown(event2);
+        }
+      });
+    }
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncInput();
+    this.root?.refresh();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='command-root']");
+  }
+  ensureInput() {
+    const existing = this.querySelector("input[data-sigui-part='command-input']");
+    if (existing instanceof HTMLInputElement)
+      return existing;
+    const input = document.createElement("input");
+    input.type = "search";
+    input.autocomplete = "off";
+    input.dataset.siguiPart = "command-input";
+    input.className = "sg-command-input";
+    this.replaceChildren(input);
+    return input;
+  }
+  syncInput() {
+    if (!this._input)
+      return;
+    this._input.placeholder = this.getAttribute("placeholder") ?? "";
+    this._input.value = this.getAttribute("value") ?? this._input.value;
+    this._input.disabled = this.hasAttribute("disabled");
+  }
+}
+
+class SiguiCommandList extends SiguiElement {
+  static componentKey = "command-list";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "listbox");
+  }
+}
+
+class SiguiCommandItem extends SiguiElement {
+  static observedAttributes = ["value", "disabled", "keywords"];
+  static componentKey = "command-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "option");
+    this.tabIndex = -1;
+    this.syncAttributes();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => this.root?.selectItem(this));
+    }
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncAttributes();
+    this.root?.refresh();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='command-root']");
+  }
+  get value() {
+    return this.getAttribute("value") ?? this.textContent?.trim() ?? "";
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  get searchText() {
+    return normalize3([this.value, this.getAttribute("keywords"), this.textContent].filter(Boolean).join(" "));
+  }
+  syncAttributes() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+  }
+  setSelected(selected) {
+    this.dataset.state = selected ? "selected" : "";
+    this.setAttribute("aria-selected", selected ? "true" : "false");
+  }
+}
+
+class SiguiCommandEmpty extends SiguiElement {
+  static componentKey = "command-empty";
+}
+
+class SiguiCommandGroup extends SiguiElement {
+  static observedAttributes = ["heading"];
+  static componentKey = "command-group";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "group");
+    this.syncHeading();
+    this.syncVisibility();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncHeading();
+  }
+  syncHeading() {
+    const heading = this.getAttribute("heading");
+    let headingEl = this.querySelector(":scope > .sg-command-group-heading");
+    if (!heading) {
+      headingEl?.remove();
+      return;
+    }
+    if (!headingEl) {
+      headingEl = document.createElement("div");
+      headingEl.className = "sg-command-group-heading";
+      this.prepend(headingEl);
+    }
+    headingEl.textContent = heading;
+  }
+  syncVisibility() {
+    const items = [...this.querySelectorAll("[data-sigui-component='command-item']")];
+    this.hidden = items.length > 0 && items.every((item) => item.hidden);
+  }
+}
+
+class SiguiCommandSeparator extends SiguiElement {
+  static componentKey = "command-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
+}
+
+class SiguiCommandShortcut extends SiguiElement {
+  static componentKey = "command-shortcut";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-hidden", "true");
+  }
+}
+
+class SiguiCommandDialog extends SiguiElement {
+  static observedAttributes = ["open", "aria-label", "aria-labelledby", "aria-describedby"];
+  static componentKey = "command-dialog";
+  _dialog = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this._dialog = this.ensureDialog();
+    this.syncDialog();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncDialog();
+  }
+  ensureDialog() {
+    const existing = this.querySelector("dialog[data-sigui-part='command-dialog']");
+    if (existing instanceof HTMLDialogElement)
+      return existing;
+    const dialog = document.createElement("dialog");
+    dialog.dataset.siguiPart = "command-dialog";
+    while (this.firstChild)
+      dialog.appendChild(this.firstChild);
+    this.appendChild(dialog);
+    this.on(dialog, "close", () => this.removeAttribute("open"));
+    return dialog;
+  }
+  syncDialog() {
+    const dialog = this._dialog;
+    if (!dialog || !isHTMLElement2(dialog))
+      return;
+    dialog.setAttribute("aria-label", this.getAttribute("aria-label") || "Command palette");
+    for (const attr2 of ["aria-labelledby", "aria-describedby"]) {
+      const value = this.getAttribute(attr2);
+      if (value)
+        dialog.setAttribute(attr2, value);
+      else
+        dialog.removeAttribute(attr2);
+    }
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    if (open && !dialog.open) {
+      try {
+        dialog.showModal();
+      } catch {
+        dialog.setAttribute("open", "");
+      }
+    } else if (!open && dialog.open) {
+      try {
+        dialog.close();
+      } catch {
+        dialog.removeAttribute("open");
+      }
+    }
+  }
 }
 
 // packages/components/src/components/primitives/Container/container.js
@@ -38155,12 +40415,278 @@ class SiguiContainer extends SiguiElement {
 // packages/components/src/components/recipes/ContextMenu/context-menu.js
 var exports_context_menu = {};
 __export(exports_context_menu, {
+  SiguiContextMenuTrigger: () => SiguiContextMenuTrigger,
+  SiguiContextMenuSubTrigger: () => SiguiContextMenuSubTrigger,
+  SiguiContextMenuSubContent: () => SiguiContextMenuSubContent,
+  SiguiContextMenuSub: () => SiguiContextMenuSub,
+  SiguiContextMenuSeparator: () => SiguiContextMenuSeparator,
   SiguiContextMenuRoot: () => SiguiContextMenuRoot,
+  SiguiContextMenuLabel: () => SiguiContextMenuLabel,
+  SiguiContextMenuItem: () => SiguiContextMenuItem,
+  SiguiContextMenuContent: () => SiguiContextMenuContent,
   SiguiContextMenu: () => SiguiContextMenuRoot
 });
+function isHTMLElement3(node) {
+  return !!node && node instanceof HTMLElement;
+}
+
 class SiguiContextMenuRoot extends SiguiElement {
-  static observedAttributes = ["open", "onclose"];
+  static observedAttributes = ["open", "onclose", "max-width"];
   static componentKey = "context-menu-root";
+  _position = null;
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(document, "pointerdown", (event2) => {
+        if (!isOpenAttrTruthy(this))
+          return;
+        if (!this.contains(event2.target))
+          this.close();
+      });
+      this.on(document, "keydown", (event2) => {
+        if (event2.key === "Escape")
+          this.close();
+      });
+    }
+    this.syncState();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncState();
+  }
+  rehydrate() {
+    this.syncState();
+  }
+  openAt(x, y) {
+    this._position = { x, y };
+    this.setAttribute("open", "");
+  }
+  close() {
+    if (!isOpenAttrTruthy(this)) {
+      if (this.hasAttribute("open"))
+        this.removeAttribute("open");
+      return;
+    }
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("close", { bubbles: true }));
+  }
+  syncState() {
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    const maxWidth = this.getAttribute("max-width") || "";
+    if (maxWidth)
+      this.dataset.maxWidth = maxWidth;
+    else
+      delete this.dataset.maxWidth;
+    const content = this.content;
+    if (!content)
+      return;
+    content.hidden = !open;
+    content.dataset.state = open ? "open" : "closed";
+    if (open && this._position) {
+      content.style.position = "fixed";
+      content.style.insetInlineStart = `${this._position.x}px`;
+      content.style.top = `${this._position.y}px`;
+    } else {
+      content.style.removeProperty("position");
+      content.style.removeProperty("inset-inline-start");
+      content.style.removeProperty("top");
+    }
+    if (open)
+      content.focusFirstItem();
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='context-menu-content']");
+  }
+}
+class SiguiContextMenuTrigger extends SiguiElement {
+  static componentKey = "context-menu-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-haspopup", "menu");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "contextmenu", (event2) => {
+        event2.preventDefault();
+        const pointer = event2;
+        this.root?.openAt(pointer.clientX, pointer.clientY);
+      });
+      this.on(this, "keydown", (event2) => {
+        const keyboard = event2;
+        if (keyboard.key === "ContextMenu" || keyboard.shiftKey && keyboard.key === "F10") {
+          event2.preventDefault();
+          const rect = this.getBoundingClientRect();
+          this.root?.openAt(rect.left, rect.bottom);
+        }
+      });
+    }
+  }
+  get root() {
+    return this.closest("[data-sigui-component='context-menu-root']");
+  }
+}
+
+class SiguiContextMenuContent extends SiguiElement {
+  static componentKey = "context-menu-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menu");
+    this.tabIndex = -1;
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "keydown", (event2) => this.handleKeydown(event2));
+    }
+    this.root?.syncState();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='context-menu-root']");
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='context-menu-item'], [data-sigui-component='context-menu-sub-trigger']")].filter((item) => !item.disabled);
+  }
+  focusFirstItem() {
+    queueMicrotask(() => this.items[0]?.focus());
+  }
+  handleKeydown(event2) {
+    const items = this.items;
+    const current = items.indexOf(document.activeElement);
+    if (event2.key === "ArrowDown") {
+      event2.preventDefault();
+      items[((current + 1) % items.length + items.length) % items.length]?.focus();
+    } else if (event2.key === "ArrowUp") {
+      event2.preventDefault();
+      items[((current - 1) % items.length + items.length) % items.length]?.focus();
+    } else if (event2.key === "Escape") {
+      this.root?.close();
+    }
+  }
+}
+
+class SiguiContextMenuItem extends SiguiElement {
+  static observedAttributes = ["disabled"];
+  static componentKey = "context-menu-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitem");
+    this.tabIndex = this.disabled ? -1 : 0;
+    this.syncDisabled();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => this.select());
+      this.on(this, "keydown", (event2) => {
+        if (event2.key === "Enter" || event2.key === " ") {
+          event2.preventDefault();
+          this.select();
+        }
+      });
+    }
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncDisabled();
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  get root() {
+    return this.closest("[data-sigui-component='context-menu-root']");
+  }
+  syncDisabled() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+    this.tabIndex = this.disabled ? -1 : 0;
+  }
+  select() {
+    if (this.disabled)
+      return;
+    const value = this.getAttribute("value") || this.textContent?.trim() || "";
+    this.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { value } }));
+    this.root?.dispatchEvent(new CustomEvent("sigui:select", { bubbles: true, detail: { value } }));
+    this.root?.close();
+  }
+}
+
+class SiguiContextMenuSeparator extends SiguiElement {
+  static componentKey = "context-menu-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
+}
+
+class SiguiContextMenuLabel extends SiguiElement {
+  static observedAttributes = ["inset"];
+  static componentKey = "context-menu-label";
+}
+
+class SiguiContextMenuSub extends SiguiElement {
+  static observedAttributes = ["open"];
+  static componentKey = "context-menu-sub";
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "pointerenter", () => this.setAttribute("open", ""));
+      this.on(this, "pointerleave", () => this.removeAttribute("open"));
+    }
+    this.syncState();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncState();
+  }
+  syncState() {
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    const trigger = this.querySelector("[data-sigui-component='context-menu-sub-trigger']");
+    const content = this.querySelector("[data-sigui-component='context-menu-sub-content']");
+    if (isHTMLElement3(trigger)) {
+      trigger.dataset.state = open ? "open" : "closed";
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (isHTMLElement3(content)) {
+      content.hidden = !open;
+      content.dataset.state = open ? "open" : "closed";
+    }
+  }
+}
+
+class SiguiContextMenuSubTrigger extends SiguiContextMenuItem {
+  static componentKey = "context-menu-sub-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-haspopup", "menu");
+  }
+  select() {
+    if (this.disabled)
+      return;
+    const sub = this.closest("[data-sigui-component='context-menu-sub']");
+    if (sub && isOpenAttrTruthy(sub))
+      sub.removeAttribute("open");
+    else
+      sub?.setAttribute("open", "");
+  }
+}
+
+class SiguiContextMenuSubContent extends SiguiElement {
+  static componentKey = "context-menu-sub-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menu");
+    this.closest("[data-sigui-component='context-menu-sub']")?.syncState();
+  }
 }
 
 // packages/components/src/components/primitives/Cover/cover.js
@@ -38179,7 +40705,7 @@ __export(exports_copy_button, {
   SiguiCopyButton: () => SiguiCopyButton
 });
 class SiguiCopyButton extends SiguiElement {
-  static observedAttributes = ["for", "value", "success-text", "timeout", "disabled"];
+  static observedAttributes = ["for", "value", "success-text", "timeout", "disabled", "size", "color"];
   static componentKey = "copy-button";
   static contract = Object.freeze({
     events: [
@@ -38189,10 +40715,7 @@ class SiguiCopyButton extends SiguiElement {
   });
   connectedCallback() {
     super.connectedCallback();
-    if (!this.hasAttribute("role"))
-      this.setAttribute("role", "button");
-    if (!this.hasAttribute("tabindex"))
-      this.tabIndex = 0;
+    this.syncButtonState();
     this.on(this, "click", () => this.copy());
     this.on(this, "keydown", (event2) => {
       if (!(event2 instanceof KeyboardEvent))
@@ -38203,8 +40726,26 @@ class SiguiCopyButton extends SiguiElement {
       this.copy();
     });
   }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "disabled" && oldValue !== newValue)
+      this.syncButtonState();
+  }
+  syncButtonState() {
+    this.ensureClass("sg-button");
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "button");
+    if (this.isDisabled()) {
+      this.setAttribute("aria-disabled", "true");
+      this.tabIndex = -1;
+    } else {
+      this.removeAttribute("aria-disabled");
+      if (!this.hasAttribute("tabindex"))
+        this.tabIndex = 0;
+    }
+  }
   async copy() {
-    if (this.hasAttribute("disabled"))
+    if (this.isDisabled())
       return;
     const value = this.resolveValue();
     if (!value)
@@ -38227,6 +40768,9 @@ class SiguiCopyButton extends SiguiElement {
       this.dispatchEvent(new CustomEvent("sg-copy-error", { bubbles: true, detail: { error } }));
     }
   }
+  isDisabled() {
+    return this.hasAttribute("disabled") && this.getAttribute("disabled") !== "false";
+  }
   resolveValue() {
     const explicit = this.getAttribute("value");
     if (explicit)
@@ -38246,12 +40790,344 @@ class SiguiCopyButton extends SiguiElement {
 // packages/components/src/components/recipes/DataTable/data-table.js
 var exports_data_table = {};
 __export(exports_data_table, {
+  SiguiDataTableRow: () => SiguiDataTableRow,
   SiguiDataTableRoot: () => SiguiDataTableRoot,
+  SiguiDataTablePagination: () => SiguiDataTablePagination,
+  SiguiDataTableHeader: () => SiguiDataTableHeader,
+  SiguiDataTableHead: () => SiguiDataTableHead,
+  SiguiDataTableCell: () => SiguiDataTableCell,
+  SiguiDataTableBody: () => SiguiDataTableBody,
   SiguiDataTable: () => SiguiDataTableRoot
 });
 class SiguiDataTableRoot extends SiguiElement {
-  static observedAttributes = ["sort-column", "sort-direction", "page", "page-size", "total-items", "onsort", "onpagechange"];
+  static observedAttributes = ["sort-column", "sort-direction", "page", "page-size", "total-items", "onsort", "onpagechange", "density", "striped", "max-width"];
   static componentKey = "data-table-root";
+  static contract = Object.freeze({
+    events: [
+      { name: "sort", detail: { column: "string", direction: "string" }, bubbles: true },
+      { name: "pagechange", detail: { page: "number" }, bubbles: true },
+      { name: "input", bubbles: true },
+      { name: "change", bubbles: true }
+    ],
+    aria: { role: "table" },
+    controlMode: "dual",
+    valueAttr: "page"
+  });
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureClass("sg-data-table");
+    this.syncBooleanDataset();
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "table");
+    this.refresh();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncBooleanDataset();
+    if (this.isConnected)
+      this.refresh();
+  }
+  syncBooleanDataset() {
+    if (isTruthyAttribute3(this, "striped"))
+      this.dataset.striped = "true";
+    else
+      delete this.dataset.striped;
+  }
+  get sortColumn() {
+    return this.getAttribute("sort-column") ?? "";
+  }
+  set sortColumn(value) {
+    this.setStringAttr("sort-column", value);
+  }
+  get sortDirection() {
+    return this.getAttribute("sort-direction") === "desc" ? "desc" : "asc";
+  }
+  set sortDirection(value) {
+    this.setAttribute("sort-direction", value === "desc" ? "desc" : "asc");
+  }
+  get page() {
+    return readPositiveInt(this.getAttribute("page"), 1);
+  }
+  set page(value) {
+    this.setPage(Number(value));
+  }
+  get pageSize() {
+    return readPositiveInt(this.getAttribute("page-size"), 10);
+  }
+  set pageSize(value) {
+    this.setAttribute("page-size", String(Math.max(1, Math.floor(Number(value) || 1))));
+  }
+  get totalItems() {
+    if (this.hasAttribute("total-items"))
+      return readNonNegativeInt(this.getAttribute("total-items"), 0);
+    return this.getBodyRows().length;
+  }
+  set totalItems(value) {
+    this.setAttribute("total-items", String(Math.max(0, Math.floor(Number(value) || 0))));
+  }
+  get totalPages() {
+    return Math.max(1, Math.ceil(this.totalItems / this.pageSize));
+  }
+  getState() {
+    return {
+      sortColumn: this.sortColumn,
+      sortDirection: this.sortDirection,
+      page: Math.min(this.page, this.totalPages),
+      pageSize: this.pageSize,
+      totalItems: this.totalItems,
+      totalPages: this.totalPages
+    };
+  }
+  sortBy(column) {
+    if (!column)
+      return;
+    const nextDirection = this.sortColumn === column && this.sortDirection === "asc" ? "desc" : "asc";
+    this.setAttribute("sort-column", column);
+    this.setAttribute("sort-direction", nextDirection);
+    const detail = { column, direction: nextDirection };
+    this.dispatchEvent(new CustomEvent("sort", { bubbles: true, detail }));
+    this.dispatchChangeEvents();
+  }
+  setPage(requestedPage) {
+    const page = Math.min(this.totalPages, Math.max(1, Math.floor(requestedPage || 1)));
+    if (page === this.page) {
+      this.refresh();
+      return;
+    }
+    this.setAttribute("page", String(page));
+    this.dispatchEvent(new CustomEvent("pagechange", { bubbles: true, detail: { page } }));
+    this.dispatchChangeEvents();
+  }
+  dispatchChangeEvents() {
+    const detail = this.getState();
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail }));
+  }
+  refresh() {
+    const rows = this.getBodyRows();
+    this.sortRows(rows);
+    const state2 = this.getState();
+    if (String(state2.page) !== this.getAttribute("page")) {
+      this.setAttribute("page", String(state2.page));
+      return;
+    }
+    this.setAttribute("aria-rowcount", String(state2.totalItems));
+    this.style.setProperty("--_data-table-columns", String(Math.max(1, this.querySelectorAll("[data-sigui-component='data-table-head']").length)));
+    this.paginateRows(rows, state2);
+    for (const child2 of this.querySelectorAll("[data-sigui-component^='data-table-']")) {
+      if (child2 === this)
+        continue;
+      child2.syncDataTable?.();
+    }
+  }
+  getBodyRows() {
+    return [
+      ...this.querySelectorAll("[data-sigui-component='data-table-body'] [data-sigui-component='data-table-row']")
+    ];
+  }
+  sortRows(rows) {
+    if (!this.sortColumn || rows.length < 2)
+      return;
+    const columnIndex = this.getColumnIndex(this.sortColumn);
+    if (columnIndex < 0)
+      return;
+    const direction = this.sortDirection === "desc" ? -1 : 1;
+    const groups = new Map;
+    for (const row of rows) {
+      const parent = row.parentElement;
+      if (!parent)
+        continue;
+      if (!groups.has(parent))
+        groups.set(parent, []);
+      groups.get(parent)?.push(row);
+    }
+    for (const [parent, groupRows] of groups) {
+      groupRows.sort((a, b) => compareRows(a, b, columnIndex) * direction);
+      for (const row of groupRows)
+        parent.appendChild(row);
+    }
+  }
+  getColumnIndex(column) {
+    const heads = [
+      ...this.querySelectorAll("[data-sigui-component='data-table-head']")
+    ];
+    return heads.findIndex((head2) => head2.getAttribute("column") === column);
+  }
+  paginateRows(rows, state2) {
+    const isServerPaged = this.hasAttribute("total-items") && state2.totalItems > rows.length;
+    if (isServerPaged || rows.length <= state2.pageSize) {
+      for (const row of rows)
+        row.hidden = false;
+      return;
+    }
+    const start = (state2.page - 1) * state2.pageSize;
+    const end = start + state2.pageSize;
+    rows.forEach((row, index2) => {
+      row.hidden = index2 < start || index2 >= end;
+    });
+  }
+}
+class SiguiDataTableHeader extends SiguiElement {
+  static componentKey = "data-table-header";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "rowgroup");
+    requestRootRefresh(this);
+  }
+}
+
+class SiguiDataTableBody extends SiguiElement {
+  static componentKey = "data-table-body";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "rowgroup");
+    requestRootRefresh(this);
+  }
+}
+
+class SiguiDataTableRow extends SiguiElement {
+  static componentKey = "data-table-row";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "row");
+    requestRootRefresh(this);
+  }
+}
+
+class SiguiDataTableHead extends SiguiElement {
+  static observedAttributes = ["column"];
+  static componentKey = "data-table-head";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "columnheader");
+    if (this.getAttribute("column")) {
+      this.setAttribute("tabindex", "0");
+      this.setAttribute("aria-sort", "none");
+    }
+    this.on(this, "click", () => this.activateSort());
+    this.on(this, "keydown", (event2) => {
+      if (!(event2 instanceof KeyboardEvent))
+        return;
+      if (event2.key !== "Enter" && event2.key !== " ")
+        return;
+      event2.preventDefault();
+      this.activateSort();
+    });
+    this.syncDataTable();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (this.isConnected)
+      this.syncDataTable();
+  }
+  activateSort() {
+    const column = this.getAttribute("column");
+    if (!column)
+      return;
+    findRoot3(this)?.sortBy(column);
+  }
+  syncDataTable() {
+    const column = this.getAttribute("column");
+    const root45 = findRoot3(this);
+    if (!column || !root45) {
+      this.setAttribute("aria-sort", "none");
+      delete this.dataset.sortDirection;
+      return;
+    }
+    const active = root45.sortColumn === column;
+    const direction = active ? root45.sortDirection : "none";
+    this.setAttribute("aria-sort", direction === "none" ? "none" : direction === "asc" ? "ascending" : "descending");
+    if (active)
+      this.dataset.sortDirection = root45.sortDirection;
+    else
+      delete this.dataset.sortDirection;
+  }
+}
+
+class SiguiDataTableCell extends SiguiElement {
+  static componentKey = "data-table-cell";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "cell");
+  }
+}
+
+class SiguiDataTablePagination extends SiguiElement {
+  static componentKey = "data-table-pagination";
+  connectedCallback() {
+    super.connectedCallback();
+    this.on(this, "click", (event2) => {
+      if (!(event2.target instanceof HTMLElement))
+        return;
+      const action2 = event2.target.closest("button[data-page-action]")?.getAttribute("data-page-action");
+      const root45 = findRoot3(this);
+      if (!action2 || !root45)
+        return;
+      if (action2 === "previous")
+        root45.setPage(root45.page - 1);
+      if (action2 === "next")
+        root45.setPage(root45.page + 1);
+      if (action2 === "first")
+        root45.setPage(1);
+      if (action2 === "last")
+        root45.setPage(root45.totalPages);
+    });
+    this.syncDataTable();
+  }
+  syncDataTable() {
+    const root45 = findRoot3(this);
+    const state2 = root45?.getState() ?? {
+      page: 1,
+      pageSize: 10,
+      totalItems: 0,
+      totalPages: 1,
+      sortColumn: "",
+      sortDirection: "asc"
+    };
+    const atStart = state2.page <= 1;
+    const atEnd = state2.page >= state2.totalPages;
+    this.setAttribute("role", "navigation");
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Data table pagination");
+    this.innerHTML = `<button type="button" data-page-action="first"${atStart ? " disabled" : ""}>First</button>` + `<button type="button" data-page-action="previous"${atStart ? " disabled" : ""}>Previous</button>` + `<span class="sg-data-table-page-status" aria-live="polite">Page ${state2.page} of ${state2.totalPages}</span>` + `<button type="button" data-page-action="next"${atEnd ? " disabled" : ""}>Next</button>` + `<button type="button" data-page-action="last"${atEnd ? " disabled" : ""}>Last</button>`;
+  }
+}
+function readPositiveInt(value, fallback2) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed))
+    return fallback2;
+  return Math.max(1, Math.floor(parsed));
+}
+function readNonNegativeInt(value, fallback2) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed))
+    return fallback2;
+  return Math.max(0, Math.floor(parsed));
+}
+function findRoot3(el) {
+  return el.closest("[data-sigui-component='data-table-root']");
+}
+function requestRootRefresh(el) {
+  queueMicrotask(() => findRoot3(el)?.refresh());
+}
+function compareRows(a, b, columnIndex) {
+  const aText = cellText(a, columnIndex);
+  const bText = cellText(b, columnIndex);
+  const aNum = Number(aText);
+  const bNum = Number(bText);
+  if (Number.isFinite(aNum) && Number.isFinite(bNum))
+    return aNum - bNum;
+  return aText.localeCompare(bText, undefined, { numeric: true, sensitivity: "base" });
+}
+function cellText(row, columnIndex) {
+  const cells = row.querySelectorAll("[data-sigui-component='data-table-cell']");
+  return cells[columnIndex]?.textContent?.trim() ?? "";
+}
+function isTruthyAttribute3(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
 }
 
 // packages/components/src/components/recipes/DatePicker/date-picker.js
@@ -38263,8 +41139,12 @@ __export(exports_date_picker, {
   SiguiDatePickerCalendar: () => SiguiDatePickerCalendar,
   SiguiDatePicker: () => SiguiDatePickerRoot
 });
+function getDatePickerRoot(node) {
+  return node.closest("[data-sigui-component='date-picker-root'], [data-sigui-component='input-date']");
+}
+
 class SiguiDatePickerRoot extends SiguiElement {
-  static observedAttributes = ["value", "open", "label", "disabled", "min", "max", "default-date", "locale", "onchange"];
+  static observedAttributes = ["value", "open", "label", "disabled", "min", "max", "default-date", "locale", "max-width", "onchange"];
   static componentKey = "date-picker-root";
   constructor() {
     super();
@@ -38280,6 +41160,10 @@ class SiguiDatePickerRoot extends SiguiElement {
     this.syncDisabledState();
     this.bindInteractions();
     this.syncComposedState();
+    queueMicrotask(() => {
+      if (this.isConnected)
+        this.syncComposedState();
+    });
     this._lastOpen = this.open;
   }
   attributeChangedCallback(name, oldValue, newValue) {
@@ -38338,19 +41222,19 @@ class SiguiDatePickerRoot extends SiguiElement {
       this.removeAttribute("aria-disabled");
   }
   getTrigger() {
-    return this.querySelector("sg-date-picker-trigger");
+    return this.querySelector("[data-sigui-component='date-picker-trigger'], sg-date-picker-trigger");
   }
   getContent() {
     if (this._contentEl && this._contentEl.isConnected)
       return this._contentEl;
-    const found = this.querySelector("sg-date-picker-content");
+    const found = this.querySelector("[data-sigui-component='date-picker-content'], sg-date-picker-content");
     if (found)
       this._contentEl = found;
     return this._contentEl;
   }
   getCalendar() {
     const content = this.getContent();
-    return content ? content.querySelector("sg-date-picker-calendar") : null;
+    return content ? content.querySelector("[data-sigui-component='date-picker-calendar'], sg-date-picker-calendar") : null;
   }
   getTriggerControl() {
     const trigger = this.getTrigger();
@@ -38390,6 +41274,23 @@ class SiguiDatePickerRoot extends SiguiElement {
       if (!trigger || !trigger.contains(event2.target))
         return;
       this.setOpen(!this.open);
+    });
+    this.on(this, "keydown", (event2) => {
+      if (!(event2.target instanceof Node))
+        return;
+      if (this.hasAttribute("disabled"))
+        return;
+      const content = this.getContent();
+      if (content && content.contains(event2.target))
+        return;
+      const trigger = this.getTrigger();
+      if (!trigger || !trigger.contains(event2.target))
+        return;
+      const key2 = event2.key;
+      if (key2 !== "Enter" && key2 !== " " && key2 !== "ArrowDown")
+        return;
+      event2.preventDefault();
+      this.setOpen(true);
     });
     this.on(document, "click", (event2) => {
       if (!this.open)
@@ -38495,6 +41396,10 @@ class SiguiDatePickerRoot extends SiguiElement {
     this.setOpen(false);
   }
   syncComposedState() {
+    if (this.hasAttribute("open") && !this.open) {
+      this.removeAttribute("open");
+      return;
+    }
     const selectedValue = this.getAttribute("value") ?? "";
     const content = this.getContent();
     if (content) {
@@ -38591,16 +41496,28 @@ class SiguiDatePickerTrigger extends SiguiElement {
     super.connectedCallback();
     if (!this.hasAttribute("tabindex"))
       this.setAttribute("tabindex", "0");
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "button");
+    queueMicrotask(() => getDatePickerRoot(this)?.syncComposedState());
   }
 }
 
 class SiguiDatePickerContent extends SiguiElement {
   static observedAttributes = ["open"];
   static componentKey = "date-picker-content";
+  connectedCallback() {
+    super.connectedCallback();
+    queueMicrotask(() => getDatePickerRoot(this)?.syncComposedState());
+  }
 }
 
 class SiguiDatePickerCalendar extends SiguiCalendar {
   static componentKey = "date-picker-calendar";
+  connectedCallback() {
+    this.ensureClass("sg-calendar");
+    super.connectedCallback();
+    queueMicrotask(() => getDatePickerRoot(this)?.syncComposedState());
+  }
 }
 
 // packages/components/src/components/primitives/Details/details.js
@@ -38609,31 +41526,142 @@ __export(exports_details, {
   SiguiDetails: () => SiguiDetails
 });
 class SiguiDetails extends SiguiElement {
-  static observedAttributes = ["open"];
+  static observedAttributes = ["open", "max-width"];
   static componentKey = "details";
   connectedCallback() {
     super.connectedCallback();
     this.syncState();
-    this.on(this, "toggle", () => this.syncState());
+    if (this._detailsBound !== true) {
+      this._detailsBound = true;
+      this.on(this, "click", (event2) => {
+        if (this.isSummaryEvent(event2))
+          this.toggleOpen();
+      });
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if ((key2 === "Enter" || key2 === " ") && this.isSummaryEvent(event2)) {
+          event2.preventDefault();
+          this.toggleOpen();
+        }
+      });
+    }
+  }
+  disconnectedCallback() {
+    this._detailsBound = false;
+    super.disconnectedCallback();
   }
   attributeChangedCallback(_name, _oldValue, _newValue) {
     super.attributeChangedCallback(_name, _oldValue, _newValue);
     this.syncState();
   }
   syncState() {
-    this.dataset.state = isOpenAttrTruthy(this) ? "open" : "closed";
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    const summary = this.summary;
+    if (summary) {
+      summary.setAttribute("role", "button");
+      summary.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!summary.hasAttribute("tabindex"))
+        summary.tabIndex = 0;
+    }
   }
+  get summary() {
+    return this.querySelector(":scope > summary");
+  }
+  isSummaryEvent(event2) {
+    const summary = this.summary;
+    return !!summary && event2.target instanceof Node && (event2.target === summary || summary.contains(event2.target));
+  }
+  toggleOpen() {
+    if (isOpenAttrTruthy(this))
+      this.removeAttribute("open");
+    else
+      this.setAttribute("open", "");
+    this.dispatchEvent(new Event("toggle"));
+  }
+}
+
+// packages/components/src/components/primitives/Direction/direction.js
+var exports_direction = {};
+__export(exports_direction, {
+  SiguiDirection: () => SiguiDirection
+});
+class SiguiDirection extends SiguiElement {
+  static observedAttributes = ["dir"];
+  static componentKey = "direction";
 }
 
 // packages/components/src/components/primitives/Dock/dock.js
 var exports_dock = {};
 __export(exports_dock, {
+  SiguiDockSeparator: () => SiguiDockSeparator,
   SiguiDockRoot: () => SiguiDockRoot,
+  SiguiDockItem: () => SiguiDockItem,
   SiguiDock: () => SiguiDockRoot
 });
 class SiguiDockRoot extends SiguiElement {
-  static observedAttributes = ["magnification", "icon-size"];
+  static observedAttributes = ["magnification", "icon-size", "max-width"];
   static componentKey = "dock-root";
+  static cssClass = "sg-dock";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", this.getAttribute("role") || "toolbar");
+    this.syncStyle();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.syncStyle();
+  }
+  syncStyle() {
+    const magnification = Number(this.getAttribute("magnification"));
+    const iconSize = Number(this.getAttribute("icon-size"));
+    if (Number.isFinite(magnification) && magnification > 0) {
+      this.style.setProperty("--sg-dock-magnification", String(magnification));
+    }
+    if (Number.isFinite(iconSize) && iconSize > 0) {
+      this.style.setProperty("--sg-dock-icon-size", `${iconSize * 4}px`);
+    }
+  }
+}
+class SiguiDockItem extends SiguiElement {
+  static observedAttributes = ["href", "target", "disabled"];
+  static componentKey = "dock-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.sync();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.sync();
+  }
+  sync() {
+    this.setAttribute("role", this.hasAttribute("href") ? "link" : "button");
+    this.tabIndex = this.hasAttribute("disabled") ? -1 : 0;
+    if (this.hasAttribute("disabled"))
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    if (!this.querySelector(".sg-dock-item-inner")) {
+      const inner = document.createElement("span");
+      inner.className = "sg-dock-item-inner";
+      while (this.firstChild)
+        inner.append(this.firstChild);
+      this.append(inner);
+    }
+  }
+}
+
+class SiguiDockSeparator extends SiguiElement {
+  static componentKey = "dock-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
 }
 
 // packages/components/src/components/primitives/Dropdown/dropdown.js
@@ -38642,7 +41670,7 @@ __export(exports_dropdown, {
   SiguiDropdown: () => SiguiDropdown
 });
 class SiguiDropdown extends SiguiElement {
-  static observedAttributes = ["open"];
+  static observedAttributes = ["open", "max-width", "display"];
   static componentKey = "dropdown";
   connectedCallback() {
     super.connectedCallback();
@@ -38653,19 +41681,23 @@ class SiguiDropdown extends SiguiElement {
     this.syncState();
   }
   syncState() {
-    this.dataset.state = isOpenAttrTruthy(this) ? "open" : "closed";
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    const maxWidth = this.getAttribute("max-width") || "";
+    if (maxWidth)
+      this.dataset.maxWidth = maxWidth;
+    else
+      delete this.dataset.maxWidth;
+    const display = this.getAttribute("display") || "";
+    if (display)
+      this.dataset.display = display;
+    else
+      delete this.dataset.display;
   }
-}
-
-// packages/components/src/components/primitives/Drawer/drawer.js
-var exports_drawer = {};
-__export(exports_drawer, {
-  SiguiDrawerRoot: () => SiguiDrawerRoot,
-  SiguiDrawer: () => SiguiDrawerRoot
-});
-class SiguiDrawerRoot extends SiguiElement {
-  static observedAttributes = ["open"];
-  static componentKey = "drawer-root";
 }
 
 // packages/components/src/components/primitives/Empty/empty.js
@@ -38674,8 +41706,41 @@ __export(exports_empty, {
   SiguiEmpty: () => SiguiEmpty
 });
 class SiguiEmpty extends SiguiElement {
-  static observedAttributes = ["title", "description"];
+  static observedAttributes = ["title", "description", "max-width"];
   static componentKey = "empty";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderEmpty();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.renderEmpty();
+  }
+  renderEmpty() {
+    const title = this.getAttribute("title");
+    const description = this.getAttribute("description");
+    this.querySelector(":scope > .sg-empty-title[data-sigui-generated='empty']")?.remove();
+    this.querySelector(":scope > .sg-empty-description[data-sigui-generated='empty']")?.remove();
+    if (title) {
+      const titleEl = document.createElement("div");
+      titleEl.className = "sg-empty-title";
+      titleEl.dataset.siguiGenerated = "empty";
+      titleEl.textContent = title;
+      this.prepend(titleEl);
+    }
+    if (description) {
+      const descriptionEl = document.createElement("div");
+      descriptionEl.className = "sg-empty-description";
+      descriptionEl.dataset.siguiGenerated = "empty";
+      descriptionEl.textContent = description;
+      const titleEl = this.querySelector(":scope > .sg-empty-title[data-sigui-generated='empty']");
+      if (titleEl)
+        titleEl.after(descriptionEl);
+      else
+        this.prepend(descriptionEl);
+    }
+  }
 }
 
 // packages/components/src/components/primitives/Field/field.js
@@ -38686,7 +41751,7 @@ __export(exports_field, {
 var _fieldUid = 0;
 
 class SiguiField extends SiguiElement {
-  static observedAttributes = ["label", "error", "description", "required", "disabled", "html-for"];
+  static observedAttributes = ["label", "error", "description", "required", "disabled", "html-for", "max-width"];
   static componentKey = "field";
   connectedCallback() {
     super.connectedCallback();
@@ -38705,7 +41770,7 @@ class SiguiField extends SiguiElement {
     const label = this.getAttribute("label");
     const error = this.getAttribute("error");
     const description = this.getAttribute("description");
-    const required = this.hasAttribute("required");
+    const required = this.hasAttribute("required") && this.getAttribute("required") !== "false";
     const htmlFor = this.getAttribute("html-for");
     const labelId = `${this._uid}-label`;
     const descId = `${this._uid}-desc`;
@@ -38753,6 +41818,14 @@ class SiguiField extends SiguiElement {
     for (const input of inputs) {
       if (input.closest("[data-sigui-component]") !== this && input.closest("[data-sigui-component]"))
         continue;
+      const inputEl = input;
+      if (this.hasAttribute("disabled") && this.getAttribute("disabled") !== "false") {
+        input.setAttribute("disabled", "");
+        inputEl.dataset.fieldDisabled = "true";
+      } else if (inputEl.dataset.fieldDisabled === "true") {
+        input.removeAttribute("disabled");
+        delete inputEl.dataset.fieldDisabled;
+      }
       if (describedBy)
         input.setAttribute("aria-describedby", describedBy);
       else
@@ -38804,7 +41877,7 @@ __export(exports_format_bytes, {
 var UNITS = ["B", "KB", "MB", "GB", "TB", "PB"];
 
 class SiguiFormatBytes extends SiguiElement {
-  static observedAttributes = ["value", "decimals"];
+  static observedAttributes = ["value", "decimals", "base"];
   static componentKey = "format-bytes";
   connectedCallback() {
     super.connectedCallback();
@@ -38816,13 +41889,16 @@ class SiguiFormatBytes extends SiguiElement {
   }
   render() {
     const raw = Number(this.getAttribute("value") ?? "0");
-    if (!Number.isFinite(raw))
+    if (!Number.isFinite(raw)) {
+      this.textContent = "";
       return;
+    }
     const decimals = Math.max(0, Number(this.getAttribute("decimals") ?? "1"));
+    const base = this.getAttribute("base") === "1000" ? 1000 : 1024;
     let value = Math.abs(raw);
     let unitIndex = 0;
-    while (value >= 1024 && unitIndex < UNITS.length - 1) {
-      value /= 1024;
+    while (value >= base && unitIndex < UNITS.length - 1) {
+      value /= base;
       unitIndex += 1;
     }
     const sign = raw < 0 ? "-" : "";
@@ -38836,7 +41912,7 @@ __export(exports_format_date, {
   SiguiFormatDate: () => SiguiFormatDate
 });
 class SiguiFormatDate extends SiguiElement {
-  static observedAttributes = ["value", "date-style", "time-style", "locale"];
+  static observedAttributes = ["value", "date-style", "time-style", "locale", "time-zone", "hour12"];
   static componentKey = "format-date";
   connectedCallback() {
     super.connectedCallback();
@@ -38848,20 +41924,41 @@ class SiguiFormatDate extends SiguiElement {
   }
   render() {
     const value = this.getAttribute("value");
-    if (!value)
+    if (!value) {
+      this.textContent = "";
       return;
+    }
     const date = new Date(value);
-    if (Number.isNaN(date.getTime()))
+    if (Number.isNaN(date.getTime())) {
+      this.textContent = "";
       return;
+    }
     const locale = getResolvedLocale(this.getAttribute("locale"));
     const dateStyle = this.getAttribute("date-style") || "medium";
     const timeStyle = this.getAttribute("time-style") || undefined;
-    const formatter = new Intl.DateTimeFormat(locale, {
-      dateStyle,
-      ...timeStyle ? { timeStyle } : {}
-    });
-    this.textContent = formatter.format(date);
+    const timeZone = this.getAttribute("time-zone") || undefined;
+    const hour12 = parseBoolean(this.getAttribute("hour12"));
+    try {
+      const formatter = new Intl.DateTimeFormat(locale, {
+        dateStyle,
+        ...timeStyle ? { timeStyle } : {},
+        ...timeZone ? { timeZone } : {},
+        ...hour12 == null ? {} : { hour12 }
+      });
+      this.textContent = formatter.format(date);
+    } catch {
+      this.textContent = date.toISOString();
+    }
   }
+}
+function parseBoolean(value) {
+  if (value == null)
+    return null;
+  if (value === "" || value === "true")
+    return true;
+  if (value === "false")
+    return false;
+  return null;
 }
 
 // packages/components/src/components/primitives/FormatNumber/format-number.js
@@ -38870,7 +41967,20 @@ __export(exports_format_number, {
   SiguiFormatNumber: () => SiguiFormatNumber
 });
 class SiguiFormatNumber extends SiguiElement {
-  static observedAttributes = ["value", "locale", "style", "currency", "maximum-fraction-digits"];
+  static observedAttributes = [
+    "value",
+    "locale",
+    "style",
+    "currency",
+    "unit",
+    "unit-display",
+    "currency-display",
+    "notation",
+    "compact-display",
+    "sign-display",
+    "minimum-fraction-digits",
+    "maximum-fraction-digits"
+  ];
   static componentKey = "format-number";
   connectedCallback() {
     super.connectedCallback();
@@ -38882,19 +41992,45 @@ class SiguiFormatNumber extends SiguiElement {
   }
   render() {
     const raw = Number(this.getAttribute("value") ?? "0");
-    if (!Number.isFinite(raw))
+    if (!Number.isFinite(raw)) {
+      this.textContent = "";
       return;
+    }
     const locale = getResolvedLocale(this.getAttribute("locale"));
     const style = this.getAttribute("style") || "decimal";
     const currency = this.getAttribute("currency") || undefined;
-    const maximumFractionDigits = this.getAttribute("maximum-fraction-digits");
-    const formatter = new Intl.NumberFormat(locale, {
-      style,
-      ...currency ? { currency } : {},
-      ...maximumFractionDigits ? { maximumFractionDigits: Number(maximumFractionDigits) } : {}
-    });
-    this.textContent = formatter.format(raw);
+    const unit = this.getAttribute("unit") || undefined;
+    const unitDisplay = this.getAttribute("unit-display") || undefined;
+    const currencyDisplay = this.getAttribute("currency-display") || undefined;
+    const notation = this.getAttribute("notation") || undefined;
+    const compactDisplay = this.getAttribute("compact-display") || undefined;
+    const signDisplay = this.getAttribute("sign-display") || undefined;
+    const minimumFractionDigits = numberOption(this.getAttribute("minimum-fraction-digits"));
+    const maximumFractionDigits = numberOption(this.getAttribute("maximum-fraction-digits"));
+    try {
+      const formatter = new Intl.NumberFormat(locale, {
+        style,
+        ...currency ? { currency } : {},
+        ...unit ? { unit } : {},
+        ...unitDisplay ? { unitDisplay } : {},
+        ...currencyDisplay ? { currencyDisplay } : {},
+        ...notation ? { notation } : {},
+        ...compactDisplay ? { compactDisplay } : {},
+        ...signDisplay ? { signDisplay } : {},
+        ...minimumFractionDigits == null ? {} : { minimumFractionDigits },
+        ...maximumFractionDigits == null ? {} : { maximumFractionDigits }
+      });
+      this.textContent = formatter.format(raw);
+    } catch {
+      this.textContent = String(raw);
+    }
   }
+}
+function numberOption(value) {
+  if (value == null || value === "")
+    return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
 }
 
 // packages/components/src/components/primitives/GradientPattern/gradient-pattern.js
@@ -38905,16 +42041,201 @@ __export(exports_gradient_pattern, {
 class SiguiGradientPattern extends SiguiElement {
   static observedAttributes = ["preset", "colors", "intensity", "animated", "overlay", "speed", "progress"];
   static componentKey = "gradient-pattern";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderPattern();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (this.isConnected)
+      this.renderPattern();
+  }
+  syncAttributesToDataset() {
+    super.syncAttributesToDataset();
+    for (const attr2 of ["animated", "overlay"]) {
+      const key2 = attr2.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if (isTruthyAttribute4(this, attr2))
+        this.dataset[key2] = "true";
+      else
+        delete this.dataset[key2];
+    }
+  }
+  renderPattern() {
+    const preset = (this.getAttribute("preset") || "mesh").toLowerCase();
+    const colors = parseColors(this.getAttribute("colors"));
+    const intensity = clamp3(Number(this.getAttribute("intensity") ?? "30"), 1, 100);
+    const speed = Math.max(0.25, Number(this.getAttribute("speed") ?? "1") || 1);
+    const progress = this.getAttribute("progress");
+    const strength = `${Math.round(intensity)}%`;
+    const c1 = colorVar(colors[0] ?? "primary");
+    const c2 = colorVar(colors[1] ?? colors[0] ?? "secondary");
+    const c3 = colorVar(colors[2] ?? colors[1] ?? colors[0] ?? "accent");
+    const soft = `${Math.max(8, Math.round(intensity * 0.45))}%`;
+    this.style.setProperty("--_gradient-pattern-duration", `${Math.max(4, 14 / speed)}s`);
+    this.style.backgroundImage = patternFor(preset, c1, c2, c3, strength, soft);
+    if (progress != null) {
+      const value = clamp3(Number(progress), 0, 1);
+      this.style.backgroundPosition = `50% ${Math.round(value * 100)}%`;
+    } else if (!isTruthyAttribute4(this, "animated")) {
+      this.style.removeProperty("background-position");
+    }
+    this.syncAccessibility();
+  }
+  syncAccessibility() {
+    if (isTruthyAttribute4(this, "overlay") || !hasMeaningfulContent(this)) {
+      this.setAttribute("aria-hidden", "true");
+      return;
+    }
+    this.removeAttribute("aria-hidden");
+  }
+}
+function patternFor(preset, c1, c2, c3, strength, soft) {
+  const a = `color-mix(in oklch, ${c1} ${strength}, transparent)`;
+  const b = `color-mix(in oklch, ${c2} ${strength}, transparent)`;
+  const c = `color-mix(in oklch, ${c3} ${soft}, transparent)`;
+  switch (preset) {
+    case "aurora":
+      return [
+        `linear-gradient(115deg, transparent 0%, ${a} 24%, transparent 48%, ${b} 70%, transparent 100%)`,
+        `radial-gradient(circle at 75% 20%, ${c}, transparent 34%)`
+      ].join(", ");
+    case "glow":
+      return [
+        `radial-gradient(circle at 50% 48%, ${a}, transparent 42%)`,
+        `radial-gradient(circle at 25% 72%, ${b}, transparent 32%)`
+      ].join(", ");
+    case "sweep":
+      return `conic-gradient(from 210deg at 50% 50%, transparent 0deg, ${a} 70deg, ${b} 160deg, ${c} 245deg, transparent 360deg)`;
+    case "noise":
+      return [
+        `radial-gradient(circle at 20% 20%, ${a} 0 1px, transparent 1px 100%)`,
+        `radial-gradient(circle at 80% 70%, ${b} 0 1px, transparent 1px 100%)`,
+        `linear-gradient(135deg, ${c}, transparent 70%)`
+      ].join(", ");
+    case "mesh":
+    default:
+      return [
+        `radial-gradient(circle at 15% 20%, ${a}, transparent 34%)`,
+        `radial-gradient(circle at 82% 18%, ${b}, transparent 32%)`,
+        `radial-gradient(circle at 58% 86%, ${c}, transparent 38%)`,
+        `linear-gradient(135deg, color-mix(in oklch, ${c1} ${soft}, transparent), transparent 70%)`
+      ].join(", ");
+  }
+}
+function parseColors(raw) {
+  if (!raw)
+    return ["primary"];
+  return raw.replace(/^\[|\]$/g, "").split(/[,\s]+/).map((value) => value.replace(/["']/g, "").trim()).filter(Boolean);
+}
+function colorVar(token) {
+  if (token === "neutral")
+    return "var(--sg-color-border)";
+  if (/^#[0-9a-f]{3,8}$/i.test(token) || token.startsWith("oklch(") || token.startsWith("rgb(") || token.startsWith("hsl("))
+    return token;
+  return `var(--sg-color-${token}, var(--sg-color-primary))`;
+}
+function clamp3(value, min, max) {
+  if (!Number.isFinite(value))
+    return min;
+  return Math.min(max, Math.max(min, value));
+}
+function isTruthyAttribute4(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
+}
+function hasMeaningfulContent(element2) {
+  for (const node of element2.childNodes) {
+    if (node.nodeType === 3 && node.textContent?.trim())
+      return true;
+    if (node.nodeType === 1)
+      return true;
+  }
+  return false;
 }
 
 // packages/components/src/components/primitives/Grid/grid.js
 var exports_grid = {};
 __export(exports_grid, {
+  SiguiGridItem: () => SiguiGridItem,
   SiguiGrid: () => SiguiGrid
 });
 class SiguiGrid extends SiguiElement {
   static observedAttributes = ["columns", "min-child-width", "gap", "rows", "flow", "align", "justify", "place-content", "inline", "collapse"];
   static componentKey = "grid";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncGridStyles();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (["min-child-width", "rows"].includes(name) && oldValue !== newValue) {
+      this.syncGridStyles();
+    }
+  }
+  syncGridStyles() {
+    const minChildWidth = this.getAttribute("min-child-width");
+    if (minChildWidth)
+      this.style.setProperty("--_grid-min-track", minChildWidth);
+    else
+      this.style.removeProperty("--_grid-min-track");
+    const rows = this.getAttribute("rows");
+    if (rows)
+      this.style.setProperty("--sg-grid-rows", normalizeRows(rows));
+    else
+      this.style.removeProperty("--sg-grid-rows");
+  }
+}
+
+class SiguiGridItem extends SiguiElement {
+  static observedAttributes = [
+    "span",
+    "row-span",
+    "rowspan",
+    "start",
+    "row-start",
+    "rowstart",
+    "area",
+    "align-self",
+    "alignself",
+    "justify-self",
+    "justifyself"
+  ];
+  static componentKey = "grid-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncGridItemStyles();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncGridItemStyles();
+  }
+  syncGridItemStyles() {
+    setCssVar(this, "--sg-grid-span", this.getAttribute("span"));
+    setCssVar(this, "--sg-grid-start", this.getAttribute("start"));
+    setCssVar(this, "--sg-grid-row-span", this.getAttribute("row-span") ?? this.getAttribute("rowspan"));
+    setCssVar(this, "--sg-grid-row-start", this.getAttribute("row-start") ?? this.getAttribute("rowstart"));
+    const alignSelf = this.getAttribute("align-self") ?? this.getAttribute("alignself");
+    if (alignSelf)
+      this.dataset.alignSelf = alignSelf;
+    const justifySelf = this.getAttribute("justify-self") ?? this.getAttribute("justifyself");
+    if (justifySelf)
+      this.dataset.justifySelf = justifySelf;
+    const area = this.getAttribute("area");
+    this.style.gridArea = area || "";
+  }
+}
+function normalizeRows(rows) {
+  const value = rows.trim();
+  return /^\d+$/.test(value) ? `repeat(${value}, 1fr)` : value;
+}
+function setCssVar(element2, property, value) {
+  if (value == null || value === "")
+    element2.style.removeProperty(property);
+  else
+    element2.style.setProperty(property, value);
 }
 
 // packages/components/src/components/primitives/Heading/heading.js
@@ -38923,19 +42244,121 @@ __export(exports_heading, {
   SiguiHeading: () => SiguiHeading
 });
 class SiguiHeading extends SiguiElement {
-  static observedAttributes = ["level", "size", "color", "align"];
+  static observedAttributes = ["level", "size", "color", "align", "wrap", "max-width"];
   static componentKey = "heading";
+  static contract = Object.freeze({
+    aria: { role: "heading", requiredAttrs: ["level"] }
+  });
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncHeadingLevel();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "level")
+      this.syncHeadingLevel();
+  }
+  syncHeadingLevel() {
+    const rawLevel = Number(this.getAttribute("level"));
+    const level = Number.isInteger(rawLevel) && rawLevel >= 1 && rawLevel <= 6 ? rawLevel : 2;
+    this.setAttribute("role", "heading");
+    this.setAttribute("aria-level", String(level));
+  }
 }
 
 // packages/components/src/components/recipes/HoverCard/hover-card.js
 var exports_hover_card = {};
 __export(exports_hover_card, {
+  SiguiHoverCardTrigger: () => SiguiHoverCardTrigger,
   SiguiHoverCardRoot: () => SiguiHoverCardRoot,
+  SiguiHoverCardContent: () => SiguiHoverCardContent,
   SiguiHoverCard: () => SiguiHoverCardRoot
 });
 class SiguiHoverCardRoot extends SiguiElement {
-  static observedAttributes = ["open", "open-delay", "close-delay", "onclose"];
+  static observedAttributes = ["open", "open-delay", "close-delay", "max-width", "onclose"];
   static componentKey = "hover-card-root";
+  _timer;
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "pointerenter", () => this.scheduleOpen());
+      this.on(this, "pointerleave", () => this.scheduleClose());
+      this.on(this, "focusin", () => this.scheduleOpen());
+      this.on(this, "focusout", (event2) => {
+        const next2 = event2.relatedTarget;
+        if (!next2 || !this.contains(next2))
+          this.scheduleClose();
+      });
+      this.on(this, "keydown", (event2) => {
+        if (event2.key === "Escape")
+          this.close();
+      });
+    }
+    this.syncState();
+  }
+  disconnectedCallback() {
+    clearTimeout(this._timer);
+    super.disconnectedCallback();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.syncState();
+  }
+  get openDelay() {
+    const value = Number(this.getAttribute("open-delay"));
+    return Number.isFinite(value) && value >= 0 ? value : 700;
+  }
+  get closeDelay() {
+    const value = Number(this.getAttribute("close-delay"));
+    return Number.isFinite(value) && value >= 0 ? value : 300;
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='hover-card-content']");
+  }
+  scheduleOpen() {
+    clearTimeout(this._timer);
+    this._timer = setTimeout(() => this.open(), this.openDelay);
+  }
+  scheduleClose() {
+    clearTimeout(this._timer);
+    this._timer = setTimeout(() => this.close(), this.closeDelay);
+  }
+  open() {
+    this.setAttribute("open", "");
+  }
+  close() {
+    this.removeAttribute("open");
+  }
+  syncState() {
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    if (this.content) {
+      this.content.hidden = !open;
+      this.content.dataset.state = open ? "open" : "closed";
+    }
+  }
+}
+class SiguiHoverCardTrigger extends SiguiElement {
+  static componentKey = "hover-card-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-haspopup", "dialog");
+  }
+}
+
+class SiguiHoverCardContent extends SiguiElement {
+  static componentKey = "hover-card-content";
+  static cssClass = "sg-hover-card";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "dialog");
+    this.closest("[data-sigui-component='hover-card-root']")?.syncState();
+  }
 }
 
 // packages/components/src/components/primitives/Icon/icon.js
@@ -38966,7 +42389,7 @@ class SiguiIcon extends SiguiElement {
       return;
     this.dataset.delivery = "font";
     const variant = this.getAttribute("variant") || "outlined";
-    const fill = this.hasAttribute("filled") ? 1 : 0;
+    const fill = isTruthyAttribute5(this, "filled") ? 1 : 0;
     const weight = Number(this.getAttribute("weight") ?? 400);
     const grade = Number(this.getAttribute("grade") ?? 0);
     const opsz = this._computeOpsz();
@@ -39005,6 +42428,12 @@ class SiguiIcon extends SiguiElement {
     }
   }
 }
+function isTruthyAttribute5(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
+}
 
 // packages/components/src/components/primitives/IconButton/icon-button.js
 var exports_icon_button = {};
@@ -39012,7 +42441,7 @@ __export(exports_icon_button, {
   SiguiIconButton: () => SiguiIconButton
 });
 class SiguiIconButton extends SiguiElement {
-  static observedAttributes = ["size", "color", "disabled", "pressed"];
+  static observedAttributes = ["size", "color", "disabled", "pressed", "icon"];
   static get componentName() {
     return "IconButton";
   }
@@ -39024,27 +42453,62 @@ class SiguiIconButton extends SiguiElement {
   });
   connectedCallback() {
     super.connectedCallback();
-    this.ensureClass("sg-icon-button");
-    this.dataset.siguiComponent = "icon-button";
-    this.syncAttributesToDataset();
-    if (this.hasAttribute("disabled"))
-      this.setAttribute("aria-disabled", "true");
+    this.syncButtonState();
     if (!this.hasAttribute("aria-label") && !this.textContent?.trim()) {
       this.setAttribute("aria-label", "Icon button");
     }
+    this.on(this, "keydown", (event2) => {
+      if (!(event2 instanceof KeyboardEvent))
+        return;
+      if (event2.key !== "Enter" && event2.key !== " ")
+        return;
+      event2.preventDefault();
+      if (!this.isDisabled())
+        this.click();
+    });
   }
-  attributeChangedCallback() {
-    this.syncAttributesToDataset();
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncButtonState();
   }
-  syncAttributesToDataset() {
-    for (const attr2 of this.constructor.observedAttributes) {
-      const dataKey = attr2.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-      if (!this.hasAttribute(attr2)) {
-        delete this.dataset[dataKey];
-        continue;
-      }
-      this.dataset[dataKey] = this.getAttribute(attr2) ?? "";
+  syncButtonState() {
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "button");
+    if (this.isDisabled()) {
+      this.setAttribute("aria-disabled", "true");
+      this.tabIndex = -1;
+    } else {
+      this.removeAttribute("aria-disabled");
+      if (!this.hasAttribute("tabindex"))
+        this.tabIndex = 0;
     }
+    if (this.hasAttribute("pressed")) {
+      this.setAttribute("aria-pressed", this.getAttribute("pressed") === "false" ? "false" : "true");
+    } else {
+      this.removeAttribute("aria-pressed");
+    }
+    this.renderIcon();
+  }
+  renderIcon() {
+    const icon = this.getAttribute("icon");
+    const existing = this.querySelector(":scope > sg-icon[data-sigui-generated='icon-button-icon']");
+    if (!icon) {
+      existing?.remove();
+      return;
+    }
+    if (existing) {
+      existing.setAttribute("name", icon);
+      return;
+    }
+    const iconEl = document.createElement("sg-icon");
+    iconEl.setAttribute("name", icon);
+    iconEl.setAttribute("aria-hidden", "true");
+    iconEl.setAttribute("data-sigui-generated", "icon-button-icon");
+    this.prepend(iconEl);
+  }
+  isDisabled() {
+    return this.hasAttribute("disabled") && this.getAttribute("disabled") !== "false";
   }
 }
 
@@ -39054,8 +42518,12 @@ __export(exports_include, {
   SiguiInclude: () => SiguiInclude
 });
 class SiguiInclude extends SiguiElement {
-  static observedAttributes = ["src", "mode"];
+  static observedAttributes = ["src", "mode", "trusted", "display"];
   static componentKey = "include";
+  constructor() {
+    super();
+    this._requestId = 0;
+  }
   static contract = Object.freeze({
     events: [
       { name: "sg-load", detail: { src: "string" }, bubbles: true },
@@ -39072,20 +42540,916 @@ class SiguiInclude extends SiguiElement {
   }
   async load() {
     const src = this.getAttribute("src");
-    if (!src)
+    const requestId = ++this._requestId;
+    if (!src) {
+      this.dataset.state = "idle";
       return;
+    }
+    this.dataset.state = "loading";
     try {
       const response = await fetch(src);
       if (!response.ok)
         throw new Error(`Request failed with ${response.status}`);
       const text2 = await response.text();
+      if (requestId !== this._requestId)
+        return;
       if (this.getAttribute("mode") === "text")
         this.textContent = text2;
       else
-        this.innerHTML = text2;
+        this.innerHTML = isTruthyAttribute6(this, "trusted") ? text2 : sanitizeHtml(text2);
+      this.dataset.state = "loaded";
       this.dispatchEvent(new CustomEvent("sg-load", { bubbles: true, detail: { src } }));
     } catch (error) {
+      if (requestId !== this._requestId)
+        return;
+      this.dataset.state = "error";
       this.dispatchEvent(new CustomEvent("sg-error", { bubbles: true, detail: { src, error } }));
+    }
+  }
+}
+var ALLOWED_TAGS = new Set([
+  "a",
+  "abbr",
+  "article",
+  "aside",
+  "b",
+  "blockquote",
+  "br",
+  "button",
+  "caption",
+  "code",
+  "col",
+  "colgroup",
+  "dd",
+  "details",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "figcaption",
+  "figure",
+  "footer",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "header",
+  "hr",
+  "i",
+  "img",
+  "kbd",
+  "label",
+  "li",
+  "main",
+  "mark",
+  "nav",
+  "ol",
+  "p",
+  "pre",
+  "samp",
+  "section",
+  "small",
+  "span",
+  "strong",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "tr",
+  "ul",
+  "var"
+]);
+var URL_ATTRS = new Set(["href", "src", "action", "poster"]);
+var SAFE_ATTRS = new Set([
+  "abbr",
+  "alt",
+  "aria-label",
+  "aria-labelledby",
+  "aria-describedby",
+  "aria-controls",
+  "aria-expanded",
+  "aria-hidden",
+  "aria-live",
+  "aria-pressed",
+  "aria-selected",
+  "checked",
+  "class",
+  "colspan",
+  "disabled",
+  "for",
+  "height",
+  "href",
+  "id",
+  "loading",
+  "max",
+  "maxlength",
+  "method",
+  "min",
+  "name",
+  "open",
+  "placeholder",
+  "poster",
+  "readonly",
+  "rel",
+  "role",
+  "rows",
+  "rowspan",
+  "scope",
+  "selected",
+  "src",
+  "target",
+  "title",
+  "type",
+  "value",
+  "width"
+]);
+function sanitizeHtml(html2) {
+  if (typeof document === "undefined")
+    return esc3(html2);
+  const template = document.createElement("template");
+  template.innerHTML = html2;
+  const nodes = [...template.content.querySelectorAll("*")];
+  for (const element2 of nodes) {
+    const tag2 = element2.tagName.toLowerCase();
+    if (!ALLOWED_TAGS.has(tag2) && !/^sg-[a-z0-9-]+$/.test(tag2)) {
+      element2.replaceWith(document.createTextNode(element2.textContent ?? ""));
+      continue;
+    }
+    for (const attr2 of [...element2.attributes]) {
+      const name = attr2.name.toLowerCase();
+      const value = attr2.value.trim();
+      const isSafeDataOrAria = name.startsWith("data-") || name.startsWith("aria-");
+      if (name.startsWith("on") || name === "style") {
+        element2.removeAttribute(attr2.name);
+        continue;
+      }
+      if (!SAFE_ATTRS.has(name) && !isSafeDataOrAria) {
+        element2.removeAttribute(attr2.name);
+        continue;
+      }
+      if (URL_ATTRS.has(name) && !isSafeUrl(value)) {
+        element2.removeAttribute(attr2.name);
+      }
+    }
+  }
+  return template.innerHTML;
+}
+function isSafeUrl(value) {
+  if (!value || value.startsWith("#") || value.startsWith("/") || value.startsWith("./") || value.startsWith("../"))
+    return true;
+  try {
+    const url = new URL(value, globalThis.location?.href ?? "http://localhost/");
+    return url.protocol === "http:" || url.protocol === "https:" || url.protocol === "mailto:" || url.protocol === "tel:";
+  } catch {
+    return false;
+  }
+}
+function esc3(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function isTruthyAttribute6(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
+}
+
+// packages/components/src/components/native/InputVariants/input-variants.js
+var exports_input_variants = {};
+__export(exports_input_variants, {
+  bindNativeColorInputs: () => bindNativeColorInputs,
+  SiguiInputWeek: () => SiguiInputWeek,
+  SiguiInputTime: () => SiguiInputTime,
+  SiguiInputMonth: () => SiguiInputMonth,
+  SiguiInputDateTimeLocal: () => SiguiInputDateTimeLocal,
+  SiguiInputDate: () => SiguiInputDate
+});
+var nativeColorInputBindingKey = Symbol.for("sigui.native-color-input-bound");
+var nativeColorInputStateKey = Symbol.for("sigui.native-color-input-state");
+var nativeColorInputEnhancementKey = Symbol.for("sigui.native-color-input-enhancement");
+var NATIVE_COLOR_INPUT_SELECTOR = "input.sg-input-color[type='color']";
+var TEMPORAL_INPUT_ATTRIBUTES = [
+  "value",
+  "name",
+  "label",
+  "placeholder",
+  "disabled",
+  "required",
+  "readonly",
+  "min",
+  "max",
+  "step",
+  "autocomplete",
+  "list",
+  "form",
+  "max-width",
+  "aria-label",
+  "aria-labelledby",
+  "aria-describedby"
+];
+var TEMPORAL_STRING_ATTRIBUTES = [
+  "name",
+  "placeholder",
+  "min",
+  "max",
+  "step",
+  "autocomplete",
+  "list",
+  "form",
+  "aria-labelledby",
+  "aria-describedby"
+];
+var TEMPORAL_BOOLEAN_ATTRIBUTES = ["disabled", "required", "readonly"];
+var NATIVE_COLOR_PICKER_POPUP_ATTRIBUTES = [
+  ["data-color-picker-input", "input", "boolean"],
+  ["data-color-picker-show-value", "show-value", "boolean"],
+  ["data-color-picker-size", "size", "string"],
+  ["data-color-picker-ring-size", "ring-size", "string"],
+  ["data-color-picker-swatch-size", "swatch-size", "string"],
+  ["data-color-picker-thickness", "thickness", "string"]
+];
+var NATIVE_COLOR_PICKER_PROXY_ATTRIBUTES = [
+  ...NATIVE_COLOR_PICKER_POPUP_ATTRIBUTES,
+  ["data-color-picker-mode", "mode", "string"],
+  ["data-color-picker-direction", "direction", "string"],
+  ["data-color-picker-hue", "hue", "string"],
+  ["data-color-picker-lightness", "lightness", "string"],
+  ["data-color-picker-chroma", "chroma", "string"],
+  ["data-color-picker-popover", "popover", "boolean"],
+  ["data-color-picker-swatch", "swatch", "boolean"]
+];
+var NATIVE_COLOR_INPUT_OBSERVED_ATTRIBUTES = [
+  "value",
+  "disabled",
+  "readonly",
+  "aria-disabled",
+  "aria-readonly",
+  "aria-label",
+  "aria-labelledby",
+  "id",
+  ...NATIVE_COLOR_PICKER_PROXY_ATTRIBUTES.map(([source2]) => source2)
+];
+var NATIVE_COLOR_PICKER_DIRECTIONS = new Set(["top", "right", "bottom", "left"]);
+function isBooleanAttr2(element2, name) {
+  if (!element2.hasAttribute(name))
+    return false;
+  const raw = (element2.getAttribute(name) ?? "").trim().toLowerCase();
+  return !(raw === "false" || raw === "0" || raw === "no" || raw === "off");
+}
+function getTagPrefix(host, componentKey) {
+  const suffix = `-${componentKey}`;
+  const localName = host.localName || "";
+  if (localName.endsWith(suffix))
+    return localName.slice(0, -suffix.length) || "sg";
+  return "sg";
+}
+function bindNativeColorInputs(root45 = globalThis.document, options = {}) {
+  const doc = root45 && "nodeType" in root45 && root45.nodeType === 9 ? root45 : root45 && ("ownerDocument" in root45) ? root45.ownerDocument : root45;
+  if (!doc || typeof doc.addEventListener !== "function")
+    return;
+  const stateHost = doc;
+  let state2 = stateHost[nativeColorInputStateKey];
+  if (!state2) {
+    state2 = { tagPrefix: options.tagPrefix ?? "sg", popup: null, picker: null, input: null, observer: null };
+    stateHost[nativeColorInputStateKey] = state2;
+  }
+  state2.tagPrefix = options.tagPrefix ?? state2.tagPrefix ?? "sg";
+  enhanceNativeColorInputs(root45, state2.tagPrefix);
+  observeNativeColorInputs(doc, state2);
+  if (stateHost[nativeColorInputBindingKey])
+    return;
+  stateHost[nativeColorInputBindingKey] = true;
+  doc.addEventListener("pointerdown", (event2) => {
+    const input = getNativeColorInputFromEvent(event2);
+    if (input) {
+      event2.preventDefault();
+      event2.stopPropagation();
+      focusWithoutScroll(input);
+      if (state2.input === input && isNativeColorPopupOpen(state2))
+        closeNativeColorInput(state2);
+      else
+        openNativeColorInput(input, state2);
+      return;
+    }
+    if (!isNativeColorPopupOpen(state2))
+      return;
+    const target = event2.target;
+    const path = typeof event2.composedPath === "function" ? event2.composedPath() : [];
+    if (state2.popup && (path.includes(state2.popup) || target && state2.popup.contains(target)))
+      return;
+    if (state2.input && (path.includes(state2.input) || state2.input === target))
+      return;
+    closeNativeColorInput(state2);
+  }, true);
+  doc.addEventListener("click", (event2) => {
+    const input = getNativeColorInputFromEvent(event2);
+    if (!input)
+      return;
+    event2.preventDefault();
+    event2.stopPropagation();
+  }, true);
+  doc.addEventListener("keydown", (event2) => {
+    if (event2.key === "Escape" && isNativeColorPopupOpen(state2)) {
+      event2.preventDefault();
+      closeNativeColorInput(state2, true);
+      return;
+    }
+    const input = getNativeColorInputFromEvent(event2);
+    if (!input)
+      return;
+    if (event2.key !== "Enter" && event2.key !== " " && event2.key !== "ArrowDown")
+      return;
+    event2.preventDefault();
+    event2.stopPropagation();
+    openNativeColorInput(input, state2);
+  }, true);
+  const win = doc.defaultView;
+  win?.addEventListener("resize", () => {
+    if (isNativeColorPopupOpen(state2))
+      positionNativeColorPopup(state2);
+  });
+  win?.addEventListener("scroll", () => {
+    if (isNativeColorPopupOpen(state2))
+      positionNativeColorPopup(state2);
+  }, true);
+}
+function getNativeColorInputFromEvent(event2) {
+  const target = event2.target;
+  const origin = target instanceof Element ? target : target?.parentElement;
+  const input = origin?.closest?.(NATIVE_COLOR_INPUT_SELECTOR);
+  if (input?.dataset.siguiNativeColorInput === "source")
+    return null;
+  if (!input || isDisabledColorInput(input))
+    return null;
+  return input;
+}
+function enhanceNativeColorInputs(root45, tagPrefix) {
+  if (!root45 || typeof root45 !== "object")
+    return;
+  if (root45 instanceof HTMLInputElement && isNativeColorInputElement(root45)) {
+    enhanceNativeColorInput(root45, tagPrefix);
+  }
+  if (!("querySelectorAll" in root45))
+    return;
+  for (const input of root45.querySelectorAll(NATIVE_COLOR_INPUT_SELECTOR)) {
+    if (input instanceof HTMLInputElement)
+      enhanceNativeColorInput(input, tagPrefix);
+  }
+}
+function observeNativeColorInputs(doc, state2) {
+  if (state2.observer || typeof MutationObserver === "undefined" || !doc.documentElement)
+    return;
+  state2.observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === "attributes") {
+        const target = mutation.target;
+        if (target instanceof HTMLInputElement && isNativeColorInputElement(target)) {
+          syncNativeColorInputProxy(target);
+        }
+        continue;
+      }
+      for (const node of mutation.addedNodes) {
+        if (node instanceof Element || node instanceof DocumentFragment) {
+          enhanceNativeColorInputs(node, state2.tagPrefix);
+        }
+      }
+      for (const node of mutation.removedNodes) {
+        if (node instanceof Element || node instanceof DocumentFragment) {
+          cleanupNativeColorInputs(node);
+        }
+      }
+    }
+  });
+  state2.observer.observe(doc.documentElement, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: NATIVE_COLOR_INPUT_OBSERVED_ATTRIBUTES
+  });
+}
+function isNativeColorInputElement(element2) {
+  return element2 instanceof HTMLInputElement && element2.matches(NATIVE_COLOR_INPUT_SELECTOR);
+}
+function cleanupNativeColorInputs(root45) {
+  if (root45 instanceof HTMLInputElement && isNativeColorInputElement(root45)) {
+    cleanupNativeColorInput(root45);
+  }
+  for (const input of root45.querySelectorAll?.(NATIVE_COLOR_INPUT_SELECTOR) ?? []) {
+    if (input instanceof HTMLInputElement)
+      cleanupNativeColorInput(input);
+  }
+}
+function cleanupNativeColorInput(input) {
+  const host = input;
+  host[nativeColorInputEnhancementKey]?.picker.remove();
+  host[nativeColorInputEnhancementKey] = undefined;
+}
+function enhanceNativeColorInput(input, tagPrefix) {
+  const host = input;
+  const existing = host[nativeColorInputEnhancementKey];
+  if (existing?.picker.isConnected) {
+    syncNativeColorInputProxy(input);
+    return;
+  }
+  const picker = input.ownerDocument.createElement(`${tagPrefix || "sg"}-color-picker`);
+  picker.dataset.siguiNativeColorInput = "proxy";
+  host[nativeColorInputEnhancementKey] = { picker, syncing: false };
+  input.dataset.siguiNativeColorInput = "source";
+  input.setAttribute("aria-hidden", "true");
+  input.tabIndex = -1;
+  syncNativeColorInputProxy(input);
+  input.insertAdjacentElement("afterend", picker);
+  picker.addEventListener("input", (event2) => syncNativeColorInputFromProxy(input, picker, event2));
+  picker.addEventListener("change", (event2) => syncNativeColorInputFromProxy(input, picker, event2));
+  input.addEventListener("input", () => syncNativeColorInputProxy(input));
+  input.addEventListener("change", () => syncNativeColorInputProxy(input));
+  if (hasNativeColorPickerOklchAttributes(input) && !input.hasAttribute("value")) {
+    const schedule = input.ownerDocument.defaultView?.queueMicrotask ?? globalThis.queueMicrotask;
+    if (typeof schedule !== "function")
+      return;
+    schedule(() => {
+      const next2 = readColorPickerHex(picker);
+      if (next2)
+        updateNativeColorInputValue(input, next2, false);
+    });
+  }
+}
+function syncNativeColorInputProxy(input) {
+  const record = input[nativeColorInputEnhancementKey];
+  const picker = record?.picker;
+  if (!picker)
+    return;
+  record.syncing = true;
+  try {
+    picker.setAttribute("label", resolveNativeColorInputLabel(input));
+    picker.toggleAttribute("disabled", isDisabledColorInput(input));
+    const explicitValue = input.getAttribute("value");
+    if (explicitValue || !hasNativeColorPickerOklchAttributes(input)) {
+      picker.setAttribute("value", input.value || explicitValue || "#000000");
+    } else {
+      picker.removeAttribute("value");
+    }
+    for (const [source2, target, kind] of NATIVE_COLOR_PICKER_PROXY_ATTRIBUTES) {
+      if (kind === "boolean") {
+        if (input.hasAttribute(source2))
+          picker.toggleAttribute(target, isBooleanAttr2(input, source2));
+        else
+          picker.removeAttribute(target);
+        continue;
+      }
+      const value = input.getAttribute(source2);
+      if (value)
+        picker.setAttribute(target, value);
+      else
+        picker.removeAttribute(target);
+    }
+    if (!input.hasAttribute("data-color-picker-mode") && !input.hasAttribute("data-color-picker-popover")) {
+      picker.setAttribute("mode", "popover");
+    }
+  } finally {
+    record.syncing = false;
+  }
+}
+function syncNativeColorInputFromProxy(input, picker, event2) {
+  const record = input[nativeColorInputEnhancementKey];
+  if (record?.syncing)
+    return;
+  event2.stopPropagation();
+  const next2 = readColorPickerHex(picker, event2);
+  if (!next2)
+    return;
+  updateNativeColorInputValue(input, next2, true, event2.type);
+}
+function updateNativeColorInputValue(input, next2, dispatch, eventType = "input") {
+  const normalized = next2.toLowerCase();
+  if (!/^#[0-9a-f]{6}$/i.test(normalized))
+    return;
+  input.value = normalized;
+  input.setAttribute("value", normalized);
+  if (dispatch)
+    input.dispatchEvent(new Event(eventType, { bubbles: true, composed: true }));
+}
+function isDisabledColorInput(input) {
+  return input.matches(":disabled, [disabled], [readonly], [aria-disabled='true'], [aria-readonly='true'], [data-disabled]:not([data-disabled='false'])");
+}
+function focusWithoutScroll(element2) {
+  try {
+    element2.focus({ preventScroll: true });
+  } catch {
+    element2.focus();
+  }
+}
+function clampNumber(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+function ensureNativeColorPopup(state2) {
+  const doc = state2.input?.ownerDocument ?? globalThis.document;
+  if (state2.popup && state2.picker)
+    return;
+  const popup = doc.createElement("div");
+  popup.className = "sg-input-color-popover sg-color-picker-trigger-popup";
+  popup.style.display = "none";
+  popup.style.position = "fixed";
+  popup.style.zIndex = "2147483000";
+  popup.style.overflow = "visible";
+  popup.setAttribute("popover", "manual");
+  const picker = doc.createElement(`${state2.tagPrefix || "sg"}-color-picker`);
+  picker.setAttribute("label", "Color");
+  picker.setAttribute("swatch", "false");
+  picker.addEventListener("input", (event2) => syncNativeColorInputFromPicker(state2, event2));
+  picker.addEventListener("change", (event2) => syncNativeColorInputFromPicker(state2, event2));
+  popup.append(picker);
+  state2.popup = popup;
+  state2.picker = picker;
+}
+function openNativeColorInput(input, state2) {
+  state2.input = input;
+  ensureNativeColorPopup(state2);
+  const popup = state2.popup;
+  const picker = state2.picker;
+  if (!popup || !picker)
+    return;
+  picker.setAttribute("value", input.value || input.getAttribute("value") || "#000000");
+  picker.setAttribute("label", resolveNativeColorInputLabel(input));
+  syncNativeColorPickerAttributes(input, picker);
+  if (popup.parentNode !== input.ownerDocument.body)
+    input.ownerDocument.body.append(popup);
+  popup.style.display = "flex";
+  try {
+    if (typeof popup.showPopover === "function" && !popup.matches(":popover-open")) {
+      popup.showPopover();
+    }
+  } catch {}
+  input.setAttribute("aria-haspopup", "dialog");
+  input.setAttribute("aria-expanded", "true");
+  positionNativeColorPopup(state2);
+  input.ownerDocument.defaultView?.requestAnimationFrame(() => positionNativeColorPopup(state2));
+}
+function closeNativeColorInput(state2, restoreFocus = false) {
+  const popup = state2.popup;
+  const input = state2.input;
+  if (!popup || popup.style.display === "none")
+    return;
+  try {
+    if (typeof popup.hidePopover === "function" && popup.matches(":popover-open")) {
+      popup.hidePopover();
+    }
+  } catch {}
+  popup.style.display = "none";
+  input?.setAttribute("aria-expanded", "false");
+  if (restoreFocus && input)
+    focusWithoutScroll(input);
+  state2.input = null;
+}
+function isNativeColorPopupOpen(state2) {
+  return Boolean(state2.popup && state2.popup.style.display !== "none");
+}
+function positionNativeColorPopup(state2) {
+  const popup = state2.popup;
+  const input = state2.input;
+  if (!popup || !input || popup.parentNode !== input.ownerDocument.body)
+    return;
+  const rect = input.getBoundingClientRect();
+  const popupRect = popup.getBoundingClientRect();
+  const win = input.ownerDocument.defaultView;
+  const viewportWidth = win?.innerWidth ?? 0;
+  const viewportHeight = win?.innerHeight ?? 0;
+  const offset = 8;
+  const direction = resolveNativeColorPickerDirection(input);
+  let left;
+  let top;
+  if (direction === "top") {
+    left = rect.left + (rect.width - popupRect.width) / 2;
+    top = rect.top - popupRect.height - offset;
+  } else if (direction === "left") {
+    left = rect.left - popupRect.width - offset;
+    top = rect.top + (rect.height - popupRect.height) / 2;
+  } else if (direction === "right") {
+    left = rect.right + offset;
+    top = rect.top + (rect.height - popupRect.height) / 2;
+  } else {
+    left = rect.left + (rect.width - popupRect.width) / 2;
+    top = rect.bottom + offset;
+  }
+  if (direction === "left" || direction === "right") {
+    const maxTop = Math.max(offset, viewportHeight - popupRect.height - offset);
+    top = clampNumber(top, offset, maxTop);
+  } else {
+    const maxLeft = Math.max(offset, viewportWidth - popupRect.width - offset);
+    left = clampNumber(left, offset, maxLeft);
+  }
+  popup.style.left = `${Math.round(left)}px`;
+  popup.style.top = `${Math.round(top)}px`;
+}
+function syncNativeColorPickerAttributes(input, picker) {
+  picker.setAttribute("swatch", "false");
+  for (const [source2, target, kind] of NATIVE_COLOR_PICKER_POPUP_ATTRIBUTES) {
+    if (kind === "boolean") {
+      picker.toggleAttribute(target, isBooleanAttr2(input, source2));
+      continue;
+    }
+    const value = input.getAttribute(source2);
+    if (value)
+      picker.setAttribute(target, value);
+    else
+      picker.removeAttribute(target);
+  }
+}
+function resolveNativeColorPickerDirection(input) {
+  const raw = (input.getAttribute("data-color-picker-direction") || "bottom").trim().toLowerCase();
+  return NATIVE_COLOR_PICKER_DIRECTIONS.has(raw) ? raw : "bottom";
+}
+function hasNativeColorPickerOklchAttributes(input) {
+  return input.hasAttribute("data-color-picker-hue") || input.hasAttribute("data-color-picker-lightness") || input.hasAttribute("data-color-picker-chroma");
+}
+function readColorPickerHex(picker, event2) {
+  const detail = event2?.detail;
+  const next2 = detail?.hex || picker.value || picker.getAttribute("value");
+  if (!next2 || !/^#[0-9a-f]{6}$/i.test(next2))
+    return null;
+  return next2;
+}
+function syncNativeColorInputFromPicker(state2, event2) {
+  const input = state2.input;
+  const picker = state2.picker;
+  if (!input || !picker)
+    return;
+  event2.stopPropagation();
+  const next2 = readColorPickerHex(picker, event2);
+  if (!next2)
+    return;
+  input.value = next2.toLowerCase();
+  input.dispatchEvent(new Event(event2.type, { bubbles: true, composed: true }));
+}
+function resolveNativeColorInputLabel(input) {
+  const aria = input.getAttribute("aria-label");
+  if (aria)
+    return aria;
+  const labelledBy = input.getAttribute("aria-labelledby");
+  if (labelledBy) {
+    const text2 = labelledBy.split(/\s+/).map((id) => input.ownerDocument.getElementById(id)?.textContent?.trim()).filter(Boolean).join(" ");
+    if (text2)
+      return text2;
+  }
+  if (input.id) {
+    for (const label of input.ownerDocument.querySelectorAll("label[for]")) {
+      if (label.getAttribute("for") === input.id)
+        return label.textContent?.trim() || "Color picker";
+    }
+  }
+  const wrappingLabel = input.closest("label");
+  if (wrappingLabel?.textContent?.trim())
+    return wrappingLabel.textContent.trim();
+  return "Color picker";
+}
+
+class SiguiInputTemporalBase extends SiguiElement {
+  _control = null;
+  static inputType = "text";
+  static contract = Object.freeze({
+    events: [
+      { name: "input", bubbles: true },
+      { name: "change", bubbles: true }
+    ],
+    formParticipant: { controlSelector: "input[data-sigui-part='control']" },
+    valueAttr: "value"
+  });
+  connectedCallback() {
+    super.connectedCallback();
+    this.classList.add("sg-input-temporal-picker");
+    this.syncControl();
+    const control = this.ensureControl();
+    this.on(control, "input", (event2) => this.handleControlEvent(event2));
+    this.on(control, "change", (event2) => this.handleControlEvent(event2));
+    this.watchFormReset(() => this.syncFromControl());
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (!this.isConnected)
+      return;
+    this.syncControl();
+  }
+  getControl() {
+    if (this._control?.isConnected)
+      return this._control;
+    this._control = this.querySelector(":scope > input[data-sigui-part='control']");
+    return this._control;
+  }
+  ensureControl() {
+    let input = this.getControl();
+    if (!input) {
+      input = document.createElement("input");
+      input.dataset.siguiPart = "control";
+      this.prepend(input);
+      this._control = input;
+    }
+    input.type = this.constructor.inputType;
+    input.classList.add("sg-input", "sg-input-temporal-control");
+    return input;
+  }
+  syncControl() {
+    if (typeof document === "undefined")
+      return;
+    const input = this.ensureControl();
+    input.type = this.constructor.inputType;
+    for (const attr2 of TEMPORAL_STRING_ATTRIBUTES) {
+      const value2 = this.getAttribute(attr2);
+      if (value2 != null)
+        input.setAttribute(attr2, value2);
+      else
+        input.removeAttribute(attr2);
+    }
+    for (const attr2 of TEMPORAL_BOOLEAN_ATTRIBUTES) {
+      const enabled = isBooleanAttr2(this, attr2);
+      input.toggleAttribute(attr2, enabled);
+    }
+    input.disabled = isBooleanAttr2(this, "disabled");
+    input.required = isBooleanAttr2(this, "required");
+    input.readOnly = isBooleanAttr2(this, "readonly");
+    const ariaLabel = this.getAttribute("aria-label") || this.getAttribute("label");
+    if (ariaLabel && !this.hasAttribute("aria-labelledby"))
+      input.setAttribute("aria-label", ariaLabel);
+    else
+      input.removeAttribute("aria-label");
+    const value = this.getAttribute("value") ?? "";
+    if (input.value !== value)
+      input.value = value;
+    input.defaultValue = value;
+  }
+  syncFromControl() {
+    const input = this.getControl();
+    if (!input)
+      return;
+    const next2 = input.value;
+    if (next2)
+      this.setAttribute("value", next2);
+    else
+      this.removeAttribute("value");
+  }
+  handleControlEvent(event2) {
+    event2.stopPropagation();
+    this.syncFromControl();
+    this.dispatchEvent(new CustomEvent(event2.type, { bubbles: true, detail: this.value }));
+  }
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  set value(next2) {
+    const normalized = (next2 ?? "").toString();
+    if (normalized)
+      this.setAttribute("value", normalized);
+    else
+      this.removeAttribute("value");
+  }
+}
+
+class SiguiInputTime extends SiguiInputTemporalBase {
+  static observedAttributes = TEMPORAL_INPUT_ATTRIBUTES;
+  static componentKey = "input-time";
+  static cssClass = "sg-input-time-picker";
+  static inputType = "time";
+}
+
+class SiguiInputDateTimeLocal extends SiguiInputTemporalBase {
+  static observedAttributes = TEMPORAL_INPUT_ATTRIBUTES;
+  static componentKey = "input-datetime-local";
+  static cssClass = "sg-input-datetime-local-picker";
+  static inputType = "datetime-local";
+}
+
+class SiguiInputMonth extends SiguiInputTemporalBase {
+  static observedAttributes = TEMPORAL_INPUT_ATTRIBUTES;
+  static componentKey = "input-month";
+  static cssClass = "sg-input-month-picker";
+  static inputType = "month";
+}
+
+class SiguiInputWeek extends SiguiInputTemporalBase {
+  static observedAttributes = TEMPORAL_INPUT_ATTRIBUTES;
+  static componentKey = "input-week";
+  static cssClass = "sg-input-week-picker";
+  static inputType = "week";
+}
+
+class SiguiInputDate extends SiguiDatePickerRoot {
+  static observedAttributes = [
+    ...SiguiDatePickerRoot.observedAttributes,
+    "name",
+    "placeholder",
+    "required",
+    "readonly"
+  ];
+  static componentKey = "input-date";
+  static cssClass = "sg-input-date-picker";
+  static contract = Object.freeze({
+    events: [
+      { name: "input", bubbles: true },
+      { name: "change", bubbles: true },
+      { name: "toggle", bubbles: true }
+    ],
+    formParticipant: { controlSelector: "input[type='hidden'][data-sigui-part='control']" },
+    valueAttr: "value"
+  });
+  connectedCallback() {
+    this.ensureComposedMarkup();
+    super.connectedCallback();
+    this.syncTriggerPlaceholder();
+    this.syncFormControl();
+    this.on(this, "input", () => this.syncFormControl());
+    this.on(this, "change", () => this.syncFormControl());
+    this.watchFormReset(() => this.syncFormControl());
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (!this.isConnected)
+      return;
+    if (name === "placeholder" || name === "value" || name === "label") {
+      this.syncTriggerPlaceholder();
+    }
+    this.syncFormControl();
+  }
+  setOpen(next2) {
+    if (next2 && isBooleanAttr2(this, "readonly"))
+      return;
+    super.setOpen(next2);
+  }
+  ensureComposedMarkup() {
+    this.classList.add("sg-date-picker-root");
+    const hasDatePickerMarkup = Boolean(this.getTrigger() || this.getContent());
+    const existingControl = this.getFormControl();
+    if (!hasDatePickerMarkup) {
+      const trigger = document.createElement("div");
+      trigger.className = "sg-date-picker-trigger sg-input-date-picker-trigger";
+      trigger.dataset.siguiComponent = "date-picker-trigger";
+      trigger.dataset.generated = "true";
+      trigger.setAttribute("role", "button");
+      trigger.tabIndex = 0;
+      const content = document.createElement("div");
+      content.className = "sg-date-picker-content";
+      content.dataset.siguiComponent = "date-picker-content";
+      content.setAttribute("hidden", "");
+      content.setAttribute("aria-hidden", "true");
+      const prefix = getTagPrefix(this, "input-date");
+      const calendar = document.createElement(`${prefix}-date-picker-calendar`);
+      calendar.dataset.generated = "true";
+      content.append(calendar);
+      this.replaceChildren(trigger, content);
+      if (existingControl)
+        this.append(existingControl);
+    }
+    this.ensureFormControl();
+    this.syncTriggerPlaceholder();
+  }
+  getFormControl() {
+    return this.querySelector(":scope > input[type='hidden'][data-sigui-part='control']");
+  }
+  ensureFormControl() {
+    let input = this.getFormControl();
+    if (!input) {
+      input = document.createElement("input");
+      input.type = "hidden";
+      input.dataset.siguiPart = "control";
+      input.setAttribute("aria-hidden", "true");
+      this.append(input);
+    }
+    return input;
+  }
+  getPlaceholderText() {
+    return this.getAttribute("placeholder") || this.getAttribute("label") || "Select date";
+  }
+  syncTriggerPlaceholder() {
+    if (this.value)
+      return;
+    const trigger = this.getTrigger();
+    if (!(trigger instanceof HTMLElement))
+      return;
+    if (trigger.dataset.generated !== "true")
+      return;
+    trigger.textContent = this.getPlaceholderText();
+    this._triggerOriginalMarkup = trigger.innerHTML;
+  }
+  syncFormControl() {
+    if (typeof document === "undefined")
+      return;
+    const input = this.ensureFormControl();
+    const name = this.getAttribute("name");
+    if (name)
+      input.setAttribute("name", name);
+    else
+      input.removeAttribute("name");
+    input.value = this.value;
+    input.disabled = isBooleanAttr2(this, "disabled");
+    const triggerControl = this.getTriggerControl();
+    if (triggerControl instanceof HTMLElement) {
+      triggerControl.setAttribute("aria-readonly", isBooleanAttr2(this, "readonly") ? "true" : "false");
     }
   }
 }
@@ -39093,11 +43457,207 @@ class SiguiInclude extends SiguiElement {
 // packages/components/src/components/primitives/InputGroup/input-group.js
 var exports_input_group = {};
 __export(exports_input_group, {
+  SiguiInputGroupTextarea: () => SiguiInputGroupTextarea,
+  SiguiInputGroupText: () => SiguiInputGroupText,
+  SiguiInputGroupInput: () => SiguiInputGroupInput,
+  SiguiInputGroupButton: () => SiguiInputGroupButton,
+  SiguiInputGroupAddon: () => SiguiInputGroupAddon,
   SiguiInputGroup: () => SiguiInputGroup
 });
 class SiguiInputGroup extends SiguiElement {
-  static observedAttributes = ["size", "disabled"];
+  static observedAttributes = ["size", "disabled", "max-width"];
   static componentKey = "input-group";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncGroup();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncGroup();
+  }
+  rehydrate() {
+    this.syncGroup();
+  }
+  syncGroup() {
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "group");
+    const addons = [...this.querySelectorAll(":scope > sg-input-group-addon")];
+    const has = (align) => addons.some((addon) => addon.getAttribute("align") === align);
+    this.dataset.layout = addons.some((addon) => addon.getAttribute("align")?.startsWith("block")) ? "block" : "inline";
+    setDataFlag(this, "hasInlineStart", has("inline-start"));
+    setDataFlag(this, "hasInlineEnd", has("inline-end"));
+    setDataFlag(this, "hasBlockStart", has("block-start"));
+    setDataFlag(this, "hasBlockEnd", has("block-end"));
+    const disabled = isBooleanAttr3(this, "disabled");
+    for (const control of this.querySelectorAll("input, textarea, button")) {
+      if (disabled) {
+        control.setAttribute("disabled", "");
+        control.dataset.inputGroupDisabled = "true";
+      } else if (control.dataset.inputGroupDisabled === "true") {
+        control.removeAttribute("disabled");
+        delete control.dataset.inputGroupDisabled;
+      }
+    }
+  }
+}
+
+class SiguiInputGroupAddon extends SiguiElement {
+  static observedAttributes = ["align"];
+  static componentKey = "input-group-addon";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.dataset.align)
+      this.dataset.align = "inline-start";
+    this.closest("sg-input-group")?.rehydrate?.();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.closest("sg-input-group")?.rehydrate?.();
+  }
+}
+
+class SiguiInputGroupText extends SiguiElement {
+  static componentKey = "input-group-text";
+}
+
+class SiguiInputGroupInput extends SiguiElement {
+  static observedAttributes = ["type", "value", "placeholder", "disabled", "readonly", "required", "name", "id", "autocomplete", "aria-label"];
+  static componentKey = "input-group-input";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderInput();
+    this.closest("sg-input-group")?.rehydrate?.();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.renderInput();
+  }
+  renderInput() {
+    const input = this.ensureControl("input");
+    syncControlAttributes(this, input, ["type", "value", "placeholder", "name", "id", "autocomplete", "aria-label"]);
+    syncBooleanControlAttributes(this, input, ["disabled", "readonly", "required"]);
+    if (!input.getAttribute("type"))
+      input.setAttribute("type", "text");
+  }
+  ensureControl(tagName) {
+    let control = this.querySelector(":scope > input.sg-input-group-control");
+    if (!control) {
+      control = document.createElement(tagName);
+      control.className = "sg-input-group-control";
+      this.append(control);
+      control.addEventListener("input", () => {
+        this.setAttribute("value", control.value);
+        this.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      control.addEventListener("change", () => this.dispatchEvent(new Event("change", { bubbles: true })));
+    }
+    return control;
+  }
+}
+
+class SiguiInputGroupTextarea extends SiguiElement {
+  static observedAttributes = ["value", "placeholder", "disabled", "readonly", "required", "name", "id", "rows", "aria-label"];
+  static componentKey = "input-group-textarea";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderTextarea();
+    this.closest("sg-input-group")?.rehydrate?.();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.renderTextarea();
+  }
+  renderTextarea() {
+    let textarea = this.querySelector(":scope > textarea.sg-input-group-control");
+    if (!textarea) {
+      textarea = document.createElement("textarea");
+      textarea.className = "sg-input-group-control";
+      this.append(textarea);
+      textarea.addEventListener("input", () => {
+        this.setAttribute("value", textarea.value);
+        this.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      textarea.addEventListener("change", () => this.dispatchEvent(new Event("change", { bubbles: true })));
+    }
+    syncControlAttributes(this, textarea, ["value", "placeholder", "name", "id", "rows", "aria-label"]);
+    syncBooleanControlAttributes(this, textarea, ["disabled", "readonly", "required"]);
+    if (!textarea.getAttribute("rows"))
+      textarea.setAttribute("rows", "3");
+  }
+}
+
+class SiguiInputGroupButton extends SiguiElement {
+  static observedAttributes = ["size", "variant", "disabled", "type", "href", "target", "rel"];
+  static componentKey = "input-group-button";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderButton();
+    this.closest("sg-input-group")?.rehydrate?.();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.renderButton();
+  }
+  renderButton() {
+    const href = this.getAttribute("href");
+    const tagName = href ? "a" : "button";
+    let button = this.querySelector(":scope > .sg-input-group-button-control");
+    if (button && button.localName !== tagName) {
+      const replacement = document.createElement(tagName);
+      replacement.className = "sg-input-group-button-control";
+      while (button.firstChild)
+        replacement.append(button.firstChild);
+      button.replaceWith(replacement);
+      button = replacement;
+    }
+    if (!button) {
+      button = document.createElement(tagName);
+      button.className = "sg-input-group-button-control";
+      this.prepend(button);
+    }
+    for (const node of [...this.childNodes]) {
+      if (node !== button)
+        button.append(node);
+    }
+    if (button instanceof HTMLAnchorElement) {
+      button.href = href || "#";
+      syncControlAttributes(this, button, ["target", "rel", "aria-label"]);
+    } else if (button instanceof HTMLButtonElement) {
+      button.setAttribute("type", this.getAttribute("type") || "button");
+      syncBooleanControlAttributes(this, button, ["disabled"]);
+    }
+  }
+}
+function setDataFlag(element2, key2, enabled) {
+  if (enabled)
+    element2.dataset[key2] = "";
+  else
+    delete element2.dataset[key2];
+}
+function isBooleanAttr3(element2, name) {
+  return element2.hasAttribute(name) && element2.getAttribute(name) !== "false";
+}
+function syncControlAttributes(host, control, attrs) {
+  for (const attr2 of attrs) {
+    const value = host.getAttribute(attr2);
+    if (value == null)
+      control.removeAttribute(attr2);
+    else
+      control.setAttribute(attr2, value);
+  }
+}
+function syncBooleanControlAttributes(host, control, attrs) {
+  for (const attr2 of attrs) {
+    if (isBooleanAttr3(host, attr2))
+      control.setAttribute(attr2, "");
+    else
+      control.removeAttribute(attr2);
+  }
 }
 
 // packages/components/src/components/primitives/InputNumber/input-number.js
@@ -39106,7 +43666,7 @@ __export(exports_input_number, {
   SiguiInputNumber: () => SiguiInputNumber
 });
 class SiguiInputNumber extends SiguiElement {
-  static observedAttributes = ["value", "min", "max", "step", "placeholder", "name", "disabled", "required"];
+  static observedAttributes = ["value", "min", "max", "step", "placeholder", "name", "disabled", "required", "readonly", "size", "max-width"];
   static componentKey = "input-number";
   static contract = Object.freeze({
     events: [
@@ -39132,6 +43692,7 @@ class SiguiInputNumber extends SiguiElement {
       input.type = "number";
       this.replaceChildren(input);
     }
+    input.classList.add("sg-input");
     this.on(input, "input", () => {
       this.setAttribute("value", input.value);
       this.dispatchEvent(new Event("input", { bubbles: true }));
@@ -39152,31 +43713,561 @@ class SiguiInputNumber extends SiguiElement {
       else
         input.setAttribute(attr2, value);
     }
-    input.disabled = this.hasAttribute("disabled");
-    input.required = this.hasAttribute("required");
+    input.disabled = isBooleanAttr4(this, "disabled");
+    input.required = isBooleanAttr4(this, "required");
+    input.readOnly = isBooleanAttr4(this, "readonly");
+    const size = this.getAttribute("size");
+    if (size)
+      input.dataset.size = size;
+    else
+      delete input.dataset.size;
   }
+}
+function isBooleanAttr4(element2, name) {
+  return element2.hasAttribute(name) && element2.getAttribute(name) !== "false";
 }
 
 // packages/components/src/components/recipes/InputOTP/input-otp.js
 var exports_input_otp = {};
 __export(exports_input_otp, {
+  SiguiInputOtpSlot: () => SiguiInputOtpSlot,
+  SiguiInputOtpSeparator: () => SiguiInputOtpSeparator,
   SiguiInputOtpRoot: () => SiguiInputOtpRoot,
+  SiguiInputOtpGroup: () => SiguiInputOtpGroup,
   SiguiInputOtp: () => SiguiInputOtpRoot
 });
 class SiguiInputOtpRoot extends SiguiElement {
-  static observedAttributes = ["value", "length", "disabled", "pattern", "onchange", "oncomplete"];
+  static observedAttributes = ["value", "length", "disabled", "pattern", "max-width", "onchange", "oncomplete"];
   static componentKey = "input-otp-root";
+  static cssClass = "sg-input-otp";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "textbox");
+    this.setAttribute("aria-multiline", "false");
+    if (!this.hasAttribute("tabindex"))
+      this.tabIndex = this.hasAttribute("disabled") ? -1 : 0;
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "keydown", (event2) => this.handleKeydown(event2));
+      this.on(this, "paste", (event2) => this.handlePaste(event2));
+      this.on(this, "click", () => this.focus());
+    }
+    this.syncSlots();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.syncSlots();
+  }
+  get length() {
+    const value = Number(this.getAttribute("length"));
+    return Number.isFinite(value) && value > 0 ? Math.floor(value) : 6;
+  }
+  get value() {
+    return (this.getAttribute("value") || "").slice(0, this.length);
+  }
+  setValue(next2) {
+    const filtered = this.filter(next2).slice(0, this.length);
+    if (filtered)
+      this.setAttribute("value", filtered);
+    else
+      this.removeAttribute("value");
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { value: filtered } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value: filtered } }));
+    if (filtered.length === this.length) {
+      this.dispatchEvent(new CustomEvent("complete", { bubbles: true, detail: { value: filtered } }));
+    }
+  }
+  filter(value) {
+    const pattern = this.getAttribute("pattern");
+    if (!pattern)
+      return value;
+    let re;
+    try {
+      re = new RegExp(pattern);
+    } catch {
+      return value;
+    }
+    return [...value].filter((char) => re.test(char)).join("");
+  }
+  handleKeydown(event2) {
+    if (this.hasAttribute("disabled"))
+      return;
+    if (event2.key === "Backspace") {
+      event2.preventDefault();
+      this.setValue(this.value.slice(0, -1));
+    } else if (event2.key.length === 1) {
+      event2.preventDefault();
+      this.setValue(this.value + event2.key);
+    }
+  }
+  handlePaste(event2) {
+    if (this.hasAttribute("disabled"))
+      return;
+    const text2 = event2.clipboardData?.getData("text") || "";
+    if (!text2)
+      return;
+    event2.preventDefault();
+    this.setValue(this.value + text2);
+  }
+  get slots() {
+    return [...this.querySelectorAll("[data-sigui-component='input-otp-slot']")];
+  }
+  syncSlots() {
+    const value = this.value;
+    if (this.hasAttribute("disabled"))
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.tabIndex = this.hasAttribute("disabled") ? -1 : 0;
+    for (const slot2 of this.slots)
+      slot2.sync(value, value.length);
+  }
+}
+class SiguiInputOtpGroup extends SiguiElement {
+  static componentKey = "input-otp-group";
+}
+
+class SiguiInputOtpSlot extends SiguiElement {
+  static observedAttributes = ["index"];
+  static componentKey = "input-otp-slot";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-hidden", "true");
+    this.root?.syncSlots();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='input-otp-root']");
+  }
+  sync(value, activeIndex) {
+    const index2 = Number(this.getAttribute("index"));
+    const safeIndex = Number.isFinite(index2) ? index2 : 0;
+    const char = value[safeIndex] || "";
+    this.textContent = char;
+    this.dataset.state = char ? "filled" : safeIndex === activeIndex ? "active" : "empty";
+    if (!char && safeIndex === activeIndex) {
+      const caret = document.createElement("span");
+      caret.className = "sg-input-otp-caret";
+      caret.setAttribute("aria-hidden", "true");
+      this.append(caret);
+    }
+  }
+}
+
+class SiguiInputOtpSeparator extends SiguiElement {
+  static componentKey = "input-otp-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-hidden", "true");
+    if (!this.textContent?.trim())
+      this.textContent = "-";
+  }
 }
 
 // packages/components/src/components/primitives/Menubar/menubar.js
 var exports_menubar = {};
 __export(exports_menubar, {
+  SiguiMenubarTrigger: () => SiguiMenubarTrigger,
+  SiguiMenubarSubTrigger: () => SiguiMenubarSubTrigger,
+  SiguiMenubarSubContent: () => SiguiMenubarSubContent,
+  SiguiMenubarSub: () => SiguiMenubarSub,
+  SiguiMenubarShortcut: () => SiguiMenubarShortcut,
+  SiguiMenubarSeparator: () => SiguiMenubarSeparator,
   SiguiMenubarRoot: () => SiguiMenubarRoot,
+  SiguiMenubarRadioItem: () => SiguiMenubarRadioItem,
+  SiguiMenubarRadioGroup: () => SiguiMenubarRadioGroup,
+  SiguiMenubarMenu: () => SiguiMenubarMenu,
+  SiguiMenubarItem: () => SiguiMenubarItem,
+  SiguiMenubarContent: () => SiguiMenubarContent,
+  SiguiMenubarCheckboxItem: () => SiguiMenubarCheckboxItem,
   SiguiMenubar: () => SiguiMenubarRoot
 });
+function isHTMLElement4(node) {
+  return !!node && node instanceof HTMLElement;
+}
+
 class SiguiMenubarRoot extends SiguiElement {
-  static observedAttributes = [];
+  static observedAttributes = ["max-width"];
   static componentKey = "menubar-root";
+  static cssClass = "sg-menubar";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menubar");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(document, "pointerdown", (event2) => {
+        if (!this.contains(event2.target))
+          this.closeAll();
+      });
+      this.on(this, "keydown", (event2) => this.handleKeydown(event2));
+    }
+    this.syncSizing();
+    this.syncMenus();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncSizing();
+  }
+  rehydrate() {
+    this.syncSizing();
+    this.syncMenus();
+  }
+  syncSizing() {
+    const maxWidth = this.getAttribute("max-width") || "";
+    if (maxWidth)
+      this.dataset.maxWidth = maxWidth;
+    else
+      delete this.dataset.maxWidth;
+  }
+  get menus() {
+    return [...this.querySelectorAll("[data-sigui-component='menubar-menu']")];
+  }
+  openMenu(menu) {
+    for (const item of this.menus) {
+      if (item === menu)
+        item.setAttribute("open", "");
+      else
+        item.removeAttribute("open");
+    }
+  }
+  closeAll() {
+    for (const menu of this.menus)
+      menu.removeAttribute("open");
+  }
+  syncMenus() {
+    for (const menu of this.menus)
+      menu.syncState();
+  }
+  handleKeydown(event2) {
+    if (event2.key === "Escape") {
+      this.closeAll();
+      return;
+    }
+    const triggers = [...this.querySelectorAll("[data-sigui-component='menubar-trigger']")];
+    const current = triggers.indexOf(document.activeElement);
+    if (current < 0)
+      return;
+    if (event2.key === "ArrowRight" || event2.key === "ArrowLeft") {
+      event2.preventDefault();
+      const dir = event2.key === "ArrowRight" ? 1 : -1;
+      const next2 = triggers[((current + dir) % triggers.length + triggers.length) % triggers.length];
+      next2?.focus();
+      const menu = next2?.closest("[data-sigui-component='menubar-menu']");
+      if (menu && this.menus.some((item) => isOpenAttrTruthy(item))) {
+        this.openMenu(menu);
+      }
+    }
+  }
+}
+class SiguiMenubarMenu extends SiguiElement {
+  static observedAttributes = ["open", "label"];
+  static componentKey = "menubar-menu";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncState();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncState();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='menubar-root']");
+  }
+  get trigger() {
+    return this.querySelector("[data-sigui-component='menubar-trigger']");
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='menubar-content']");
+  }
+  syncState() {
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    if (this.trigger) {
+      this.trigger.dataset.state = open ? "open" : "closed";
+      this.trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (this.content) {
+      this.content.hidden = !open;
+      this.content.dataset.state = open ? "open" : "closed";
+    }
+  }
+}
+
+class SiguiMenubarTrigger extends SiguiElement {
+  static componentKey = "menubar-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitem");
+    this.setAttribute("aria-haspopup", "menu");
+    this.tabIndex = 0;
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => this.toggleMenu());
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " " || key2 === "ArrowDown") {
+          event2.preventDefault();
+          this.openMenu(true);
+        }
+      });
+    }
+  }
+  get menu() {
+    return this.closest("[data-sigui-component='menubar-menu']");
+  }
+  toggleMenu() {
+    const menu = this.menu;
+    if (!menu)
+      return;
+    if (isOpenAttrTruthy(menu))
+      menu.root?.closeAll();
+    else
+      menu.root?.openMenu(menu);
+  }
+  openMenu(focusFirst = false) {
+    const menu = this.menu;
+    if (!menu)
+      return;
+    menu.root?.openMenu(menu);
+    if (focusFirst)
+      queueMicrotask(() => menu.content?.focusFirstItem());
+  }
+}
+
+class SiguiMenubarContent extends SiguiElement {
+  static componentKey = "menubar-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menu");
+    this.closest("[data-sigui-component='menubar-menu']")?.syncState();
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='menubar-item'], [data-sigui-component='menubar-checkbox-item'], [data-sigui-component='menubar-radio-item'], [data-sigui-component='menubar-sub-trigger']")].filter((item) => !item.disabled);
+  }
+  focusFirstItem() {
+    this.items[0]?.focus();
+  }
+}
+
+class SiguiMenubarItem extends SiguiElement {
+  static observedAttributes = ["disabled"];
+  static componentKey = "menubar-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitem");
+    this.syncDisabled();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => this.select());
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " ") {
+          event2.preventDefault();
+          this.select();
+        }
+      });
+    }
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncDisabled();
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  get root() {
+    return this.closest("[data-sigui-component='menubar-root']");
+  }
+  syncDisabled() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+    this.tabIndex = this.disabled ? -1 : 0;
+  }
+  select() {
+    if (this.disabled)
+      return;
+    const value = this.getAttribute("value") || this.textContent?.trim() || "";
+    this.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { value } }));
+    this.root?.dispatchEvent(new CustomEvent("sigui:select", { bubbles: true, detail: { value } }));
+    this.root?.closeAll();
+  }
+}
+
+class SiguiMenubarSeparator extends SiguiElement {
+  static componentKey = "menubar-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
+}
+
+class SiguiMenubarShortcut extends SiguiElement {
+  static componentKey = "menubar-shortcut";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("aria-hidden", "true");
+  }
+}
+
+class SiguiMenubarCheckboxItem extends SiguiMenubarItem {
+  static observedAttributes = ["checked", "disabled"];
+  static componentKey = "menubar-checkbox-item";
+  static cssClass = "sg-menubar-item";
+  get checked() {
+    return this.hasAttribute("checked");
+  }
+  set checked(value) {
+    if (value)
+      this.setAttribute("checked", "");
+    else
+      this.removeAttribute("checked");
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitemcheckbox");
+    this.syncChecked();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncChecked();
+  }
+  select() {
+    if (this.disabled)
+      return;
+    this.checked = !this.checked;
+    const value = this.checked;
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { checked: value } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { checked: value } }));
+    this.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { checked: value } }));
+  }
+  syncChecked() {
+    this.dataset.state = this.checked ? "checked" : "unchecked";
+    this.setAttribute("aria-checked", this.checked ? "true" : "false");
+  }
+}
+
+class SiguiMenubarRadioGroup extends SiguiElement {
+  static observedAttributes = ["value"];
+  static componentKey = "menubar-radio-group";
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  set value(value) {
+    this.setAttribute("value", value);
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "group");
+    this.syncItems();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncItems();
+  }
+  selectValue(value) {
+    this.value = value;
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { value } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value } }));
+  }
+  syncItems() {
+    const items = [...this.querySelectorAll("[data-sigui-component='menubar-radio-item']")];
+    for (const item of items)
+      item.syncChecked();
+  }
+}
+
+class SiguiMenubarRadioItem extends SiguiMenubarItem {
+  static componentKey = "menubar-radio-item";
+  static cssClass = "sg-menubar-item";
+  get group() {
+    return this.closest("[data-sigui-component='menubar-radio-group']");
+  }
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitemradio");
+    this.syncChecked();
+  }
+  select() {
+    if (this.disabled || !this.value)
+      return;
+    this.group?.selectValue(this.value);
+    this.dispatchEvent(new CustomEvent("select", { bubbles: true, detail: { value: this.value } }));
+    this.root?.closeAll();
+  }
+  syncChecked() {
+    const checked = this.group?.value === this.value;
+    this.dataset.state = checked ? "checked" : "unchecked";
+    this.setAttribute("aria-checked", checked ? "true" : "false");
+  }
+}
+
+class SiguiMenubarSub extends SiguiElement {
+  static observedAttributes = ["open"];
+  static componentKey = "menubar-sub";
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "pointerenter", () => this.setAttribute("open", ""));
+      this.on(this, "pointerleave", () => this.removeAttribute("open"));
+    }
+    this.syncState();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncState();
+  }
+  syncState() {
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
+    const trigger = this.querySelector("[data-sigui-component='menubar-sub-trigger']");
+    const content = this.querySelector("[data-sigui-component='menubar-sub-content']");
+    if (isHTMLElement4(trigger)) {
+      trigger.dataset.state = open ? "open" : "closed";
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (isHTMLElement4(content)) {
+      content.hidden = !open;
+      content.dataset.state = open ? "open" : "closed";
+    }
+  }
+}
+
+class SiguiMenubarSubTrigger extends SiguiMenubarItem {
+  static componentKey = "menubar-sub-trigger";
+  static cssClass = "sg-menubar-sub-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureClass("sg-menubar-item");
+    this.setAttribute("aria-haspopup", "menu");
+  }
+  select() {
+    if (this.disabled)
+      return;
+    const sub = this.closest("[data-sigui-component='menubar-sub']");
+    if (sub && isOpenAttrTruthy(sub))
+      sub.removeAttribute("open");
+    else
+      sub?.setAttribute("open", "");
+  }
+}
+
+class SiguiMenubarSubContent extends SiguiMenubarContent {
+  static componentKey = "menubar-sub-content";
 }
 
 // packages/components/src/components/primitives/MutationObserver/mutation-observer.js
@@ -39209,6 +44300,8 @@ class SiguiMutationObserver extends SiguiElement {
   }
   observe() {
     this._observer?.disconnect();
+    if (typeof MutationObserver === "undefined")
+      return;
     const target = this.resolveTarget();
     if (!target)
       return;
@@ -39216,10 +44309,10 @@ class SiguiMutationObserver extends SiguiElement {
       this.dispatchEvent(new CustomEvent("sg-mutation", { bubbles: true, detail: { records } }));
     });
     this._observer.observe(target, {
-      childList: this.getBoolAttr("child-list") || !this.hasAttribute("attributes"),
-      attributes: this.getBoolAttr("attributes"),
-      characterData: this.getBoolAttr("character-data"),
-      subtree: this.getBoolAttr("subtree") || true
+      childList: readBooleanAttr(this, "child-list", true),
+      attributes: readBooleanAttr(this, "attributes", false),
+      characterData: readBooleanAttr(this, "character-data", false),
+      subtree: readBooleanAttr(this, "subtree", true)
     });
   }
   resolveTarget() {
@@ -39229,27 +44322,440 @@ class SiguiMutationObserver extends SiguiElement {
     return document.querySelector(selector);
   }
 }
+function readBooleanAttr(element2, name, fallback2) {
+  if (!element2.hasAttribute(name))
+    return fallback2;
+  const value = element2.getAttribute(name);
+  return value !== "false";
+}
 
 // packages/components/src/components/recipes/NavigationMenu/navigation-menu.js
 var exports_navigation_menu = {};
 __export(exports_navigation_menu, {
+  SiguiNavigationMenuTrigger: () => SiguiNavigationMenuTrigger,
   SiguiNavigationMenuRoot: () => SiguiNavigationMenuRoot,
+  SiguiNavigationMenuList: () => SiguiNavigationMenuList,
+  SiguiNavigationMenuLink: () => SiguiNavigationMenuLink,
+  SiguiNavigationMenuItem: () => SiguiNavigationMenuItem,
+  SiguiNavigationMenuContent: () => SiguiNavigationMenuContent,
   SiguiNavigationMenu: () => SiguiNavigationMenuRoot
 });
+function isHTMLElement5(node) {
+  return !!node && node instanceof HTMLElement;
+}
+
 class SiguiNavigationMenuRoot extends SiguiElement {
-  static observedAttributes = [];
+  static observedAttributes = ["max-width"];
   static componentKey = "navigation-menu-root";
+  static cssClass = "sg-nav-menu";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Navigation");
+    this.setAttribute("role", "navigation");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(document, "pointerdown", (event2) => {
+        if (!this.contains(event2.target))
+          this.clearActive();
+      });
+      this.on(this, "keydown", (event2) => {
+        if (event2.key === "Escape")
+          this.clearActive();
+      });
+    }
+    this.syncSizing();
+    this.syncItems();
+  }
+  attributeChangedCallback() {
+    this.syncSizing();
+  }
+  rehydrate() {
+    this.syncSizing();
+    this.syncItems();
+  }
+  syncSizing() {
+    const maxWidth = this.getAttribute("max-width") || "";
+    if (maxWidth)
+      this.dataset.maxWidth = maxWidth;
+    else
+      delete this.dataset.maxWidth;
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='navigation-menu-item']")];
+  }
+  setActive(value) {
+    this.dataset.activeValue = value;
+    for (const item of this.items)
+      item.syncActive();
+  }
+  clearActive() {
+    delete this.dataset.activeValue;
+    for (const item of this.items)
+      item.syncActive();
+  }
+  syncItems() {
+    for (const item of this.items)
+      item.syncActive();
+  }
+}
+class SiguiNavigationMenuList extends SiguiElement {
+  static componentKey = "navigation-menu-list";
+  static cssClass = "sg-nav-menu-list";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menubar");
+  }
+}
+
+class SiguiNavigationMenuItem extends SiguiElement {
+  static observedAttributes = ["value"];
+  static componentKey = "navigation-menu-item";
+  static cssClass = "sg-nav-menu-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "none");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "pointerenter", () => {
+        if (this.content)
+          this.root?.setActive(this.value);
+      });
+      this.on(this, "focusin", () => {
+        if (this.content)
+          this.root?.setActive(this.value);
+      });
+    }
+    this.syncActive();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncActive();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='navigation-menu-root']");
+  }
+  get value() {
+    return this.getAttribute("value") || "";
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='navigation-menu-content']");
+  }
+  syncActive() {
+    const active = !!this.value && this.root?.dataset.activeValue === this.value;
+    this.dataset.state = active ? "open" : "closed";
+    const trigger = this.querySelector("[data-sigui-component='navigation-menu-trigger']");
+    const content = this.content;
+    if (isHTMLElement5(trigger)) {
+      trigger.dataset.state = active ? "open" : "closed";
+      trigger.setAttribute("aria-expanded", active ? "true" : "false");
+    }
+    if (content) {
+      content.hidden = !active;
+      content.dataset.state = active ? "open" : "closed";
+    }
+  }
+}
+
+class SiguiNavigationMenuTrigger extends SiguiElement {
+  static componentKey = "navigation-menu-trigger";
+  static cssClass = "sg-nav-menu-trigger";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menuitem");
+    this.setAttribute("aria-haspopup", "menu");
+    this.tabIndex = 0;
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => {
+        const item = this.item;
+        if (!item?.value)
+          return;
+        if (item.root?.dataset.activeValue === item.value)
+          item.root.clearActive();
+        else
+          item.root?.setActive(item.value);
+      });
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " " || key2 === "ArrowDown") {
+          event2.preventDefault();
+          const item = this.item;
+          if (item?.value)
+            item.root?.setActive(item.value);
+        }
+      });
+    }
+  }
+  get item() {
+    return this.closest("[data-sigui-component='navigation-menu-item']");
+  }
+}
+
+class SiguiNavigationMenuContent extends SiguiElement {
+  static observedAttributes = ["value"];
+  static componentKey = "navigation-menu-content";
+  static cssClass = "sg-nav-menu-content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "menu");
+    this.closest("[data-sigui-component='navigation-menu-item']")?.syncActive();
+  }
+}
+
+class SiguiNavigationMenuLink extends SiguiElement {
+  static observedAttributes = ["href"];
+  static componentKey = "navigation-menu-link";
+  static cssClass = "sg-nav-menu-link-host";
+  _anchor = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this._anchor = this.ensureAnchor();
+    this.syncAnchor();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    this.syncAnchor();
+  }
+  ensureAnchor() {
+    const existing = this.querySelector("a[data-sigui-part='navigation-menu-link']");
+    if (existing instanceof HTMLAnchorElement)
+      return existing;
+    const anchor = document.createElement("a");
+    anchor.dataset.siguiPart = "navigation-menu-link";
+    anchor.className = "sg-nav-menu-link";
+    while (this.firstChild)
+      anchor.appendChild(this.firstChild);
+    this.appendChild(anchor);
+    return anchor;
+  }
+  syncAnchor() {
+    if (!this._anchor)
+      return;
+    this._anchor.href = this.getAttribute("href") || "#";
+    this._anchor.setAttribute("role", "menuitem");
+  }
 }
 
 // packages/components/src/components/primitives/Pagination/pagination.js
 var exports_pagination = {};
 __export(exports_pagination, {
   SiguiPaginationRoot: () => SiguiPaginationRoot,
+  SiguiPaginationPrevious: () => SiguiPaginationPrevious,
+  SiguiPaginationNext: () => SiguiPaginationNext,
+  SiguiPaginationLast: () => SiguiPaginationLast,
+  SiguiPaginationItems: () => SiguiPaginationItems,
+  SiguiPaginationFirst: () => SiguiPaginationFirst,
+  SiguiPaginationEllipsis: () => SiguiPaginationEllipsis,
   SiguiPagination: () => SiguiPaginationRoot
 });
+function readIntegerAttribute(el, name, fallback2, min) {
+  const raw = el.getAttribute(name);
+  if (raw === null || raw.trim() === "")
+    return fallback2;
+  const value = Number(raw);
+  if (!Number.isFinite(value))
+    return fallback2;
+  return Math.max(min, Math.floor(value));
+}
+
 class SiguiPaginationRoot extends SiguiElement {
-  static observedAttributes = ["page", "total", "per-page", "sibling-count"];
+  static observedAttributes = ["page", "total", "per-page", "sibling-count", "max-width"];
   static componentKey = "pagination-root";
+  static cssClass = "sg-pagination";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "navigation");
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Pagination");
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", (event2) => {
+        const target = event2.target instanceof Element ? event2.target.closest("[data-page]") : null;
+        if (!target || !this.contains(target) || target.dataset.disabled === "true")
+          return;
+        const page = Number(target.dataset.page);
+        if (Number.isFinite(page))
+          this.setPage(page);
+      });
+    }
+    this.sync();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.sync();
+  }
+  get page() {
+    return readIntegerAttribute(this, "page", 1, 1);
+  }
+  get totalPages() {
+    const total = Number(this.getAttribute("total"));
+    const perPage = readIntegerAttribute(this, "per-page", 10, 1);
+    const safeTotal = Number.isFinite(total) && total > 0 ? total : 0;
+    return Math.max(1, Math.ceil(safeTotal / perPage));
+  }
+  get siblingCount() {
+    return readIntegerAttribute(this, "sibling-count", 1, 0);
+  }
+  setPage(next2) {
+    const page = Math.min(Math.max(1, Math.floor(next2)), this.totalPages);
+    if (page === this.page)
+      return;
+    this.setAttribute("page", String(page));
+    this.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { page } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { page } }));
+  }
+  get pages() {
+    const total = this.totalPages;
+    const current = Math.min(this.page, total);
+    const sibling2 = this.siblingCount;
+    const pages = new Set([1, total]);
+    for (let page = current - sibling2;page <= current + sibling2; page += 1) {
+      if (page >= 1 && page <= total)
+        pages.add(page);
+    }
+    return [...pages].sort((a, b) => a - b);
+  }
+  sync() {
+    const page = Math.min(this.page, this.totalPages);
+    this.dataset.page = String(page);
+    this.dataset.totalPages = String(this.totalPages);
+    for (const part of this.querySelectorAll("[data-sigui-component^='pagination-']")) {
+      part.sync?.();
+    }
+  }
+}
+class SiguiPaginationButton extends SiguiElement {
+  init(kind) {
+    this.ensureClass("sg-pagination-button");
+    this.dataset.kind = kind;
+    this.setAttribute("role", "button");
+    this.tabIndex = 0;
+    if (!this.textContent?.trim()) {
+      this.textContent = kind === "previous" ? "Prev" : kind === "next" ? "Next" : kind[0].toUpperCase() + kind.slice(1);
+    }
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " ") {
+          event2.preventDefault();
+          this.click();
+        }
+      });
+    }
+    this.sync();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='pagination-root']");
+  }
+  sync() {
+    const root45 = this.root;
+    if (!root45)
+      return;
+    const kind = this.dataset.kind;
+    const page = root45.page;
+    const total = root45.totalPages;
+    const target = kind === "first" ? 1 : kind === "previous" ? page - 1 : kind === "next" ? page + 1 : total;
+    const disabled = kind === "first" || kind === "previous" ? page <= 1 : page >= total;
+    this.dataset.page = String(Math.min(Math.max(1, target), total));
+    if (disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", disabled ? "true" : "false");
+    this.tabIndex = disabled ? -1 : 0;
+  }
+}
+
+class SiguiPaginationFirst extends SiguiPaginationButton {
+  static componentKey = "pagination-first";
+  connectedCallback() {
+    super.connectedCallback();
+    this.init("first");
+  }
+}
+
+class SiguiPaginationPrevious extends SiguiPaginationButton {
+  static componentKey = "pagination-previous";
+  connectedCallback() {
+    super.connectedCallback();
+    this.init("previous");
+  }
+}
+
+class SiguiPaginationNext extends SiguiPaginationButton {
+  static componentKey = "pagination-next";
+  connectedCallback() {
+    super.connectedCallback();
+    this.init("next");
+  }
+}
+
+class SiguiPaginationLast extends SiguiPaginationButton {
+  static componentKey = "pagination-last";
+  connectedCallback() {
+    super.connectedCallback();
+    this.init("last");
+  }
+}
+
+class SiguiPaginationItems extends SiguiElement {
+  static componentKey = "pagination-items";
+  connectedCallback() {
+    super.connectedCallback();
+    this.sync();
+  }
+  get root() {
+    return this.closest("[data-sigui-component='pagination-root']");
+  }
+  sync() {
+    const root45 = this.root;
+    if (!root45)
+      return;
+    const current = Math.min(root45.page, root45.totalPages);
+    const nodes = [];
+    let previous = 0;
+    for (const page of root45.pages) {
+      if (previous && page - previous > 1) {
+        if (page - previous === 2) {
+          nodes.push(this.createPageButton(previous + 1, current));
+        } else {
+          const ellipsis = document.createElement("span");
+          ellipsis.className = "sg-pagination-ellipsis";
+          ellipsis.setAttribute("aria-hidden", "true");
+          ellipsis.textContent = "...";
+          nodes.push(ellipsis);
+        }
+      }
+      nodes.push(this.createPageButton(page, current));
+      previous = page;
+    }
+    this.replaceChildren(...nodes);
+  }
+  createPageButton(page, current) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "sg-pagination-button";
+    button.dataset.page = String(page);
+    button.textContent = String(page);
+    button.setAttribute("aria-label", page === current ? `Page ${page}, current page` : `Go to page ${page}`);
+    if (page === current)
+      button.setAttribute("aria-current", "page");
+    return button;
+  }
+}
+
+class SiguiPaginationEllipsis extends SiguiElement {
+  static componentKey = "pagination-ellipsis";
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureClass("sg-pagination-ellipsis");
+    this.setAttribute("aria-hidden", "true");
+    if (!this.textContent?.trim())
+      this.textContent = "...";
+  }
 }
 
 // packages/components/src/components/primitives/Popup/popup.js
@@ -39258,10 +44764,12 @@ __export(exports_popup, {
   SiguiPopup: () => SiguiPopup
 });
 class SiguiPopup extends SiguiElement {
-  static observedAttributes = ["open"];
+  static observedAttributes = ["open", "anchor", "max-width"];
   static componentKey = "popup";
   connectedCallback() {
     super.connectedCallback();
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "group");
     this.syncState();
   }
   attributeChangedCallback(_name, _oldValue, _newValue) {
@@ -39269,7 +44777,12 @@ class SiguiPopup extends SiguiElement {
     this.syncState();
   }
   syncState() {
-    this.dataset.state = isOpenAttrTruthy(this) ? "open" : "closed";
+    const open = isOpenAttrTruthy(this);
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.state = open ? "open" : "closed";
   }
 }
 
@@ -39279,7 +44792,7 @@ __export(exports_progress_ring, {
   SiguiProgressRing: () => SiguiProgressRing
 });
 class SiguiProgressRing extends SiguiElement {
-  static observedAttributes = ["value", "max"];
+  static observedAttributes = ["value", "max", "size"];
   static componentKey = "progress-ring";
   connectedCallback() {
     super.connectedCallback();
@@ -39307,16 +44820,15 @@ var exports_qr_code = {};
 __export(exports_qr_code, {
   SiguiQrCode: () => SiguiQrCode
 });
-function hashString(value) {
-  let hash2 = 0;
-  for (let i = 0;i < value.length; i += 1) {
-    hash2 = (hash2 << 5) - hash2 + value.charCodeAt(i) | 0;
-  }
-  return Math.abs(hash2);
-}
+var VERSION_INFO = [
+  { version: 1, size: 21, dataCodewords: 19, eccCodewords: 7, byteCapacity: 17 },
+  { version: 2, size: 25, dataCodewords: 34, eccCodewords: 10, byteCapacity: 32 },
+  { version: 3, size: 29, dataCodewords: 55, eccCodewords: 15, byteCapacity: 53 },
+  { version: 4, size: 33, dataCodewords: 80, eccCodewords: 20, byteCapacity: 78 }
+];
 
 class SiguiQrCode extends SiguiElement {
-  static observedAttributes = ["value", "size"];
+  static observedAttributes = ["value", "size", "foreground", "background", "label"];
   static componentKey = "qr-code";
   connectedCallback() {
     super.connectedCallback();
@@ -39328,24 +44840,323 @@ class SiguiQrCode extends SiguiElement {
   }
   render() {
     const value = this.getAttribute("value") ?? "";
-    const size = Math.max(64, Number(this.getAttribute("size") ?? "128"));
-    const cells = 21;
-    const seed = hashString(value || "sigui");
-    const cell = Math.floor(size / cells);
-    const svg = [];
-    svg.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${cells} ${cells}" width="${size}" height="${size}" role="img" aria-label="QR code">`);
-    svg.push('<rect width="100%" height="100%" fill="white"/>');
-    for (let y = 0;y < cells; y += 1) {
-      for (let x = 0;x < cells; x += 1) {
-        const bit = (seed + x * 97 + y * 53 + x * y * 17) % 7;
-        if (bit < 3)
-          svg.push(`<rect x="${x}" y="${y}" width="1" height="1" fill="black"/>`);
+    const renderedSize = Math.max(64, Number(this.getAttribute("size") ?? "128"));
+    const label = this.getAttribute("label") || (value ? `QR code for ${value}` : "QR code");
+    this.style.setProperty("--_qr-fg", colorValue(this.getAttribute("foreground"), "#000"));
+    this.style.setProperty("--_qr-bg", colorValue(this.getAttribute("background"), "#fff"));
+    try {
+      const qr = encodeQr(value || "sigui");
+      const quietZone = 4;
+      const viewSize = qr.size + quietZone * 2;
+      const path = modulesToPath(qr.modules, quietZone);
+      const cell = renderedSize / viewSize;
+      this.style.setProperty("--sg-qr-cell-size", `${cell}px`);
+      this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${viewSize} ${viewSize}" width="${renderedSize}" height="${renderedSize}" role="img" aria-label="${esc4(label)}">` + `<rect width="100%" height="100%" fill="var(--_qr-bg)"/>` + `<path d="${path}" fill="var(--_qr-fg)"/>` + `</svg>`;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unable to encode QR code";
+      this.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="${renderedSize}" height="${renderedSize}" role="img" aria-label="QR code error">` + `<rect width="100%" height="100%" fill="var(--_qr-bg)"/>` + `<text x="64" y="64" text-anchor="middle" fill="var(--_qr-fg)" font-size="10">${esc4(message)}</text>` + `</svg>`;
+    }
+  }
+}
+function colorValue(value, fallback2) {
+  if (!value)
+    return fallback2;
+  if (/^#[0-9a-f]{3,8}$/i.test(value) || value.startsWith("rgb(") || value.startsWith("hsl(") || value.startsWith("oklch(") || value.startsWith("var("))
+    return value;
+  return `var(--sg-color-${value}, ${fallback2})`;
+}
+function encodeQr(value) {
+  const bytes = [...new TextEncoder().encode(value)];
+  const info = VERSION_INFO.find((entry) => bytes.length <= entry.byteCapacity);
+  if (!info)
+    throw new Error("Value is too long");
+  const dataCodewords = buildDataCodewords(bytes, info.dataCodewords);
+  const ecc = reedSolomonRemainder(dataCodewords, info.eccCodewords);
+  const codewords = [...dataCodewords, ...ecc];
+  const bits = codewords.flatMap((codeword) => byteToBits(codeword));
+  let best = null;
+  for (let mask = 0;mask < 8; mask += 1) {
+    const candidate = buildMatrix(info, bits, mask);
+    const penalty = computePenalty(candidate.modules);
+    if (!best || penalty < best.penalty)
+      best = { ...candidate, penalty };
+  }
+  if (!best)
+    throw new Error("Unable to encode QR code");
+  return { size: best.size, modules: best.modules };
+}
+function buildDataCodewords(bytes, dataCodewords) {
+  const bits = [0, 1, 0, 0];
+  bits.push(...numberToBits(bytes.length, 8));
+  for (const byte of bytes)
+    bits.push(...byteToBits(byte));
+  const maxBits = dataCodewords * 8;
+  const terminator = Math.min(4, maxBits - bits.length);
+  for (let i = 0;i < terminator; i += 1)
+    bits.push(0);
+  while (bits.length % 8 !== 0)
+    bits.push(0);
+  const codewords = [];
+  for (let i = 0;i < bits.length; i += 8) {
+    codewords.push(bitsToNumber(bits.slice(i, i + 8)));
+  }
+  for (let pad = 0;codewords.length < dataCodewords; pad += 1) {
+    codewords.push(pad % 2 === 0 ? 236 : 17);
+  }
+  return codewords;
+}
+function buildMatrix(info, bits, mask) {
+  const size = info.size;
+  const modules = Array.from({ length: size }, () => Array(size).fill(null));
+  const reserved = Array.from({ length: size }, () => Array(size).fill(false));
+  const setFunction = (x, y, dark) => {
+    if (x < 0 || y < 0 || x >= size || y >= size)
+      return;
+    const moduleRow = modules[y];
+    const reservedRow = reserved[y];
+    if (!moduleRow || !reservedRow)
+      return;
+    moduleRow[x] = dark;
+    reservedRow[x] = true;
+  };
+  drawFinder(setFunction, 0, 0);
+  drawFinder(setFunction, size - 7, 0);
+  drawFinder(setFunction, 0, size - 7);
+  drawSeparators(setFunction, size);
+  drawTiming(setFunction, size);
+  if (info.version >= 2)
+    drawAlignment(setFunction, 4 * info.version + 10, 4 * info.version + 10);
+  setFunction(8, 4 * info.version + 9, true);
+  let bitIndex = 0;
+  let upward = true;
+  for (let right = size - 1;right >= 1; right -= 2) {
+    if (right === 6)
+      right -= 1;
+    for (let vertical = 0;vertical < size; vertical += 1) {
+      const y = upward ? size - 1 - vertical : vertical;
+      for (let dx = 0;dx < 2; dx += 1) {
+        const x = right - dx;
+        const reservedRow = reserved[y];
+        const moduleRow = modules[y];
+        if (!reservedRow || !moduleRow || reservedRow[x])
+          continue;
+        const raw = bits[bitIndex] === 1;
+        bitIndex += 1;
+        moduleRow[x] = raw !== maskApplies(mask, x, y);
       }
     }
-    svg.push("</svg>");
-    this.style.setProperty("--sg-qr-cell-size", `${cell}px`);
-    this.innerHTML = svg.join("");
+    upward = !upward;
   }
+  drawFormatInfo(setFunction, size, mask);
+  return {
+    size,
+    modules: modules.map((row) => row.map((value) => value === true))
+  };
+}
+function drawFinder(setFunction, x0, y0) {
+  for (let y = -1;y <= 7; y += 1) {
+    for (let x = -1;x <= 7; x += 1) {
+      const xx = x0 + x;
+      const yy = y0 + y;
+      const dark = x >= 0 && x <= 6 && y >= 0 && y <= 6 && (x === 0 || x === 6 || y === 0 || y === 6 || x >= 2 && x <= 4 && y >= 2 && y <= 4);
+      setFunction(xx, yy, dark);
+    }
+  }
+}
+function drawSeparators(setFunction, size) {
+  for (let i = 0;i < 8; i += 1) {
+    setFunction(7, i, false);
+    setFunction(i, 7, false);
+    setFunction(size - 8, i, false);
+    setFunction(size - 1 - i, 7, false);
+    setFunction(7, size - 1 - i, false);
+    setFunction(i, size - 8, false);
+  }
+}
+function drawTiming(setFunction, size) {
+  for (let i = 8;i < size - 8; i += 1) {
+    const dark = i % 2 === 0;
+    setFunction(i, 6, dark);
+    setFunction(6, i, dark);
+  }
+}
+function drawAlignment(setFunction, cx, cy) {
+  for (let y = -2;y <= 2; y += 1) {
+    for (let x = -2;x <= 2; x += 1) {
+      const distance = Math.max(Math.abs(x), Math.abs(y));
+      setFunction(cx + x, cy + y, distance !== 1);
+    }
+  }
+}
+function drawFormatInfo(setFunction, size, mask) {
+  const bits = numberToBits(formatBits(mask), 15).reverse();
+  for (let i = 0;i <= 5; i += 1)
+    setFunction(8, i, bits[i] === 1);
+  setFunction(8, 7, bits[6] === 1);
+  setFunction(8, 8, bits[7] === 1);
+  setFunction(7, 8, bits[8] === 1);
+  for (let i = 9;i < 15; i += 1)
+    setFunction(14 - i, 8, bits[i] === 1);
+  for (let i = 0;i < 8; i += 1)
+    setFunction(size - 1 - i, 8, bits[i] === 1);
+  for (let i = 8;i < 15; i += 1)
+    setFunction(8, size - 15 + i, bits[i] === 1);
+  setFunction(8, size - 8, true);
+}
+function formatBits(mask) {
+  let data = 1 << 3 | mask;
+  let value = data << 10;
+  const generator = 1335;
+  for (let i = 14;i >= 10; i -= 1) {
+    if ((value >>> i & 1) !== 0)
+      value ^= generator << i - 10;
+  }
+  return (data << 10 | value) ^ 21522;
+}
+function maskApplies(mask, x, y) {
+  switch (mask) {
+    case 0:
+      return (x + y) % 2 === 0;
+    case 1:
+      return y % 2 === 0;
+    case 2:
+      return x % 3 === 0;
+    case 3:
+      return (x + y) % 3 === 0;
+    case 4:
+      return (Math.floor(y / 2) + Math.floor(x / 3)) % 2 === 0;
+    case 5:
+      return x * y % 2 + x * y % 3 === 0;
+    case 6:
+      return (x * y % 2 + x * y % 3) % 2 === 0;
+    case 7:
+      return ((x + y) % 2 + x * y % 3) % 2 === 0;
+    default:
+      return false;
+  }
+}
+function modulesToPath(modules, quietZone) {
+  const parts = [];
+  for (let y = 0;y < modules.length; y += 1) {
+    for (let x = 0;x < modules.length; x += 1) {
+      if (modules[y]?.[x])
+        parts.push(`M${x + quietZone} ${y + quietZone}h1v1h-1z`);
+    }
+  }
+  return parts.join("");
+}
+function byteToBits(value) {
+  return numberToBits(value, 8);
+}
+function numberToBits(value, length) {
+  const bits = [];
+  for (let i = length - 1;i >= 0; i -= 1)
+    bits.push(value >>> i & 1);
+  return bits;
+}
+function bitsToNumber(bits) {
+  return bits.reduce((value, bit) => value << 1 | bit, 0);
+}
+var GF_EXP = new Array(512).fill(0);
+var GF_LOG = new Array(256).fill(0);
+var gfValue = 1;
+for (let i = 0;i < 255; i += 1) {
+  GF_EXP[i] = gfValue;
+  GF_LOG[gfValue] = i;
+  gfValue <<= 1;
+  if (gfValue & 256)
+    gfValue ^= 285;
+}
+for (let i = 255;i < 512; i += 1)
+  GF_EXP[i] = GF_EXP[i - 255] ?? 0;
+function gfMul(x, y) {
+  if (x === 0 || y === 0)
+    return 0;
+  return GF_EXP[(GF_LOG[x] ?? 0) + (GF_LOG[y] ?? 0)] ?? 0;
+}
+function reedSolomonGenerator(degree) {
+  let poly = [1];
+  for (let i = 0;i < degree; i += 1) {
+    const next2 = new Array(poly.length + 1).fill(0);
+    for (let j = 0;j < poly.length; j += 1) {
+      const coeff = poly[j] ?? 0;
+      next2[j] = (next2[j] ?? 0) ^ coeff;
+      next2[j + 1] = (next2[j + 1] ?? 0) ^ gfMul(coeff, GF_EXP[i] ?? 0);
+    }
+    poly = next2;
+  }
+  return poly;
+}
+function reedSolomonRemainder(data, degree) {
+  const generator = reedSolomonGenerator(degree);
+  const result = new Array(degree).fill(0);
+  for (const byte of data) {
+    const factor = byte ^ (result.shift() ?? 0);
+    result.push(0);
+    for (let i = 0;i < degree; i += 1) {
+      result[i] = (result[i] ?? 0) ^ gfMul(generator[i + 1] ?? 0, factor);
+    }
+  }
+  return result;
+}
+function computePenalty(modules) {
+  const size = modules.length;
+  let penalty = 0;
+  for (let y = 0;y < size; y += 1)
+    penalty += linePenalty(modules[y] ?? []);
+  for (let x = 0;x < size; x += 1)
+    penalty += linePenalty(modules.map((row) => row[x] === true));
+  for (let y = 0;y < size - 1; y += 1) {
+    for (let x = 0;x < size - 1; x += 1) {
+      const row = modules[y];
+      const nextRow = modules[y + 1];
+      if (!row || !nextRow)
+        continue;
+      const color = row[x] === true;
+      if (row[x + 1] === color && nextRow[x] === color && nextRow[x + 1] === color)
+        penalty += 3;
+    }
+  }
+  const pattern = "10111010000";
+  const reversePattern = "00001011101";
+  for (let y = 0;y < size; y += 1)
+    penalty += finderPatternPenalty(modules[y] ?? [], pattern, reversePattern);
+  for (let x = 0;x < size; x += 1)
+    penalty += finderPatternPenalty(modules.map((row) => row[x] === true), pattern, reversePattern);
+  const dark = modules.flat().filter(Boolean).length;
+  const percent = dark * 100 / (size * size);
+  penalty += Math.floor(Math.abs(percent - 50) / 5) * 10;
+  return penalty;
+}
+function linePenalty(line) {
+  let penalty = 0;
+  let runColor = line[0];
+  let runLength = 1;
+  for (let i = 1;i < line.length; i += 1) {
+    if (line[i] === runColor) {
+      runLength += 1;
+    } else {
+      if (runLength >= 5)
+        penalty += 3 + (runLength - 5);
+      runColor = line[i];
+      runLength = 1;
+    }
+  }
+  if (runLength >= 5)
+    penalty += 3 + (runLength - 5);
+  return penalty;
+}
+function finderPatternPenalty(line, pattern, reversePattern) {
+  const bits = line.map((bit) => bit ? "1" : "0").join("");
+  let penalty = 0;
+  for (let index2 = bits.indexOf(pattern);index2 !== -1; index2 = bits.indexOf(pattern, index2 + 1))
+    penalty += 40;
+  for (let index2 = bits.indexOf(reversePattern);index2 !== -1; index2 = bits.indexOf(reversePattern, index2 + 1))
+    penalty += 40;
+  return penalty;
+}
+function esc4(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // packages/components/src/components/primitives/Rating/rating.js
@@ -39354,7 +45165,7 @@ __export(exports_rating, {
   SiguiRating: () => SiguiRating
 });
 class SiguiRating extends SiguiElement {
-  static observedAttributes = ["value", "max", "readonly", "data-style"];
+  static observedAttributes = ["value", "max", "readonly", "data-style", "size", "aria-label"];
   static componentKey = "rating";
   static contract = Object.freeze({
     events: [{ name: "change", bubbles: true }],
@@ -39364,11 +45175,13 @@ class SiguiRating extends SiguiElement {
     super.connectedCallback();
     if (!this.hasAttribute("role"))
       this.setAttribute("role", "slider");
+    if (!this.hasAttribute("tabindex"))
+      this.tabIndex = 0;
     this.render();
     this.on(this, "click", (event2) => {
       if (!(event2.target instanceof HTMLElement))
         return;
-      if (this.hasAttribute("readonly"))
+      if (this.isReadonly())
         return;
       const button = event2.target.closest("button[data-value]");
       if (!button)
@@ -39376,6 +45189,7 @@ class SiguiRating extends SiguiElement {
       this.setAttribute("value", button.dataset.value ?? "0");
       this.dispatchEvent(new Event("change", { bubbles: true }));
     });
+    this.on(this, "keydown", (event2) => this.handleKeyDown(event2));
   }
   attributeChangedCallback(name, oldValue, newValue) {
     super.attributeChangedCallback(name, oldValue, newValue);
@@ -39387,7 +45201,10 @@ class SiguiRating extends SiguiElement {
     this.setAttribute("aria-valuemin", "0");
     this.setAttribute("aria-valuemax", String(max));
     this.setAttribute("aria-valuenow", String(value));
-    const readonly = this.hasAttribute("readonly");
+    const readonly = this.isReadonly();
+    this.setAttribute("aria-readonly", readonly ? "true" : "false");
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Rating");
     const style = this.dataset.style || "star";
     const iconName = style === "heart" ? "favorite" : "star";
     const stars = [];
@@ -39397,38 +45214,289 @@ class SiguiRating extends SiguiElement {
     }
     this.innerHTML = `<span class="sg-rating-stars">${stars.join("")}</span>`;
   }
+  handleKeyDown(event2) {
+    if (this.isReadonly())
+      return;
+    const max = Math.max(1, Number(this.getAttribute("max") ?? "5"));
+    const current = Math.min(max, Math.max(0, Number(this.getAttribute("value") ?? "0")));
+    let next2 = current;
+    if (event2.key === "ArrowRight" || event2.key === "ArrowUp")
+      next2 = Math.min(max, current + 1);
+    else if (event2.key === "ArrowLeft" || event2.key === "ArrowDown")
+      next2 = Math.max(0, current - 1);
+    else if (event2.key === "Home")
+      next2 = 0;
+    else if (event2.key === "End")
+      next2 = max;
+    else
+      return;
+    event2.preventDefault();
+    this.setAttribute("value", String(next2));
+    this.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+  isReadonly() {
+    return this.hasAttribute("readonly") && this.getAttribute("readonly") !== "false";
+  }
 }
 
 // packages/components/src/components/recipes/Resizable/resizable.js
 var exports_resizable = {};
 __export(exports_resizable, {
   SiguiResizableRoot: () => SiguiResizableRoot,
+  SiguiResizablePanel: () => SiguiResizablePanel,
+  SiguiResizableHandle: () => SiguiResizableHandle,
   SiguiResizable: () => SiguiResizableRoot
 });
+var STEP = 5;
+
 class SiguiResizableRoot extends SiguiElement {
   static observedAttributes = ["direction", "onresize"];
   static componentKey = "resizable-root";
   connectedCallback() {
     super.connectedCallback();
-    this._applyPanelSizes();
+    this.syncResizable();
+    this.bindResizeEvents();
   }
-  _applyPanelSizes() {
-    const panels = this.querySelectorAll(":scope > sg-resizable-panel");
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "direction" && oldValue !== newValue)
+      this.syncResizable();
+  }
+  rehydrate() {
+    this.syncResizable();
+  }
+  syncResizable() {
+    const direction = this.getDirection();
+    this.dataset.direction = direction;
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "group");
+    this.applyPanelSizes();
+    this.applyHandleAttributes();
+  }
+  bindResizeEvents() {
+    if (this.dataset.resizableBound === "true")
+      return;
+    this.dataset.resizableBound = "true";
+    this.on(this, "pointerdown", (event2) => this.onPointerDown(event2));
+    this.on(this, "keydown", (event2) => this.onKeyDown(event2));
+  }
+  getDirection() {
+    return this.getAttribute("direction") === "vertical" ? "vertical" : "horizontal";
+  }
+  getPanels() {
+    return [...this.querySelectorAll(":scope > sg-resizable-panel")];
+  }
+  getHandles() {
+    return [...this.querySelectorAll(":scope > sg-resizable-handle")];
+  }
+  applyPanelSizes() {
+    const direction = this.getDirection();
+    const panels = this.getPanels();
     if (!panels.length)
       return;
+    const fallbackSize = 100 / panels.length;
     for (const panel of panels) {
-      const size = panel.getAttribute("defaultSize") ?? panel.getAttribute("defaultsize");
-      if (size) {
-        panel.style.flexBasis = `${size}%`;
-      }
-      const min = panel.getAttribute("minSize") ?? panel.getAttribute("minsize");
-      if (min)
-        panel.style.minWidth = `${min}%`;
-      const max = panel.getAttribute("maxSize") ?? panel.getAttribute("maxsize");
-      if (max)
-        panel.style.maxWidth = `${max}%`;
+      const size = readNumberAttr(panel, ["default-size", "defaultSize", "defaultsize"], fallbackSize);
+      panel.style.flexBasis = `${size}%`;
+      panel.style.flexGrow = "0";
+      panel.style.flexShrink = "1";
+      const min = readOptionalNumberAttr(panel, ["min-size", "minSize", "minsize"]);
+      const max = readOptionalNumberAttr(panel, ["max-size", "maxSize", "maxsize"]);
+      const minProperty = direction === "vertical" ? "minHeight" : "minWidth";
+      const maxProperty = direction === "vertical" ? "maxHeight" : "maxWidth";
+      const clearMinProperty = direction === "vertical" ? "minWidth" : "minHeight";
+      const clearMaxProperty = direction === "vertical" ? "maxWidth" : "maxHeight";
+      panel.style[clearMinProperty] = "";
+      panel.style[clearMaxProperty] = "";
+      if (min != null)
+        panel.style[minProperty] = `${min}%`;
+      if (max != null)
+        panel.style[maxProperty] = `${max}%`;
     }
   }
+  applyHandleAttributes() {
+    const direction = this.getDirection();
+    const ariaOrientation = direction === "vertical" ? "horizontal" : "vertical";
+    for (const [index2, handle] of this.getHandles().entries()) {
+      if (!handle.hasAttribute("index"))
+        handle.setAttribute("index", String(index2));
+      handle.dataset.direction = direction;
+      handle.setAttribute("role", "separator");
+      handle.setAttribute("tabindex", handle.getAttribute("tabindex") ?? "0");
+      handle.setAttribute("aria-orientation", ariaOrientation);
+    }
+  }
+  onPointerDown(event2) {
+    const handle = event2.target instanceof Element ? event2.target.closest("sg-resizable-handle") : null;
+    if (!handle || !this.contains(handle))
+      return;
+    const index2 = Number(handle.getAttribute("index"));
+    if (!Number.isInteger(index2))
+      return;
+    event2.preventDefault();
+    handle.setPointerCapture?.(event2.pointerId);
+    handle.dataset.state = "dragging";
+    const direction = this.getDirection();
+    const rect = this.getBoundingClientRect();
+    const trackSize = direction === "vertical" ? rect.height : rect.width;
+    const start = direction === "vertical" ? event2.clientY : event2.clientX;
+    const panels = this.getPanels();
+    const before = panels[index2];
+    const after = panels[index2 + 1];
+    if (!before || !after)
+      return;
+    const beforeStart = readPanelSize(before);
+    const afterStart = readPanelSize(after);
+    const total = beforeStart + afterStart;
+    const onMove = (moveEvent) => {
+      const current = direction === "vertical" ? moveEvent.clientY : moveEvent.clientX;
+      const delta = trackSize > 0 ? (current - start) / trackSize * 100 : 0;
+      const nextBefore = clampPairSize(beforeStart + delta, total, getLimits(before), getLimits(after));
+      this.setPairSize(before, after, nextBefore, total - nextBefore);
+    };
+    const onEnd = () => {
+      handle.releasePointerCapture?.(event2.pointerId);
+      delete handle.dataset.state;
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onEnd);
+      window.removeEventListener("pointercancel", onEnd);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onEnd, { once: true });
+    window.addEventListener("pointercancel", onEnd, { once: true });
+  }
+  onKeyDown(event2) {
+    const handle = event2.target instanceof Element ? event2.target.closest("sg-resizable-handle") : null;
+    if (!handle || !this.contains(handle))
+      return;
+    const index2 = Number(handle.getAttribute("index"));
+    if (!Number.isInteger(index2))
+      return;
+    const direction = this.getDirection();
+    const keyDelta = direction === "vertical" ? keyboardDelta(event2.key, "ArrowUp", "ArrowDown") : keyboardDelta(event2.key, "ArrowLeft", "ArrowRight");
+    if (keyDelta == null && event2.key !== "Home" && event2.key !== "End")
+      return;
+    event2.preventDefault();
+    if (event2.key === "Home")
+      this.resizePairToLimit(index2, "min");
+    else if (event2.key === "End")
+      this.resizePairToLimit(index2, "max");
+    else
+      this.resizePair(index2, keyDelta ?? 0);
+  }
+  resizePair(index2, delta) {
+    const panels = this.getPanels();
+    const before = panels[index2];
+    const after = panels[index2 + 1];
+    if (!before || !after)
+      return;
+    const total = readPanelSize(before) + readPanelSize(after);
+    let nextBefore = readPanelSize(before) + delta;
+    nextBefore = clampPairSize(nextBefore, total, getLimits(before), getLimits(after));
+    this.setPairSize(before, after, nextBefore, total - nextBefore);
+  }
+  resizePairToLimit(index2, limit) {
+    const panels = this.getPanels();
+    const before = panels[index2];
+    const after = panels[index2 + 1];
+    if (!before || !after)
+      return;
+    const total = readPanelSize(before) + readPanelSize(after);
+    const beforeLimits = getLimits(before);
+    const afterLimits = getLimits(after);
+    const target = limit === "min" ? beforeLimits.min : beforeLimits.max;
+    const nextBefore = clampPairSize(target, total, beforeLimits, afterLimits);
+    this.setPairSize(before, after, nextBefore, total - nextBefore);
+  }
+  setPairSize(before, after, beforeSize, afterSize) {
+    before.style.flexBasis = `${beforeSize}%`;
+    after.style.flexBasis = `${afterSize}%`;
+    this.dispatchEvent(new CustomEvent("resize", {
+      bubbles: true,
+      detail: { sizes: this.getPanels().map(readPanelSize) }
+    }));
+  }
+}
+
+class SiguiResizablePanel extends SiguiElement {
+  static observedAttributes = ["default-size", "defaultsize", "min-size", "minsize", "max-size", "maxsize"];
+  static componentKey = "resizable-panel";
+  connectedCallback() {
+    super.connectedCallback();
+    this.closest("sg-resizable-root")?.rehydrate?.();
+  }
+}
+
+class SiguiResizableHandle extends SiguiElement {
+  static observedAttributes = ["index", "with-handle", "withhandle"];
+  static componentKey = "resizable-handle";
+  connectedCallback() {
+    super.connectedCallback();
+    this.renderGrip();
+    this.closest("sg-resizable-root")?.rehydrate?.();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue && ["with-handle", "withhandle"].includes(name))
+      this.renderGrip();
+  }
+  renderGrip() {
+    const enabled = hasBooleanAttr(this, ["with-handle", "withhandle"]);
+    const existing = this.querySelector(":scope > .sg-resizable-handle-grip");
+    if (!enabled) {
+      existing?.remove();
+      return;
+    }
+    if (existing)
+      return;
+    const grip = document.createElement("span");
+    grip.className = "sg-resizable-handle-grip";
+    grip.setAttribute("aria-hidden", "true");
+    grip.innerHTML = '<span class="sg-resizable-handle-indicator"></span>';
+    this.append(grip);
+  }
+}
+function keyboardDelta(key2, negativeKey, positiveKey) {
+  if (key2 === negativeKey)
+    return -STEP;
+  if (key2 === positiveKey)
+    return STEP;
+  return null;
+}
+function getLimits(panel) {
+  return {
+    min: readNumberAttr(panel, ["min-size", "minSize", "minsize"], 10),
+    max: readNumberAttr(panel, ["max-size", "maxSize", "maxsize"], 90)
+  };
+}
+function readPanelSize(panel) {
+  const basis = parseFloat(panel.style.flexBasis);
+  if (Number.isFinite(basis))
+    return basis;
+  return readNumberAttr(panel, ["default-size", "defaultSize", "defaultsize"], 50);
+}
+function clampPairSize(nextBefore, total, before, after) {
+  let value = Math.min(Math.max(nextBefore, before.min), before.max);
+  value = Math.min(value, total - after.min);
+  value = Math.max(value, total - after.max);
+  return value;
+}
+function readNumberAttr(element2, names, fallback2) {
+  return readOptionalNumberAttr(element2, names) ?? fallback2;
+}
+function readOptionalNumberAttr(element2, names) {
+  for (const name of names) {
+    const raw = element2.getAttribute(name);
+    if (raw == null || raw === "")
+      continue;
+    const value = Number(raw);
+    if (Number.isFinite(value))
+      return value;
+  }
+  return null;
+}
+function hasBooleanAttr(element2, names) {
+  return names.some((name) => element2.hasAttribute(name) && element2.getAttribute(name) !== "false");
 }
 
 // packages/components/src/components/primitives/ResizeObserver/resize-observer.js
@@ -39482,12 +45550,148 @@ class SiguiResizeObserver extends SiguiElement {
 // packages/components/src/components/primitives/ScrollArea/scroll-area.js
 var exports_scroll_area = {};
 __export(exports_scroll_area, {
+  SiguiScrollAreaViewport: () => SiguiScrollAreaViewport,
+  SiguiScrollAreaScrollbar: () => SiguiScrollAreaScrollbar,
   SiguiScrollAreaRoot: () => SiguiScrollAreaRoot,
   SiguiScrollArea: () => SiguiScrollAreaRoot
 });
 class SiguiScrollAreaRoot extends SiguiElement {
-  static observedAttributes = ["type"];
+  static observedAttributes = ["type", "height", "max-width"];
   static componentKey = "scroll-area-root";
+  constructor() {
+    super();
+    this.resizeObserver = null;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.ensureClass("sg-scroll-area");
+    queueMicrotask(() => this.bindViewport());
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
+  }
+  bindViewport() {
+    const viewport = this.viewport;
+    if (!viewport)
+      return;
+    this.on(viewport, "scroll", () => this.syncScrollbars(), { passive: true });
+    if (typeof ResizeObserver !== "undefined") {
+      this.resizeObserver = new ResizeObserver(() => this.syncScrollbars());
+      this.resizeObserver.observe(viewport);
+      if (viewport.firstElementChild)
+        this.resizeObserver.observe(viewport.firstElementChild);
+    }
+    this.syncScrollbars();
+  }
+  get viewport() {
+    return this.querySelector("[data-sigui-component='scroll-area-viewport']");
+  }
+  syncScrollbars() {
+    const viewport = this.viewport;
+    if (!viewport)
+      return;
+    for (const scrollbar of this.querySelectorAll("[data-sigui-component='scroll-area-scrollbar']")) {
+      syncScrollbar(scrollbar, viewport);
+    }
+  }
+}
+class SiguiScrollAreaViewport extends SiguiElement {
+  static componentKey = "scroll-area-viewport";
+  connectedCallback() {
+    super.connectedCallback();
+    queueMicrotask(() => findRoot4(this)?.bindViewport());
+  }
+}
+
+class SiguiScrollAreaScrollbar extends SiguiElement {
+  static observedAttributes = ["orientation"];
+  static componentKey = "scroll-area-scrollbar";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.getAttribute("orientation"))
+      this.dataset.orientation = "vertical";
+    this.ensureThumb();
+    this.bindDrag();
+    queueMicrotask(() => findRoot4(this)?.syncScrollbars());
+  }
+  syncAttributesToDataset() {
+    super.syncAttributesToDataset();
+    if (!this.dataset.orientation)
+      this.dataset.orientation = "vertical";
+  }
+  ensureThumb() {
+    if (!this.querySelector(".sg-scroll-area-thumb")) {
+      const thumb = document.createElement("div");
+      thumb.className = "sg-scroll-area-thumb";
+      this.append(thumb);
+    }
+  }
+  bindDrag() {
+    const thumb = this.querySelector(".sg-scroll-area-thumb");
+    if (!thumb)
+      return;
+    this.on(thumb, "pointerdown", (event2) => {
+      if (!(event2 instanceof PointerEvent))
+        return;
+      const root45 = findRoot4(this);
+      const viewport = root45?.viewport;
+      if (!viewport)
+        return;
+      event2.preventDefault();
+      thumb.setPointerCapture(event2.pointerId);
+      const orientation = this.dataset.orientation === "horizontal" ? "horizontal" : "vertical";
+      const startPointer = orientation === "horizontal" ? event2.clientX : event2.clientY;
+      const startScroll = orientation === "horizontal" ? viewport.scrollLeft : viewport.scrollTop;
+      const trackSize = orientation === "horizontal" ? this.clientWidth : this.clientHeight;
+      const thumbSize = orientation === "horizontal" ? thumb.clientWidth : thumb.clientHeight;
+      const scrollSize = orientation === "horizontal" ? viewport.scrollWidth - viewport.clientWidth : viewport.scrollHeight - viewport.clientHeight;
+      const ratio = scrollSize / Math.max(1, trackSize - thumbSize);
+      const move2 = (moveEvent) => {
+        if (!(moveEvent instanceof PointerEvent))
+          return;
+        const current = orientation === "horizontal" ? moveEvent.clientX : moveEvent.clientY;
+        const next2 = startScroll + (current - startPointer) * ratio;
+        if (orientation === "horizontal")
+          viewport.scrollLeft = next2;
+        else
+          viewport.scrollTop = next2;
+      };
+      const up = () => {
+        thumb.removeEventListener("pointermove", move2);
+        thumb.removeEventListener("pointerup", up);
+        thumb.removeEventListener("pointercancel", up);
+      };
+      thumb.addEventListener("pointermove", move2);
+      thumb.addEventListener("pointerup", up);
+      thumb.addEventListener("pointercancel", up);
+    });
+  }
+}
+function findRoot4(element2) {
+  return element2.closest("[data-sigui-component='scroll-area-root']");
+}
+function syncScrollbar(scrollbar, viewport) {
+  const thumb = scrollbar.querySelector(".sg-scroll-area-thumb");
+  if (!thumb)
+    return;
+  const horizontal = scrollbar.dataset.orientation === "horizontal";
+  const viewportSize = horizontal ? viewport.clientWidth : viewport.clientHeight;
+  const scrollSize = horizontal ? viewport.scrollWidth : viewport.scrollHeight;
+  const scrollOffset = horizontal ? viewport.scrollLeft : viewport.scrollTop;
+  const trackSize = horizontal ? scrollbar.clientWidth : scrollbar.clientHeight;
+  const maxScroll = Math.max(0, scrollSize - viewportSize);
+  const thumbSize = Math.max(30, Math.round(viewportSize / Math.max(scrollSize, 1) * trackSize));
+  const thumbOffset = maxScroll === 0 ? 0 : Math.round(scrollOffset / maxScroll * Math.max(0, trackSize - thumbSize));
+  scrollbar.hidden = maxScroll <= 0;
+  if (horizontal) {
+    thumb.style.width = `${thumbSize}px`;
+    thumb.style.transform = `translateX(${thumbOffset}px)`;
+  } else {
+    thumb.style.height = `${thumbSize}px`;
+    thumb.style.transform = `translateY(${thumbOffset}px)`;
+  }
 }
 
 // packages/components/src/components/primitives/Scroller/scroller.js
@@ -39496,8 +45700,16 @@ __export(exports_scroller, {
   SiguiScroller: () => SiguiScroller
 });
 class SiguiScroller extends SiguiElement {
-  static observedAttributes = ["axis"];
+  static observedAttributes = ["axis", "max-width", "max-height", "label"];
   static componentKey = "scroller";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "region");
+    const label = this.getAttribute("label");
+    if (label && !this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", label);
+  }
   syncAttributesToDataset() {
     super.syncAttributesToDataset();
     if (!this.dataset.axis)
@@ -39511,29 +45723,371 @@ __export(exports_section, {
   SiguiSection: () => SiguiSection
 });
 class SiguiSection extends SiguiElement {
-  static observedAttributes = ["title", "description", "level", "gap"];
+  static observedAttributes = ["title", "description", "level", "gap", "max-width"];
   static componentKey = "section";
+  connectedCallback() {
+    super.connectedCallback();
+    queueMicrotask(() => this.renderSection());
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue && ["title", "description", "level"].includes(name)) {
+      this.renderSection();
+    }
+  }
+  rehydrate() {
+    this.renderSection();
+  }
+  renderSection() {
+    const title = this.getAttribute("title")?.trim() ?? "";
+    const description = this.getAttribute("description")?.trim() ?? "";
+    const hasGeneratedHeader = Boolean(this.querySelector(":scope > .sg-section-header[data-sigui-generated='section']"));
+    const hasHeader = Boolean(this.querySelector(":scope > .sg-section-header"));
+    if ((title || description) && (!hasHeader || hasGeneratedHeader)) {
+      this.renderGeneratedHeader(title, description);
+    } else if (!title && !description && hasGeneratedHeader) {
+      this.querySelector(":scope > .sg-section-header[data-sigui-generated='section']")?.remove();
+      this.clearGeneratedAria();
+    }
+    this.ensureContentWrapper();
+  }
+  renderGeneratedHeader(title, description) {
+    let header = this.querySelector(":scope > .sg-section-header[data-sigui-generated='section']");
+    if (!header) {
+      header = document.createElement("div");
+      header.className = "sg-section-header";
+      header.setAttribute("data-sigui-generated", "section");
+      this.prepend(header);
+    }
+    const level = this.getHeadingLevel();
+    const titleId = this.getGeneratedTitleId();
+    const titleMarkup = title ? `<h${level} class="sg-section-title" id="${titleId}"></h${level}>` : "";
+    const descriptionMarkup = description ? `<p class="sg-section-description"></p>` : "";
+    header.innerHTML = `${titleMarkup}${descriptionMarkup}`;
+    const titleEl = header.querySelector(".sg-section-title");
+    if (titleEl) {
+      titleEl.textContent = title;
+      this.setGeneratedAria(titleId);
+    } else {
+      this.clearGeneratedAria();
+    }
+    const descriptionEl = header.querySelector(".sg-section-description");
+    if (descriptionEl)
+      descriptionEl.textContent = description;
+  }
+  ensureContentWrapper() {
+    let content = this.querySelector(":scope > .sg-section-content");
+    if (!content) {
+      content = document.createElement("div");
+      content.className = "sg-section-content";
+      content.setAttribute("data-sigui-generated", "section");
+      this.append(content);
+    }
+    const children = [...this.childNodes].filter((child2) => {
+      if (!(child2 instanceof Element))
+        return true;
+      return !child2.matches(".sg-section-header, .sg-section-content");
+    });
+    for (const child2 of children) {
+      content.append(child2);
+    }
+  }
+  getHeadingLevel() {
+    const rawLevel = Number(this.getAttribute("level"));
+    return Number.isInteger(rawLevel) && rawLevel >= 1 && rawLevel <= 6 ? rawLevel : 2;
+  }
+  getGeneratedTitleId() {
+    if (this.dataset.sectionTitleId)
+      return this.dataset.sectionTitleId;
+    const base = this.id ? `${this.id}-title` : `sg-section-title-${Math.random().toString(36).slice(2)}`;
+    this.dataset.sectionTitleId = base;
+    return base;
+  }
+  setGeneratedAria(titleId) {
+    if (!this.hasAttribute("role") || this.dataset.sectionGeneratedRole === "true") {
+      this.setAttribute("role", "region");
+      this.dataset.sectionGeneratedRole = "true";
+    }
+    if (!this.hasAttribute("aria-labelledby") || this.dataset.sectionGeneratedLabelledby === "true") {
+      this.setAttribute("aria-labelledby", titleId);
+      this.dataset.sectionGeneratedLabelledby = "true";
+    }
+  }
+  clearGeneratedAria() {
+    if (this.dataset.sectionGeneratedRole === "true") {
+      this.removeAttribute("role");
+      delete this.dataset.sectionGeneratedRole;
+    }
+    if (this.dataset.sectionGeneratedLabelledby === "true") {
+      this.removeAttribute("aria-labelledby");
+      delete this.dataset.sectionGeneratedLabelledby;
+    }
+  }
 }
 
 // packages/components/src/components/primitives/Sidebar/sidebar.js
 var exports_sidebar = {};
 __export(exports_sidebar, {
+  SiguiSidebarToggle: () => SiguiSidebarToggle,
+  SiguiSidebarSeparator: () => SiguiSidebarSeparator,
+  SiguiSidebarSection: () => SiguiSidebarSection,
   SiguiSidebarRoot: () => SiguiSidebarRoot,
+  SiguiSidebarItem: () => SiguiSidebarItem,
+  SiguiSidebarHeader: () => SiguiSidebarHeader,
+  SiguiSidebarFooter: () => SiguiSidebarFooter,
+  SiguiSidebarContent: () => SiguiSidebarContent,
   SiguiSidebar: () => SiguiSidebarRoot
 });
 class SiguiSidebarRoot extends SiguiElement {
-  static observedAttributes = ["state", "collapsible", "width", "collapsed-width", "side"];
+  static observedAttributes = ["state", "collapsible", "width", "collapsed-width", "min-width", "max-width", "side"];
   static componentKey = "sidebar-root";
+  static cssClass = "sg-sidebar";
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute("aria-label"))
+      this.setAttribute("aria-label", "Sidebar");
+    this.setAttribute("role", "complementary");
+    this.syncState();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.syncState();
+  }
+  syncState() {
+    const state2 = this.getAttribute("state") === "collapsed" ? "collapsed" : "expanded";
+    this.dataset.state = state2;
+    this.style.width = state2 === "collapsed" ? this.getAttribute("collapsed-width") || "4rem" : this.getAttribute("width") || "16rem";
+    const minWidth = this.getAttribute("min-width");
+    const maxWidth = this.getAttribute("max-width");
+    if (minWidth)
+      this.style.minWidth = minWidth;
+    else
+      this.style.minWidth = "";
+    if (maxWidth)
+      this.style.maxWidth = maxWidth;
+    else
+      this.style.maxWidth = "";
+    this.syncToggles();
+  }
+  syncToggles() {
+    const expanded = this.dataset.state !== "collapsed";
+    const disabled = this.getAttribute("collapsible") === "false";
+    for (const toggle of this.querySelectorAll("[data-sigui-component='sidebar-toggle']")) {
+      toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+      toggle.setAttribute("aria-disabled", disabled ? "true" : "false");
+    }
+  }
+  toggle() {
+    if (this.getAttribute("collapsible") === "false")
+      return;
+    const next2 = this.dataset.state === "collapsed" ? "expanded" : "collapsed";
+    this.setAttribute("state", next2);
+    this.dispatchEvent(new CustomEvent("toggle", { bubbles: true, detail: { state: next2 } }));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { state: next2 } }));
+  }
+}
+class SidebarPart extends SiguiElement {
+  init(key2) {
+    this.ensureClass(`sg-${key2}`);
+    this.dataset.siguiComponent = key2;
+  }
+}
+
+class SiguiSidebarHeader extends SidebarPart {
+  static componentKey = "sidebar-header";
+}
+
+class SiguiSidebarContent extends SidebarPart {
+  static componentKey = "sidebar-content";
+}
+
+class SiguiSidebarFooter extends SidebarPart {
+  static componentKey = "sidebar-footer";
+}
+
+class SiguiSidebarSeparator extends SidebarPart {
+  static componentKey = "sidebar-separator";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "separator");
+  }
+}
+
+class SiguiSidebarToggle extends SidebarPart {
+  static componentKey = "sidebar-toggle";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "button");
+    this.tabIndex = 0;
+    if (!this.hasAttribute("aria-label") && !this.textContent?.trim())
+      this.setAttribute("aria-label", "Toggle sidebar");
+    this.sync();
+    if (this.dataset.siguiBound !== "1") {
+      this.dataset.siguiBound = "1";
+      this.on(this, "click", () => this.root?.toggle());
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " ") {
+          event2.preventDefault();
+          this.root?.toggle();
+        }
+      });
+    }
+  }
+  get root() {
+    return this.closest("[data-sigui-component='sidebar-root']");
+  }
+  sync() {
+    const root45 = this.root;
+    this.setAttribute("aria-expanded", root45?.dataset.state === "collapsed" ? "false" : "true");
+    this.setAttribute("aria-disabled", root45?.getAttribute("collapsible") === "false" ? "true" : "false");
+  }
+}
+
+class SiguiSidebarSection extends SidebarPart {
+  static observedAttributes = ["title", "collapsible", "open", "default-open"];
+  static componentKey = "sidebar-section";
+  connectedCallback() {
+    super.connectedCallback();
+    const hasFalseOpenArtifact = this.hasAttribute("open") && !isOpenAttrTruthy(this);
+    if (hasFalseOpenArtifact)
+      this.removeAttribute("open");
+    if (!hasFalseOpenArtifact && !this.hasAttribute("open") && this.getAttribute("default-open") !== "false")
+      this.setAttribute("open", "");
+    this.sync();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.sync();
+  }
+  sync() {
+    const title = this.getAttribute("title");
+    const open = isOpenAttrTruthy(this);
+    const collapsible = this.hasAttribute("collapsible");
+    if (this.hasAttribute("open") && !open) {
+      this.removeAttribute("open");
+      return;
+    }
+    this.dataset.open = open ? "true" : "false";
+    if (!title) {
+      this.querySelector(":scope > .sg-sidebar-section-trigger")?.remove();
+      return;
+    }
+    let trigger = this.querySelector(":scope > .sg-sidebar-section-trigger");
+    const desiredTag = collapsible ? "button" : "div";
+    if (!trigger || trigger.tagName.toLowerCase() !== desiredTag) {
+      const nextTrigger = document.createElement(desiredTag);
+      nextTrigger.className = "sg-sidebar-section-trigger";
+      if (collapsible) {
+        nextTrigger.type = "button";
+        nextTrigger.addEventListener("click", () => {
+          if (this.dataset.open === "true")
+            this.removeAttribute("open");
+          else
+            this.setAttribute("open", "");
+        });
+      }
+      if (trigger)
+        trigger.replaceWith(nextTrigger);
+      else
+        this.prepend(nextTrigger);
+      trigger = nextTrigger;
+    }
+    trigger.dataset.title = title;
+    trigger.textContent = title;
+    if (collapsible)
+      trigger.setAttribute("aria-expanded", open ? "true" : "false");
+    else
+      trigger.removeAttribute("aria-expanded");
+  }
+}
+
+class SiguiSidebarItem extends SidebarPart {
+  static observedAttributes = ["href", "active", "disabled"];
+  static componentKey = "sidebar-item";
+  connectedCallback() {
+    super.connectedCallback();
+    this.sync();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.sync();
+  }
+  sync() {
+    this.dataset.state = this.hasAttribute("active") ? "active" : "idle";
+    if (this.hasAttribute("disabled"))
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.hasAttribute("disabled") ? "true" : "false");
+    if (this.hasAttribute("href"))
+      this.setAttribute("role", "link");
+    else
+      this.setAttribute("role", "button");
+    if (!this.hasAttribute("tabindex"))
+      this.tabIndex = this.hasAttribute("disabled") ? -1 : 0;
+  }
 }
 
 // packages/components/src/components/primitives/SidebarLayout/sidebar-layout.js
 var exports_sidebar_layout = {};
 __export(exports_sidebar_layout, {
+  SiguiSidebarLayoutSidebar: () => SiguiSidebarLayoutSidebar,
+  SiguiSidebarLayoutContent: () => SiguiSidebarLayoutContent,
   SiguiSidebarLayout: () => SiguiSidebarLayout
 });
 class SiguiSidebarLayout extends SiguiElement {
   static observedAttributes = ["side", "gap", "sidebar-width", "collapsible", "collapse-at"];
   static componentKey = "sidebar-layout";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncStyle();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.syncStyle();
+  }
+  syncStyle() {
+    const width = this.getAttribute("sidebar-width");
+    if (width)
+      this.style.setProperty("--sg-sidebar-width", width);
+    else
+      this.style.removeProperty("--sg-sidebar-width");
+  }
+}
+
+class SiguiSidebarLayoutSidebar extends SiguiElement {
+  static observedAttributes = ["width"];
+  static componentKey = "sidebar-layout-sidebar";
+  static cssClass = "sg-sidebar-layout__sidebar";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", this.getAttribute("role") || "complementary");
+    this.syncStyle();
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.syncStyle();
+  }
+  syncStyle() {
+    const width = this.getAttribute("width");
+    if (width)
+      this.style.setProperty("--sg-sidebar-intrinsic-width", width);
+    else
+      this.style.removeProperty("--sg-sidebar-intrinsic-width");
+  }
+}
+
+class SiguiSidebarLayoutContent extends SiguiElement {
+  static componentKey = "sidebar-layout-content";
+  static cssClass = "sg-sidebar-layout__content";
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", this.getAttribute("role") || "main");
+  }
 }
 
 // packages/components/src/components/primitives/Skeleton/skeleton.js
@@ -39557,11 +46111,18 @@ class SiguiSkeleton extends SiguiElement {
     const h = this.getAttribute("height");
     if (w)
       this.style.width = w;
+    else
+      this.style.removeProperty("width");
     if (h)
       this.style.height = h;
+    else
+      this.style.removeProperty("height");
     if (this.getAttribute("circle") === "true" || this.getAttribute("circle") === "") {
       this.style.borderRadius = "var(--sg-radius-full)";
+    } else {
+      this.style.removeProperty("border-radius");
     }
+    this.setAttribute("aria-hidden", "true");
   }
 }
 
@@ -39581,7 +46142,7 @@ __export(exports_split_panel, {
   SiguiSplitPanel: () => SiguiSplitPanel
 });
 class SiguiSplitPanel extends SiguiElement {
-  static observedAttributes = ["direction"];
+  static observedAttributes = ["direction", "gap", "max-width", "collapse"];
   static componentKey = "split-panel";
   syncAttributesToDataset() {
     super.syncAttributesToDataset();
@@ -39598,6 +46159,20 @@ __export(exports_spinner, {
 class SiguiSpinner extends SiguiElement {
   static observedAttributes = ["size", "label"];
   static componentKey = "spinner";
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncSpinner();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (oldValue !== newValue)
+      this.syncSpinner();
+  }
+  syncSpinner() {
+    if (!this.hasAttribute("role"))
+      this.setAttribute("role", "status");
+    this.setAttribute("aria-label", this.getAttribute("label") || "Loading");
+  }
 }
 
 // packages/components/src/components/primitives/Stack/stack.js
@@ -39626,7 +46201,7 @@ __export(exports_tab_group, {
   SiguiTabGroup: () => SiguiTabGroup
 });
 class SiguiTabGroup extends SiguiElement {
-  static observedAttributes = ["orientation"];
+  static observedAttributes = ["orientation", "max-width"];
   static componentKey = "tab-group";
   syncAttributesToDataset() {
     super.syncAttributesToDataset();
@@ -39656,7 +46231,8 @@ class SiguiTag extends SiguiElement {
   }
   renderRemoveButton() {
     const existing = this.querySelector("button[data-sg-tag-remove]");
-    if (!this.hasAttribute("removable")) {
+    const removable = this.hasAttribute("removable") && this.getAttribute("removable") !== "false";
+    if (!removable) {
       existing?.remove();
       return;
     }
@@ -39666,7 +46242,7 @@ class SiguiTag extends SiguiElement {
     button.type = "button";
     button.dataset.sgTagRemove = "true";
     button.setAttribute("aria-label", "Remove tag");
-    button.textContent = "×";
+    button.innerHTML = '<span aria-hidden="true">&times;</span>';
     this.append(button);
     this.on(button, "click", () => {
       this.dispatchEvent(new CustomEvent("sg-remove", { bubbles: true }));
@@ -39681,8 +46257,136 @@ __export(exports_text, {
   SiguiText: () => SiguiText
 });
 class SiguiText extends SiguiElement {
-  static observedAttributes = ["size", "color", "weight", "align", "as"];
+  static observedAttributes = ["size", "color", "weight", "align", "as", "wrap", "max-width"];
   static componentKey = "text";
+}
+
+// packages/components/src/components/native/Toggle/toggle-group.js
+var exports_toggle_group = {};
+__export(exports_toggle_group, {
+  bindStandaloneToggleButtons: () => bindStandaloneToggleButtons,
+  SiguiToggleGroup: () => SiguiToggleGroup
+});
+var standaloneToggleBindingKey = Symbol.for("sigui.standalone-toggle-bound");
+function bindStandaloneToggleButtons(root45 = globalThis.document) {
+  const doc = root45 && "nodeType" in root45 && root45.nodeType === 9 ? root45 : root45 && ("ownerDocument" in root45) ? root45.ownerDocument : root45;
+  if (!doc || typeof doc.addEventListener !== "function")
+    return;
+  const state2 = doc;
+  if (state2[standaloneToggleBindingKey])
+    return;
+  state2[standaloneToggleBindingKey] = true;
+  doc.addEventListener("click", (event2) => {
+    const eventTarget = event2.target;
+    const origin = eventTarget instanceof Element ? eventTarget : eventTarget?.parentElement;
+    const toggle = origin?.closest?.(".sg-toggle[aria-pressed]");
+    if (!toggle)
+      return;
+    if (toggle.closest(".sg-toggle-group, sg-toggle-group, [data-sigui-component='toggle-group']"))
+      return;
+    if (isDisabledToggle(toggle))
+      return;
+    const pressed = toggle.getAttribute("aria-pressed") === "true";
+    const nextPressed = !pressed;
+    toggle.setAttribute("aria-pressed", String(nextPressed));
+    const detail = { pressed: nextPressed };
+    toggle.dispatchEvent(new CustomEvent("input", { detail, bubbles: true }));
+    toggle.dispatchEvent(new CustomEvent("change", { detail, bubbles: true }));
+    toggle.dispatchEvent(new CustomEvent("toggle", { detail, bubbles: true }));
+  });
+}
+function isDisabledToggle(toggle) {
+  return toggle.matches(":disabled, [disabled], [data-disabled]:not([data-disabled='false']), [aria-disabled='true']");
+}
+
+class SiguiToggleGroup extends SiguiElement {
+  static observedAttributes = ["type", "value", "size", "disabled"];
+  static componentKey = "toggle-group";
+  _value = null;
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "group");
+    const attrVal = this.getAttribute("value");
+    if (attrVal != null) {
+      this._value = this._isMultiple() ? attrVal.split(",").map((s) => s.trim()) : attrVal;
+    }
+    this._syncSize();
+    this._syncPressed();
+    this.on(this, "click", (e) => {
+      const toggle = e.target?.closest?.(".sg-toggle");
+      if (!toggle || toggle.hasAttribute("disabled"))
+        return;
+      const val = toggle.getAttribute("value");
+      if (val == null)
+        return;
+      if (this._isMultiple()) {
+        const arr = Array.isArray(this._value) ? [...this._value] : [];
+        const idx = arr.indexOf(val);
+        if (idx >= 0)
+          arr.splice(idx, 1);
+        else
+          arr.push(val);
+        this._value = arr;
+      } else {
+        this._value = val;
+      }
+      this._syncPressed();
+      this._dispatchChange();
+    });
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "value" && newValue != null) {
+      this._value = this._isMultiple() ? newValue.split(",").map((s) => s.trim()) : newValue;
+      this._syncPressed();
+    }
+    if (name === "size") {
+      this._syncSize();
+    }
+    if (name === "disabled") {
+      for (const toggle of this.querySelectorAll(".sg-toggle")) {
+        if (this.hasAttribute("disabled")) {
+          toggle.setAttribute("disabled", "");
+        } else {
+          toggle.removeAttribute("disabled");
+        }
+      }
+    }
+  }
+  _isMultiple() {
+    return this.getAttribute("type") === "multiple";
+  }
+  _syncPressed() {
+    const toggles = this.querySelectorAll(".sg-toggle");
+    for (const toggle of toggles) {
+      const val = toggle.getAttribute("value");
+      if (val == null)
+        continue;
+      const pressed = this._isMultiple() ? Array.isArray(this._value) && this._value.includes(val) : this._value === val;
+      toggle.setAttribute("aria-pressed", String(pressed));
+    }
+  }
+  _syncSize() {
+    const size = this.getAttribute("size");
+    if (!size)
+      return;
+    for (const toggle of this.querySelectorAll(".sg-toggle")) {
+      toggle.dataset.size = size;
+    }
+  }
+  _dispatchChange() {
+    const value = this._value;
+    this.dispatchEvent(new CustomEvent("change", { detail: value, bubbles: true }));
+    this.dispatchEvent(new CustomEvent("input", { detail: value, bubbles: true }));
+    this.dispatchEvent(new CustomEvent("toggle", { detail: value, bubbles: true }));
+  }
+  get value() {
+    return this._value;
+  }
+  set value(val) {
+    this._value = val;
+    this._syncPressed();
+  }
 }
 
 // packages/components/src/components/primitives/Tree/tree.js
@@ -39691,31 +46395,81 @@ __export(exports_tree, {
   SiguiTree: () => SiguiTree
 });
 class SiguiTree extends SiguiElement {
-  static observedAttributes = ["selectable"];
+  static observedAttributes = ["selectable", "density", "max-width"];
   static componentKey = "tree";
   connectedCallback() {
     super.connectedCallback();
     if (!this.hasAttribute("role"))
       this.setAttribute("role", "tree");
     this.on(this, "keydown", (event2) => this.onKeydown(event2));
+    this.on(this, "click", (event2) => {
+      if (!(event2.target instanceof HTMLElement))
+        return;
+      const item = event2.target.closest("[role='treeitem']");
+      if (item instanceof HTMLElement)
+        this.activateItem(item);
+    });
+    this.syncItems();
   }
   onKeydown(event2) {
     if (!(event2 instanceof KeyboardEvent))
       return;
-    if (event2.key !== "ArrowDown" && event2.key !== "ArrowUp")
-      return;
-    const items = Array.from(this.querySelectorAll("[role='treeitem']"));
+    const items = this.items();
     if (!items.length)
       return;
     const active = document.activeElement;
     const index2 = Math.max(0, items.indexOf(active));
-    const next2 = event2.key === "ArrowDown" ? Math.min(items.length - 1, index2 + 1) : Math.max(0, index2 - 1);
-    const target = items[next2];
-    if (target instanceof HTMLElement) {
-      target.focus();
+    let next2 = index2;
+    if (event2.key === "ArrowDown")
+      next2 = Math.min(items.length - 1, index2 + 1);
+    else if (event2.key === "ArrowUp")
+      next2 = Math.max(0, index2 - 1);
+    else if (event2.key === "Home")
+      next2 = 0;
+    else if (event2.key === "End")
+      next2 = items.length - 1;
+    else if (event2.key === "Enter" || event2.key === " ") {
       event2.preventDefault();
+      if (active instanceof HTMLElement && active.getAttribute("role") === "treeitem")
+        this.activateItem(active);
+      return;
+    } else {
+      return;
     }
+    event2.preventDefault();
+    this.focusItem(items[next2]);
   }
+  syncItems() {
+    const items = this.items();
+    items.forEach((item, index2) => {
+      item.tabIndex = index2 === 0 ? 0 : -1;
+      if (isTruthyAttribute7(this, "selectable") && !item.hasAttribute("aria-selected")) {
+        item.setAttribute("aria-selected", "false");
+      }
+    });
+  }
+  focusItem(item) {
+    for (const candidate of this.items())
+      candidate.tabIndex = candidate === item ? 0 : -1;
+    item.focus();
+  }
+  activateItem(item) {
+    this.focusItem(item);
+    if (!isTruthyAttribute7(this, "selectable"))
+      return;
+    for (const candidate of this.items())
+      candidate.setAttribute("aria-selected", String(candidate === item));
+    this.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { item, value: item.getAttribute("data-value") ?? item.textContent?.trim() ?? "" } }));
+  }
+  items() {
+    return [...this.querySelectorAll("[role='treeitem']:not([hidden])")];
+  }
+}
+function isTruthyAttribute7(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
 }
 
 // packages/components/src/components/primitives/Typewriter/typewriter.js
@@ -39726,6 +46480,133 @@ __export(exports_typewriter, {
 class SiguiTypewriter extends SiguiElement {
   static observedAttributes = ["text", "speed", "delay", "cursor", "loop", "pause-between", "paused"];
   static componentKey = "typewriter";
+  constructor() {
+    super();
+    this._timer = null;
+    this._index = 0;
+    this._textIndex = 0;
+    this._direction = 1;
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute("role", "status");
+    this.setAttribute("aria-live", "polite");
+    this.start();
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.clearTimer();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (!this.isConnected || oldValue === newValue)
+      return;
+    if (name === "paused") {
+      if (!isTruthyAttribute8(this, "paused"))
+        this.schedule();
+      return;
+    }
+    this.start();
+  }
+  syncAttributesToDataset() {
+    super.syncAttributesToDataset();
+    for (const attr2 of ["cursor", "loop", "paused"]) {
+      const key2 = attr2.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      if (attr2 === "cursor")
+        this.dataset[key2] = String(cursorEnabled(this));
+      else if (isTruthyAttribute8(this, attr2))
+        this.dataset[key2] = "true";
+      else
+        delete this.dataset[key2];
+    }
+  }
+  start() {
+    this.clearTimer();
+    this._index = 0;
+    this._textIndex = 0;
+    this._direction = 1;
+    const text2 = this.fullText();
+    this.setAttribute("aria-label", text2);
+    this.dataset.state = text2 ? "typing" : "complete";
+    this.textContent = "";
+    if (!text2 || shouldReduceMotion()) {
+      this.textContent = text2;
+      this.dataset.state = "complete";
+      return;
+    }
+    this._timer = setTimeout(() => this.tick(), Math.max(0, Number(this.getAttribute("delay") ?? "0") || 0));
+  }
+  tick() {
+    if (isTruthyAttribute8(this, "paused"))
+      return;
+    const text2 = this.fullText();
+    const list = this.textList();
+    const loop2 = isTruthyAttribute8(this, "loop") || list.length > 1;
+    const pause = Math.max(0, Number(this.getAttribute("pause-between") ?? "1500") || 1500);
+    const speed = Math.max(10, Number(this.getAttribute("speed") ?? "50") || 50);
+    this._index += this._direction;
+    this.textContent = text2.slice(0, Math.max(0, this._index));
+    if (this._direction > 0 && this._index >= text2.length) {
+      this.dataset.state = "complete";
+      if (!loop2)
+        return;
+      this._direction = -1;
+      this._timer = setTimeout(() => this.tick(), pause);
+      return;
+    }
+    if (this._direction < 0 && this._index <= 0) {
+      this.dataset.state = "typing";
+      if (list.length > 1) {
+        this._textIndex = (this._textIndex + 1) % list.length;
+        this.setAttribute("aria-label", this.fullText());
+      }
+      this._direction = 1;
+      this._timer = setTimeout(() => this.tick(), speed);
+      return;
+    }
+    this.schedule(speed);
+  }
+  schedule(delay) {
+    this.clearTimer();
+    this._timer = setTimeout(() => this.tick(), delay ?? Math.max(10, Number(this.getAttribute("speed") ?? "50") || 50));
+  }
+  clearTimer() {
+    if (this._timer)
+      clearTimeout(this._timer);
+    this._timer = null;
+  }
+  fullText() {
+    const list = this.textList();
+    return list[this._textIndex] ?? list[0] ?? "";
+  }
+  textList() {
+    return parseTextList(this.getAttribute("text") ?? "");
+  }
+}
+function parseTextList(raw) {
+  if (!raw.trim().startsWith("["))
+    return [raw];
+  try {
+    const value = JSON.parse(raw);
+    return Array.isArray(value) ? value.map(String) : [raw];
+  } catch {
+    return [raw];
+  }
+}
+function cursorEnabled(element2) {
+  if (!element2.hasAttribute("cursor"))
+    return true;
+  const value = element2.getAttribute("cursor");
+  return value === "" || value === "true";
+}
+function isTruthyAttribute8(element2, attr2) {
+  if (!element2.hasAttribute(attr2))
+    return false;
+  const value = element2.getAttribute(attr2);
+  return value === "" || value === "true";
+}
+function shouldReduceMotion() {
+  return typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 // packages/components/src/components/definitions.js
@@ -39754,9 +46635,9 @@ var COMPONENT_MODULES = [
   exports_data_table,
   exports_date_picker,
   exports_details,
+  exports_direction,
   exports_dock,
   exports_dropdown,
-  exports_drawer,
   exports_empty,
   exports_field,
   exports_format_bytes,
@@ -39769,6 +46650,7 @@ var COMPONENT_MODULES = [
   exports_icon,
   exports_icon_button,
   exports_include,
+  exports_input_variants,
   exports_input_group,
   exports_input_number,
   exports_input_otp,
@@ -39796,6 +46678,7 @@ var COMPONENT_MODULES = [
   exports_tab_group,
   exports_tag,
   exports_text,
+  exports_toggle_group,
   exports_tree,
   exports_typewriter
 ];
@@ -39819,6 +46702,7 @@ var COMPONENT_DEFINITIONS = Object.freeze(COMPONENT_MODULES.reduce((definitions,
 
 // packages/components/src/components/interactive/dialog.js
 class SiguiDialogRoot extends OpenableRoot {
+  static observedAttributes = ["open", "max-width"];
   static contract = Object.freeze({
     events: [{ name: "sigui:toggle", detail: { open: "boolean" }, bubbles: true }],
     aria: { role: "dialog" },
@@ -39830,6 +46714,14 @@ class SiguiDialogRoot extends OpenableRoot {
     super.connectedCallback();
     this.initOpenable("dialog-root", dialogMachine, "dialogMachine");
   }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name !== "open")
+      this.content?._render?.();
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='dialog-content']");
+  }
 }
 
 class SiguiDialogTrigger extends OpenTrigger {
@@ -39840,6 +46732,7 @@ class SiguiDialogTrigger extends OpenTrigger {
 }
 
 class SiguiDialogContent extends PanelContent {
+  static observedAttributes = ["max-width"];
   static contract = Object.freeze({
     aria: { role: "dialog" }
   });
@@ -39849,6 +46742,19 @@ class SiguiDialogContent extends PanelContent {
       panelTag: "dialog",
       panelClass: "sg-dialog"
     });
+  }
+  attributeChangedCallback() {
+    this.syncAttributesToDataset();
+    if (!this._rootKey)
+      return;
+    this._render();
+  }
+  _configurePanel(panel) {
+    const maxWidth = this.getAttribute("max-width") || this._root?.getAttribute("max-width") || "";
+    if (maxWidth)
+      panel.dataset.maxWidth = maxWidth;
+    else
+      delete panel.dataset.maxWidth;
   }
 }
 
@@ -39874,7 +46780,13 @@ class SiguiDialogDescription extends TitlePart {
 }
 
 // packages/components/src/components/interactive/sheet.js
+function getSheetTriggerControl(trigger) {
+  const control = trigger.querySelector("[data-sigui-part='control'], :scope > button");
+  return isHTMLElement(control) ? control : trigger;
+}
+
 class SiguiSheetRoot extends OpenableRoot {
+  static observedAttributes = ["open", "side", "size"];
   static contract = Object.freeze({
     events: [{ name: "sigui:toggle", detail: { open: "boolean" }, bubbles: true }],
     aria: { role: "dialog" },
@@ -39885,6 +46797,18 @@ class SiguiSheetRoot extends OpenableRoot {
   connectedCallback() {
     super.connectedCallback();
     this.initOpenable("sheet-root", sheetMachine, "sheetMachine");
+    queueMicrotask(() => this.trigger?.syncSheetAria?.());
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name !== "open")
+      this.content?._render?.();
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='sheet-content']");
+  }
+  get trigger() {
+    return this.querySelector("[data-sigui-component='sheet-trigger']");
   }
 }
 
@@ -39892,6 +46816,23 @@ class SiguiSheetTrigger extends OpenTrigger {
   connectedCallback() {
     super.connectedCallback();
     this.initTrigger("sheet-trigger", "sheet-root");
+    this.syncSheetAria();
+    if (isHTMLElement(this._root)) {
+      this.on(this._root, "sigui:toggle", () => this.syncSheetAria());
+    }
+  }
+  syncSheetAria() {
+    const control = getSheetTriggerControl(this);
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    const content = root45?.querySelector("[data-sigui-component='sheet-content']");
+    if (isHTMLElement(content) && !content.id)
+      content.id = uniqueId("sg-sheet-content");
+    control.setAttribute("aria-haspopup", "dialog");
+    control.setAttribute("aria-expanded", root45 && isOpenAttrTruthy(root45) ? "true" : "false");
+    if (isHTMLElement(content))
+      control.setAttribute("aria-controls", content.id);
+    else
+      control.removeAttribute("aria-controls");
   }
 }
 
@@ -39902,11 +46843,18 @@ class SiguiSheetContent extends PanelContent {
       panelTag: "dialog",
       panelClass: "sg-sheet"
     });
+    if (this._root instanceof SiguiSheetRoot)
+      this._root.trigger?.syncSheetAria?.();
   }
   _configurePanel(panel) {
     if (this._root) {
       const side = this._root.getAttribute("side") || "right";
       panel.dataset.side = side;
+      const size = this._root.getAttribute("size") || "";
+      if (size)
+        panel.dataset.size = size;
+      else
+        delete panel.dataset.size;
     }
   }
 }
@@ -39934,6 +46882,7 @@ class SiguiSheetDescription extends TitlePart {
 
 // packages/components/src/components/interactive/alert-dialog.js
 class SiguiAlertDialogRoot extends OpenableRoot {
+  static observedAttributes = ["open", "max-width"];
   static contract = Object.freeze({
     events: [{ name: "sigui:toggle", detail: { open: "boolean" }, bubbles: true }],
     aria: { role: "alertdialog" },
@@ -39945,6 +46894,14 @@ class SiguiAlertDialogRoot extends OpenableRoot {
     const def = { ...alertDialogMachine, context: { ...alertDialogMachine.context, requiresAction: false } };
     this.initOpenable("alert-dialog-root", def, "alertDialogMachine");
   }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name !== "open")
+      this.content?._render?.();
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='alert-dialog-content']");
+  }
 }
 
 class SiguiAlertDialogTrigger extends OpenTrigger {
@@ -39955,6 +46912,7 @@ class SiguiAlertDialogTrigger extends OpenTrigger {
 }
 
 class SiguiAlertDialogContent extends PanelContent {
+  static observedAttributes = ["max-width"];
   connectedCallback() {
     super.connectedCallback();
     this.initPanel("alert-dialog-content", "alert-dialog-root", "alertdialog", {
@@ -39963,12 +46921,38 @@ class SiguiAlertDialogContent extends PanelContent {
       dismissOnEscape: false
     });
   }
+  attributeChangedCallback() {
+    this.syncAttributesToDataset();
+    if (!this._rootKey)
+      return;
+    this._render();
+  }
+  _configurePanel(panel) {
+    const maxWidth = this.getAttribute("max-width") || this._root?.getAttribute("max-width") || "";
+    if (maxWidth)
+      panel.dataset.maxWidth = maxWidth;
+    else
+      delete panel.dataset.maxWidth;
+  }
 }
 
 class SiguiAlertDialogAction extends CloseButton {
+  static observedAttributes = ["color"];
   connectedCallback() {
     super.connectedCallback();
     this.initClose("alert-dialog-action", "alert-dialog-root");
+    this.syncButton();
+  }
+  attributeChangedCallback() {
+    this.syncAttributesToDataset();
+    this.syncButton();
+  }
+  syncButton() {
+    const button = this.querySelector("button[data-sigui-part='control']");
+    if (!(button instanceof HTMLButtonElement))
+      return;
+    button.classList.add("sg-button");
+    button.dataset.color = this.getAttribute("color") || "primary";
   }
 }
 
@@ -39976,6 +46960,11 @@ class SiguiAlertDialogCancel extends CloseButton {
   connectedCallback() {
     super.connectedCallback();
     this.initClose("alert-dialog-cancel", "alert-dialog-root");
+    const button = this.querySelector("button[data-sigui-part='control']");
+    if (button instanceof HTMLButtonElement) {
+      button.classList.add("sg-button");
+      button.dataset.color = "secondary";
+    }
   }
 }
 
@@ -39996,7 +46985,21 @@ class SiguiAlertDialogDescription extends TitlePart {
 }
 
 // packages/components/src/components/interactive/popover.js
+var VIEWPORT_GUTTER = 8;
+var DEFAULT_OFFSET = 4;
+function getPopoverTrigger(root45) {
+  return root45?.querySelector("[data-sigui-component='popover-trigger']") ?? null;
+}
+function getPopoverContent(root45) {
+  return root45?.querySelector("[data-sigui-component='popover-content']") ?? null;
+}
+function getTriggerControl(trigger) {
+  const control = trigger.querySelector("button[data-sigui-part='control'], :scope > button");
+  return control instanceof HTMLElement ? control : trigger;
+}
+
 class SiguiPopoverRoot extends OpenableRoot {
+  static observedAttributes = ["open", "max-width"];
   connectedCallback() {
     super.connectedCallback();
     this.initOpenable("popover-root", popoverMachine, "popoverMachine");
@@ -40007,21 +47010,113 @@ class SiguiPopoverTrigger extends OpenTrigger {
   connectedCallback() {
     super.connectedCallback();
     this.initTrigger("popover-trigger", "popover-root");
+    this.syncPopoverAria();
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    if (root45 && this.dataset.siguiPopoverAriaBound !== "1") {
+      this.dataset.siguiPopoverAriaBound = "1";
+      this.on(root45, "sigui:toggle", () => this.syncPopoverAria());
+    }
+    queueMicrotask(() => this.syncPopoverAria());
+  }
+  rehydrate() {
+    super.rehydrate();
+    this.syncPopoverAria();
+  }
+  syncPopoverAria() {
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    const content = getPopoverContent(root45);
+    const control = getTriggerControl(this);
+    control.setAttribute("aria-haspopup", "dialog");
+    control.setAttribute("aria-expanded", root45 && isOpenAttrTruthy(root45) ? "true" : "false");
+    if (content) {
+      if (!content.id)
+        content.id = uniqueId("sg-popover-content");
+      control.setAttribute("aria-controls", content.id);
+    } else {
+      control.removeAttribute("aria-controls");
+    }
   }
 }
 
 class SiguiPopoverContent extends PanelContent {
   connectedCallback() {
     super.connectedCallback();
-    this.initPanel("popover-content", "popover-root", "dialog");
+    this.initPanel("popover-content", "popover-root", "dialog", { popover: "auto" });
+    if (this.dataset.siguiPopoverPositionBound !== "1") {
+      this.dataset.siguiPopoverPositionBound = "1";
+      const win = this.ownerDocument.defaultView;
+      if (win) {
+        this.on(win, "resize", () => this.positionPanel());
+        this.on(win, "scroll", () => this.positionPanel(), true);
+      }
+    }
+  }
+  _configurePanel(panel) {
+    this.positionPanel(panel);
+    const win = this.ownerDocument.defaultView;
+    win?.requestAnimationFrame(() => this.positionPanel(panel));
+  }
+  positionPanel(panel = this._panel ?? undefined) {
+    if (!panel)
+      return;
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    const visible = isOpenAttrTruthy(this) || root45 !== null && isOpenAttrTruthy(root45);
+    if (!visible) {
+      panel.style.removeProperty("left");
+      panel.style.removeProperty("top");
+      panel.style.removeProperty("right");
+      panel.style.removeProperty("bottom");
+      return;
+    }
+    const trigger = getPopoverTrigger(root45);
+    if (!trigger)
+      return;
+    const control = getTriggerControl(trigger);
+    const win = panel.ownerDocument.defaultView;
+    if (!win)
+      return;
+    panel.style.position = "fixed";
+    panel.style.margin = "0";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+    const triggerRect = control.getBoundingClientRect();
+    const panelRect = panel.getBoundingClientRect();
+    const viewportWidth = win.innerWidth;
+    const viewportHeight = win.innerHeight;
+    const panelWidth = panelRect.width || panel.offsetWidth;
+    const panelHeight = panelRect.height || panel.offsetHeight;
+    const maxLeft = Math.max(VIEWPORT_GUTTER, viewportWidth - panelWidth - VIEWPORT_GUTTER);
+    const left = Math.min(Math.max(triggerRect.left, VIEWPORT_GUTTER), maxLeft);
+    let top = triggerRect.bottom + DEFAULT_OFFSET;
+    const fitsBelow = top + panelHeight <= viewportHeight - VIEWPORT_GUTTER;
+    const topAbove = triggerRect.top - panelHeight - DEFAULT_OFFSET;
+    if (!fitsBelow && topAbove >= VIEWPORT_GUTTER) {
+      top = topAbove;
+    } else {
+      const maxTop = Math.max(VIEWPORT_GUTTER, viewportHeight - panelHeight - VIEWPORT_GUTTER);
+      top = Math.min(Math.max(top, VIEWPORT_GUTTER), maxTop);
+    }
+    panel.style.left = `${Math.round(left)}px`;
+    panel.style.top = `${Math.round(top)}px`;
   }
 }
 
 // packages/components/src/components/interactive/tooltip.js
+function getTooltipTriggerControl(trigger) {
+  const control = trigger.querySelector("[data-sigui-part='control'], :scope > *");
+  return isHTMLElement(control) ? control : trigger;
+}
+function readTooltipDelay(root45) {
+  const attrDelay = Number(root45?.getAttribute("delay"));
+  return Number.isFinite(attrDelay) && attrDelay >= 0 ? attrDelay : null;
+}
+
 class SiguiTooltipRoot extends OpenableRoot {
+  static observedAttributes = ["open", "content", "delay", "side", "max-width"];
   connectedCallback() {
     super.connectedCallback();
     this.initOpenable("tooltip-root", tooltipMachine, "tooltipMachine");
+    queueMicrotask(() => this.trigger?.syncTooltipAria?.());
     this.on(this, "sigui:state", (e) => {
       const state2 = e.detail?.state;
       if (state2 === "visible") {
@@ -40035,47 +47130,89 @@ class SiguiTooltipRoot extends OpenableRoot {
       }
     });
   }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name !== "open")
+      this.content?._render?.();
+    this.trigger?.syncTooltipAria?.();
+  }
+  get content() {
+    return this.querySelector("[data-sigui-component='tooltip-content']");
+  }
+  get trigger() {
+    return this.querySelector("[data-sigui-component='tooltip-trigger']");
+  }
 }
 
 class SiguiTooltipTrigger extends SiguiElement {
   _delayTimer;
   _startShowSequence(eventName) {
     const m = getMachine(this._root);
-    if (!m)
-      return;
-    m.send(eventName);
     clearTimeout(this._delayTimer);
-    const delay = typeof m.context?.delayMs === "number" ? m.context.delayMs : 700;
-    this._delayTimer = setTimeout(() => getMachine(this._root)?.send("DELAY_END"), delay);
+    if (m) {
+      m.send(eventName);
+      const delay = readTooltipDelay(this._root) ?? (typeof m.context?.delayMs === "number" ? m.context.delayMs : 700);
+      this._delayTimer = setTimeout(() => getMachine(this._root)?.send("DELAY_END"), delay);
+      return;
+    }
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    this._delayTimer = setTimeout(() => root45?.setAttribute("open", ""), readTooltipDelay(root45) ?? 700);
+  }
+  _hide(eventName) {
+    clearTimeout(this._delayTimer);
+    const m = getMachine(this._root);
+    if (m) {
+      m.send(eventName);
+      return;
+    }
+    if (isHTMLElement(this._root))
+      this._root.removeAttribute("open");
   }
   connectedCallback() {
     super.connectedCallback();
     markComponent(this, "tooltip-trigger");
     this.dataset.siguiParent = "tooltip-root";
-    this._root = findRoot(this, "tooltip-root");
-    const control = ensureInternalControl(this, "[data-sigui-part='control']", () => document.createElement("span"));
+    this._root = findRoot2(this, "tooltip-root");
+    const existingControl = this.querySelector("[data-sigui-part='control'], :scope > *");
+    const control = existingControl instanceof HTMLElement ? existingControl : ensureInternalControl(this, "[data-sigui-part='control']", () => document.createElement("span"));
+    if (control.parentElement === this) {
+      const siblings = [...this.childNodes].filter((node) => node !== control);
+      for (const node of siblings)
+        control.appendChild(node);
+    }
     control.dataset.siguiPart = "control";
-    control.tabIndex = 0;
+    if (!["A", "BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(control.tagName))
+      control.tabIndex = 0;
+    this.syncTooltipAria();
+    if (isHTMLElement(this._root)) {
+      this.on(this._root, "sigui:toggle", () => this.syncTooltipAria());
+    }
     if (control.dataset.siguiBound !== "1") {
       control.dataset.siguiBound = "1";
       this.on(control, "pointerenter", () => this._startShowSequence("POINTER_ENTER"));
       this.on(control, "focus", () => this._startShowSequence("FOCUS"));
-      this.on(control, "pointerleave", () => {
-        clearTimeout(this._delayTimer);
-        getMachine(this._root)?.send("POINTER_LEAVE");
-      });
-      this.on(control, "blur", () => {
-        clearTimeout(this._delayTimer);
-        getMachine(this._root)?.send("BLUR");
-      });
+      this.on(control, "pointerleave", () => this._hide("POINTER_LEAVE"));
+      this.on(control, "blur", () => this._hide("BLUR"));
     }
+  }
+  syncTooltipAria() {
+    const control = getTooltipTriggerControl(this);
+    const root45 = isHTMLElement(this._root) ? this._root : null;
+    const content = root45?.querySelector("[data-sigui-component='tooltip-content']");
+    if (isHTMLElement(content) && !content.id)
+      content.id = uniqueId("sg-tooltip-content");
+    if (isHTMLElement(content))
+      control.setAttribute("aria-describedby", content.id);
+    else
+      control.removeAttribute("aria-describedby");
+    control.setAttribute("data-state", root45 && isOpenAttrTruthy(root45) ? "open" : "closed");
   }
   disconnectedCallback() {
     clearTimeout(this._delayTimer);
     super.disconnectedCallback();
   }
   rehydrate() {
-    this._root = findRoot(this, "tooltip-root");
+    this._root = findRoot2(this, "tooltip-root");
   }
 }
 
@@ -40089,10 +47226,25 @@ class SiguiTooltipContent extends PanelContent {
       panelClass: "sg-tooltip"
     });
   }
+  _configurePanel(panel) {
+    const root45 = this._root ?? null;
+    const content = root45?.getAttribute("content") || "";
+    if (content && (!this.textContent?.trim() || this.dataset.generatedContent === "true")) {
+      this.textContent = content;
+      this.dataset.generatedContent = "true";
+    }
+    panel.dataset.side = root45?.getAttribute("side") || "top";
+    const maxWidth = root45?.getAttribute("max-width") || "";
+    if (maxWidth)
+      panel.dataset.maxWidth = maxWidth;
+    else
+      delete panel.dataset.maxWidth;
+  }
 }
 
 // packages/components/src/components/interactive/collapsible.js
 class SiguiCollapsibleRoot extends OpenableRoot {
+  static observedAttributes = ["open", "disabled", "max-width"];
   connectedCallback() {
     super.connectedCallback();
     this.initOpenable("collapsible-root", collapsibleMachine, "collapsibleMachine");
@@ -40116,9 +47268,15 @@ class SiguiCollapsibleContent extends PanelContent {
 
 // packages/components/src/components/interactive/menu.js
 class SiguiMenuRoot extends OpenableRoot {
+  static observedAttributes = ["open", "max-width"];
   connectedCallback() {
     super.connectedCallback();
     this.initOpenable("menu-root", menuMachine, "menuMachine");
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "max-width")
+      this.syncAttributesToDataset();
   }
 }
 
@@ -40135,11 +47293,12 @@ class SiguiMenuContent extends PanelContent {
   });
   connectedCallback() {
     super.connectedCallback();
-    this.initPanel("menu-content", "menu-root", "menu");
+    this.initPanel("menu-content", "menu-root", "menu", { popover: "auto" });
   }
 }
 
 class SiguiMenuItem extends SiguiElement {
+  static observedAttributes = ["disabled"];
   static contract = Object.freeze({
     aria: { role: "menuitem" },
     keyboard: "menu"
@@ -40148,16 +47307,36 @@ class SiguiMenuItem extends SiguiElement {
     super.connectedCallback();
     markComponent(this, "menu-item");
     this.dataset.siguiParent = "menu-root";
-    this._root = findRoot(this, "menu-root");
-    this.tabIndex = 0;
+    this._root = findRoot2(this, "menu-root");
+    this.syncDisabled();
     this.setAttribute("role", "menuitem");
     if (this.dataset.siguiBound !== "1") {
       this.dataset.siguiBound = "1";
-      this.on(this, "click", () => this._root?.removeAttribute("open"));
+      this.on(this, "click", () => {
+        if (this.disabled)
+          return;
+        this._root?.removeAttribute("open");
+      });
     }
   }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    if (this.isConnected)
+      this.syncDisabled();
+  }
   rehydrate() {
-    this._root = findRoot(this, "menu-root");
+    this._root = findRoot2(this, "menu-root");
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  syncDisabled() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+    this.tabIndex = this.disabled ? -1 : 0;
   }
 }
 
@@ -40165,9 +47344,19 @@ class SiguiMenuItem extends SiguiElement {
 function readValue(el) {
   return el.getAttribute("data-value") || el.getAttribute("value") || "";
 }
+function setTabsValue(root45, value, emit = false) {
+  if (!(root45 instanceof HTMLElement) || !value)
+    return;
+  const previous = root45.getAttribute("value") || "";
+  root45.setAttribute("value", value);
+  if (emit && previous !== value) {
+    root45.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { value } }));
+    root45.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value } }));
+  }
+}
 
 class SiguiTabsRoot extends SiguiElement {
-  static observedAttributes = ["value", "default-value"];
+  static observedAttributes = ["value", "default-value", "max-width"];
   static contract = Object.freeze({
     keyboard: "tabs",
     controlMode: "dual",
@@ -40181,13 +47370,13 @@ class SiguiTabsRoot extends SiguiElement {
       if (!this.hasAttribute("value")) {
         const defaultVal = this.getAttribute("default-value");
         if (defaultVal) {
-          this.setAttribute("value", defaultVal);
+          setTabsValue(this, defaultVal);
           return;
         }
         const first = this.querySelector("[data-sigui-component='tabs-trigger']");
         const firstVal = first ? readValue(first) : "";
         if (firstVal) {
-          this.setAttribute("value", firstVal);
+          setTabsValue(this, firstVal);
           return;
         }
       }
@@ -40198,7 +47387,8 @@ class SiguiTabsRoot extends SiguiElement {
     cleanupMachine(this);
     super.disconnectedCallback();
   }
-  attributeChangedCallback() {
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
     if (this.isConnected)
       this._render();
   }
@@ -40208,16 +47398,37 @@ class SiguiTabsRoot extends SiguiElement {
   _render() {
     const value = this.getAttribute("value") || "";
     this.dataset.value = value;
+    const contentsByValue = new Map(Array.from(this.querySelectorAll("[data-sigui-component='tabs-content']")).map((el) => [readValue(el), el]));
     this.querySelectorAll("[data-sigui-component='tabs-trigger']").forEach((el) => {
       if (!(el instanceof HTMLElement))
         return;
       const selected = readValue(el) === value;
+      const disabled = el.hasAttribute("disabled") || el.dataset.disabled === "true";
+      if (!el.id)
+        el.id = uniqueId("sg-tabs-trigger");
       el.setAttribute("aria-selected", String(selected));
+      el.setAttribute("aria-disabled", String(disabled));
       el.setAttribute("data-state", selected ? "active" : "inactive");
+      el.tabIndex = disabled ? -1 : selected ? 0 : -1;
+      if (disabled)
+        el.dataset.disabled = "true";
+      else
+        delete el.dataset.disabled;
+      const content = contentsByValue.get(readValue(el));
+      if (content instanceof HTMLElement) {
+        if (!content.id)
+          content.id = uniqueId("sg-tabs-content");
+        el.setAttribute("aria-controls", content.id);
+        content.setAttribute("aria-labelledby", el.id);
+      } else {
+        el.removeAttribute("aria-controls");
+      }
     });
     this.querySelectorAll("[data-sigui-component='tabs-content']").forEach((el) => {
       if (!(el instanceof HTMLElement))
         return;
+      if (!el.id)
+        el.id = uniqueId("sg-tabs-content");
       const active = readValue(el) === value;
       el.hidden = !active;
     });
@@ -40225,7 +47436,7 @@ class SiguiTabsRoot extends SiguiElement {
 }
 
 class SiguiTabsList extends SiguiElement {
-  static observedAttributes = ["variant", "justify"];
+  static observedAttributes = ["variant", "justify", "loop"];
   static contract = Object.freeze({
     aria: { role: "tablist" },
     keyboard: "tabs"
@@ -40241,7 +47452,7 @@ class SiguiTabsList extends SiguiElement {
     const justify = this.getAttribute("justify");
     if (justify)
       this.dataset.justify = justify;
-    this._root = findRoot(this, "tabs-root");
+    this._root = findRoot2(this, "tabs-root");
     if (this.dataset.siguiBound !== "1") {
       this.dataset.siguiBound = "1";
       this.on(this, "keydown", (e) => {
@@ -40251,12 +47462,13 @@ class SiguiTabsList extends SiguiElement {
           return;
         const current = triggers.findIndex((t) => t.getAttribute("aria-selected") === "true");
         let next2 = -1;
+        const loop2 = this.getAttribute("loop") !== "false";
         if (ke.key === "ArrowRight" || ke.key === "ArrowDown") {
           ke.preventDefault();
-          next2 = current < triggers.length - 1 ? current + 1 : 0;
+          next2 = current < triggers.length - 1 ? current + 1 : loop2 ? 0 : current;
         } else if (ke.key === "ArrowLeft" || ke.key === "ArrowUp") {
           ke.preventDefault();
-          next2 = current > 0 ? current - 1 : triggers.length - 1;
+          next2 = current > 0 ? current - 1 : loop2 ? triggers.length - 1 : current;
         } else if (ke.key === "Home") {
           ke.preventDefault();
           next2 = 0;
@@ -40267,7 +47479,7 @@ class SiguiTabsList extends SiguiElement {
         if (next2 >= 0 && triggers[next2]) {
           const val = readValue(triggers[next2]);
           if (val && this._root)
-            this._root.setAttribute("value", val);
+            setTabsValue(this._root, val, true);
           triggers[next2].focus();
         }
       });
@@ -40286,11 +47498,12 @@ class SiguiTabsList extends SiguiElement {
       delete this.dataset.justify;
   }
   rehydrate() {
-    this._root = findRoot(this, "tabs-root");
+    this._root = findRoot2(this, "tabs-root");
   }
 }
 
 class SiguiTabsTrigger extends SiguiElement {
+  static observedAttributes = ["disabled"];
   static contract = Object.freeze({
     aria: { role: "tab" }
   });
@@ -40298,11 +47511,11 @@ class SiguiTabsTrigger extends SiguiElement {
     super.connectedCallback();
     markComponent(this, "tabs-trigger");
     this.ensureClass("sg-tabs-trigger");
-    this._root = findRoot(this, "tabs-root");
+    this._root = findRoot2(this, "tabs-root");
     this.setAttribute("role", "tab");
     const rootVal = this._root?.getAttribute("value") || "";
     const myVal = readValue(this);
-    this.tabIndex = myVal === rootVal ? 0 : -1;
+    this.syncDisabled(myVal === rootVal);
     if (this.dataset.siguiBound !== "1") {
       this.dataset.siguiBound = "1";
       this.on(this, "click", () => {
@@ -40311,14 +47524,30 @@ class SiguiTabsTrigger extends SiguiElement {
         const value = readValue(this);
         if (!value)
           return;
-        this._root?.setAttribute("value", value);
+        setTabsValue(this._root, value, true);
       });
     }
     if (this._root?._render)
       this._root._render();
   }
   rehydrate() {
-    this._root = findRoot(this, "tabs-root");
+    this._root = findRoot2(this, "tabs-root");
+  }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    const selected = this.getAttribute("aria-selected") === "true";
+    this.syncDisabled(selected);
+    if (this._root?._render)
+      this._root._render();
+  }
+  syncDisabled(selected) {
+    const disabled = this.hasAttribute("disabled") || this.dataset.disabled === "true";
+    if (disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", String(disabled));
+    this.tabIndex = disabled ? -1 : selected ? 0 : -1;
   }
 }
 
@@ -40331,22 +47560,23 @@ class SiguiTabsContent extends SiguiElement {
     markComponent(this, "tabs-content");
     this.ensureClass("sg-tabs-content");
     this.setAttribute("role", "tabpanel");
-    const root44 = findRoot(this, "tabs-root");
-    const rootVal = root44?.getAttribute("value") || "";
+    const root45 = findRoot2(this, "tabs-root");
+    const rootVal = root45?.getAttribute("value") || "";
     const myVal = readValue(this);
     this.hidden = myVal !== rootVal;
-    if (root44?._render)
-      root44._render();
+    if (root45?._render)
+      root45._render();
   }
   rehydrate() {
-    const root44 = findRoot(this, "tabs-root");
-    const rootVal = root44?.getAttribute("value") || "";
+    const root45 = findRoot2(this, "tabs-root");
+    const rootVal = root45?.getAttribute("value") || "";
     this.hidden = readValue(this) !== rootVal;
   }
 }
 
 // packages/components/src/components/interactive/accordion.js
 class SiguiAccordionRoot extends SiguiElement {
+  static observedAttributes = ["multiple", "max-width"];
   static contract = Object.freeze({
     keyboard: "accordion"
   });
@@ -40355,6 +47585,7 @@ class SiguiAccordionRoot extends SiguiElement {
     markComponent(this, "accordion-root");
     setupMachine(this, accordionMachine, "accordionMachine");
     this.dataset.multiple = this.hasAttribute("multiple") ? "true" : "false";
+    this.syncAttributesToDataset();
   }
   disconnectedCallback() {
     cleanupMachine(this);
@@ -40363,19 +47594,33 @@ class SiguiAccordionRoot extends SiguiElement {
   rehydrate() {
     this.dataset.multiple = this.hasAttribute("multiple") ? "true" : "false";
   }
+  attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.dataset.multiple = this.hasAttribute("multiple") ? "true" : "false";
+  }
 }
 
 class SiguiAccordionItem extends SiguiElement {
-  static observedAttributes = ["open"];
+  static observedAttributes = ["open", "disabled", "value"];
   connectedCallback() {
     super.connectedCallback();
     markComponent(this, "accordion-item");
     this.dataset.siguiParent = "accordion-root";
     if (!this.dataset.value)
       this.dataset.value = this.getAttribute("value") || uniqueId("sg-acc-item");
+    this.syncState();
   }
   attributeChangedCallback() {
+    super.attributeChangedCallback();
+    this.syncState();
     this.dispatchEvent(new CustomEvent("sigui:toggle", { bubbles: true, detail: { open: isOpenAttrTruthy(this) } }));
+  }
+  syncState() {
+    this.dataset.state = isOpenAttrTruthy(this) ? "open" : "closed";
+    if (this.hasAttribute("disabled"))
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
   }
 }
 
@@ -40387,27 +47632,56 @@ class SiguiAccordionTrigger extends SiguiElement {
     super.connectedCallback();
     markComponent(this, "accordion-trigger");
     this.dataset.siguiParent = "accordion-root";
-    this._item = findRoot(this, "accordion-item");
-    this._root = findRoot(this, "accordion-root");
+    this._item = findRoot2(this, "accordion-item");
+    this._root = findRoot2(this, "accordion-root");
     this.tabIndex = 0;
+    if (isHTMLElement(this._item)) {
+      this.on(this._item, "sigui:toggle", () => this.syncState());
+    }
     if (this.dataset.siguiBound !== "1") {
       this.dataset.siguiBound = "1";
-      this.on(this, "click", () => {
+      const toggle = () => {
         if (!isHTMLElement(this._item ?? null))
           return;
         const item = this._item;
+        if (item.hasAttribute("disabled"))
+          return;
+        const root45 = this._root ?? null;
         const open = isOpenAttrTruthy(item);
         if (open)
           item.removeAttribute("open");
-        else
+        else {
+          if (root45 && !root45.hasAttribute("multiple")) {
+            for (const sibling2 of root45.querySelectorAll("[data-sigui-component='accordion-item'][open]")) {
+              if (sibling2 !== item)
+                sibling2.removeAttribute("open");
+            }
+          }
           item.setAttribute("open", "");
+        }
         getMachine(this._root)?.send("TOGGLE", { panel: item.dataset.value });
+        this.syncState();
+      };
+      this.on(this, "click", toggle);
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Enter" || key2 === " ") {
+          event2.preventDefault();
+          toggle();
+        }
       });
     }
+    this.syncState();
   }
   rehydrate() {
-    this._item = findRoot(this, "accordion-item");
-    this._root = findRoot(this, "accordion-root");
+    this._item = findRoot2(this, "accordion-item");
+    this._root = findRoot2(this, "accordion-root");
+    this.syncState();
+  }
+  syncState() {
+    const open = isHTMLElement(this._item ?? null) && isOpenAttrTruthy(this._item);
+    this.setAttribute("aria-expanded", open ? "true" : "false");
+    this.dataset.state = open ? "open" : "closed";
   }
 }
 
@@ -40419,7 +47693,7 @@ class SiguiAccordionContent extends SiguiElement {
     super.connectedCallback();
     markComponent(this, "accordion-content");
     this.dataset.siguiParent = "accordion-root";
-    this._item = findRoot(this, "accordion-item");
+    this._item = findRoot2(this, "accordion-item");
     this._render();
     if (isHTMLElement(this._item)) {
       this.on(this._item, "sigui:toggle", () => this._render());
@@ -40427,7 +47701,7 @@ class SiguiAccordionContent extends SiguiElement {
   }
   rehydrate() {
     const prevItem = this._item;
-    this._item = findRoot(this, "accordion-item");
+    this._item = findRoot2(this, "accordion-item");
     this._render();
     if (this._item !== prevItem && isHTMLElement(this._item)) {
       this.on(this._item, "sigui:toggle", () => this._render());
@@ -40439,13 +47713,15 @@ class SiguiAccordionContent extends SiguiElement {
       return;
     }
     const item = this._item;
-    this.hidden = !isOpenAttrTruthy(item);
+    const open = isOpenAttrTruthy(item);
+    this.hidden = !open;
+    this.dataset.state = open ? "open" : "closed";
   }
 }
 
 // packages/components/src/components/interactive/select.js
 class SiguiSelectRoot extends OpenableRoot {
-  static observedAttributes = ["open", "value"];
+  static observedAttributes = ["open", "value", "max-width"];
   static contract = Object.freeze({
     events: [{ name: "sigui:toggle", detail: { open: "boolean" }, bubbles: true }],
     aria: { role: "listbox" },
@@ -40458,6 +47734,72 @@ class SiguiSelectRoot extends OpenableRoot {
     this.initOpenable("select-root", selectMachine, "selectMachine");
     if (!this.hasAttribute("value"))
       this.setAttribute("value", "");
+    this.syncSelection();
+    if (this._selectRootBound !== true) {
+      this._selectRootBound = true;
+      this.on(this.ownerDocument, "pointerdown", (event2) => {
+        if (!this.hasAttribute("open"))
+          return;
+        if (event2.target instanceof Node && this.contains(event2.target))
+          return;
+        this.removeAttribute("open");
+      });
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 === "Escape" && this.hasAttribute("open")) {
+          event2.preventDefault();
+          this.removeAttribute("open");
+          this.trigger?.focus();
+        }
+      });
+    }
+  }
+  disconnectedCallback() {
+    this._selectRootBound = false;
+    super.disconnectedCallback();
+  }
+  attributeChangedCallback(name, oldValue, newValue) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+    if (name === "value" && oldValue !== newValue)
+      this.syncSelection();
+  }
+  rehydrate() {
+    super.rehydrate();
+    this.syncSelection();
+  }
+  get items() {
+    return [...this.querySelectorAll("[data-sigui-component='select-item']")];
+  }
+  get enabledItems() {
+    return this.items.filter((item) => !item.disabled);
+  }
+  get trigger() {
+    return this.querySelector("[data-sigui-component='select-trigger']");
+  }
+  syncSelection() {
+    const selectedValue = this.getAttribute("value") ?? "";
+    let selectedLabel = "";
+    for (const item of this.items) {
+      const selected = selectedValue !== "" && item.value === selectedValue;
+      item.dataset.state = selected ? "selected" : "";
+      item.setAttribute("aria-selected", selected ? "true" : "false");
+      item.syncDisabled();
+      if (selected)
+        selectedLabel = item.textContent?.trim() ?? "";
+    }
+    const trigger = this.trigger;
+    if (trigger) {
+      if (!trigger.dataset.placeholder)
+        trigger.dataset.placeholder = trigger.textContent?.trim() || this.getAttribute("label") || "Select";
+      trigger.textContent = selectedLabel || trigger.dataset.placeholder || "Select";
+    }
+  }
+  focusItem(index2) {
+    const items = this.enabledItems;
+    if (!items.length)
+      return;
+    const normalized = (index2 + items.length) % items.length;
+    items[normalized]?.focus();
   }
 }
 
@@ -40465,6 +47807,24 @@ class SiguiSelectTrigger extends OpenTrigger {
   connectedCallback() {
     super.connectedCallback();
     this.initTrigger("select-trigger", "select-root");
+    if (this._selectTriggerBound !== true) {
+      this._selectTriggerBound = true;
+      this.on(this, "keydown", (event2) => {
+        const key2 = event2.key;
+        if (key2 !== "ArrowDown" && key2 !== "ArrowUp")
+          return;
+        const root45 = this._root;
+        if (!root45)
+          return;
+        event2.preventDefault();
+        root45.setAttribute("open", "");
+        root45.focusItem(key2 === "ArrowUp" ? -1 : 0);
+      });
+    }
+  }
+  disconnectedCallback() {
+    this._selectTriggerBound = false;
+    super.disconnectedCallback();
   }
 }
 
@@ -40483,23 +47843,74 @@ class SiguiSelectItem extends SiguiElement {
     super.connectedCallback();
     markComponent(this, "select-item");
     this.dataset.siguiParent = "select-root";
-    this._root = findRoot(this, "select-root");
+    this._root = findRoot2(this, "select-root");
     this.tabIndex = 0;
     this.setAttribute("role", "option");
+    this.syncDisabled();
     if (this.dataset.siguiBound !== "1") {
       this.dataset.siguiBound = "1";
-      this.on(this, "click", () => {
-        const value = this.getAttribute("value") || this.dataset.value || this.textContent?.trim() || "";
-        if (!value)
-          return;
-        this._root?.setAttribute("value", value);
-        getMachine(this._root)?.send("SELECT", { value });
-        this._root?.removeAttribute("open");
-      });
+      this.on(this, "click", () => this.select());
+      this.on(this, "keydown", (event2) => this.onKeyDown(event2));
     }
   }
   rehydrate() {
-    this._root = findRoot(this, "select-root");
+    this._root = findRoot2(this, "select-root");
+  }
+  get value() {
+    return this.getAttribute("value") || this.dataset.value || this.textContent?.trim() || "";
+  }
+  get disabled() {
+    return this.hasAttribute("disabled") || this.dataset.disabled === "true";
+  }
+  syncDisabled() {
+    if (this.disabled)
+      this.dataset.disabled = "true";
+    else
+      delete this.dataset.disabled;
+    this.setAttribute("aria-disabled", this.disabled ? "true" : "false");
+    this.tabIndex = this.disabled ? -1 : 0;
+  }
+  select() {
+    if (this.disabled)
+      return;
+    const value = this.getAttribute("value") || this.dataset.value || this.textContent?.trim() || "";
+    if (!value)
+      return;
+    this._root?.setAttribute("value", value);
+    getMachine(this._root)?.send("SELECT", { value });
+    this._root?.removeAttribute("open");
+    this._root?.dispatchEvent(new CustomEvent("input", { bubbles: true, detail: { value } }));
+    this._root?.dispatchEvent(new CustomEvent("change", { bubbles: true, detail: { value } }));
+    this._root?.trigger?.focus();
+  }
+  onKeyDown(event2) {
+    if (event2.key === "Enter" || event2.key === " ") {
+      event2.preventDefault();
+      this.select();
+      return;
+    }
+    const root45 = this._root;
+    if (!root45)
+      return;
+    const items = root45.enabledItems;
+    const index2 = items.indexOf(this);
+    if (event2.key === "ArrowDown") {
+      event2.preventDefault();
+      root45.focusItem(index2 + 1);
+    } else if (event2.key === "ArrowUp") {
+      event2.preventDefault();
+      root45.focusItem(index2 - 1);
+    } else if (event2.key === "Home") {
+      event2.preventDefault();
+      root45.focusItem(0);
+    } else if (event2.key === "End") {
+      event2.preventDefault();
+      root45.focusItem(items.length - 1);
+    } else if (event2.key === "Escape") {
+      event2.preventDefault();
+      root45.removeAttribute("open");
+      root45.trigger?.focus();
+    }
   }
 }
 
@@ -40691,10 +48102,19 @@ function defineSiguiComponents(options = {}) {
     if (customElements.get(tagName) && !force)
       continue;
     if (!customElements.get(tagName)) {
-      customElements.define(tagName, componentClass);
+      let ctor = componentClass;
+      try {
+        customElements.define(tagName, ctor);
+      } catch (err) {
+        ctor = class extends componentClass {
+        };
+        customElements.define(tagName, ctor);
+      }
     }
     defined.push(tagName);
   }
+  bindStandaloneToggleButtons(globalThis.document);
+  bindNativeColorInputs(globalThis.document, { tagPrefix });
   return defined;
 }
 

@@ -9,6 +9,7 @@
   import Sidebar from "./layout/Sidebar.svelte";
   import Topbar from "./layout/Topbar.svelte";
   import Breadcrumbs from "./layout/Breadcrumbs.svelte";
+  import Footer from "./layout/Footer.svelte";
 
   // Pages
   import HomePage from "./pages/HomePage.svelte";
@@ -171,11 +172,7 @@
   {#if currentPath === "/"}
     <main class="main-content main-content-full">
       <HomePage {onColorSelect} />
-      <footer>
-        <sg-container size="lg">
-          <sg-text size="sm" color="muted">Built with <a href="/" data-nav class="footer-link">SigUI</a> &mdash; a comprehensive design system for the modern web</sg-text>
-        </sg-container>
-      </footer>
+      <Footer />
     </main>
   {:else}
     <sg-resizable-root direction="horizontal" class="app-resizable">
@@ -260,11 +257,7 @@
               </div>
             {/if}
           </sg-container>
-          <footer>
-            <sg-container size="lg">
-              <sg-text size="sm" color="muted">Built with <a href="/" data-nav class="footer-link">SigUI</a> &mdash; a comprehensive design system for the modern web</sg-text>
-            </sg-container>
-          </footer>
+          <Footer />
         </main>
       </sg-resizable-panel>
     </sg-resizable-root>

@@ -222,7 +222,7 @@
 
   .topbar-logo {
     font-family: var(--sg-font-display);
-    font-size: var(--sg-text-xl);
+    font-size: var(--sg-text-lg);
     font-weight: var(--sg-weight-normal);
     font-style: italic;
     letter-spacing: 0;

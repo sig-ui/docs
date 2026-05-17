@@ -107,9 +107,20 @@ if (!buildResult.success) {
 console.log("Frontend built");
 
 // Serve
-const port = Number(process.env.PORT) || 3000;
+const DEFAULT_PORT = 3000;
+const PORT_SEARCH_LIMIT = 10;
+const envPort = process.env.PORT ? Number(process.env.PORT) : undefined;
 
-Bun.serve({
+if (envPort !== undefined && (!Number.isInteger(envPort) || envPort < 1 || envPort > 65535)) {
+  console.error(`Invalid PORT value: ${process.env.PORT}`);
+  process.exit(1);
+}
+
+const requestedPort = envPort ?? DEFAULT_PORT;
+const allowPortFallback = envPort === undefined;
+
+function startServer(port: number) {
+  return Bun.serve({
   port,
 
   routes: {
@@ -241,6 +252,30 @@ Bun.serve({
       headers: { "Content-Type": "text/html" },
     });
   },
-});
+  });
+}
 
-console.log(`SigUI website running at http://localhost:${port}`);
+let server: ReturnType<typeof startServer> | undefined;
+
+for (let offset = 0; offset < (allowPortFallback ? PORT_SEARCH_LIMIT : 1); offset++) {
+  const port = requestedPort + offset;
+  try {
+    server = startServer(port);
+    if (port !== requestedPort) {
+      console.warn(`Port ${requestedPort} is in use; using ${port} instead.`);
+    }
+    break;
+  } catch (error: any) {
+    if (allowPortFallback && error?.code === "EADDRINUSE") continue;
+    throw error;
+  }
+}
+
+if (!server) {
+  console.error(
+    `Unable to start server. Ports ${requestedPort}-${requestedPort + PORT_SEARCH_LIMIT - 1} are in use.`,
+  );
+  process.exit(1);
+}
+
+console.log(`SigUI website running at http://localhost:${server.port}`);
